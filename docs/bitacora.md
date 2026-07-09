@@ -1,3 +1,9 @@
+# 🌱 Raíces Alzate
+
+> Plataforma para la gestión, seguimiento y fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
+
+---
+
 # 📖 Bitácora del Proyecto
 
 ## Información General
