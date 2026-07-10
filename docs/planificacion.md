@@ -8,14 +8,14 @@
 
 ## Información General
 
-| Campo | Información |
-|--------|-------------|
-| Proyecto | Raíces Alzate |
-| Institución | Institución Educativa Gilberto Alzate Avendaño |
-| Desarrollador principal | Santiago Emitola |
-| Fecha de inicio | 09 de julio de 2026 |
-| Estado | 🟡 En desarrollo |
-| Versión | v0.1.0 |
+| Campo                   | Información                                    |
+| ----------------------- | ---------------------------------------------- |
+| Proyecto                | Raíces Alzate                                  |
+| Institución             | Institución Educativa Gilberto Alzate Avendaño |
+| Desarrollador principal | Santiago Emitola                               |
+| Fecha de inicio         | 09 de julio de 2026                            |
+| Estado                  | 🟡 En desarrollo                               |
+| Versión                 | v0.1.0                                         |
 
 ---
 
@@ -33,12 +33,12 @@ Desarrollar una plataforma web institucional que permita gestionar, conectar y r
 
 # Objetivos Específicos
 
-- Centralizar la información de los egresados.
-- Facilitar la actualización de datos personales y académicos.
-- Publicar proyectos desarrollados por los egresados.
-- Crear un espacio de comunicación entre la institución y los graduados.
-- Implementar un sistema seguro de autenticación.
-- Desarrollar una interfaz moderna, intuitiva y responsive.
+* Centralizar la información de los egresados.
+* Facilitar la actualización de datos personales y académicos.
+* Publicar proyectos desarrollados por los egresados.
+* Crear un espacio de comunicación entre la institución y los graduados.
+* Implementar un sistema seguro de autenticación.
+* Desarrollar una interfaz moderna, intuitiva y responsive.
 
 ---
 
@@ -46,30 +46,30 @@ Desarrollar una plataforma web institucional que permita gestionar, conectar y r
 
 ## Frontend
 
-- HTML5
-- CSS3
-- JavaScript
+* HTML5
+* CSS3
+* JavaScript
 
 ## Backend
 
-- PHP
+* PHP
 
 ## Base de datos
 
-- MySQL
+* MySQL
 
 ## Control de versiones
 
-- Git
-- GitHub
+* Git
+* GitHub
 
 ## Diseño
 
-- Figma
+* Figma
 
 ## Editor
 
-- Visual Studio Code
+* Visual Studio Code
 
 ---
 
@@ -91,4 +91,36 @@ Cada funcionalidad será desarrollada siguiendo el siguiente flujo:
 
 # Estado actual
 
-🟢 Fase 0 – Organización del proyecto.
+✅ Fase 1 – Planificación (Completada)
+
+✅ Fase 2 – Documentación (Completada)
+
+🟡 Fase 3 – Diseño UI/UX (Próxima etapa)
+
+---
+
+# Plan de trabajo inmediato
+
+## Objetivo de la siguiente fase
+
+Diseñar la interfaz gráfica de la plataforma, definiendo una identidad visual consistente y una experiencia de usuario intuitiva que sirva como base para el desarrollo del sistema.
+
+### Actividades previstas
+
+* Diseñar el Design System.
+* Definir la paleta de colores institucional.
+* Seleccionar la tipografía del proyecto.
+* Diseñar los componentes reutilizables.
+* Elaborar los wireframes de las principales pantallas.
+* Diseñar los mockups en alta fidelidad.
+* Construir un prototipo navegable en Figma.
+
+### Resultado esperado
+
+Finalizar el diseño completo de la interfaz de usuario, listo para iniciar la fase de desarrollo frontend manteniendo coherencia visual y reutilización de componentes.
+
+---
+
+# Observaciones
+
+Con la finalización del `README.md` principal se da por concluida la fase de planificación y documentación del proyecto. A partir de este punto, el trabajo se enfocará en el diseño de la interfaz de usuario (UI/UX), manteniendo la actualización continua de la documentación y el control de versiones durante todo el desarrollo.
