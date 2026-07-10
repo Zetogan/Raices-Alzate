@@ -1,4 +1,3 @@
-````markdown
 # 🌱 Raíces Alzate
 
 > Plataforma digital para el seguimiento, acompañamiento y fortalecimiento de la comunidad de egresados del Colegio Gilberto Alzate Avendaño.
