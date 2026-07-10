@@ -124,3 +124,43 @@ Finalizar el diseño completo de la interfaz de usuario, listo para iniciar la f
 # Observaciones
 
 Con la finalización del `README.md` principal se da por concluida la fase de planificación y documentación del proyecto. A partir de este punto, el trabajo se enfocará en el diseño de la interfaz de usuario (UI/UX), manteniendo la actualización continua de la documentación y el control de versiones durante todo el desarrollo.
+---
+
+# 🎨 Fase 3 – Diseño UI/UX
+
+## Estado
+
+🟡 En progreso
+
+## Objetivo de la fase
+
+Diseñar la interfaz gráfica de Raíces Alzate, estableciendo una identidad visual consistente, accesible y moderna que sirva como base para el desarrollo frontend de la plataforma.
+
+## Objetivos específicos
+
+- Definir la identidad visual del proyecto.
+- Diseñar un Design System reutilizable.
+- Establecer la paleta de colores institucional.
+- Seleccionar la tipografía del proyecto.
+- Diseñar los componentes principales de la interfaz.
+- Elaborar los wireframes de las pantallas.
+- Diseñar los mockups de alta fidelidad.
+- Construir un prototipo interactivo en Figma.
+
+## Entregables
+
+- Design System.
+- Paleta de colores.
+- Tipografía institucional.
+- Biblioteca de componentes.
+- Wireframes.
+- Mockups.
+- Prototipo navegable.
+
+## Criterios de finalización
+
+La fase se considerará completada cuando todas las pantallas principales de la plataforma cuenten con un diseño consistente, un prototipo navegable y una base visual lista para iniciar el desarrollo frontend.
+
+## Observaciones
+
+Toda decisión relacionada con la identidad visual, componentes o experiencia de usuario deberá quedar registrada durante el desarrollo de esta fase para mantener la trazabilidad del proyecto.

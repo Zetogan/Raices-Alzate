@@ -4,11 +4,13 @@
 
 ---
 
-# [v0.1.0] - 2026-07-09
+# [v0.1.0] - En desarrollo
 
-## 🎉 Inicio del proyecto
+## 📅 09 de julio de 2026
 
-### Agregado
+### 🎉 Inicio del proyecto
+
+#### Agregado
 
 * Creación del repositorio en GitHub.
 * Configuración inicial del proyecto.
@@ -36,6 +38,21 @@
 
 ---
 
+## 📅 10 de julio de 2026
+
+### 🎨 Inicio de la Fase 3 — Diseño UI/UX
+
+#### Planificado
+
+* Inicio oficial de la Fase 3 — Diseño UI/UX.
+* Actualización de la planificación general del proyecto.
+* Definición de los objetivos de la fase de diseño.
+* Definición de los entregables del diseño UI/UX.
+* Establecimiento de los criterios de finalización de la fase.
+* Organización del plan de trabajo para el diseño de la interfaz en Figma.
+
+---
+
 ## Estado
 
-🟡 Proyecto en transición de la fase de documentación hacia la fase de diseño UI/UX.
+🟡 Proyecto en fase de Diseño UI/UX.

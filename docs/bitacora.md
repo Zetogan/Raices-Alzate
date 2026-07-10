@@ -100,3 +100,39 @@ Finalizar la documentación base del proyecto mediante la elaboración del archi
 ### Observaciones
 
 Con la finalización del `README.md` principal concluye la fase de documentación base del proyecto. A partir de este punto, el desarrollo continuará con la etapa de diseño de la interfaz de usuario (UI/UX), manteniendo la metodología de trabajo y la actualización continua de la documentación técnica.
+
+---
+
+## 📅 10 de julio de 2026
+
+### Objetivo de la sesión
+
+Dar inicio a la Fase 3 — Diseño UI/UX del proyecto, documentando su planificación y estableciendo las bases para el diseño de la interfaz de usuario en Figma.
+
+### Actividades realizadas
+
+* Se realizó el cierre documental de la Fase 2 — Documentación.
+* Se actualizó la planificación general del proyecto para dar inicio a la Fase 3.
+* Se definieron los objetivos de la fase de Diseño UI/UX.
+* Se establecieron los entregables y criterios de finalización de la fase.
+* Se organizó el plan de trabajo para el desarrollo del diseño de la interfaz.
+
+### Dificultades encontradas
+
+* No se presentaron dificultades durante la planificación de la fase.
+
+### Solución aplicada
+
+* No fue necesaria la aplicación de soluciones, ya que las actividades se desarrollaron según lo planificado.
+
+### Próximas actividades
+
+* Diseñar el Design System.
+* Definir la identidad visual del proyecto.
+* Seleccionar la paleta de colores y la tipografía.
+* Diseñar los componentes principales de la interfaz.
+* Elaborar los primeros wireframes en Figma.
+
+### Observaciones
+
+Con esta sesión inicia oficialmente la Fase 3 — Diseño UI/UX de **Raíces Alzate**. La planificación realizada servirá como guía para el desarrollo de una interfaz consistente, moderna y alineada con los objetivos del proyecto.
