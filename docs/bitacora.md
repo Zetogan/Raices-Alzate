@@ -8,20 +8,20 @@
 
 ## Información General
 
-| Campo           | Información                                    |
-| --------------- | ---------------------------------------------- |
-| Proyecto        | Raíces Alzate                                  |
-| Institución     | Institución Educativa Gilberto Alzate Avendaño |
-| Desarrollador   | Santiago Emitola                               |
-| Fecha de inicio | 09 de julio de 2026                            |
-| Estado          | 🟡 En desarrollo                               |
-| Versión actual  | v0.1.0                                         |
+| Campo | Información |
+|--------|-------------|
+| Proyecto | Raíces Alzate |
+| Institución | Institución Educativa Gilberto Alzate Avendaño |
+| Desarrollador | Santiago Emitola |
+| Fecha de inicio | 09 de julio de 2026 |
+| Estado | 🟡 En desarrollo |
+| Versión actual | v0.1.0 |
 
 ---
 
 # Registro de actividades
 
-## 📅 09 de julio de 2026
+## 📅 09 de julio de 2026 (Sesión 1)
 
 ### Objetivo de la sesión
 
@@ -103,7 +103,7 @@ Con la finalización del `README.md` principal concluye la fase de documentació
 
 ---
 
-## 📅 10 de julio de 2026
+## 📅 10 de julio de 2026 (Sesión 3)
 
 ### Objetivo de la sesión
 
@@ -136,3 +136,43 @@ Dar inicio a la Fase 3 — Diseño UI/UX del proyecto, documentando su planifica
 ### Observaciones
 
 Con esta sesión inicia oficialmente la Fase 3 — Diseño UI/UX de **Raíces Alzate**. La planificación realizada servirá como guía para el desarrollo de una interfaz consistente, moderna y alineada con los objetivos del proyecto.
+
+---
+
+## 📅 16 de julio de 2026 (Sesión 4)
+
+### Objetivo de la sesión
+
+Retomar la Fase 3 — Diseño UI/UX del proyecto, dando continuidad al desarrollo del **Design System** en Figma mediante la consolidación de la identidad visual y la construcción de la paleta de colores institucional que servirá como base para el diseño de la interfaz.
+
+### Actividades realizadas
+
+* Se retomó el desarrollo del Design System en Figma.
+* Se revisó la estructura inicial de la página **Colors**.
+* Se validó la jerarquía tipográfica del sistema de diseño.
+* Se organizó la estructura de la sección **Colors** mediante categorías.
+* Se establecieron los lineamientos para la construcción de las paletas **Primary**, **Secondary**, **Neutral**, **Semantic** y **Preview**.
+* Se confirmó el uso del rojo institucional como color principal y del azul institucional como color secundario de la identidad visual del proyecto.
+* Se inició la construcción de la paleta de colores institucional en Figma.
+* Se planificó la creación de los estilos (Color Styles) y variables de color que serán utilizados durante el desarrollo de la interfaz.
+
+### Dificultades encontradas
+
+* Fue necesario revisar y reorganizar la estructura inicial del Design System para definir una jerarquía visual clara y una distribución adecuada de sus elementos.
+
+### Solución aplicada
+
+* Se reorganizó la estructura de la página **Colors**, definiendo criterios de jerarquía tipográfica, organización de componentes y distribución de la paleta institucional antes de continuar con el diseño.
+
+### Próximas actividades
+
+* Completar la paleta **Primary**.
+* Diseñar la paleta **Secondary**.
+* Construir la paleta **Neutral**.
+* Definir los colores **Semantic**.
+* Crear los **Color Styles** y las variables de color.
+* Iniciar la sección **Typography** del Design System.
+
+### Observaciones
+
+Con esta sesión se retoma el desarrollo del Design System de **Raíces Alzate**, consolidando la identidad visual institucional del proyecto. La estructura establecida facilitará la creación de componentes reutilizables y garantizará la consistencia visual durante las siguientes etapas del diseño y del desarrollo.
