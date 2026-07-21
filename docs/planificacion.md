@@ -95,35 +95,30 @@ Cada funcionalidad será desarrollada siguiendo el siguiente flujo:
 
 ✅ Fase 2 – Documentación (Completada)
 
-🟡 Fase 3 – Diseño UI/UX (Próxima etapa)
+🟡 Fase 3 – Diseño UI/UX (En progreso)
 
 ---
 
 # Plan de trabajo inmediato
 
-## Objetivo de la siguiente fase
+## Objetivo de la fase actual
 
 Diseñar la interfaz gráfica de la plataforma, definiendo una identidad visual consistente y una experiencia de usuario intuitiva que sirva como base para el desarrollo del sistema.
 
-### Actividades previstas
+### Actividades
 
-* Diseñar el Design System.
-* Definir la paleta de colores institucional.
-* Seleccionar la tipografía del proyecto.
-* Diseñar los componentes reutilizables.
-* Elaborar los wireframes de las principales pantallas.
-* Diseñar los mockups en alta fidelidad.
-* Construir un prototipo navegable en Figma.
+* ✅ Diseñar el Design System.
+* ✅ Definir la paleta de colores institucional.
+* ✅ Seleccionar la tipografía del proyecto.
+* 🟡 Diseñar los componentes reutilizables.
+* ⏳ Elaborar los wireframes de las principales pantallas.
+* ⏳ Diseñar los mockups en alta fidelidad.
+* ⏳ Construir un prototipo navegable en Figma.
 
 ### Resultado esperado
 
-Finalizar el diseño completo de la interfaz de usuario, listo para iniciar la fase de desarrollo frontend manteniendo coherencia visual y reutilización de componentes.
+Finalizar el diseño completo de la interfaz de usuario, listo para iniciar la fase de desarrollo frontend manteniendo coherencia visual, reutilización de componentes y una experiencia de usuario consistente.
 
----
-
-# Observaciones
-
-Con la finalización del `README.md` principal se da por concluida la fase de planificación y documentación del proyecto. A partir de este punto, el trabajo se enfocará en el diseño de la interfaz de usuario (UI/UX), manteniendo la actualización continua de la documentación y el control de versiones durante todo el desarrollo.
 ---
 
 # 🎨 Fase 3 – Diseño UI/UX
@@ -134,33 +129,81 @@ Con la finalización del `README.md` principal se da por concluida la fase de pl
 
 ## Objetivo de la fase
 
-Diseñar la interfaz gráfica de Raíces Alzate, estableciendo una identidad visual consistente, accesible y moderna que sirva como base para el desarrollo frontend de la plataforma.
+Diseñar la interfaz gráfica de **Raíces Alzate**, estableciendo una identidad visual consistente, accesible y moderna que sirva como base para el desarrollo frontend de la plataforma.
 
 ## Objetivos específicos
 
-- Definir la identidad visual del proyecto.
-- Diseñar un Design System reutilizable.
-- Establecer la paleta de colores institucional.
-- Seleccionar la tipografía del proyecto.
-- Diseñar los componentes principales de la interfaz.
-- Elaborar los wireframes de las pantallas.
-- Diseñar los mockups de alta fidelidad.
-- Construir un prototipo interactivo en Figma.
+* Definir la identidad visual del proyecto.
+* Diseñar un Design System reutilizable.
+* Establecer la paleta de colores institucional.
+* Seleccionar la tipografía del proyecto.
+* Diseñar los componentes principales de la interfaz.
+* Elaborar los wireframes de las pantallas.
+* Diseñar los mockups de alta fidelidad.
+* Construir un prototipo interactivo en Figma.
+
+## Avance actual
+
+### ✅ Completado
+
+* Identidad visual del proyecto.
+* Paleta de colores institucional.
+* Sistema tipográfico.
+* Sistema de espaciado.
+* Base del Design System.
+* Sistema de botones reutilizables.
+
+### 🟡 En desarrollo
+
+* Biblioteca de componentes reutilizables.
+
+### ⏳ Pendiente
+
+* Inputs.
+* Checkbox.
+* Radio Button.
+* Switch.
+* Dropdown.
+* Alerts.
+* Badges.
+* Avatar.
+* Tables.
+* Wireframes.
+* Mockups.
+* Prototipo navegable.
+
+---
 
 ## Entregables
 
-- Design System.
-- Paleta de colores.
-- Tipografía institucional.
-- Biblioteca de componentes.
-- Wireframes.
-- Mockups.
-- Prototipo navegable.
+* ✅ Design System (base).
+* ✅ Paleta de colores.
+* ✅ Tipografía institucional.
+* 🟡 Biblioteca de componentes.
+* ⏳ Wireframes.
+* ⏳ Mockups.
+* ⏳ Prototipo navegable.
+
+---
 
 ## Criterios de finalización
 
-La fase se considerará completada cuando todas las pantallas principales de la plataforma cuenten con un diseño consistente, un prototipo navegable y una base visual lista para iniciar el desarrollo frontend.
+La Fase 3 se considerará finalizada cuando:
+
+* El Design System esté completamente documentado.
+* Todos los componentes reutilizables hayan sido diseñados.
+* Las pantallas principales cuenten con wireframes y mockups de alta fidelidad.
+* Exista un prototipo navegable en Figma.
+* El diseño esté listo para iniciar la fase de desarrollo frontend.
+
+---
 
 ## Observaciones
 
-Toda decisión relacionada con la identidad visual, componentes o experiencia de usuario deberá quedar registrada durante el desarrollo de esta fase para mantener la trazabilidad del proyecto.
+Durante esta fase, todas las decisiones relacionadas con la identidad visual, componentes, experiencia de usuario y organización del Design System deberán registrarse en la documentación del proyecto para garantizar la trazabilidad y mantener la coherencia durante el desarrollo.
+
+---
+
+# Observaciones generales
+
+Con la documentación base finalizada y el Design System en construcción, el proyecto entra en una etapa centrada en el diseño de la experiencia de usuario. Esta fase establecerá las bases visuales y funcionales que servirán como referencia para el desarrollo frontend y backend de la plataforma.

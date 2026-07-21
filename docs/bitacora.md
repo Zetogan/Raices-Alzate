@@ -143,7 +143,7 @@ Con esta sesión inicia oficialmente la Fase 3 — Diseño UI/UX de **Raíces Al
 
 ### Objetivo de la sesión
 
-Retomar la Fase 3 — Diseño UI/UX del proyecto, dando continuidad al desarrollo del **Design System** en Figma mediante la consolidación de la identidad visual y la construcción de la paleta de colores institucional que servirá como base para el diseño de la interfaz.
+Retomar la Fase 3 — Diseño UI/UX del proyecto, dando continuidad al desarrollo del **Design System** en Figma mediante la consolidación de la identidad visual y la construcción de la paleta de colores institucional.
 
 ### Actividades realizadas
 
@@ -154,7 +154,7 @@ Retomar la Fase 3 — Diseño UI/UX del proyecto, dando continuidad al desarroll
 * Se establecieron los lineamientos para la construcción de las paletas **Primary**, **Secondary**, **Neutral**, **Semantic** y **Preview**.
 * Se confirmó el uso del rojo institucional como color principal y del azul institucional como color secundario de la identidad visual del proyecto.
 * Se inició la construcción de la paleta de colores institucional en Figma.
-* Se planificó la creación de los estilos (Color Styles) y variables de color que serán utilizados durante el desarrollo de la interfaz.
+* Se evaluó la utilización de **Color Styles** y **Variables de Figma**, dejando su implementación para una etapa posterior del proyecto.
 
 ### Dificultades encontradas
 
@@ -170,9 +170,52 @@ Retomar la Fase 3 — Diseño UI/UX del proyecto, dando continuidad al desarroll
 * Diseñar la paleta **Secondary**.
 * Construir la paleta **Neutral**.
 * Definir los colores **Semantic**.
-* Crear los **Color Styles** y las variables de color.
 * Iniciar la sección **Typography** del Design System.
 
 ### Observaciones
 
 Con esta sesión se retoma el desarrollo del Design System de **Raíces Alzate**, consolidando la identidad visual institucional del proyecto. La estructura establecida facilitará la creación de componentes reutilizables y garantizará la consistencia visual durante las siguientes etapas del diseño y del desarrollo.
+
+---
+
+## 📅 20 de julio de 2026 (Sesión 5)
+
+### Objetivo de la sesión
+
+Continuar el desarrollo de la Fase 3 — Diseño UI/UX mediante la construcción de la base del **Design System** en Figma, definiendo los lineamientos visuales y los primeros componentes reutilizables del proyecto.
+
+### Actividades realizadas
+
+* Se completó la paleta de colores institucional del proyecto.
+* Se finalizaron las categorías **Primary**, **Secondary**, **Neutral** y **Semantic**.
+* Se definió la tipografía oficial del sistema de diseño utilizando la familia **Poppins**.
+* Se estructuró la jerarquía tipográfica (**Display**, **Heading 1–5**, **Body Large**, **Body**, **Small** y **Caption**).
+* Se documentó el sistema de espaciado (**4, 8, 12, 16, 24, 32, 48 y 64 px**).
+* Se diseñó el sistema de botones reutilizables del proyecto.
+* Se crearon los botones **Primary**, **Secondary**, **Outline**, **Danger** y **Disabled**.
+* Se documentaron las especificaciones visuales de cada botón, incluyendo dimensiones, colores, radios y estilos tipográficos.
+* Se reorganizó la distribución de la página del Design System para mejorar la legibilidad y el aprovechamiento del espacio.
+* Se definió la estructura de la siguiente página del archivo de Figma destinada a los componentes reutilizables.
+
+### Dificultades encontradas
+
+* El espacio disponible en la primera página del Design System comenzó a ser insuficiente para incorporar nuevos componentes sin afectar la organización.
+* Se evaluó el uso de **Auto Layout** y **Variables de Figma**, concluyendo que su implementación se realizará en una etapa posterior del proyecto.
+
+### Solución aplicada
+
+* Se reorganizó manualmente la distribución de todos los elementos del Design System para optimizar el espacio disponible.
+* Se decidió crear una segunda página destinada exclusivamente a los componentes reutilizables del sistema de diseño.
+* Se mantuvo un enfoque de diseño manual durante esta etapa para comprender completamente la estructura del Design System antes de incorporar herramientas avanzadas de Figma.
+
+### Próximas actividades
+
+* Crear la página **Components** del Design System.
+* Diseñar los componentes **Inputs**.
+* Diseñar **Checkbox**, **Radio Button** y **Switch**.
+* Diseñar **Dropdown**, **Alerts**, **Badges**, **Avatar** y **Tables**.
+* Iniciar el diseño de las primeras pantallas de la aplicación.
+
+### Observaciones
+
+Con esta sesión queda finalizada la base del **Design System** de **Raíces Alzate**, estableciendo la identidad visual del proyecto mediante la definición de colores, tipografía, espaciado y botones. Esta base servirá como referencia para el desarrollo de todos los componentes reutilizables y garantizará una interfaz consistente durante las siguientes etapas del diseño UI/UX.

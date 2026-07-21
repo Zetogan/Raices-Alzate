@@ -16,58 +16,99 @@
 
 # Fase 0 — Preparación
 
-- [x] Crear repositorio en GitHub.
-- [x] Configurar Git.
-- [x] Clonar el proyecto.
-- [x] Crear estructura de carpetas.
-- [x] Crear documentación inicial.
-- [x] Organizar la carpeta docs.
-- [x] Crear índice de documentación.
-- [x] Definir estándares de documentación.
+* [x] Crear repositorio en GitHub.
+* [x] Configurar Git y GitHub.
+* [x] Clonar el proyecto.
+* [x] Crear la estructura inicial del proyecto.
+* [x] Organizar la estructura de carpetas.
+* [x] Configurar el control de versiones.
+* [x] Crear la documentación base.
+* [x] Definir los estándares de documentación.
 
 ---
 
-# Fase 1 — Diseño
+# Fase 1 — Documentación
 
-- [ ] Definir identidad visual.
-- [ ] Diseñar Landing Page.
-- [ ] Diseñar Login.
-- [ ] Diseñar Registro.
-- [ ] Diseñar Dashboard.
-- [ ] Diseñar Panel Administrativo.
-
----
-
-# Fase 2 — Desarrollo Frontend
-
-- [ ] Crear Landing Page.
-- [ ] Desarrollar componentes.
-- [ ] Implementar diseño responsive.
-- [ ] Implementar animaciones.
+* [x] Crear la Bitácora del proyecto.
+* [x] Elaborar la planificación.
+* [x] Definir los requisitos funcionales y no funcionales.
+* [x] Documentar la arquitectura del sistema.
+* [x] Crear el Roadmap.
+* [x] Elaborar el README principal.
+* [x] Crear el índice de documentación.
+* [x] Registrar decisiones del proyecto.
+* [x] Elaborar el glosario.
+* [ ] Completar el Manual Técnico.
+* [ ] Completar el Manual de Usuario.
 
 ---
 
-# Fase 3 — Backend
+# Fase 2 — Diseño UI/UX
 
-- [ ] Configurar conexión a MySQL.
-- [ ] Sistema de autenticación.
-- [ ] Gestión de usuarios.
-- [ ] Gestión de egresados.
-- [ ] Gestión de proyectos.
+## Design System
+
+* [x] Definir la identidad visual.
+* [x] Definir la paleta de colores.
+* [x] Definir la tipografía.
+* [x] Definir el sistema de espaciado.
+* [x] Diseñar los botones reutilizables.
+* [ ] Diseñar Inputs.
+* [ ] Diseñar Checkbox.
+* [ ] Diseñar Radio Button.
+* [ ] Diseñar Switch.
+* [ ] Diseñar Dropdown.
+* [ ] Diseñar Badges.
+* [ ] Diseñar Alerts.
+* [ ] Diseñar Avatar.
+* [ ] Diseñar Tables.
+
+## Pantallas
+
+* [ ] Landing Page.
+* [ ] Login.
+* [ ] Registro.
+* [ ] Dashboard.
+* [ ] Perfil del egresado.
+* [ ] Panel administrativo.
 
 ---
 
-# Fase 4 — Pruebas
+# Fase 3 — Desarrollo Frontend
 
-- [ ] Pruebas funcionales.
-- [ ] Corrección de errores.
-- [ ] Optimización.
+* [ ] Configuración del proyecto Frontend.
+* [ ] Desarrollo de componentes reutilizables.
+* [ ] Implementación de las pantallas.
+* [ ] Diseño responsive.
+* [ ] Animaciones.
+* [ ] Integración con Backend.
 
 ---
 
-# Fase 5 — Despliegue
+# Fase 4 — Desarrollo Backend
 
-- [ ] Documentación final.
-- [ ] Manual técnico.
-- [ ] Manual de usuario.
-- [ ] Publicación del proyecto.
+* [ ] Configuración del servidor.
+* [ ] Configuración de MySQL.
+* [ ] Sistema de autenticación.
+* [ ] Gestión de usuarios.
+* [ ] Gestión de egresados.
+* [ ] Gestión de proyectos.
+* [ ] API REST.
+
+---
+
+# Fase 5 — Pruebas
+
+* [ ] Pruebas funcionales.
+* [ ] Pruebas de integración.
+* [ ] Corrección de errores.
+* [ ] Optimización del sistema.
+
+---
+
+# Fase 6 — Despliegue
+
+* [ ] Documentación final.
+* [ ] Manual Técnico.
+* [ ] Manual de Usuario.
+* [ ] Publicación de la versión estable.
+* [ ] Lanzamiento del proyecto.

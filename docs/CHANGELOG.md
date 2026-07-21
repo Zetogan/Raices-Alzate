@@ -53,6 +53,29 @@
 
 ---
 
+## 📅 20 de julio de 2026
+
+### 🎨 Desarrollo del sistema de diseño en Figma
+
+#### Agregado
+
+* Inicio del archivo de diseño del proyecto en Figma.
+* Creación de la página **Design System**.
+* Organización de la estructura base del sistema de diseño.
+* Definición de la paleta de colores institucional.
+* Incorporación de colores primarios, secundarios, neutros y semánticos.
+* Creación de la sección de vista previa de colores.
+* Definición de la jerarquía visual de títulos y categorías.
+* Organización del espacio de trabajo mediante Frames y Auto Layout.
+* Preparación de la base para la creación de componentes reutilizables.
+
+#### Cambiado
+
+* Se consolidó la identidad visual del proyecto utilizando la paleta institucional del Colegio Gilberto Alzate Avendaño.
+* Se reorganizó la estructura del archivo de Figma para facilitar el desarrollo de las siguientes fases del diseño.
+
+---
+
 ## Estado
 
 🟡 Proyecto en fase de Diseño UI/UX.

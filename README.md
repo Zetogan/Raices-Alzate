@@ -28,6 +28,8 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 - Administración de usuarios.
 - Acceso a proyectos desarrollados por egresados.
 - Arquitectura modular y escalable.
+- Design System desarrollado en Figma.
+- Componentes reutilizables.
 - Documentación técnica organizada.
 - Desarrollo basado en buenas prácticas.
 
@@ -38,166 +40,196 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 | Tecnología | Uso |
 |------------|-----|
 | HTML5 | Estructura de la aplicación |
-| CSS3 | Diseño y estilos |
+| CSS3 | Diseño y estilos responsivos |
 | JavaScript | Interactividad |
 | PHP | Lógica del servidor |
 | MySQL | Base de datos |
 | Git | Control de versiones |
 | GitHub | Gestión del repositorio |
-| Figma | Diseño UI/UX |
+| Figma | Diseño UI/UX y Design System |
+| Visual Studio Code | Desarrollo del proyecto |
 
 ---
 
 # 📂 Estructura del proyecto
 
 ```text
-Raices-Alzate/
+raices-alzate/
 │
-├── .github/                 # Configuración para GitHub
-├── assets/                  # Recursos estáticos
-├── components/              # Componentes reutilizables
-├── config/                  # Configuración del proyecto
-├── database/                # Base de datos y scripts SQL
+├── .github/
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   ├── icons/
+│   ├── fonts/
+│   └── videos/
 │
-├── docs/                    # Documentación del proyecto
-│   ├── CHANGELOG.md
-│   ├── README.md
-│   ├── ROADMAP.md
-│   ├── arquitectura.md
-│   ├── bitacora.md
-│   ├── decisiones.md
-│   ├── glosario.md
-│   ├── manual-tecnico.md
-│   ├── manual-usuario.md
-│   ├── planificacion.md
-│   └── requisitos.md
-│
-├── includes/                # Archivos compartidos
-├── pages/                   # Páginas de la aplicación
-├── uploads/                 # Archivos subidos por usuarios
+├── components/
+├── config/
+├── database/
+├── docs/
+├── includes/
+├── pages/
+├── uploads/
 │
 ├── .gitignore
-├── index.html
-└── README.md
+├── README.md
+└── index.php
 ```
 
-La estructura del proyecto está organizada de forma modular para facilitar el mantenimiento, la escalabilidad y el trabajo colaborativo durante todas las fases de desarrollo.
+La estructura del proyecto está organizada de forma modular para facilitar el mantenimiento, la escalabilidad y el trabajo colaborativo durante todas las fases del desarrollo.
 
 ---
 
 # 📚 Documentación
 
-Toda la documentación del proyecto se encuentra organizada en la carpeta **`docs/`**.
+Toda la documentación del proyecto se encuentra organizada dentro de la carpeta **`docs/`**.
 
 | Documento | Descripción |
 |------------|-------------|
 | `README.md` | Índice de la documentación. |
-| `arquitectura.md` | Arquitectura general del sistema. |
-| `bitacora.md` | Registro del desarrollo del proyecto. |
+| `01_Bitacora.md` | Registro cronológico del desarrollo del proyecto. |
+| `02_Planificacion.md` | Planeación general del proyecto. |
+| `03_Requisitos.md` | Requisitos funcionales y no funcionales. |
+| `04_Arquitectura.md` | Arquitectura general del sistema. |
+| `05_Manual_Tecnico.md` | Manual dirigido a desarrolladores. |
+| `06_Manual_Usuario.md` | Manual de uso de la plataforma. |
 | `CHANGELOG.md` | Historial de cambios. |
-| `ROADMAP.md` | Plan de desarrollo del proyecto. |
-| `decisiones.md` | Decisiones técnicas tomadas durante el desarrollo. |
-| `glosario.md` | Definición de términos utilizados. |
-| `manual-tecnico.md` | Manual para desarrolladores. |
-| `manual-usuario.md` | Manual de uso de la plataforma. |
-| `planificacion.md` | Planeación general del proyecto. |
-| `requisitos.md` | Requisitos funcionales y no funcionales. |
+| `ROADMAP.md` | Hoja de ruta del proyecto. |
 
-La documentación se actualiza continuamente para mantener un registro claro del avance del proyecto y facilitar la incorporación de nuevos colaboradores.
+La documentación se mantiene actualizada durante todo el ciclo de desarrollo con el fin de garantizar la trazabilidad del proyecto y facilitar el mantenimiento futuro.
 
 ---
 
 # 🚧 Estado del proyecto
 
-**Estado actual:** En desarrollo 🟡
+**Versión actual:** **v0.1.0**
 
-Actualmente el proyecto ha finalizado su fase de planificación y documentación, dando inicio a la etapa de diseño de la interfaz de usuario.
+**Estado:** 🟡 En desarrollo
 
-## 📊 Estado del proyecto
+Actualmente **Raíces Alzate** se encuentra desarrollando la **Fase 3 — Diseño UI/UX**.
+
+Durante esta etapa se ha construido la base del **Design System**, estableciendo la identidad visual del proyecto mediante:
+
+- Paleta de colores institucional.
+- Tipografía oficial.
+- Sistema de espaciado.
+- Botones reutilizables.
+- Base para componentes reutilizables.
+
+Estos elementos servirán como fundamento para el desarrollo frontend de la plataforma.
+
+---
+
+# 📊 Estado del proyecto
 
 | Etapa | Progreso |
 |--------|-----------|
 | 📋 Planificación | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 📚 Documentación | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
-| 🎨 Diseño UI/UX | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
-| 💻 Desarrollo | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
+| 🎨 Diseño UI/UX | 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ **40%** |
+| 💻 Desarrollo Frontend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
+| ⚙️ Desarrollo Backend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
 | 🧪 Pruebas | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
 | 🚀 Despliegue | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%** |
-
 
 ---
 
 # 🗺️ Roadmap
 
-## ✅ Fase 1 — Planificación
+## ✅ Fase 0 — Preparación
 
-- Definición del problema.
-- Definición de objetivos.
-- Organización del proyecto.
-- Planeación general.
+- Configuración del repositorio.
+- Configuración de Git y GitHub.
+- Organización de la estructura del proyecto.
+- Creación de la documentación base.
 
-## ✅ Fase 2 — Documentación
+---
 
-- Documentación técnica.
-- Manual técnico.
-- Manual de usuario.
-- Arquitectura.
+## ✅ Fase 1 — Documentación
+
 - Bitácora.
+- Planificación.
+- Requisitos.
+- Arquitectura.
+- README.
 - Roadmap.
 - Changelog.
-- Glosario.
-- Registro de decisiones.
-- Requisitos.
+- Manuales.
+- Índice de documentación.
 
-## 🔄 Fase 3 — Diseño
+---
+
+## 🔄 Fase 2 — Diseño UI/UX
+
+### ✅ Completado
 
 - Design System.
+- Identidad visual.
+- Paleta de colores.
+- Tipografía.
+- Sistema de espaciado.
+- Botones reutilizables.
+
+### 🟡 En desarrollo
+
+- Biblioteca de componentes reutilizables.
+
+### ⏳ Pendiente
+
+- Inputs.
+- Checkbox.
+- Radio Button.
+- Switch.
+- Dropdown.
+- Alerts.
+- Badges.
+- Avatar.
+- Tables.
 - Wireframes.
 - Mockups.
 - Prototipo interactivo.
-
-## ⏳ Fase 4 — Desarrollo
-
-- Base de datos.
-- Backend.
-- Frontend.
-- Integración.
-
-## ⏳ Fase 5 — Calidad
-
-- Pruebas.
-- Corrección de errores.
-- Optimización.
-
-## ⏳ Fase 6 — Despliegue
-
-- Publicación.
-- Documentación final.
-- Versión estable.
 
 ---
 
 # ⚙️ Instalación
 
-1. Clona el repositorio.
+## Requisitos previos
+
+Antes de ejecutar el proyecto asegúrate de contar con:
+
+* PHP 8.0 o superior.
+* MySQL 8.0 o superior.
+* Servidor local (XAMPP, Laragon, WAMP o similar).
+* Git.
+* Visual Studio Code (recomendado).
+
+---
+
+## Clonar el repositorio
 
 ```bash
 git clone https://github.com/Zetogan/Raices-Alzate.git
 ```
 
-2. Ingresa al directorio del proyecto.
+---
+
+## Ingresar al proyecto
 
 ```bash
 cd Raices-Alzate
 ```
 
-3. Configura un entorno local compatible con PHP (por ejemplo, XAMPP).
+---
 
-4. Importa la base de datos ubicada en la carpeta `database/`.
+## Configurar el entorno
 
-5. Configura la conexión a la base de datos.
-
-6. Ejecuta el servidor local y abre el proyecto desde tu navegador.
+1. Configura un servidor local compatible con PHP.
+2. Importa la base de datos ubicada en la carpeta `database/`.
+3. Configura los parámetros de conexión a la base de datos.
+4. Inicia el servidor local.
+5. Abre el proyecto desde tu navegador.
 
 ---
 
@@ -207,24 +239,56 @@ Actualmente el proyecto se encuentra en desarrollo.
 
 Las futuras versiones permitirán:
 
-- Registro e inicio de sesión.
-- Gestión de egresados.
-- Administración de usuarios.
-- Consulta de proyectos.
-- Actualización de perfiles.
-- Gestión institucional.
-- Panel administrativo.
+* Registro de usuarios.
+* Inicio de sesión.
+* Gestión de egresados.
+* Administración de usuarios.
+* Publicación de proyectos.
+* Actualización de perfiles.
+* Gestión institucional.
+* Panel administrativo.
+
+---
+
+# 📅 Próximos objetivos
+
+Las siguientes actividades del proyecto corresponden a la continuación de la **Fase 3 — Diseño UI/UX**.
+
+## Diseño
+
+* Finalizar la biblioteca de componentes.
+* Diseñar Inputs.
+* Diseñar Checkbox.
+* Diseñar Radio Button.
+* Diseñar Switch.
+* Diseñar Dropdown.
+* Diseñar Alerts.
+* Diseñar Badges.
+* Diseñar Avatar.
+* Diseñar Tables.
+
+## Interfaz
+
+* Elaborar los Wireframes.
+* Diseñar los Mockups.
+* Construir el prototipo navegable en Figma.
+
+## Desarrollo
+
+Una vez finalizada la etapa de diseño iniciará el desarrollo Frontend y posteriormente el Backend.
 
 ---
 
 # 👥 Equipo de desarrollo
 
-Proyecto desarrollado por estudiantes del **Colegio Gilberto Alzate Avendaño**.
+Proyecto desarrollado por estudiantes de la **Institución Educativa Gilberto Alzate Avendaño**.
 
-- Emanuel Cadavid
-- Harold Montoya
-- Santiago Delgado Martínez
-- Santiago Sánchez Emitola
+## Integrantes
+
+* Emanuel Cadavid
+* Harold Montoya
+* Santiago Delgado Martínez
+* Santiago Sánchez Emitola
 
 ---
 
@@ -232,30 +296,40 @@ Proyecto desarrollado por estudiantes del **Colegio Gilberto Alzate Avendaño**.
 
 Actualmente el desarrollo del proyecto está a cargo del equipo responsable de **Raíces Alzate**.
 
-En futuras versiones se habilitará una guía de contribución para facilitar la participación de nuevos colaboradores.
+En futuras versiones se publicará una guía de contribución que incluirá:
+
+* Flujo de trabajo con Git.
+* Convenciones de código.
+* Estándares de documentación.
+* Proceso para reportar errores.
+* Proceso para proponer nuevas funcionalidades.
 
 ---
 
 # 📄 Licencia
 
-Este proyecto está distribuido bajo la licencia **MIT**.
+Este proyecto se distribuye bajo la licencia **MIT**.
 
-Consulta el archivo **LICENSE** para obtener más información.
+Consulta el archivo **LICENSE** para obtener información detallada sobre los términos de uso y distribución del proyecto.
 
 ---
 
 # 💙 Agradecimientos
 
-Agradecemos al **Colegio Gilberto Alzate Avendaño**, a los docentes y a todas las personas que hacen posible el desarrollo de este proyecto.
+Agradecemos a la **Institución Educativa Gilberto Alzate Avendaño**, a los docentes, directivos y a todas las personas que hacen posible el desarrollo de este proyecto.
 
-Su apoyo y acompañamiento contribuyen al fortalecimiento de la comunidad de egresados y al crecimiento de **Raíces Alzate**.
+Su acompañamiento fortalece la construcción de una plataforma que busca mantener un vínculo permanente entre la institución y su comunidad de egresados.
 
 ---
 
 <div align="center">
 
-### 🌱 Raíces Alzate
+# 🌱 Raíces Alzate
 
-**Conectando generaciones, fortaleciendo el futuro.**
+### Conectando generaciones, fortaleciendo el futuro.
+
+**Versión actual:** v0.1.0
+
+Desarrollado con ❤️ por el equipo de **Raíces Alzate**.
 
 </div>
