@@ -8,14 +8,14 @@
 
 ## Información General
 
-| Campo | Información |
-|--------|-------------|
-| Proyecto | Raíces Alzate |
-| Institución | Institución Educativa Gilberto Alzate Avendaño |
-| Desarrollador | Santiago Emitola |
-| Fecha de inicio | 09 de julio de 2026 |
-| Estado | 🟡 En desarrollo |
-| Versión actual | v0.1.0 |
+| Campo           | Información                                    |
+| --------------- | ---------------------------------------------- |
+| Proyecto        | Raíces Alzate                                  |
+| Institución     | Institución Educativa Gilberto Alzate Avendaño |
+| Desarrollador   | Santiago Emitola                               |
+| Fecha de inicio | 09 de julio de 2026                            |
+| Estado          | 🟡 En desarrollo                               |
+| Versión actual  | v0.1.0                                         |
 
 ---
 
@@ -210,12 +210,94 @@ Continuar el desarrollo de la Fase 3 — Diseño UI/UX mediante la construcción
 
 ### Próximas actividades
 
-* Crear la página **Components** del Design System.
-* Diseñar los componentes **Inputs**.
-* Diseñar **Checkbox**, **Radio Button** y **Switch**.
-* Diseñar **Dropdown**, **Alerts**, **Badges**, **Avatar** y **Tables**.
-* Iniciar el diseño de las primeras pantallas de la aplicación.
+* Crear la página **Components & Responsive** del Design System.
+* Diseñar y documentar los componentes reutilizables.
+* Definir los diferentes estados de los componentes.
+* Establecer criterios de adaptación responsive.
 
 ### Observaciones
 
 Con esta sesión queda finalizada la base del **Design System** de **Raíces Alzate**, estableciendo la identidad visual del proyecto mediante la definición de colores, tipografía, espaciado y botones. Esta base servirá como referencia para el desarrollo de todos los componentes reutilizables y garantizará una interfaz consistente durante las siguientes etapas del diseño UI/UX.
+
+---
+
+## 📅 05 de septiembre de 2026 (Sesión 6)
+
+### Objetivo de la sesión
+
+Finalizar la segunda página del archivo de Figma, **Components & Responsive**, mediante el diseño y organización de los componentes reutilizables y sus principales estados visuales.
+
+### Actividades realizadas
+
+* Se completó la página **Components & Responsive** del archivo de Figma.
+* Se organizaron los componentes reutilizables siguiendo la estructura definida para el Design System.
+* Se trabajaron diferentes estados visuales para los componentes de interacción.
+* Se completó el componente **Radio Button** con los estados:
+
+  * Normal.
+  * Selected.
+  * Focus.
+  * Disabled.
+  * Error.
+* Se completó el componente **Switch** con sus diferentes estados de interacción:
+
+  * Off.
+  * On.
+  * Focus.
+  * Disabled.
+  * Error.
+* Se revisaron las proporciones, colores, tamaños y distribución visual de los componentes.
+* Se mantuvo la identidad visual definida previamente en el Design System.
+* Se aplicaron criterios de diseño responsive para que los componentes puedan servir como referencia durante la implementación frontend.
+* Se finalizó la organización de la página **Components & Responsive**.
+
+### Dificultades encontradas
+
+* Fue necesario mantener una estructura organizada para documentar diferentes componentes y sus estados dentro del espacio disponible en Figma.
+* Se requirió revisar la consistencia visual entre los diferentes estados de cada componente.
+
+### Solución aplicada
+
+* Se organizó la página por componentes y estados, manteniendo una estructura visual uniforme.
+* Se utilizaron las especificaciones previamente definidas en el Design System como referencia para mantener consistencia en colores, tipografía, dimensiones y espaciado.
+* Se mantuvo el diseño sin utilizar Auto Layout, de acuerdo con la metodología establecida para esta etapa del proyecto.
+
+### Próximas actividades
+
+* Actualizar la documentación del proyecto con el avance realizado en Figma.
+* Diseñar el flujo de información de la plataforma.
+* Definir las relaciones y recorridos principales entre los módulos del sistema.
+* Utilizar el flujo de información como base para comenzar el diseño de las pantallas de la plataforma.
+
+### Observaciones
+
+Con esta sesión queda finalizada la página **Components & Responsive** del Design System. Con esto se completa la etapa de definición visual de los fundamentos y componentes reutilizables de la interfaz.
+
+El proyecto se encuentra preparado para pasar a la siguiente etapa del diseño UI/UX: **la definición del flujo de información**, que permitirá establecer cómo los usuarios interactuarán con los diferentes módulos antes de comenzar el diseño de las pantallas.
+
+---
+
+# Estado actual del proyecto
+
+**Fase actual:** Fase 3 — Diseño UI/UX
+
+### Completado
+
+* Planificación del proyecto.
+* Documentación base.
+* Design System en Figma.
+* Identidad visual.
+* Paleta de colores.
+* Tipografía.
+* Sistema de espaciado.
+* Sistema de botones.
+* Componentes reutilizables.
+* Estados de componentes.
+* Página **Components & Responsive**.
+* Criterios de diseño responsive.
+
+### Próximo paso
+
+**Flujo de información del sistema.**
+
+Este flujo servirá como base para definir posteriormente la estructura y navegación de las pantallas de la plataforma antes de comenzar el diseño de las interfaces finales.

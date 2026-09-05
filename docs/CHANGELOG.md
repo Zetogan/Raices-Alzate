@@ -53,29 +53,126 @@
 
 ---
 
-## 📅 20 de julio de 2026
+## 📅 16 de julio de 2026
 
-### 🎨 Desarrollo del sistema de diseño en Figma
+### 🎨 Construcción del Design System
 
 #### Agregado
 
-* Inicio del archivo de diseño del proyecto en Figma.
-* Creación de la página **Design System**.
-* Organización de la estructura base del sistema de diseño.
-* Definición de la paleta de colores institucional.
-* Incorporación de colores primarios, secundarios, neutros y semánticos.
-* Creación de la sección de vista previa de colores.
-* Definición de la jerarquía visual de títulos y categorías.
-* Organización del espacio de trabajo mediante Frames y Auto Layout.
-* Preparación de la base para la creación de componentes reutilizables.
+* Inicio del desarrollo del Design System en Figma.
+* Creación y organización de la sección **Colors**.
+* Definición de las categorías **Primary**, **Secondary**, **Neutral**, **Semantic** y **Preview**.
+* Definición de la identidad visual institucional.
+* Establecimiento del rojo institucional como color principal.
+* Establecimiento del azul institucional como color secundario.
+* Organización inicial de la jerarquía tipográfica.
+* Preparación de la estructura visual para continuar el desarrollo del Design System.
 
 #### Cambiado
 
-* Se consolidó la identidad visual del proyecto utilizando la paleta institucional del Colegio Gilberto Alzate Avendaño.
-* Se reorganizó la estructura del archivo de Figma para facilitar el desarrollo de las siguientes fases del diseño.
+* Se reorganizó la distribución de los elementos del Design System para mejorar la jerarquía y el aprovechamiento del espacio.
+* Se evaluó el uso de Color Styles y Variables de Figma para una etapa posterior.
 
 ---
 
-## Estado
+## 📅 20 de julio de 2026
 
-🟡 Proyecto en fase de Diseño UI/UX.
+### 🎨 Consolidación del Design System
+
+#### Agregado
+
+* Finalización de la paleta de colores institucional.
+* Finalización de las categorías **Primary**, **Secondary**, **Neutral** y **Semantic**.
+* Definición de **Poppins** como familia tipográfica del sistema de diseño.
+* Creación de la jerarquía tipográfica:
+
+  * Display.
+  * Heading 1–5.
+  * Body Large.
+  * Body.
+  * Small.
+  * Caption.
+* Definición del sistema de espaciado:
+
+  * 4 px.
+  * 8 px.
+  * 12 px.
+  * 16 px.
+  * 24 px.
+  * 32 px.
+  * 48 px.
+  * 64 px.
+* Creación del sistema de botones reutilizables.
+* Creación de los botones **Primary**, **Secondary**, **Outline**, **Danger** y **Disabled**.
+* Definición de dimensiones, colores, radios y estilos tipográficos para los botones.
+* Preparación de la segunda página del archivo de Figma destinada a componentes reutilizables.
+
+#### Cambiado
+
+* Se reorganizó manualmente la distribución del Design System para mejorar su organización.
+* Se decidió separar los componentes reutilizables del contenido base del Design System mediante una segunda página.
+* Se estableció que el diseño de esta etapa se desarrollaría sin utilizar Auto Layout.
+
+---
+
+## 📅 05 de septiembre de 2026
+
+### 🧩 Finalización de Components & Responsive
+
+#### Agregado
+
+* Finalización de la página **Components & Responsive** en Figma.
+* Organización de los componentes reutilizables del sistema de diseño.
+* Definición de estados para los componentes de interacción.
+* Finalización del componente **Radio Button**.
+* Implementación de los estados del Radio Button:
+
+  * Normal.
+  * Selected.
+  * Focus.
+  * Disabled.
+  * Error.
+* Finalización del componente **Switch**.
+* Implementación de los estados del Switch:
+
+  * Off.
+  * On.
+  * Focus.
+  * Disabled.
+  * Error.
+* Aplicación de los colores institucionales definidos en el Design System.
+* Revisión de proporciones, tamaños, espaciado y distribución de los componentes.
+* Definición de criterios de diseño responsive.
+* Organización final de la página **Components & Responsive**.
+
+#### Cambiado
+
+* Se consolidó la relación entre los estilos definidos en el Design System y los componentes reutilizables.
+* Se mantuvo el desarrollo manual de los componentes sin utilizar Auto Layout.
+* Se reorganizó la documentación visual para facilitar su posterior implementación en frontend.
+* Se estableció la página **Components & Responsive** como terminada.
+
+---
+
+# Estado
+
+🟡 **Proyecto en fase de Diseño UI/UX.**
+
+### Completado en la fase actual
+
+* Design System.
+* Identidad visual.
+* Paleta de colores.
+* Tipografía.
+* Sistema de espaciado.
+* Sistema de botones.
+* Componentes reutilizables.
+* Estados de componentes.
+* Components & Responsive.
+* Criterios de diseño responsive.
+
+### Próximo avance
+
+* Definición del flujo de información.
+* Organización de los recorridos principales del sistema.
+* Diseño de las pantallas de la plataforma.

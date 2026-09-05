@@ -8,12 +8,12 @@
 
 ## Información General
 
-| Campo                | Información         |
-| -------------------- | ------------------- |
-| Proyecto             | Raíces Alzate       |
-| Versión              | v0.1.0              |
-| Estado               | 🟡 En desarrollo    |
-| Última actualización | 20 de julio de 2026 |
+| Campo                | Información             |
+| -------------------- | ----------------------- |
+| Proyecto             | Raíces Alzate           |
+| Versión              | v0.1.0                  |
+| Estado               | 🟡 En desarrollo        |
+| Última actualización | 5 de septiembre de 2026 |
 
 ---
 
@@ -59,7 +59,17 @@ Tecnologías:
 * CSS3
 * JavaScript
 
-Durante esta capa se utilizará un **Design System** desarrollado en Figma para mantener una interfaz consistente, reutilizable y responsive.
+La interfaz se desarrolla tomando como referencia un **Design System diseñado en Figma**, con el objetivo de mantener una experiencia visual consistente, reutilizable y responsive.
+
+El sistema de diseño contempla la definición de:
+
+* Identidad visual.
+* Paleta de colores institucional.
+* Tipografía.
+* Sistema de espaciado.
+* Componentes reutilizables.
+* Estados de los componentes.
+* Adaptación responsive.
 
 ---
 
@@ -101,18 +111,46 @@ Almacenará la información relacionada con:
 
 # Arquitectura del Diseño
 
-Antes del desarrollo del sistema se construye un **Design System** en Figma que servirá como guía para toda la interfaz gráfica.
+Antes del desarrollo del sistema se construye un **Design System en Figma** que sirve como guía para la construcción de la interfaz gráfica.
 
-Actualmente contempla:
+El diseño se organiza principalmente en las siguientes áreas:
+
+### Design System
+
+Esta sección establece las bases visuales del proyecto:
 
 * Identidad visual.
 * Paleta de colores institucional.
 * Tipografía.
 * Sistema de espaciado.
-* Botones reutilizables.
-* Componentes reutilizables (en desarrollo).
+* Elementos visuales y estilos base.
 
-Esta arquitectura permitirá mantener uniformidad visual durante todo el desarrollo del proyecto.
+### Components & Responsive
+
+Esta sección contiene los componentes reutilizables de la interfaz y sus diferentes estados, además de criterios para su adaptación a diferentes tamaños de pantalla.
+
+Entre los componentes trabajados se encuentran:
+
+* Botones.
+* Inputs.
+* Checkbox.
+* Radio Button.
+* Switch.
+* Tablas.
+* Otros componentes de interfaz.
+
+Los componentes contemplan estados como:
+
+* Normal.
+* Hover.
+* Focus.
+* Selected.
+* Disabled.
+* Error.
+
+La construcción de estos componentes permite mantener consistencia visual y facilitar su posterior implementación durante el desarrollo frontend.
+
+El diseño se plantea de forma **responsive**, teniendo en cuenta diferentes tamaños de pantalla y manteniendo una estructura visual coherente.
 
 ---
 
@@ -179,11 +217,13 @@ El desarrollo de **Raíces Alzate** sigue una metodología incremental organizad
 1. Planificación.
 2. Documentación.
 3. Diseño UI/UX.
-4. Desarrollo Frontend.
-5. Desarrollo Backend.
-6. Pruebas.
-7. Control de versiones.
-8. Actualización continua de la documentación.
+4. Definición del flujo de información.
+5. Diseño de pantallas.
+6. Desarrollo Frontend.
+7. Desarrollo Backend.
+8. Pruebas.
+9. Control de versiones.
+10. Actualización continua de la documentación.
 
 ---
 
@@ -205,4 +245,18 @@ Durante el desarrollo del proyecto se aplicarán los siguientes principios:
 
 # Estado Actual
 
-Actualmente el proyecto se encuentra en la **Fase 3 — Diseño UI/UX**, donde se desarrolla el Design System que servirá como base para el desarrollo frontend de la plataforma.
+Actualmente el proyecto se encuentra en la **Fase 3 — Diseño UI/UX**.
+
+En esta fase se ha completado:
+
+* Design System en Figma.
+* Definición de identidad visual.
+* Paleta de colores.
+* Tipografía.
+* Sistema de espaciado.
+* Componentes reutilizables.
+* Estados de los componentes.
+* Página **Components & Responsive**.
+* Criterios de diseño responsive.
+
+El siguiente paso corresponde a la **definición del flujo de información del sistema**, que servirá como base para posteriormente diseñar las diferentes pantallas y vistas de la plataforma.

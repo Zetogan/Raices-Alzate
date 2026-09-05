@@ -1,209 +1,369 @@
 # 🌱 Raíces Alzate
 
-> Plataforma para la gestión, seguimiento y fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
+> Plataforma digital para el seguimiento, acompañamiento y fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
 
 ---
 
-# 📋 Planificación del Proyecto
+# 📖 Descripción
 
-## Información General
+**Raíces Alzate** es una plataforma web desarrollada con el propósito de fortalecer el vínculo entre la Institución Educativa Gilberto Alzate Avendaño y su comunidad de egresados.
 
-| Campo                   | Información                                    |
-| ----------------------- | ---------------------------------------------- |
-| Proyecto                | Raíces Alzate                                  |
-| Institución             | Institución Educativa Gilberto Alzate Avendaño |
-| Desarrollador principal | Santiago Emitola                               |
-| Fecha de inicio         | 09 de julio de 2026                            |
-| Estado                  | 🟡 En desarrollo                               |
-| Versión                 | v0.1.0                                         |
+El proyecto busca centralizar la información académica, profesional y de contacto de los exalumnos, facilitando el seguimiento institucional, la creación de oportunidades de networking y la consolidación de una comunidad activa que impulse el crecimiento académico, profesional y personal de sus integrantes.
+
+La plataforma también permitirá compartir proyectos desarrollados por egresados, fomentar la colaboración y fortalecer el sentido de pertenencia con la institución mediante herramientas digitales modernas, escalables y de fácil acceso.
 
 ---
 
-# Descripción del proyecto
+# 🎯 Objetivo
 
-Raíces Alzate es una plataforma web desarrollada para fortalecer el vínculo entre la Institución Educativa Gilberto Alzate Avendaño y sus egresados. Permitirá mantener actualizada la información de los graduados, facilitar la comunicación entre la comunidad educativa y promover oportunidades académicas, laborales y de colaboración mediante un entorno digital moderno, intuitivo y seguro.
-
----
-
-# Objetivo General
-
-Desarrollar una plataforma web institucional que permita gestionar, conectar y realizar el seguimiento de los egresados de la Institución Educativa Gilberto Alzate Avendaño, fortaleciendo la relación entre la institución y su comunidad de graduados.
+Desarrollar una plataforma web que permita gestionar la información de los egresados, fortalecer la comunicación entre la institución y sus exalumnos y generar oportunidades de desarrollo académico, profesional y colaborativo para toda la comunidad Alzate.
 
 ---
 
-# Objetivos Específicos
+# ✨ Características
 
-* Centralizar la información de los egresados.
-* Facilitar la actualización de datos personales y académicos.
-* Publicar proyectos desarrollados por los egresados.
-* Crear un espacio de comunicación entre la institución y los graduados.
-* Implementar un sistema seguro de autenticación.
-* Desarrollar una interfaz moderna, intuitiva y responsive.
-
----
-
-# Tecnologías
-
-## Frontend
-
-* HTML5
-* CSS3
-* JavaScript
-
-## Backend
-
-* PHP
-
-## Base de datos
-
-* MySQL
-
-## Control de versiones
-
-* Git
-* GitHub
-
-## Diseño
-
-* Figma
-
-## Editor
-
-* Visual Studio Code
+* Gestión de información de egresados.
+* Registro y actualización de perfiles.
+* Consulta de información institucional.
+* Administración de usuarios.
+* Acceso a proyectos desarrollados por egresados.
+* Arquitectura modular y escalable.
+* Design System desarrollado en Figma.
+* Componentes reutilizables.
+* Estados de interacción de los componentes.
+* Diseño responsive.
+* Documentación técnica organizada.
+* Desarrollo basado en buenas prácticas.
 
 ---
 
-# Metodología de trabajo
+# 🚀 Tecnologías
 
-El desarrollo del proyecto seguirá una metodología incremental, organizada por etapas.
-
-Cada funcionalidad será desarrollada siguiendo el siguiente flujo:
-
-1. Planificación.
-2. Documentación.
-3. Diseño.
-4. Desarrollo.
-5. Pruebas.
-6. Control de versiones.
-7. Actualización de la documentación.
-
----
-
-# Estado actual
-
-✅ Fase 1 – Planificación (Completada)
-
-✅ Fase 2 – Documentación (Completada)
-
-🟡 Fase 3 – Diseño UI/UX (En progreso)
+| Tecnología         | Uso                          |
+| ------------------ | ---------------------------- |
+| HTML5              | Estructura de la aplicación  |
+| CSS3               | Diseño y estilos responsivos |
+| JavaScript         | Interactividad               |
+| PHP                | Lógica del servidor          |
+| MySQL              | Base de datos                |
+| Git                | Control de versiones         |
+| GitHub             | Gestión del repositorio      |
+| Figma              | Diseño UI/UX y Design System |
+| Visual Studio Code | Desarrollo del proyecto      |
 
 ---
 
-# Plan de trabajo inmediato
+# 📂 Estructura del proyecto
 
-## Objetivo de la fase actual
+```text
+raices-alzate/
 
-Diseñar la interfaz gráfica de la plataforma, definiendo una identidad visual consistente y una experiencia de usuario intuitiva que sirva como base para el desarrollo del sistema.
+│
+├── .github/
+│
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   ├── icons/
+│   ├── fonts/
+│   └── videos/
+│
+├── components/
+├── config/
+├── database/
+├── docs/
+├── includes/
+├── pages/
+├── uploads/
+│
+├── .gitignore
+├── README.md
+└── index.php
+```
 
-### Actividades
-
-* ✅ Diseñar el Design System.
-* ✅ Definir la paleta de colores institucional.
-* ✅ Seleccionar la tipografía del proyecto.
-* 🟡 Diseñar los componentes reutilizables.
-* ⏳ Elaborar los wireframes de las principales pantallas.
-* ⏳ Diseñar los mockups en alta fidelidad.
-* ⏳ Construir un prototipo navegable en Figma.
-
-### Resultado esperado
-
-Finalizar el diseño completo de la interfaz de usuario, listo para iniciar la fase de desarrollo frontend manteniendo coherencia visual, reutilización de componentes y una experiencia de usuario consistente.
+La estructura del proyecto está organizada de forma modular para facilitar el mantenimiento, la escalabilidad y el trabajo colaborativo durante las diferentes fases del desarrollo.
 
 ---
 
-# 🎨 Fase 3 – Diseño UI/UX
+# 📚 Documentación
 
-## Estado
+Toda la documentación oficial del proyecto se encuentra organizada dentro de la carpeta **`docs/`**.
 
-🟡 En progreso
+| Documento           | Descripción                                       |
+| ------------------- | ------------------------------------------------- |
+| `README.md`         | Índice general de la documentación.               |
+| `bitacora.md`       | Registro cronológico del desarrollo del proyecto. |
+| `planificacion.md`  | Planificación general del proyecto.               |
+| `requisitos.md`     | Requisitos funcionales y no funcionales.          |
+| `arquitectura.md`   | Arquitectura general del sistema.                 |
+| `glosario.md`       | Definición de términos utilizados en el proyecto. |
+| `decisiones.md`     | Registro de decisiones importantes.               |
+| `changelog.md`      | Historial de cambios del proyecto.                |
+| `roadmap.md`        | Hoja de ruta y evolución del proyecto.            |
+| `manual-tecnico.md` | Manual dirigido a desarrolladores.                |
+| `manual-usuario.md` | Manual dirigido a usuarios finales.               |
 
-## Objetivo de la fase
+Los manuales Técnico y de Usuario se elaborarán durante las etapas finales del proyecto, cuando exista una versión funcional que permita documentar correctamente su funcionamiento.
 
-Diseñar la interfaz gráfica de **Raíces Alzate**, estableciendo una identidad visual consistente, accesible y moderna que sirva como base para el desarrollo frontend de la plataforma.
+La documentación se mantiene actualizada durante todo el ciclo de desarrollo para garantizar la trazabilidad del proyecto.
 
-## Objetivos específicos
+---
 
-* Definir la identidad visual del proyecto.
-* Diseñar un Design System reutilizable.
-* Establecer la paleta de colores institucional.
-* Seleccionar la tipografía del proyecto.
-* Diseñar los componentes principales de la interfaz.
-* Elaborar los wireframes de las pantallas.
-* Diseñar los mockups de alta fidelidad.
-* Construir un prototipo interactivo en Figma.
+# 🚧 Estado del Proyecto
 
-## Avance actual
+**Versión actual:** v0.1.0
 
-### ✅ Completado
+**Estado:** 🟡 En desarrollo
 
-* Identidad visual del proyecto.
+**Fase actual:** Fase 2 — Diseño UI/UX
+
+Actualmente **Raíces Alzate** se encuentra en la etapa de consolidación del diseño de la plataforma.
+
+Durante esta fase se han completado los fundamentos visuales y la biblioteca principal de componentes en Figma.
+
+### ✅ Diseño completado
+
+* Identidad visual.
 * Paleta de colores institucional.
-* Sistema tipográfico.
+* Tipografía.
 * Sistema de espaciado.
-* Base del Design System.
-* Sistema de botones reutilizables.
+* Design System.
+* Botones reutilizables.
+* Componentes reutilizables.
+* Estados de componentes.
+* Página Components & Responsive.
+* Criterios de diseño responsive.
 
-### 🟡 En desarrollo
-
-* Biblioteca de componentes reutilizables.
-
-### ⏳ Pendiente
+### Componentes trabajados
 
 * Inputs.
 * Checkbox.
 * Radio Button.
 * Switch.
 * Dropdown.
-* Alerts.
 * Badges.
+* Alerts.
 * Avatar.
 * Tables.
+* Botones.
+
+### Estados definidos
+
+* Normal.
+* Hover.
+* Focus.
+* Selected.
+* Disabled.
+* Error.
+* Off.
+* On.
+
+---
+
+# 📊 Estado del proyecto
+
+| Etapa                  | Progreso                      |
+| ---------------------- | ----------------------------- |
+| 📋 Planificación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
+| 📚 Documentación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
+| 🎨 Diseño UI/UX        | 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ **80%**    |
+| 💻 Desarrollo Frontend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| ⚙️ Desarrollo Backend  | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| 🧪 Pruebas             | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| 🚀 Despliegue          | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+
+---
+
+# 🗺️ Roadmap
+
+## ✅ Fase 0 — Preparación
+
+* Configuración del repositorio.
+* Configuración de Git y GitHub.
+* Organización de la estructura del proyecto.
+* Creación de la documentación base.
+
+---
+
+## ✅ Fase 1 — Documentación
+
+* Bitácora.
+* Planificación.
+* Requisitos.
+* Arquitectura.
+* README.
+* Roadmap.
+* Changelog.
+* Decisiones.
+* Glosario.
+* Índice de documentación.
+
+> Los manuales Técnico y de Usuario se mantienen pendientes hasta las etapas finales.
+
+---
+
+## 🔄 Fase 2 — Diseño UI/UX
+
+### ✅ Completado
+
+* Design System.
+* Identidad visual.
+* Paleta de colores.
+* Tipografía.
+* Sistema de espaciado.
+* Botones reutilizables.
+* Biblioteca de componentes.
+* Estados de componentes.
+* Components & Responsive.
+* Criterios responsive.
+
+### 🟡 En desarrollo
+
+* Flujo de información.
+* Recorridos principales de usuarios.
+* Estructura de navegación.
+
+### ⏳ Pendiente
+
 * Wireframes.
-* Mockups.
+* Mockups de alta fidelidad.
 * Prototipo navegable.
 
 ---
 
-## Entregables
+# ⚙️ Instalación
 
-* ✅ Design System (base).
-* ✅ Paleta de colores.
-* ✅ Tipografía institucional.
-* 🟡 Biblioteca de componentes.
-* ⏳ Wireframes.
-* ⏳ Mockups.
-* ⏳ Prototipo navegable.
+## Requisitos previos
 
----
+Antes de ejecutar el proyecto se debe contar con:
 
-## Criterios de finalización
-
-La Fase 3 se considerará finalizada cuando:
-
-* El Design System esté completamente documentado.
-* Todos los componentes reutilizables hayan sido diseñados.
-* Las pantallas principales cuenten con wireframes y mockups de alta fidelidad.
-* Exista un prototipo navegable en Figma.
-* El diseño esté listo para iniciar la fase de desarrollo frontend.
+* PHP 8.0 o superior.
+* MySQL 8.0 o superior.
+* Servidor local como XAMPP, Laragon, WAMP o similar.
+* Git.
+* Visual Studio Code recomendado.
 
 ---
 
-## Observaciones
+## Clonar el repositorio
 
-Durante esta fase, todas las decisiones relacionadas con la identidad visual, componentes, experiencia de usuario y organización del Design System deberán registrarse en la documentación del proyecto para garantizar la trazabilidad y mantener la coherencia durante el desarrollo.
+```bash
+git clone https://github.com/Zetogan/Raices-Alzate.git
+```
 
 ---
 
-# Observaciones generales
+## Ingresar al proyecto
 
-Con la documentación base finalizada y el Design System en construcción, el proyecto entra en una etapa centrada en el diseño de la experiencia de usuario. Esta fase establecerá las bases visuales y funcionales que servirán como referencia para el desarrollo frontend y backend de la plataforma.
+```bash
+cd Raices-Alzate
+```
+
+---
+
+## Configurar el entorno
+
+1. Configurar un servidor local compatible con PHP.
+2. Importar la base de datos ubicada en `database/`.
+3. Configurar los parámetros de conexión a la base de datos.
+4. Iniciar el servidor local.
+5. Abrir el proyecto desde el navegador.
+
+---
+
+# ▶️ Uso
+
+Actualmente el proyecto se encuentra en desarrollo y todavía no cuenta con una versión final de producción.
+
+Las funcionalidades previstas incluyen:
+
+* Registro de usuarios.
+* Inicio de sesión.
+* Gestión de egresados.
+* Administración de usuarios.
+* Publicación de proyectos.
+* Actualización de perfiles.
+* Gestión institucional.
+* Panel administrativo.
+
+Estas funcionalidades serán implementadas progresivamente durante las fases de desarrollo frontend y backend.
+
+---
+
+# 📅 Próximos Objetivos
+
+El siguiente objetivo corresponde a continuar con la **Fase 2 — Diseño UI/UX**.
+
+## 🎨 Diseño
+
+* Diseñar el flujo de información.
+* Definir los recorridos principales de los usuarios.
+* Definir la estructura de navegación.
+
+## 🖼️ Interfaces
+
+* Elaborar los wireframes.
+* Diseñar los mockups de alta fidelidad.
+* Construir el prototipo navegable en Figma.
+
+## 💻 Desarrollo
+
+Una vez finalizada la etapa de diseño UI/UX se iniciará el desarrollo frontend y posteriormente el desarrollo backend.
+
+---
+
+# 👥 Equipo de Desarrollo
+
+Proyecto desarrollado por estudiantes de la **Institución Educativa Gilberto Alzate Avendaño**.
+
+## Integrantes
+
+* Emanuel Cadavid.
+* Harold Montoya.
+* Santiago Delgado Martínez.
+* Santiago Sánchez Emitola.
+
+---
+
+# 🤝 Contribuciones
+
+Actualmente el desarrollo del proyecto está a cargo del equipo responsable de **Raíces Alzate**.
+
+En futuras versiones se publicará una guía de contribución que incluirá:
+
+* Flujo de trabajo con Git.
+* Convenciones de código.
+* Estándares de documentación.
+* Proceso para reportar errores.
+* Proceso para proponer nuevas funcionalidades.
+
+---
+
+# 📄 Licencia
+
+Este proyecto se distribuye bajo la licencia **MIT**.
+
+Consulta el archivo **`LICENSE`** para obtener información detallada sobre los términos de uso y distribución del proyecto.
+
+---
+
+# 💙 Agradecimientos
+
+Agradecemos a la **Institución Educativa Gilberto Alzate Avendaño**, a los docentes, directivos y a todas las personas que hacen posible el desarrollo de este proyecto.
+
+Su acompañamiento fortalece la construcción de una plataforma que busca mantener un vínculo permanente entre la institución y su comunidad de egresados.
+
+---
+
+<div align="center">
+
+# 🌱 Raíces Alzate
+
+### Conectando generaciones, fortaleciendo el futuro.
+
+**Versión actual:** v0.1.0
+
+Desarrollado con ❤️ por el equipo de **Raíces Alzate**.
+
+</div>
