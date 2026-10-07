@@ -8,13 +8,13 @@
 
 ## Estado General del Proyecto
 
-**Versión actual:** v0.1.0
+**Versión actual:** v0.1.1
 
 **Estado:** 🟡 En desarrollo
 
-**Fase actual:** Fase 3 — Diseño UI/UX
+**Fase actual:** Fase 4 — Implementación
 
-**Última actualización:** 05 de septiembre de 2026
+**Última actualización:** 07 de octubre de 2026
 
 ---
 
@@ -33,27 +33,53 @@
 
 ---
 
-# Fase 1 — Documentación
+# Fase 1 — Planificación
 
-* [x] Crear la Bitácora del proyecto.
-* [x] Elaborar la planificación.
-* [x] Definir los requisitos funcionales y no funcionales.
-* [x] Documentar la arquitectura del sistema.
-* [x] Crear el Roadmap.
-* [x] Elaborar el README principal.
-* [x] Crear el índice de documentación.
-* [x] Registrar decisiones del proyecto.
-* [x] Elaborar el glosario.
-* [ ] Completar el Manual Técnico.
-* [ ] Completar el Manual de Usuario.
+* [x] Definir el objetivo del proyecto.
+* [x] Definir el alcance inicial.
+* [x] Identificar las funcionalidades principales.
+* [x] Definir las tecnologías principales.
+* [x] Establecer la metodología de trabajo.
+* [x] Establecer las etapas generales del proyecto.
+* [x] Elaborar la planificación inicial.
 
-**Estado:** 🟡 Parcialmente completada
-
-> Los manuales Técnico y de Usuario se elaborarán al finalizar las etapas de desarrollo y pruebas.
+**Estado:** ✅ Completada
 
 ---
 
-# Fase 2 — Diseño UI/UX
+# Fase 2 — Documentación
+
+* [x] Crear la Bitácora del proyecto.
+
+* [x] Elaborar la planificación.
+
+* [x] Definir los requisitos funcionales y no funcionales.
+
+* [x] Documentar la arquitectura del sistema.
+
+* [x] Crear el Roadmap.
+
+* [x] Elaborar el README principal.
+
+* [x] Crear el índice de documentación.
+
+* [x] Registrar decisiones del proyecto.
+
+* [x] Elaborar el glosario.
+
+* [x] Definir la estructura documental del proyecto.
+
+* [ ] Completar el Manual Técnico.
+
+* [ ] Completar el Manual de Usuario.
+
+**Estado:** ✅ Completada
+
+> Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una versión funcional que permita documentar correctamente el desarrollo y uso de la plataforma.
+
+---
+
+# Fase 3 — Diseño UI/UX
 
 ## Design System
 
@@ -66,14 +92,10 @@
 * [x] Diseñar Checkbox.
 * [x] Diseñar Radio Button.
 * [x] Diseñar Switch.
-* [x] Diseñar Dropdown.
-* [x] Diseñar Badges.
-* [x] Diseñar Alerts.
-* [x] Diseñar Avatar.
 * [x] Diseñar Tables.
 * [x] Definir estados de los componentes.
 * [x] Definir criterios responsive.
-* [x] Finalizar la página Components & Responsive.
+* [x] Finalizar la página **Components & Responsive**.
 
 ### Estados de componentes
 
@@ -90,112 +112,159 @@
 
 ## Flujo y estructura
 
-* [ ] Diseñar el flujo de información.
-* [ ] Definir los recorridos principales de los usuarios.
-* [ ] Definir la estructura de navegación.
+* [x] Definir el flujo general de información.
+* [x] Definir los recorridos principales de los usuarios.
+* [x] Definir la estructura de navegación.
+* [x] Relacionar los módulos principales del sistema.
+* [x] Consolidar la navegación entre las principales áreas de la plataforma.
+
+### Estructura principal de navegación
+
+* Inicio → Autenticación → Dashboard.
+* Dashboard → Perfil.
+* Dashboard → Proyectos.
+* Dashboard → Administración.
+* Perfil → Egresados.
+* Proyectos → Noticias.
 
 ---
 
-## Wireframes
+## Interfaces Desktop
 
-* [ ] Diseñar wireframes de las pantallas principales.
-* [ ] Revisar estructura y distribución de contenidos.
-* [ ] Validar los recorridos de navegación.
+Se consolidaron las principales interfaces de escritorio:
 
----
-
-## Mockups
-
-* [ ] Diseñar las interfaces de alta fidelidad.
-* [ ] Aplicar el Design System a las pantallas.
-* [ ] Adaptar las interfaces a diferentes resoluciones.
-* [ ] Validar consistencia visual.
-
----
-
-## Prototipo
-
-* [ ] Crear prototipo navegable.
-* [ ] Conectar las pantallas principales.
-* [ ] Simular los recorridos principales.
-* [ ] Realizar validación de navegación.
+* [x] Inicio.
+* [x] Autenticación.
+* [x] Dashboard.
+* [x] Perfil.
+* [x] Egresados.
+* [x] Proyectos.
+* [x] Noticias.
+* [x] Administración.
+* [x] Crear proyecto.
+* [x] Detalle de proyecto.
+* [x] Editar perfil.
+* [x] Recuperar contraseña.
+* [x] Registro.
+* [x] Editar proyecto.
+* [x] Crear noticia.
+* [x] Detalle de noticia.
+* [x] Editar noticia.
 
 ---
 
-## Pantallas principales
+## Adaptaciones Mobile
 
-* [ ] Landing Page.
-* [ ] Login.
-* [ ] Registro.
-* [ ] Dashboard.
-* [ ] Perfil del egresado.
-* [ ] Panel administrativo.
-* [ ] Otras pantallas definidas a partir del flujo de información.
+Se trabajaron adaptaciones Mobile de las principales interfaces:
+
+* [x] Inicio Mobile.
+* [x] Autenticación Mobile.
+* [x] Dashboard Mobile.
+* [x] Mi perfil.
+* [x] Mis proyectos.
+* [x] Oportunidades.
+
+> Las adaptaciones Mobile trabajadas se realizaron tomando como referencia los criterios responsive definidos en el Design System.
+
+---
+
+## Revisión y consolidación
+
+* [x] Revisar consistencia visual.
+* [x] Revisar estructura de las interfaces.
+* [x] Revisar componentes reutilizables.
+* [x] Revisar estados de interacción.
+* [x] Revisar criterios responsive.
+* [x] Consolidar las interfaces diseñadas.
+* [x] Preparar Figma como referencia para la implementación.
+
+**Estado:** ✅ Completada
+
+---
+
+# Fase 4 — Implementación
+
+La implementación corresponde a la etapa actual del proyecto. Las interfaces y componentes definidos en Figma serán utilizados como referencia para el desarrollo del sistema.
+
+## Frontend
+
+* [ ] Configurar la estructura frontend.
+* [ ] Preparar la estructura HTML.
+* [ ] Implementar los estilos CSS.
+* [ ] Implementar JavaScript.
+* [ ] Desarrollar componentes reutilizables.
+* [ ] Implementar las interfaces diseñadas.
+* [ ] Implementar el diseño responsive.
+* [ ] Implementar las interacciones necesarias.
+* [ ] Integrar las interfaces con el backend.
+
+## Backend
+
+* [ ] Configurar el entorno PHP.
+* [ ] Implementar la conexión con MySQL.
+* [ ] Implementar el sistema de autenticación.
+* [ ] Implementar el registro de usuarios.
+* [ ] Implementar la gestión de perfiles.
+* [ ] Implementar la gestión de egresados.
+* [ ] Implementar la gestión de proyectos.
+* [ ] Implementar la gestión de noticias.
+* [ ] Implementar roles y permisos.
+* [ ] Implementar validaciones del sistema.
+* [ ] Integrar el backend con el frontend.
+
+## Base de datos
+
+* [ ] Crear la estructura de la base de datos.
+* [ ] Definir las tablas necesarias.
+* [ ] Definir las relaciones entre las entidades.
+* [ ] Definir claves primarias y foráneas.
+* [ ] Crear las consultas necesarias.
+* [ ] Integrar la base de datos con PHP.
+
+## Integración
+
+* [ ] Integrar frontend, backend y base de datos.
+* [ ] Verificar el funcionamiento de los módulos.
+* [ ] Implementar los flujos principales.
+* [ ] Validar autenticación y permisos.
+* [ ] Verificar el manejo de información.
+* [ ] Realizar ajustes derivados de la integración.
 
 **Estado:** 🟡 En progreso
 
 ---
 
-# Fase 3 — Desarrollo Frontend
-
-* [ ] Configuración del proyecto Frontend.
-* [ ] Preparación de la estructura HTML.
-* [ ] Implementación de estilos CSS.
-* [ ] Implementación de JavaScript.
-* [ ] Desarrollo de componentes reutilizables.
-* [ ] Implementación de las pantallas diseñadas.
-* [ ] Implementación del diseño responsive.
-* [ ] Implementación de interacciones y animaciones necesarias.
-* [ ] Integración con Backend.
-
-**Estado:** ⏳ Pendiente
-
----
-
-# Fase 4 — Desarrollo Backend
-
-* [ ] Configuración del servidor.
-* [ ] Configuración de PHP.
-* [ ] Configuración de MySQL.
-* [ ] Diseño e implementación de la base de datos.
-* [ ] Sistema de autenticación.
-* [ ] Gestión de usuarios.
-* [ ] Gestión de egresados.
-* [ ] Gestión de proyectos.
-* [ ] Gestión de permisos y roles.
-* [ ] Desarrollo de servicios/API según las necesidades del sistema.
-* [ ] Integración con Frontend.
-
-**Estado:** ⏳ Pendiente
-
----
-
 # Fase 5 — Pruebas
 
-* [ ] Pruebas funcionales.
-* [ ] Pruebas de integración.
-* [ ] Pruebas de interfaz.
-* [ ] Pruebas responsive.
-* [ ] Pruebas de compatibilidad entre navegadores.
-* [ ] Validación de seguridad.
-* [ ] Corrección de errores.
-* [ ] Optimización del sistema.
-* [ ] Validación final de funcionalidades.
+* [ ] Realizar pruebas funcionales.
+* [ ] Realizar pruebas de integración.
+* [ ] Realizar pruebas de interfaz.
+* [ ] Realizar pruebas responsive.
+* [ ] Realizar pruebas de compatibilidad entre navegadores.
+* [ ] Validar el sistema de autenticación.
+* [ ] Validar permisos y roles.
+* [ ] Realizar validaciones de seguridad.
+* [ ] Detectar y corregir errores.
+* [ ] Optimizar el sistema.
+* [ ] Validar las funcionalidades principales.
+* [ ] Realizar validación final del sistema.
 
 **Estado:** ⏳ Pendiente
 
 ---
 
-# Fase 6 — Documentación Final y Despliegue
+# Fase 6 — Despliegue y Cierre
 
 * [ ] Actualizar la documentación final.
 * [ ] Completar el Manual Técnico.
 * [ ] Completar el Manual de Usuario.
 * [ ] Preparar la versión estable.
-* [ ] Realizar configuración del entorno de producción.
+* [ ] Configurar el entorno de producción.
 * [ ] Publicar la versión estable.
 * [ ] Verificar el funcionamiento en producción.
-* [ ] Lanzamiento del proyecto.
+* [ ] Realizar la revisión final del proyecto.
+* [ ] Registrar los cambios finales.
+* [ ] Realizar el cierre del proyecto.
 
 **Estado:** ⏳ Pendiente
 
@@ -203,39 +272,46 @@
 
 # 📊 Resumen del progreso
 
-| Fase                                      | Estado                     |
-| ----------------------------------------- | -------------------------- |
-| Fase 0 — Preparación                      | ✅ Completada               |
-| Fase 1 — Documentación                    | 🟡 Parcialmente completada |
-| Fase 2 — Diseño UI/UX                     | 🟡 En progreso             |
-| Fase 3 — Desarrollo Frontend              | ⏳ Pendiente                |
-| Fase 4 — Desarrollo Backend               | ⏳ Pendiente                |
-| Fase 5 — Pruebas                          | ⏳ Pendiente                |
-| Fase 6 — Documentación Final y Despliegue | ⏳ Pendiente                |
+| Fase                         | Estado         |
+| ---------------------------- | -------------- |
+| Fase 0 — Preparación         | ✅ Completada   |
+| Fase 1 — Planificación       | ✅ Completada   |
+| Fase 2 — Documentación       | ✅ Completada   |
+| Fase 3 — Diseño UI/UX        | ✅ Completada   |
+| Fase 4 — Implementación      | 🟡 En progreso |
+| Fase 5 — Pruebas             | ⏳ Pendiente    |
+| Fase 6 — Despliegue y Cierre | ⏳ Pendiente    |
 
 ---
 
 # 🎯 Próximo objetivo
 
-El siguiente objetivo del proyecto es continuar con la **Fase 2 — Diseño UI/UX**, comenzando por el **flujo de información del sistema**.
+El siguiente objetivo del proyecto es avanzar con la **Fase 4 — Implementación**.
 
-Este flujo permitirá definir:
+El desarrollo tomará como referencia las interfaces, componentes, estados, estructura de navegación y criterios responsive definidos durante la fase de Diseño UI/UX.
 
-* Cómo se relacionan los usuarios con la plataforma.
-* Qué módulos existen.
-* Qué acciones puede realizar cada tipo de usuario.
-* Cómo se desplaza la información entre los diferentes módulos.
-* Cuáles son los recorridos principales del sistema.
+Las primeras actividades de implementación corresponden a:
 
-Una vez definido el flujo de información, se continuará con los wireframes, los mockups de alta fidelidad y finalmente el prototipo navegable.
+* Preparar la estructura frontend.
+* Implementar las interfaces principales.
+* Preparar la base de datos.
+* Configurar PHP y la conexión con MySQL.
+* Implementar progresivamente la autenticación y los módulos principales.
+* Integrar frontend, backend y base de datos.
+
+Posteriormente se realizarán las pruebas funcionales, de integración, interfaz, responsive y compatibilidad.
 
 ---
 
 # 📌 Nota sobre la planificación
 
-El desarrollo del proyecto seguirá un proceso progresivo. No se iniciará la implementación frontend hasta que la estructura principal de navegación, los recorridos de usuario y las interfaces hayan sido suficientemente definidos en Figma.
+El proyecto se desarrolla de manera progresiva, manteniendo una relación entre planificación, documentación, diseño, implementación y pruebas.
 
-La documentación se actualizará conforme avance cada etapa para mantener sincronizados el diseño, los requisitos, la arquitectura y el desarrollo del sistema.
+La fase de Diseño UI/UX fue completada antes de iniciar la implementación, permitiendo utilizar las interfaces de Figma como referencia para el desarrollo.
+
+La implementación deberá mantener la estructura visual y funcional definida durante la etapa de diseño.
+
+La documentación se actualizará conforme avance cada etapa para mantener sincronizados los requisitos, la arquitectura, el diseño y el desarrollo del sistema.
 
 Los manuales Técnico y de Usuario permanecerán pendientes hasta las etapas finales del proyecto, cuando exista una versión funcional que permita documentar correctamente el funcionamiento y uso de la plataforma.
 
@@ -243,7 +319,17 @@ Los manuales Técnico y de Usuario permanecerán pendientes hasta las etapas fin
 
 # 📜 Historial de cambios
 
-| Versión | Fecha      | Cambio                                                                                                                                                                                                                                 |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial del Roadmap del proyecto.                                                                                                                                                                                             |
-| v0.1.0  | 05/09/2026 | Actualización del roadmap según el avance real del proyecto, finalización del Design System y Components & Responsive, incorporación del flujo de información, wireframes, mockups y prototipo como siguientes etapas de Diseño UI/UX. |
+| Versión | Fecha      | Cambio                                                                                                                                                                                                                             |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial del Roadmap del proyecto.                                                                                                                                                                                         |
+| v0.1.0  | 05/09/2026 | Actualización del roadmap según el avance del proyecto, incluyendo el Design System, Components & Responsive y las etapas de diseño UI/UX.                                                                                         |
+| v0.1.1  | 07/10/2026 | Actualización general del Roadmap, consolidación de las fases de Planificación, Documentación y Diseño UI/UX, incorporación de las interfaces Desktop y adaptaciones Mobile trabajadas, y transición a la Fase 4 — Implementación. |
+
+---
+
+# 📍 Estado actual
+
+**Versión:** v0.1.1
+**Estado:** 🟡 En desarrollo
+**Fase actual:** Fase 4 — Implementación
+**Última actualización:** 07 de octubre de 2026

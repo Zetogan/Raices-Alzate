@@ -11,24 +11,22 @@
 | Proyecto             | Raíces Alzate                                                                                         |
 | Institución          | Institución Educativa Gilberto Alzate Avendaño                                                        |
 | Tipo de Proyecto     | Plataforma digital para el seguimiento, acompañamiento y fortalecimiento de la comunidad de egresados |
-| Versión Actual       | v0.1.0                                                                                                |
+| Versión Actual       | v0.1.1                                                                                                |
 | Estado               | 🟡 En desarrollo                                                                                      |
-| Fase Actual          | Fase 3 — Diseño UI/UX                                                                                 |
-| Última Actualización | 05 de septiembre de 2026                                                                              |
+| Fase Actual          | Fase 4 — Implementación                                                                               |
+| Última Actualización | 07 de octubre de 2026                                                                                 |
 
 ---
 
 # 📖 Sobre esta Documentación
 
-Este directorio contiene la documentación oficial del proyecto **Raíces Alzate**, donde se registran los procesos de planificación, requisitos, arquitectura, diseño, decisiones y evolución de la plataforma.
+Este directorio contiene la documentación oficial del proyecto **Raíces Alzate**, donde se registran los procesos de planificación, requisitos, arquitectura, diseño, decisiones, evolución y desarrollo de la plataforma.
 
 La documentación permite mantener un historial organizado del proyecto, facilitar la comprensión de su estructura y establecer una base clara para las diferentes fases de desarrollo.
 
-Actualmente la documentación se encuentra sincronizada con la **Fase 3 — Diseño UI/UX**.
+Actualmente, la documentación se encuentra sincronizada con la **Fase 4 — Implementación**.
 
-La planificación, los requisitos, la arquitectura y la documentación general del proyecto se encuentran definidos. En el área de diseño ya se completaron el **Design System** y la página **Components & Responsive**, incluyendo los componentes reutilizables, sus estados y los criterios responsive.
-
-El siguiente paso corresponde a la definición del **flujo de información del sistema**, que servirá como base para los recorridos de usuario, wireframes, mockups y prototipo navegable.
+Las fases de **Planificación**, **Documentación** y **Diseño UI/UX** se encuentran consolidadas. La etapa actual corresponde a la implementación frontend, backend y base de datos, tomando como referencia las estructuras e interfaces definidas durante el proceso de diseño.
 
 ---
 
@@ -40,47 +38,27 @@ La documentación se organiza de acuerdo con las diferentes necesidades del proy
 docs/
 
 ├── README.md
+├── 01_Bitacora.md
+├── 02_Planificacion.md
+├── 03_Requisitos.md
+├── 04_Arquitectura.md
+├── 05_Manual_Tecnico.md
+└── 06_Manual_Usuario.md
 
-├── arquitectura.md
-├── bitacora.md
-├── changelog.md
+../
+├── CHANGELOG.md
+├── ROADMAP.md
 ├── decisiones.md
-├── glosario.md
-├── manual-tecnico.md
-├── manual-usuario.md
-├── planificacion.md
-├── requisitos.md
-└── roadmap.md
+└── glosario.md
 ```
+
+> `README.md` funciona como índice principal de la documentación ubicada dentro de `docs/`. Los documentos generales de control y referencia del proyecto se encuentran en la raíz del repositorio.
 
 ---
 
 # 📑 Índice de Documentos
 
-## 🏗️ arquitectura.md
-
-**Descripción técnica de la estructura del sistema.**
-
-Incluye:
-
-* Arquitectura general.
-* Organización del sistema.
-* Tecnologías utilizadas.
-* Estructura técnica.
-* Diseño UI/UX.
-* Design System.
-* Components & Responsive.
-* Componentes reutilizables.
-* Estados de los componentes.
-* Criterios responsive.
-
-**Estado:**
-
-✅ Actualizado
-
----
-
-## 📝 bitacora.md
+## 📝 `01_Bitacora.md`
 
 **Registro histórico del desarrollo del proyecto.**
 
@@ -92,6 +70,7 @@ Contiene:
 * Cambios relevantes.
 * Evolución del proyecto.
 * Progreso de Figma y UI/UX.
+* Avance de las diferentes fases.
 
 **Estado:**
 
@@ -99,7 +78,7 @@ Contiene:
 
 ---
 
-## 📋 planificacion.md
+## 📋 `02_Planificacion.md`
 
 **Organización general del trabajo y gestión del proyecto.**
 
@@ -121,7 +100,7 @@ Incluye:
 
 ---
 
-## 📌 requisitos.md
+## 📌 `03_Requisitos.md`
 
 **Definición de las necesidades y funcionalidades del sistema.**
 
@@ -135,6 +114,7 @@ Incluye:
 * Diseño y experiencia de usuario.
 * Sistema de diseño.
 * Responsive.
+* Interfaces diseñadas.
 * Criterios de aceptación.
 
 **Estado:**
@@ -143,7 +123,83 @@ Incluye:
 
 ---
 
-## 🗺️ roadmap.md
+## 🏗️ `04_Arquitectura.md`
+
+**Descripción técnica de la estructura del sistema.**
+
+Incluye:
+
+* Arquitectura general.
+* Organización del sistema.
+* Tecnologías utilizadas.
+* Estructura técnica.
+* Capas del sistema.
+* Módulos principales.
+* Diseño UI/UX.
+* Design System.
+* Components & Responsive.
+* Componentes reutilizables.
+* Estados de los componentes.
+* Criterios responsive.
+* Referencia para la implementación.
+
+**Estado:**
+
+✅ Actualizado
+
+---
+
+## ⚙️ `05_Manual_Tecnico.md`
+
+**Guía técnica destinada a desarrolladores.**
+
+Incluirá progresivamente:
+
+* Configuración del entorno.
+* Instalación del proyecto.
+* Estructura del código.
+* Base de datos.
+* Configuración de PHP.
+* Procesos internos.
+* Implementación.
+* Mantenimiento.
+* Solución de problemas.
+
+**Estado:**
+
+⏳ Pendiente — Se completará durante las etapas de implementación y pruebas.
+
+---
+
+## 👤 `06_Manual_Usuario.md`
+
+**Guía destinada a los usuarios finales de la plataforma.**
+
+Incluirá:
+
+* Acceso al sistema.
+* Registro.
+* Inicio de sesión.
+* Recuperación de contraseña.
+* Navegación.
+* Gestión del perfil.
+* Uso de funcionalidades.
+* Funciones disponibles según el tipo de usuario.
+* Preguntas frecuentes.
+
+**Estado:**
+
+⏳ Pendiente — Se completará cuando exista una versión funcional del sistema.
+
+---
+
+# 📚 Documentos Complementarios
+
+Además de los documentos ubicados dentro de `docs/`, el proyecto cuenta con documentos generales en la raíz del repositorio.
+
+---
+
+## 🗺️ `ROADMAP.md`
 
 **Plan de evolución y seguimiento de las diferentes fases del proyecto.**
 
@@ -162,7 +218,26 @@ Incluye:
 
 ---
 
-## 📖 glosario.md
+## ⚖️ `decisiones.md`
+
+**Registro de decisiones importantes tomadas durante el desarrollo.**
+
+Incluye:
+
+* Decisiones técnicas.
+* Decisiones de diseño.
+* Motivos de las decisiones.
+* Alternativas consideradas.
+* Justificación de cambios.
+* Evolución de criterios del proyecto.
+
+**Estado:**
+
+✅ Actualizado
+
+---
+
+## 📖 `glosario.md`
 
 **Definición de términos utilizados durante el desarrollo.**
 
@@ -178,7 +253,10 @@ Incluye conceptos relacionados con:
 * Estados de interacción.
 * Responsive.
 * Tecnologías.
+* Base de datos.
+* Usuarios y roles.
 * Git y GitHub.
+* Implementación.
 
 **Estado:**
 
@@ -186,25 +264,7 @@ Incluye conceptos relacionados con:
 
 ---
 
-## ⚖️ decisiones.md
-
-**Registro de decisiones importantes tomadas durante el desarrollo.**
-
-Incluye:
-
-* Decisiones técnicas.
-* Decisiones de diseño.
-* Motivos de las decisiones.
-* Alternativas consideradas.
-* Justificación de cambios.
-
-**Estado:**
-
-✅ Actualizado
-
----
-
-## 📝 changelog.md
+## 📝 `CHANGELOG.md`
 
 **Registro de cambios y evolución de las versiones del proyecto.**
 
@@ -216,49 +276,11 @@ Permite consultar:
 * Mejoras.
 * Evolución del diseño.
 * Actualizaciones importantes del proyecto.
+* Cambios entre versiones.
 
 **Estado:**
 
 ✅ Actualizado
-
----
-
-## ⚙️ manual-tecnico.md
-
-**Guía técnica destinada a desarrolladores.**
-
-Incluirá:
-
-* Configuración del entorno.
-* Instalación del proyecto.
-* Estructura del código.
-* Base de datos.
-* Procesos internos.
-* Mantenimiento.
-* Implementación.
-
-**Estado:**
-
-⏳ Pendiente — Se elaborará al final del proyecto.
-
----
-
-## 👤 manual-usuario.md
-
-**Guía destinada a los usuarios finales de la plataforma.**
-
-Incluirá:
-
-* Acceso al sistema.
-* Registro.
-* Inicio de sesión.
-* Navegación.
-* Uso de funcionalidades.
-* Preguntas frecuentes.
-
-**Estado:**
-
-⏳ Pendiente — Se elaborará al final del proyecto.
 
 ---
 
@@ -276,12 +298,13 @@ Permite conocer:
 * Objetivo principal.
 * Información básica.
 * Tecnologías principales.
+* Estado general del proyecto.
 
 ---
 
 ### 2️⃣ Organización y planificación
 
-📄 `planificacion.md`
+📄 `docs/02_Planificacion.md`
 
 Permite conocer:
 
@@ -295,7 +318,7 @@ Permite conocer:
 
 ### 3️⃣ Requisitos del sistema
 
-📄 `requisitos.md`
+📄 `docs/03_Requisitos.md`
 
 Explica:
 
@@ -304,12 +327,13 @@ Explica:
 * Seguridad.
 * Compatibilidad.
 * Criterios de diseño.
+* Criterios de aceptación.
 
 ---
 
 ### 4️⃣ Arquitectura
 
-📄 `arquitectura.md`
+📄 `docs/04_Arquitectura.md`
 
 Describe:
 
@@ -317,13 +341,14 @@ Describe:
 * Tecnologías.
 * Arquitectura general.
 * Organización del sistema.
+* Módulos.
 * Relación entre diseño y desarrollo.
 
 ---
 
 ### 5️⃣ Diseño y evolución
 
-📄 `bitacora.md`
+📄 `docs/01_Bitacora.md`
 
 Permite revisar:
 
@@ -331,6 +356,7 @@ Permite revisar:
 * Actividades realizadas.
 * Avances.
 * Cambios importantes.
+* Progreso de las interfaces y UI/UX.
 
 ---
 
@@ -349,23 +375,25 @@ Permite conocer:
 
 ### 7️⃣ Historial de cambios
 
-📄 `changelog.md`
+📄 `CHANGELOG.md`
 
 Permite consultar:
 
 * Cambios realizados.
 * Mejoras.
+* Correcciones.
 * Evolución de versiones.
 
 ---
 
 ### 8️⃣ Roadmap
 
-📄 `roadmap.md`
+📄 `ROADMAP.md`
 
 Permite consultar:
 
 * Fases actuales.
+* Actividades en progreso.
 * Próximas actividades.
 * Objetivos futuros.
 * Estado general.
@@ -374,21 +402,29 @@ Permite consultar:
 
 ### 9️⃣ Manual Técnico
 
-📄 `manual-tecnico.md`
+📄 `docs/05_Manual_Tecnico.md`
 
 Documento destinado a desarrolladores y mantenimiento técnico.
 
-⏳ Pendiente hasta las etapas finales del proyecto.
+⏳ Pendiente hasta las etapas de implementación y pruebas.
 
 ---
 
 ### 🔟 Manual de Usuario
 
-📄 `manual-usuario.md`
+📄 `docs/06_Manual_Usuario.md`
 
 Documento destinado a los usuarios finales.
 
-⏳ Pendiente hasta las etapas finales del proyecto.
+⏳ Pendiente hasta que exista una versión funcional de la plataforma.
+
+---
+
+### 1️⃣1️⃣ Glosario
+
+📄 `glosario.md`
+
+Permite consultar los términos técnicos y conceptuales utilizados en el proyecto.
 
 ---
 
@@ -409,10 +445,14 @@ Arquitectura
 Diseño UI/UX
        │
        ▼
-Flujo de Información
+Implementación
+       │
+       ├── Frontend
+       ├── Backend
+       └── Base de datos
        │
        ▼
-Desarrollo
+Integración
        │
        ▼
 Pruebas
@@ -425,6 +465,8 @@ Despliegue
 ```
 
 Cada etapa utiliza como referencia la información definida en las anteriores.
+
+La Bitácora, el CHANGELOG y el registro de decisiones acompañan transversalmente el desarrollo para mantener un historial actualizado del proyecto.
 
 ---
 
@@ -464,6 +506,8 @@ Para mantener la calidad y consistencia de la documentación se aplican las sigu
 * ✅ Registrar los avances relevantes en la Bitácora.
 * ✅ Mantener sincronizados los documentos relacionados.
 * ✅ Utilizar Git para controlar las modificaciones.
+* ✅ Evitar información desactualizada respecto al estado real del proyecto.
+* ✅ Mantener la documentación alineada con la arquitectura definida.
 
 ---
 
@@ -494,6 +538,7 @@ Cada actualización importante debe incluir:
 * Actualización del CHANGELOG cuando corresponda.
 * Actualización de la Bitácora cuando sea necesario.
 * Modificación de la versión cuando corresponda.
+* Revisión de documentos relacionados.
 
 Ejemplo:
 
@@ -509,17 +554,18 @@ git push
 
 # 📅 Control de Cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                                            | Autor            |
-| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial del índice principal de documentación y organización de los documentos del proyecto.                                                                                                  | Santiago Emitola |
-| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con el avance de la Fase 3 — Diseño UI/UX.                                                                                                          | Santiago Emitola |
-| v0.1.0  | 05/09/2026 | Actualización general del índice documental según el avance del proyecto, incorporación de Design System, Components & Responsive, estados de componentes y flujo de información como siguiente etapa. | Santiago Emitola |
+| Versión | Fecha      | Descripción                                                                                                                                                                           | Autor            |
+| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial del índice principal de documentación y organización de los documentos del proyecto.                                                                                 | Santiago Emitola |
+| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con el avance de la etapa de Diseño UI/UX.                                                                                         | Santiago Emitola |
+| v0.1.0  | 05/09/2026 | Actualización general del índice documental según el avance del proyecto, incorporación de Design System, Components & Responsive, estados de componentes y estructura de navegación. | Santiago Emitola |
+| v0.1.1  | 07/10/2026 | Actualización general del índice documental, corrección de referencias de archivos, consolidación de la fase UI/UX y actualización del estado del proyecto a Fase 4 — Implementación. | Santiago Emitola |
 
 ---
 
 # 🚀 Estado Actual del Proyecto
 
-Actualmente **Raíces Alzate** se encuentra en la **Fase 3 — Diseño UI/UX**.
+Actualmente **Raíces Alzate** se encuentra en la **Fase 4 — Implementación**.
 
 ### Avances realizados
 
@@ -528,7 +574,7 @@ Actualmente **Raíces Alzate** se encuentra en la **Fase 3 — Diseño UI/UX**.
 * ✅ Arquitectura inicial.
 * ✅ Documentación base.
 * ✅ Sistema de identidad visual.
-* ✅ Paleta de colores institucional.
+* ✅ Paleta de colores.
 * ✅ Tipografía.
 * ✅ Sistema de espaciado.
 * ✅ Design System.
@@ -536,17 +582,29 @@ Actualmente **Raíces Alzate** se encuentra en la **Fase 3 — Diseño UI/UX**.
 * ✅ Estados de componentes.
 * ✅ Página Components & Responsive.
 * ✅ Criterios de diseño responsive.
+* ✅ Estructura de navegación.
+* ✅ Interfaces principales Desktop.
+* ✅ Adaptaciones Mobile trabajadas.
+* ✅ Consolidación de la fase de Diseño UI/UX.
+
+### Etapa actual
+
+* 🟡 Implementación frontend.
+* 🟡 Implementación backend.
+* 🟡 Implementación de la base de datos.
+* 🟡 Integración de los módulos.
 
 ### Próximos pasos
 
-* ⏳ Diseñar el flujo de información.
-* ⏳ Definir los recorridos principales de los usuarios.
-* ⏳ Diseñar wireframes.
-* ⏳ Diseñar mockups de alta fidelidad.
-* ⏳ Construir el prototipo navegable.
-* ⏳ Iniciar posteriormente el desarrollo frontend.
+* ⏳ Implementar las interfaces definidas en Figma.
+* ⏳ Preparar la estructura de la base de datos.
+* ⏳ Configurar PHP y MySQL.
+* ⏳ Implementar autenticación y permisos.
+* ⏳ Desarrollar progresivamente los módulos del sistema.
+* ⏳ Integrar frontend, backend y base de datos.
+* ⏳ Realizar las pruebas del sistema.
 
-Los manuales **Técnico** y **de Usuario** permanecerán pendientes hasta las etapas finales, cuando exista una versión funcional del sistema que permita documentarlos correctamente.
+Los manuales **Técnico** y **de Usuario** permanecerán pendientes hasta las etapas posteriores de implementación y pruebas, cuando exista una versión funcional que permita documentarlos correctamente.
 
 ---
 

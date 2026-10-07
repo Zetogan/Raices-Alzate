@@ -27,11 +27,13 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 * Consulta de información institucional.
 * Administración de usuarios.
 * Acceso a proyectos desarrollados por egresados.
+* Gestión y publicación de noticias.
 * Arquitectura modular y escalable.
 * Design System desarrollado en Figma.
 * Componentes reutilizables.
 * Estados de interacción de los componentes.
 * Diseño responsive.
+* Interfaces Desktop y Mobile.
 * Documentación técnica organizada.
 * Desarrollo basado en buenas prácticas.
 
@@ -58,9 +60,8 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 ```text
 raices-alzate/
 
-│
 ├── .github/
-│
+
 ├── assets/
 │   ├── css/
 │   ├── js/
@@ -68,7 +69,7 @@ raices-alzate/
 │   ├── icons/
 │   ├── fonts/
 │   └── videos/
-│
+
 ├── components/
 ├── config/
 ├── database/
@@ -76,7 +77,7 @@ raices-alzate/
 ├── includes/
 ├── pages/
 ├── uploads/
-│
+
 ├── .gitignore
 ├── README.md
 └── index.php
@@ -90,21 +91,21 @@ La estructura del proyecto está organizada de forma modular para facilitar el m
 
 Toda la documentación oficial del proyecto se encuentra organizada dentro de la carpeta **`docs/`**.
 
-| Documento           | Descripción                                       |
-| ------------------- | ------------------------------------------------- |
-| `README.md`         | Índice general de la documentación.               |
-| `bitacora.md`       | Registro cronológico del desarrollo del proyecto. |
-| `planificacion.md`  | Planificación general del proyecto.               |
-| `requisitos.md`     | Requisitos funcionales y no funcionales.          |
-| `arquitectura.md`   | Arquitectura general del sistema.                 |
-| `glosario.md`       | Definición de términos utilizados en el proyecto. |
-| `decisiones.md`     | Registro de decisiones importantes.               |
-| `changelog.md`      | Historial de cambios del proyecto.                |
-| `roadmap.md`        | Hoja de ruta y evolución del proyecto.            |
-| `manual-tecnico.md` | Manual dirigido a desarrolladores.                |
-| `manual-usuario.md` | Manual dirigido a usuarios finales.               |
+| Documento              | Descripción                                       |
+| ---------------------- | ------------------------------------------------- |
+| `README.md`            | Índice general de la documentación.               |
+| `01_Bitacora.md`       | Registro cronológico del desarrollo del proyecto. |
+| `02_Planificacion.md`  | Planificación general del proyecto.               |
+| `03_Requisitos.md`     | Requisitos funcionales y no funcionales.          |
+| `04_Arquitectura.md`   | Arquitectura general del sistema.                 |
+| `05_Manual_Tecnico.md` | Manual dirigido a desarrolladores.                |
+| `06_Manual_Usuario.md` | Manual dirigido a usuarios finales.               |
+| `glosario.md`          | Definición de términos utilizados en el proyecto. |
+| `decisiones.md`        | Registro de decisiones importantes.               |
+| `CHANGELOG.md`         | Historial de cambios del proyecto.                |
+| `ROADMAP.md`           | Hoja de ruta y evolución del proyecto.            |
 
-Los manuales Técnico y de Usuario se elaborarán durante las etapas finales del proyecto, cuando exista una versión funcional que permita documentar correctamente su funcionamiento.
+Los manuales Técnico y de Usuario se desarrollarán y completarán durante las etapas posteriores, cuando exista una versión funcional que permita documentar correctamente su funcionamiento.
 
 La documentación se mantiene actualizada durante todo el ciclo de desarrollo para garantizar la trazabilidad del proyecto.
 
@@ -112,43 +113,75 @@ La documentación se mantiene actualizada durante todo el ciclo de desarrollo pa
 
 # 🚧 Estado del Proyecto
 
-**Versión actual:** v0.1.0
+**Versión actual:** v0.1.1
 
 **Estado:** 🟡 En desarrollo
 
-**Fase actual:** Fase 2 — Diseño UI/UX
+**Fase actual:** Fase 4 — Implementación
 
-Actualmente **Raíces Alzate** se encuentra en la etapa de consolidación del diseño de la plataforma.
+La etapa de **Diseño UI/UX se encuentra finalizada**. Durante esta fase se consolidaron los fundamentos visuales, los componentes, el flujo de información, la estructura de navegación y las principales interfaces de la plataforma.
 
-Durante esta fase se han completado los fundamentos visuales y la biblioteca principal de componentes en Figma.
+Los resultados obtenidos en Figma serán utilizados como referencia para la implementación frontend y el posterior desarrollo de la lógica del sistema.
 
-### ✅ Diseño completado
+### ✅ Diseño UI/UX completado
 
 * Identidad visual.
-* Paleta de colores institucional.
+* Paleta de colores.
 * Tipografía.
 * Sistema de espaciado.
 * Design System.
 * Botones reutilizables.
-* Componentes reutilizables.
-* Estados de componentes.
-* Página Components & Responsive.
-* Criterios de diseño responsive.
-
-### Componentes trabajados
-
 * Inputs.
 * Checkbox.
 * Radio Button.
 * Switch.
-* Dropdown.
-* Badges.
-* Alerts.
-* Avatar.
-* Tables.
-* Botones.
+* Tablas.
+* Estados de componentes.
+* Página **Components & Responsive**.
+* Criterios de diseño responsive.
+* Flujo de información.
+* Estructura de navegación.
+* Interfaces principales Desktop.
+* Adaptaciones Mobile trabajadas.
+
+### Interfaces Desktop
+
+Durante la etapa de diseño se consolidaron las principales interfaces Desktop de la plataforma:
+
+1. Inicio.
+2. Autenticación.
+3. Dashboard.
+4. Perfil.
+5. Egresados.
+6. Proyectos.
+7. Noticias.
+8. Administración.
+9. Crear proyecto.
+10. Detalle de proyecto.
+11. Editar perfil.
+12. Recuperar contraseña.
+13. Registro.
+14. Editar proyecto.
+15. Crear noticia.
+16. Detalle de noticia.
+17. Editar noticia.
+
+### Adaptaciones Mobile
+
+Se desarrollaron adaptaciones Mobile de las interfaces priorizadas durante la etapa de diseño, incluyendo:
+
+* Inicio.
+* Autenticación.
+* Dashboard.
+* Mi perfil.
+* Mis proyectos.
+* Oportunidades.
+
+Estas adaptaciones servirán como referencia para la implementación responsive.
 
 ### Estados definidos
+
+Los componentes trabajados contemplan diferentes estados de interacción, entre ellos:
 
 * Normal.
 * Hover.
@@ -156,8 +189,8 @@ Durante esta fase se han completado los fundamentos visuales y la biblioteca pri
 * Selected.
 * Disabled.
 * Error.
-* Off.
 * On.
+* Off.
 
 ---
 
@@ -167,11 +200,13 @@ Durante esta fase se han completado los fundamentos visuales y la biblioteca pri
 | ---------------------- | ----------------------------- |
 | 📋 Planificación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 📚 Documentación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
-| 🎨 Diseño UI/UX        | 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ **80%**    |
+| 🎨 Diseño UI/UX        | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 💻 Desarrollo Frontend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
 | ⚙️ Desarrollo Backend  | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
 | 🧪 Pruebas             | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
 | 🚀 Despliegue          | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+
+> Los porcentajes representan el estado general de cada etapa y podrán modificarse conforme avance la implementación.
 
 ---
 
@@ -181,12 +216,23 @@ Durante esta fase se han completado los fundamentos visuales y la biblioteca pri
 
 * Configuración del repositorio.
 * Configuración de Git y GitHub.
-* Organización de la estructura del proyecto.
+* Organización de la estructura inicial del proyecto.
 * Creación de la documentación base.
 
 ---
 
-## ✅ Fase 1 — Documentación
+## ✅ Fase 1 — Planificación
+
+* Definición del propósito del proyecto.
+* Definición del objetivo general.
+* Identificación de las características principales.
+* Definición de tecnologías.
+* Organización inicial del proyecto.
+* Definición del flujo general de trabajo.
+
+---
+
+## ✅ Fase 2 — Documentación
 
 * Bitácora.
 * Planificación.
@@ -199,36 +245,117 @@ Durante esta fase se han completado los fundamentos visuales y la biblioteca pri
 * Glosario.
 * Índice de documentación.
 
-> Los manuales Técnico y de Usuario se mantienen pendientes hasta las etapas finales.
+> Los manuales Técnico y de Usuario se mantienen pendientes hasta las etapas posteriores, cuando exista una versión funcional que permita documentarlos correctamente.
 
 ---
 
-## 🔄 Fase 2 — Diseño UI/UX
+## ✅ Fase 3 — Diseño UI/UX
 
-### ✅ Completado
+### Design System
 
-* Design System.
 * Identidad visual.
 * Paleta de colores.
 * Tipografía.
 * Sistema de espaciado.
-* Botones reutilizables.
-* Biblioteca de componentes.
+* Botones.
 * Estados de componentes.
-* Components & Responsive.
+
+### Components & Responsive
+
+* Inputs.
+* Checkbox.
+* Radio Button.
+* Switch.
+* Tablas.
+* Estados de interacción.
 * Criterios responsive.
 
-### 🟡 En desarrollo
+### Estructura y flujo
 
 * Flujo de información.
-* Recorridos principales de usuarios.
 * Estructura de navegación.
+* Recorridos principales de usuarios.
 
-### ⏳ Pendiente
+### Interfaces
 
-* Wireframes.
-* Mockups de alta fidelidad.
-* Prototipo navegable.
+* Diseño de las principales interfaces Desktop.
+* Diseño de interfaces y adaptaciones Mobile trabajadas.
+* Consolidación visual de las pantallas.
+* Revisión general del sistema de diseño.
+
+**Estado:** Finalizada.
+
+---
+
+## 🔄 Fase 4 — Implementación
+
+La siguiente etapa corresponde a convertir los diseños y especificaciones definidas durante la fase UI/UX en una aplicación funcional.
+
+### Frontend
+
+* Construcción de la estructura HTML.
+* Implementación de estilos CSS.
+* Implementación de componentes reutilizables.
+* Adaptación responsive.
+* Implementación de las interfaces definidas en Figma.
+* Incorporación de interactividad mediante JavaScript.
+
+### Backend
+
+* Configuración de PHP.
+* Desarrollo de la lógica del sistema.
+* Implementación de autenticación.
+* Gestión de usuarios y roles.
+* Gestión de perfiles.
+* Gestión de egresados.
+* Gestión de proyectos.
+* Gestión de noticias.
+* Funcionalidades administrativas.
+
+### Base de datos
+
+* Diseño de la estructura de la base de datos.
+* Creación de tablas.
+* Definición de relaciones.
+* Configuración de claves primarias y foráneas.
+* Integración con PHP.
+* Pruebas de consultas y operaciones CRUD.
+
+### Integración
+
+* Conexión frontend y backend.
+* Integración con MySQL.
+* Validación de formularios.
+* Gestión de sesiones.
+* Control de permisos.
+* Integración de los diferentes módulos.
+
+---
+
+## ⏳ Fase 5 — Pruebas
+
+* Pruebas funcionales.
+* Pruebas de formularios.
+* Pruebas de autenticación.
+* Pruebas de permisos y roles.
+* Pruebas de operaciones CRUD.
+* Pruebas responsive.
+* Corrección de errores.
+* Validación general de las interfaces.
+
+---
+
+## ⏳ Fase 6 — Despliegue y cierre
+
+* Preparación del entorno de producción.
+* Configuración del servidor.
+* Configuración de la base de datos.
+* Despliegue de la aplicación.
+* Pruebas finales.
+* Elaboración del Manual Técnico.
+* Elaboración del Manual de Usuario.
+* Actualización final de la documentación.
+* Preparación de la versión estable del proyecto.
 
 ---
 
@@ -236,7 +363,7 @@ Durante esta fase se han completado los fundamentos visuales y la biblioteca pri
 
 ## Requisitos previos
 
-Antes de ejecutar el proyecto se debe contar con:
+Para preparar el entorno de desarrollo se debe contar con:
 
 * PHP 8.0 o superior.
 * MySQL 8.0 o superior.
@@ -265,10 +392,13 @@ cd Raices-Alzate
 ## Configurar el entorno
 
 1. Configurar un servidor local compatible con PHP.
-2. Importar la base de datos ubicada en `database/`.
-3. Configurar los parámetros de conexión a la base de datos.
-4. Iniciar el servidor local.
-5. Abrir el proyecto desde el navegador.
+2. Ubicar el proyecto dentro del directorio correspondiente del servidor local.
+3. Configurar la base de datos cuando se encuentre disponible para la implementación.
+4. Configurar los parámetros de conexión a la base de datos.
+5. Iniciar el servidor local.
+6. Abrir el proyecto desde el navegador.
+
+> Los pasos de configuración de la base de datos podrán ampliarse cuando la estructura definitiva sea implementada.
 
 ---
 
@@ -280,10 +410,12 @@ Las funcionalidades previstas incluyen:
 
 * Registro de usuarios.
 * Inicio de sesión.
+* Recuperación de contraseña.
+* Gestión de perfiles.
 * Gestión de egresados.
 * Administración de usuarios.
-* Publicación de proyectos.
-* Actualización de perfiles.
+* Publicación y gestión de proyectos.
+* Publicación y gestión de noticias.
 * Gestión institucional.
 * Panel administrativo.
 
@@ -293,23 +425,38 @@ Estas funcionalidades serán implementadas progresivamente durante las fases de 
 
 # 📅 Próximos Objetivos
 
-El siguiente objetivo corresponde a continuar con la **Fase 2 — Diseño UI/UX**.
+El siguiente objetivo corresponde a continuar con la **Fase 4 — Implementación**.
 
-## 🎨 Diseño
+## 💻 Frontend
 
-* Diseñar el flujo de información.
-* Definir los recorridos principales de los usuarios.
-* Definir la estructura de navegación.
+* Convertir las interfaces diseñadas en Figma a HTML y CSS.
+* Implementar los componentes definidos en el Design System.
+* Implementar la estructura responsive.
+* Incorporar la interactividad necesaria mediante JavaScript.
+* Mantener correspondencia entre las interfaces desarrolladas y los diseños aprobados.
 
-## 🖼️ Interfaces
+## ⚙️ Backend
 
-* Elaborar los wireframes.
-* Diseñar los mockups de alta fidelidad.
-* Construir el prototipo navegable en Figma.
+* Preparar la estructura PHP.
+* Implementar la conexión con MySQL.
+* Desarrollar autenticación y gestión de sesiones.
+* Implementar roles y permisos.
+* Desarrollar las funcionalidades principales de la plataforma.
 
-## 💻 Desarrollo
+## 🗄️ Base de datos
 
-Una vez finalizada la etapa de diseño UI/UX se iniciará el desarrollo frontend y posteriormente el desarrollo backend.
+* Definir la estructura definitiva.
+* Crear las tablas necesarias.
+* Establecer relaciones.
+* Implementar operaciones CRUD.
+* Integrar la base de datos con el backend.
+
+## 🧪 Pruebas
+
+* Validar funcionalidades.
+* Detectar y corregir errores.
+* Verificar comportamiento responsive.
+* Comprobar la integración entre frontend, backend y base de datos.
 
 ---
 
@@ -362,7 +509,7 @@ Su acompañamiento fortalece la construcción de una plataforma que busca manten
 
 ### Conectando generaciones, fortaleciendo el futuro.
 
-**Versión actual:** v0.1.0
+**Versión actual:** v0.1.1
 
 Desarrollado con ❤️ por el equipo de **Raíces Alzate**.
 
