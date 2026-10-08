@@ -1,0 +1,194 @@
+/**
+ * Raíces Alzate - Componente Footer Institucional
+ * Especificación Design System: Fondo #212121 | Padding: 48px 0 32px
+ * Módulo independiente de estilos del pie de página institucional
+ */
+
+/* ==========================================================================
+   1. CONTENEDOR PRINCIPAL DEL FOOTER
+   ========================================================================== */
+.site-footer,
+.footer {
+    background-color: #212121;
+    color: #FFFFFF;
+    padding: 48px 0 32px 0; /* Espaciado superior e inferior generoso */
+    width: 100%;
+    margin-top: auto;
+    box-sizing: border-box;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    padding-left: var(--space-24, 24px);
+    padding-right: var(--space-24, 24px);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. BLOQUE SUPERIOR (GRILLA DE 3 COLUMNAS)
+   ========================================================================== */
+.footer-main,
+.footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 32px;
+}
+
+/* Columnas */
+.footer-col,
+.footer-column,
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Títulos de columna */
+.footer-col h4,
+.footer-col .footer-title,
+.footer-column .footer-title,
+.footer-brand-title {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+}
+
+/* Cabecera de marca en footer (Logo + Título) */
+.footer-brand-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12, 12px);
+    margin-bottom: 16px;
+}
+
+.footer-brand-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+.footer-brand-header .footer-brand-title {
+    margin-bottom: 0;
+}
+
+/* Textos descriptivos */
+.footer-col p,
+.footer-col .footer-desc,
+.footer-desc,
+.footer-text {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 14px;
+    color: #9E9E9E;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 320px;
+}
+
+/* ==========================================================================
+   3. ENLACES DE NAVEGACIÓN Y RESET DE SUBRAYADO
+   ========================================================================== */
+.footer-nav-list,
+.footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer a,
+.site-footer a,
+.footer-nav-list a,
+.footer-links a,
+.footer-link {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 14px;
+    color: #9E9E9E;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: color 0.2s ease;
+    display: inline-block;
+}
+
+.footer a:visited,
+.site-footer a:visited,
+.footer-nav-list a:visited,
+.footer-links a:visited,
+.footer-link:visited {
+    color: #9E9E9E;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.footer a:hover,
+.site-footer a:hover,
+.footer-nav-list a:hover,
+.footer-links a:hover,
+.footer-link:hover,
+.footer a:focus,
+.site-footer a:focus,
+.footer-nav-list a:focus,
+.footer-links a:focus,
+.footer-link:focus {
+    color: #FFFFFF;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* ==========================================================================
+   4. LÍNEA DIVISORIA Y COPYRIGHT INFERIOR
+   ========================================================================== */
+.footer-divider {
+    border: none;
+    border-top: 1px solid #333333;
+    margin: 0 0 24px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #333333;
+    padding-top: 24px;
+}
+
+.footer-copyright,
+.copyright {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 12px;
+    color: #757575;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN (FOOTER MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .site-footer,
+    .footer {
+        padding: 36px 0 24px 0;
+    }
+
+    .footer-main,
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-bottom: 24px;
+    }
+
+    .footer-bottom {
+        padding-top: 16px;
+    }
+}

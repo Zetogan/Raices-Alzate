@@ -14,7 +14,7 @@
 | Versión Actual       | v0.1.1                                                                                                |
 | Estado               | 🟡 En desarrollo                                                                                      |
 | Fase Actual          | Fase 4 — Implementación                                                                               |
-| Última Actualización | 07 de octubre de 2026                                                                                 |
+| Última Actualización | 08 de octubre de 2026                                                                                 |
 
 ---
 
@@ -26,7 +26,9 @@ La documentación permite mantener un historial organizado del proyecto, facilit
 
 Actualmente, la documentación se encuentra sincronizada con la **Fase 4 — Implementación**.
 
-Las fases de **Planificación**, **Documentación** y **Diseño UI/UX** se encuentran consolidadas. La etapa actual corresponde a la implementación frontend, backend y base de datos, tomando como referencia las estructuras e interfaces definidas durante el proceso de diseño.
+Las fases de **Planificación**, **Documentación** y **Diseño UI/UX** se encuentran consolidadas. La etapa actual corresponde principalmente a la **implementación frontend**, utilizando como referencia las estructuras, componentes, recorridos e interfaces definidos durante el proceso de diseño.
+
+La implementación backend y la definición de la estructura definitiva de la base de datos todavía se encuentran pendientes de desarrollo funcional.
 
 ---
 
@@ -36,7 +38,6 @@ La documentación se organiza de acuerdo con las diferentes necesidades del proy
 
 ```text
 docs/
-
 ├── README.md
 ├── 01_Bitacora.md
 ├── 02_Planificacion.md
@@ -71,6 +72,7 @@ Contiene:
 * Evolución del proyecto.
 * Progreso de Figma y UI/UX.
 * Avance de las diferentes fases.
+* Avances de implementación.
 
 **Estado:**
 
@@ -93,6 +95,7 @@ Incluye:
 * Plan de trabajo.
 * Entregables.
 * Criterios de finalización.
+* Avance de implementación.
 
 **Estado:**
 
@@ -116,6 +119,7 @@ Incluye:
 * Responsive.
 * Interfaces diseñadas.
 * Criterios de aceptación.
+* Estado de implementación.
 
 **Estado:**
 
@@ -141,6 +145,9 @@ Incluye:
 * Componentes reutilizables.
 * Estados de los componentes.
 * Criterios responsive.
+* Estructura frontend.
+* Organización de estilos CSS.
+* Componentes PHP.
 * Referencia para la implementación.
 
 **Estado:**
@@ -277,6 +284,7 @@ Permite consultar:
 * Evolución del diseño.
 * Actualizaciones importantes del proyecto.
 * Cambios entre versiones.
+* Avances de implementación.
 
 **Estado:**
 
@@ -313,6 +321,7 @@ Permite conocer:
 * Objetivos.
 * Metodología.
 * Estado del desarrollo.
+* Plan de trabajo.
 
 ---
 
@@ -343,6 +352,7 @@ Describe:
 * Organización del sistema.
 * Módulos.
 * Relación entre diseño y desarrollo.
+* Estructura frontend.
 
 ---
 
@@ -357,6 +367,7 @@ Permite revisar:
 * Avances.
 * Cambios importantes.
 * Progreso de las interfaces y UI/UX.
+* Avances de implementación.
 
 ---
 
@@ -544,9 +555,7 @@ Ejemplo:
 
 ```bash
 git add .
-
 git commit -m "docs: consolidar documentación del proyecto"
-
 git push
 ```
 
@@ -554,12 +563,13 @@ git push
 
 # 📅 Control de Cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                           | Autor            |
-| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial del índice principal de documentación y organización de los documentos del proyecto.                                                                                 | Santiago Emitola |
-| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con el avance de la etapa de Diseño UI/UX.                                                                                         | Santiago Emitola |
-| v0.1.0  | 05/09/2026 | Actualización general del índice documental según el avance del proyecto, incorporación de Design System, Components & Responsive, estados de componentes y estructura de navegación. | Santiago Emitola |
-| v0.1.1  | 07/10/2026 | Actualización general del índice documental, corrección de referencias de archivos, consolidación de la fase UI/UX y actualización del estado del proyecto a Fase 4 — Implementación. | Santiago Emitola |
+| Versión | Fecha      | Descripción                                                                                                                                                                                        | Autor            |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial del índice principal de documentación y organización de los documentos del proyecto.                                                                                              | Santiago Emitola |
+| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con el avance de la etapa de Diseño UI/UX.                                                                                                      | Santiago Emitola |
+| v0.1.0  | 05/09/2026 | Actualización general del índice documental según el avance del proyecto, incorporación de Design System, Components & Responsive, estados de componentes y estructura de navegación.              | Santiago Emitola |
+| v0.1.1  | 07/10/2026 | Actualización general del índice documental, corrección de referencias de archivos, consolidación de la fase UI/UX y actualización del estado del proyecto a Fase 4 — Implementación.              | Santiago Emitola |
+| v0.1.1  | 08/10/2026 | Actualización del índice documental según el inicio de la implementación frontend, incorporación del estado de Inicio, estructura CSS modular, componentes PHP reutilizables y avances responsive. | Santiago Emitola |
 
 ---
 
@@ -586,23 +596,35 @@ Actualmente **Raíces Alzate** se encuentra en la **Fase 4 — Implementación**
 * ✅ Interfaces principales Desktop.
 * ✅ Adaptaciones Mobile trabajadas.
 * ✅ Consolidación de la fase de Diseño UI/UX.
+* ✅ Estructura base del frontend.
+* ✅ Componentes PHP reutilizables para Header y Footer.
+* ✅ Estructura CSS modular.
+* ✅ Interfaz Inicio Desktop.
+* ✅ Interfaz Inicio Mobile.
+* ✅ Navegación responsive.
+* ✅ Isotipo integrado.
+* ✅ Favicon integrado.
+* ✅ Conexión PHP → MySQL verificada.
 
 ### Etapa actual
 
 * 🟡 Implementación frontend.
-* 🟡 Implementación backend.
-* 🟡 Implementación de la base de datos.
-* 🟡 Integración de los módulos.
+* ⏳ Implementación backend funcional.
+* ⏳ Diseño e implementación de la estructura definitiva de la base de datos.
+* ⏳ Integración completa de los módulos.
 
 ### Próximos pasos
 
-* ⏳ Implementar las interfaces definidas en Figma.
-* ⏳ Preparar la estructura de la base de datos.
-* ⏳ Configurar PHP y MySQL.
+* ⏳ Revisar la implementación de Inicio contra Figma.
+* ⏳ Corregir diferencias visuales o estructurales.
+* ⏳ Continuar con las interfaces restantes.
+* ⏳ Implementar progresivamente los módulos frontend.
+* ⏳ Definir la estructura definitiva de la base de datos según las necesidades reales del sistema.
+* ⏳ Implementar las funcionalidades backend.
 * ⏳ Implementar autenticación y permisos.
-* ⏳ Desarrollar progresivamente los módulos del sistema.
 * ⏳ Integrar frontend, backend y base de datos.
 * ⏳ Realizar las pruebas del sistema.
+* ⏳ Completar los manuales Técnico y de Usuario.
 
 Los manuales **Técnico** y **de Usuario** permanecerán pendientes hasta las etapas posteriores de implementación y pruebas, cuando exista una versión funcional que permita documentarlos correctamente.
 

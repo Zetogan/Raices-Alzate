@@ -17,7 +17,7 @@
 | Estado               | 🟡 En desarrollo                               |
 | Versión actual       | v0.1.1                                         |
 | Fase actual          | Fase 4 — Implementación                        |
-| Última actualización | 7 de octubre de 2026                           |
+| Última actualización | 8 de octubre de 2026                           |
 
 ---
 
@@ -475,6 +475,92 @@ El diseño desarrollado en Figma quedó establecido como referencia visual para 
 
 ---
 
+## 📅 08 de octubre de 2026 (Sesión 15)
+
+### Objetivo de la sesión
+
+Iniciar formalmente la implementación frontend de **Raíces Alzate**, trasladando a código la referencia visual definida durante la Fase 3 y estableciendo una base modular para el desarrollo de las interfaces.
+
+### Actividades realizadas
+
+* Se inició la implementación frontend correspondiente a la Fase 4.
+* Se implementó la estructura inicial de la pantalla **Inicio**.
+* Se creó la estructura modular del Header y Footer mediante componentes PHP reutilizables.
+* Se ajustó el Header para mantener una estructura responsive.
+* Se corrigió la estructura HTML del menú de navegación.
+* Se implementó el comportamiento responsive del menú para dispositivos móviles.
+* Se mantuvo visible la opción **Iniciar sesión** en la barra superior Mobile.
+* Se trasladó la opción **Registrarse** al menú desplegable Mobile para evitar saturación visual.
+* Se incorporó el isotipo institucional junto al nombre de **Raíces Alzate**.
+* Se implementó el Footer con estructura de tres columnas.
+* Se incorporó el isotipo institucional en el Footer.
+* Se agregaron los enlaces principales de navegación.
+* Se incorporó la información institucional correspondiente.
+* Se estableció el texto legal:
+  `© 2025–2026 Raíces Alzate. Todos los derechos reservados.`
+* Se incorporó el favicon institucional.
+* Se inició la modularización de los estilos CSS.
+* Se mantuvo `main.css` como archivo base de estilos y tokens del Design System.
+* Se creó `fonts.css` para centralizar la tipografía Inter y sus pesos disponibles.
+* Se creó `header.css` para separar los estilos específicos del Header.
+* Se creó `footer.css` para separar los estilos específicos del Footer.
+* Se mantuvieron los colores y espaciados definidos durante la etapa de Diseño UI/UX.
+* Se implementaron los estilos base para la referencia Desktop de `1440 px`.
+* Se inició la adaptación responsive tomando como referencia el diseño Mobile de `390 px`.
+* Se revisó la eliminación de subrayados y estilos de enlace que no corresponden al diseño establecido.
+* Se mantuvo la arquitectura basada en PHP, HTML, CSS y JavaScript sin incorporar frameworks frontend.
+
+### Dificultades encontradas
+
+* Fue necesario adaptar la estructura diseñada en Figma a una implementación HTML/PHP reutilizable.
+* El Header requería ajustes específicos para conservar su distribución en Desktop y evitar saturación en Mobile.
+* La organización inicial de los estilos requería una separación más clara entre estilos generales y estilos específicos de cada componente.
+
+### Solución aplicada
+
+* Se implementaron componentes PHP reutilizables para Header y Footer.
+* Se desarrolló un menú responsive mediante CSS y JavaScript vanilla.
+* Se mantuvo una jerarquía de estilos modular mediante `main.css`, `fonts.css`, `header.css` y `footer.css`.
+* Se conservaron los tokens visuales definidos durante el Design System para mantener consistencia entre Figma y la implementación.
+* Se realizaron ajustes específicos para Mobile sin alterar la referencia Desktop.
+
+### Resultado
+
+La implementación frontend inicial quedó establecida con:
+
+* Estructura base de la pantalla **Inicio**.
+* Header reutilizable.
+* Footer reutilizable.
+* Sistema de estilos base.
+* Tipografía Inter centralizada.
+* Estilos independientes para Header y Footer.
+* Navegación responsive.
+* Favicon institucional.
+* Referencia Desktop de `1440 px`.
+* Referencia Mobile de `390 px`.
+
+La pantalla **Inicio** constituye la primera interfaz de la plataforma trasladada desde Figma a código.
+
+### Próximas actividades
+
+* Revisar visualmente la implementación de **Inicio - Desktop** frente a Figma.
+* Revisar la implementación de **Inicio - Mobile** frente a Figma.
+* Corregir diferencias visuales encontradas durante la revisión.
+* Continuar con la implementación de las siguientes interfaces.
+* Mantener la estructura modular de componentes y estilos.
+* Integrar progresivamente la lógica PHP y los datos reales.
+* Definir posteriormente las tablas de la base de datos según las necesidades reales de las interfaces implementadas.
+
+### Observaciones
+
+Esta sesión marca el inicio efectivo de la implementación frontend de **Raíces Alzate**.
+
+La Fase 3 — Diseño UI/UX permanece cerrada y el diseño de Figma continúa siendo la referencia visual principal para la implementación.
+
+La conexión PHP → MySQL ya había sido verificada previamente, pero la construcción definitiva de las tablas de la base de datos aún no forma parte de esta sesión.
+
+---
+
 # Estado actual del proyecto
 
 **Fase actual:** Fase 4 — Implementación
@@ -515,20 +601,36 @@ Se desarrollaron:
 * Adaptaciones Mobile.
 * Revisión y consolidación final del diseño.
 
-## Próxima etapa
+## Fase actual
 
 ### Fase 4 — Implementación
 
-La siguiente etapa corresponde al desarrollo funcional de **Raíces Alzate**.
+En desarrollo.
 
-Las actividades principales serán:
+Durante esta etapa se inició la transformación de las interfaces diseñadas en Figma en una implementación funcional mediante PHP, HTML, CSS y JavaScript.
 
-* Preparar la estructura de implementación.
-* Configurar el entorno de desarrollo.
-* Construir las interfaces frontend.
-* Implementar los componentes definidos en el Design System.
-* Crear y configurar la base de datos.
-* Implementar la lógica backend.
+Hasta el momento se ha establecido:
+
+* Estructura frontend inicial.
+* Componentes reutilizables de Header y Footer.
+* Base de estilos modular.
+* Sistema de tipografía centralizado.
+* Navegación responsive.
+* Favicon institucional.
+* Implementación inicial de la pantalla **Inicio** en Desktop.
+* Adaptación inicial de **Inicio** para Mobile.
+
+Las demás interfaces diseñadas en Figma permanecen pendientes de implementación.
+
+### Próximas actividades de la Fase 4
+
+* Validar visualmente **Inicio - Desktop**.
+* Validar visualmente **Inicio - Mobile**.
+* Corregir diferencias respecto a Figma.
+* Implementar progresivamente las demás interfaces.
+* Integrar los componentes reutilizables.
+* Implementar la lógica funcional.
+* Definir la estructura definitiva de la base de datos.
 * Integrar frontend, backend y base de datos.
 * Implementar autenticación y roles.
 * Realizar pruebas funcionales.
@@ -539,10 +641,14 @@ Las actividades principales serán:
 
 # Observaciones generales
 
-**Raíces Alzate** se encuentra en desarrollo desde **2025** y ha avanzado progresivamente mediante etapas de planificación, documentación y diseño.
+**Raíces Alzate** se encuentra en desarrollo desde **2025** y ha avanzado progresivamente mediante etapas de planificación, documentación, diseño e implementación.
 
 Las actividades registradas durante 2026 corresponden a diferentes sesiones de consolidación y desarrollo del proyecto.
 
-La finalización de la Fase 3 representa un punto importante del proyecto, ya que actualmente existe una referencia visual y estructural definida para iniciar la implementación.
+La finalización de la Fase 3 permitió establecer una referencia visual y estructural completa para iniciar la implementación.
 
-A partir de la Fase 4, las decisiones tomadas durante el diseño deberán utilizarse como base para desarrollar una implementación funcional, manteniendo la consistencia visual, la arquitectura modular, el diseño responsive y los principios establecidos en la documentación.
+Con la sesión del 08 de octubre de 2026 se inició formalmente la implementación frontend, comenzando por la pantalla **Inicio** y por la construcción de componentes compartidos como Header y Footer.
+
+A partir de esta etapa, las decisiones tomadas durante el diseño deberán utilizarse como base para desarrollar una implementación funcional, manteniendo la consistencia visual, la arquitectura modular, el diseño responsive y los principios establecidos en la documentación.
+
+La implementación continuará de manera progresiva, validando cada interfaz frente a su referencia en Figma antes de avanzar a la siguiente.

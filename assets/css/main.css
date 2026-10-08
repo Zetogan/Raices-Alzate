@@ -1,0 +1,424 @@
+/**
+ * Raíces Alzate - Hoja de Estilos Principal (Design System & Base)
+ * Pantalla de referencia: 01 - Inicio - Desktop (Resolución: 1440 × 1472 px)
+ * Arquitectura modular: Variables, Reset, Layout Base, Componentes Globales y Secciones
+ */
+
+/* ==========================================================================
+   1. VARIABLES Y DESIGN SYSTEM TOKENS
+   ========================================================================== */
+:root {
+    /* Paleta de colores oficial */
+    --color-primary: #D32F2F;
+    --color-primary-hover: #B71C1C;
+    --color-primary-active: #9A0007;
+    --color-primary-light: #FFEBEE;
+
+    --color-secondary: #1565C0;
+    --color-secondary-hover: #0D47A1;
+    --color-secondary-active: #002171;
+    --color-secondary-light: #E3F2FD;
+
+    --color-text-main: #212121;
+    --color-text-secondary: #757575;
+    --color-text-muted: #9E9E9E;
+    --color-bg-light: #F5F5F5;
+    --color-white: #FFFFFF;
+    --color-border: #E0E0E0;
+    --color-separator-dark: #333333;
+
+    /* Escala de espaciado oficial */
+    --space-4: 4px;
+    --space-8: 8px;
+    --space-12: 12px;
+    --space-16: 16px;
+    --space-24: 24px;
+    --space-32: 32px;
+    --space-48: 48px;
+    --space-64: 64px;
+
+    /* Tipografía */
+    --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-md: 1.125rem;    /* 18px */
+    --font-size-lg: 1.25rem;     /* 20px */
+    --font-size-xl: 1.5rem;      /* 24px */
+    --font-size-2xl: 1.75rem;    /* 28px */
+    --font-size-3xl: 2.25rem;    /* 36px */
+    --font-size-hero: 2.5rem;    /* 40px */
+
+    /* Medidas exactas por bloque: suma total = 1472px en viewport de 1440px */
+    --layout-desktop-width: 1440px;
+    --container-max-width: 1200px;
+    --section-header-height: 72px;
+    --section-hero-height: 500px;
+    --section-que-es-height: 320px;
+    --section-beneficios-height: 360px;
+    --section-footer-height: 220px;
+
+    /* Radios de borde según Design System */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+    --radius-pill: 9999px;
+
+    /* Transiciones */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-base: 0.2s ease-in-out;
+}
+
+/* ==========================================================================
+   2. RESET Y ESTILOS BASE
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    color: var(--color-text-main);
+    background-color: var(--color-white);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-main);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+/* Reset global de enlaces y anulación estricta de subrayado */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-fast);
+}
+
+a:visited,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==========================================================================
+   3. CONTENEDORES Y ESTRUCTURA GENERAL
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-24);
+    padding-right: var(--space-24);
+}
+
+.main-content {
+    flex: 1 0 auto;
+}
+
+.section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-text-main);
+    line-height: 1.25;
+}
+
+/* Tarjeta / Placeholder blanco visual con bordes redondeados y borde sutil */
+.visual-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================================
+   4. COMPONENTES GLOBALES (Botones)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    line-height: 1.25;
+    padding: var(--space-12) var(--space-24);
+    border-radius: var(--radius-md); /* 6px */
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    transition: background-color var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast),
+                transform var(--transition-fast);
+    user-select: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: var(--color-white);
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* ==========================================================================
+   5. SECCIÓN HERO (Altura: 500px | Fondo: #F5F5F5)
+   ========================================================================== */
+.hero-section {
+    height: var(--section-hero-height);
+    background-color: var(--color-bg-light); /* #F5F5F5 */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-48);
+    align-items: center;
+    height: 100%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-title {
+    font-size: var(--font-size-hero);
+    font-weight: 700;
+    color: var(--color-text-main);
+    line-height: 1.18;
+    margin-bottom: var(--space-16);
+}
+
+.hero-desc {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-32);
+    max-width: 480px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+}
+
+.hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--space-32) 0;
+    box-sizing: border-box;
+}
+
+.hero-placeholder {
+    height: 380px;
+}
+
+/* ==========================================================================
+   6. SECCIÓN "¿QUÉ ES RAÍCES ALZATE?" (Altura: 320px | Fondo: #FFFFFF)
+   ========================================================================== */
+.que-es-section {
+    height: var(--section-que-es-height);
+    background-color: var(--color-white); /* #FFFFFF */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.que-es-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-48);
+    align-items: center;
+    height: 100%;
+}
+
+.que-es-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.que-es-content .section-title {
+    margin-bottom: var(--space-16);
+}
+
+.que-es-desc {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+.que-es-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--space-24) 0;
+    box-sizing: border-box;
+}
+
+.que-es-placeholder {
+    height: 240px;
+}
+
+/* ==========================================================================
+   7. SECCIÓN "¿POR QUÉ USAR RAÍCES ALZATE?" (Altura: 360px | Fondo: #F5F5F5)
+   ========================================================================== */
+.beneficios-section {
+    height: var(--section-beneficios-height);
+    background-color: var(--color-bg-light); /* #F5F5F5 */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.beneficios-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.beneficios-title {
+    text-align: center;
+    margin-bottom: var(--space-32);
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-24);
+}
+
+.benefit-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-24);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.benefit-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+}
+
+.benefit-card-title {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin-bottom: var(--space-8);
+    line-height: 1.2;
+}
+
+.benefit-card-text {
+    font-size: var(--font-size-xs);   /* 12px exactos */
+    font-weight: 400;                /* Inter Regular */
+    color: var(--color-text-secondary); /* #757575 */
+    line-height: 1.5;
+    max-width: 250px;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN (SECCIONES Y CONTENEDORES)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .hero-container,
+    .que-es-container {
+        gap: var(--space-32);
+    }
+
+    .hero-title {
+        font-size: var(--font-size-3xl);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: auto;
+        min-height: var(--section-hero-height);
+        padding-top: var(--space-48);
+        padding-bottom: var(--space-48);
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-32);
+    }
+
+    .que-es-section {
+        height: auto;
+        min-height: var(--section-que-es-height);
+        padding-top: var(--space-32);
+        padding-bottom: var(--space-32);
+    }
+
+    .que-es-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-24);
+    }
+
+    .beneficios-section {
+        height: auto;
+        min-height: var(--section-beneficios-height);
+        padding-top: var(--space-32);
+        padding-bottom: var(--space-32);
+    }
+
+    .beneficios-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+    }
+}

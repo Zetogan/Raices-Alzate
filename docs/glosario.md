@@ -35,6 +35,7 @@ Este glosario será actualizado de forma continua conforme evolucionen las funci
 * [Desarrollo Web](#desarrollo-web)
 * [Diseño UI/UX](#diseño-uiux)
 * [Tecnologías](#tecnologías)
+* [Arquitectura Frontend](#arquitectura-frontend)
 * [Control de Versiones](#control-de-versiones)
 * [Usuarios y Roles](#usuarios-y-roles)
 * [Base de Datos](#base-de-datos)
@@ -98,15 +99,34 @@ Este glosario será actualizado de forma continua conforme evolucionen las funci
 
 # Tecnologías
 
-| Término        | Definición                                                                                                               | Documento relacionado                        |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| **CSS**        | Lenguaje utilizado para definir la apariencia visual, distribución y estilos de la aplicación web.                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **HTML**       | Lenguaje de marcado utilizado para estructurar las páginas y elementos de la aplicación web.                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **JavaScript** | Lenguaje utilizado para implementar interactividad y comportamientos dinámicos en la interfaz.                           | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **MySQL**      | Sistema gestor de bases de datos utilizado para almacenar y administrar la información de la plataforma.                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **PHP**        | Lenguaje de programación utilizado para desarrollar la lógica del backend de la plataforma.                              | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Inter**      | Familia tipográfica utilizada como tipografía principal en las interfaces de la plataforma.                              | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Poppins**    | Familia tipográfica utilizada inicialmente dentro de la definición del Design System durante la etapa inicial de diseño. | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| Término                | Definición                                                                                                                           | Documento relacionado                        |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| **CSS**                | Lenguaje utilizado para definir la apariencia visual, distribución y estilos de la aplicación web.                                   | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **HTML**               | Lenguaje de marcado utilizado para estructurar las páginas y elementos de la aplicación web.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **JavaScript**         | Lenguaje utilizado para implementar interactividad y comportamientos dinámicos en la interfaz.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **MySQL**              | Sistema gestor de bases de datos utilizado para almacenar y administrar la información de la plataforma.                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **PHP**                | Lenguaje de programación utilizado para desarrollar la lógica del servidor y generar las interfaces dinámicas de la plataforma.      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Inter**              | Familia tipográfica utilizada como tipografía principal en las interfaces de la plataforma.                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Poppins**            | Familia tipográfica utilizada inicialmente dentro de la definición del Design System durante la etapa inicial de diseño.             | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| **Vanilla JavaScript** | Uso de JavaScript sin depender de frameworks o bibliotecas frontend adicionales para implementar la interactividad de la plataforma. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+
+---
+
+# Arquitectura Frontend
+
+| Término                         | Definición                                                                                                                                                                                | Documento relacionado                        |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **Componente PHP reutilizable** | Archivo PHP diseñado para contener una parte de la interfaz que puede utilizarse en diferentes páginas del sistema, evitando duplicación de código.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Front Controller**            | Punto de entrada principal de la aplicación web encargado de iniciar la configuración común y cargar la página correspondiente. En el proyecto, esta función se encuentra en `index.php`. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **CSS modular**                 | Organización de los estilos en diferentes archivos según la responsabilidad de cada parte de la interfaz.                                                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **main.css**                    | Hoja de estilos principal que contiene estilos generales, variables visuales, espaciados y reglas compartidas por la aplicación.                                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **fonts.css**                   | Hoja de estilos destinada a centralizar la configuración tipográfica y la carga de las fuentes utilizadas por la interfaz.                                                                | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **header.css**                  | Hoja de estilos encargada de definir la apariencia y comportamiento responsive del encabezado y la navegación.                                                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **footer.css**                  | Hoja de estilos encargada de definir la apariencia y distribución del pie de página.                                                                                                      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Header**                      | Encabezado principal de la interfaz que contiene la identidad de Raíces Alzate, navegación y acciones principales del usuario.                                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Footer**                      | Pie de página que contiene información institucional, navegación secundaria y datos legales de la plataforma.                                                                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Favicon**                     | Icono asociado al sitio web que se muestra en elementos del navegador como la pestaña de la página.                                                                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| **Responsive Navigation**       | Sistema de navegación que adapta la presentación del menú según el tamaño de pantalla, incluyendo el menú lateral utilizado en dispositivos móviles.                                      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 
 ---
 
@@ -151,18 +171,23 @@ Este glosario será actualizado de forma continua conforme evolucionen las funci
 | **Consulta (Query)**             | Instrucción utilizada para solicitar, modificar o administrar información almacenada en la base de datos. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 | **Relación**                     | Asociación existente entre datos de diferentes tablas dentro de una base de datos.                        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 
+> **Nota:** La estructura definitiva de las tablas de la base de datos se definirá a partir de las necesidades reales identificadas durante la implementación funcional de las interfaces.
+
 ---
 
 # Implementación
 
-| Término            | Definición                                                                                                                          | Documento relacionado                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **Implementación** | Etapa del proyecto en la que los diseños, estructuras y especificaciones definidas previamente se convierten en código funcional.   | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Integración**    | Proceso de conectar y hacer funcionar conjuntamente los diferentes componentes del sistema, como frontend, backend y base de datos. | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Validación**     | Proceso mediante el cual se comprueba que los datos o acciones cumplen las condiciones establecidas por el sistema.                 | [`03_Requisitos.md`](./03_Requisitos.md)       |
-| **Prueba**         | Actividad realizada para comprobar el funcionamiento correcto de una funcionalidad o componente.                                    | [`02_Planificacion.md`](./02_Planificacion.md) |
-| **Frontend**       | Capa de presentación que implementa visualmente las interfaces definidas durante el diseño UI/UX.                                   | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Backend**        | Capa lógica que procesa solicitudes, aplica reglas de negocio y se comunica con la base de datos.                                   | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| Término                        | Definición                                                                                                                                | Documento relacionado                          |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| **Implementación**             | Etapa del proyecto en la que los diseños, estructuras y especificaciones definidas previamente se convierten en código funcional.         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| **Integración**                | Proceso de conectar y hacer funcionar conjuntamente los diferentes componentes del sistema, como frontend, backend y base de datos.       | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| **Validación**                 | Proceso mediante el cual se comprueba que los datos o acciones cumplen las condiciones establecidas por el sistema.                       | [`03_Requisitos.md`](./03_Requisitos.md)       |
+| **Prueba**                     | Actividad realizada para comprobar el funcionamiento correcto de una funcionalidad o componente.                                          | [`02_Planificacion.md`](./02_Planificacion.md) |
+| **Frontend**                   | Capa de presentación que implementa visualmente las interfaces definidas durante el diseño UI/UX.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| **Backend**                    | Capa lógica que procesa solicitudes, aplica reglas de negocio y se comunica con la base de datos.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| **Implementación de Interfaz** | Proceso de convertir una pantalla definida en Figma en una interfaz funcional mediante HTML, CSS, PHP y JavaScript.                       | [`01_Bitacora.md`](./01_Bitacora.md)           |
+| **Fidelidad Visual**           | Grado de correspondencia entre una interfaz implementada en código y el diseño previamente definido en Figma.                             | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| **Responsive Design**          | Enfoque de desarrollo que permite que una interfaz conserve su estructura, legibilidad y funcionalidad en diferentes tamaños de pantalla. | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
 
 ---
 
@@ -173,6 +198,11 @@ Este glosario será actualizado de forma continua conforme evolucionen las funci
 * Algunos términos pueden pertenecer a más de una categoría debido a su relación con diferentes partes del proyecto.
 * Los estados de los componentes pueden variar según las necesidades de interacción definidas durante el diseño.
 * La tipografía Poppins se conserva en el glosario como referencia histórica de la etapa inicial del Design System, mientras que Inter corresponde a la tipografía utilizada posteriormente en las interfaces.
+* La etapa de Diseño UI/UX fue completada antes del inicio de la implementación frontend.
+* La implementación frontend comenzó con la interfaz de Inicio, tomando como referencia los diseños Desktop y Mobile definidos previamente en Figma.
+* El frontend actual utiliza PHP, HTML, CSS y JavaScript sin frameworks frontend adicionales.
+* Los estilos frontend se encuentran organizados de forma modular para facilitar su mantenimiento y evolución.
+* La conexión entre PHP y MySQL fue verificada durante la preparación técnica del proyecto. La estructura definitiva de las tablas de la base de datos aún se encuentra pendiente de definición e implementación.
 * El glosario deberá actualizarse durante todo el ciclo de vida del proyecto.
 * Los nombres de los documentos relacionados deben mantenerse sincronizados con la estructura actual de la carpeta `docs/`.
 
@@ -180,8 +210,9 @@ Este glosario será actualizado de forma continua conforme evolucionen las funci
 
 # Control de Cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                                                                           | Autor            |
-| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| v0.1.0  | 09/07/2026 | Creación del glosario, organización por categorías e incorporación de referencias cruzadas entre documentos.                                                                                                                          | Santiago Emitola |
-| v0.1.0  | 05/09/2026 | Actualización del glosario con conceptos relacionados con Figma, Design System, Components & Responsive, componentes, estados y flujo de información.                                                                                 | Santiago Emitola |
-| v0.1.1  | 07/10/2026 | Actualización general del glosario para reflejar la finalización de la etapa de Diseño UI/UX, el avance hacia la implementación y la incorporación de nuevos conceptos técnicos, de diseño, usuarios, base de datos e implementación. | Santiago Emitola |
+| Versión | Fecha      | Descripción                                                                                                                                                                                                                                         | Autor            |
+| ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| v0.1.0  | 09/07/2026 | Creación del glosario, organización por categorías e incorporación de referencias cruzadas entre documentos.                                                                                                                                        | Santiago Emitola |
+| v0.1.0  | 05/09/2026 | Actualización del glosario con conceptos relacionados con Figma, Design System, Components & Responsive, componentes, estados y flujo de información.                                                                                               | Santiago Emitola |
+| v0.1.1  | 07/10/2026 | Actualización general del glosario para reflejar la finalización de la etapa de Diseño UI/UX, el avance hacia la implementación y la incorporación de nuevos conceptos técnicos, de diseño, usuarios, base de datos e implementación.               | Santiago Emitola |
+| v0.1.1  | 08/10/2026 | Actualización del glosario para documentar el inicio de la implementación frontend, la arquitectura CSS modular, los componentes PHP reutilizables, el Front Controller, la navegación responsive y los recursos técnicos incorporados al frontend. | Santiago Emitola |

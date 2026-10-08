@@ -52,6 +52,7 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 | GitHub             | Gestión del repositorio      |
 | Figma              | Diseño UI/UX y Design System |
 | Visual Studio Code | Desarrollo del proyecto      |
+| XAMPP              | Entorno de desarrollo local  |
 
 ---
 
@@ -61,7 +62,8 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 raices-alzate/
 
 ├── .github/
-
+├── admin/
+├── usuario/
 ├── assets/
 │   ├── css/
 │   ├── js/
@@ -69,7 +71,6 @@ raices-alzate/
 │   ├── icons/
 │   ├── fonts/
 │   └── videos/
-
 ├── components/
 ├── config/
 ├── database/
@@ -77,7 +78,6 @@ raices-alzate/
 ├── includes/
 ├── pages/
 ├── uploads/
-
 ├── .gitignore
 ├── README.md
 └── index.php
@@ -121,9 +121,9 @@ La documentación se mantiene actualizada durante todo el ciclo de desarrollo pa
 
 La etapa de **Diseño UI/UX se encuentra finalizada**. Durante esta fase se consolidaron los fundamentos visuales, los componentes, el flujo de información, la estructura de navegación y las principales interfaces de la plataforma.
 
-Los resultados obtenidos en Figma serán utilizados como referencia para la implementación frontend y el posterior desarrollo de la lógica del sistema.
+A partir del 8 de octubre de 2026 se inició la implementación frontend, utilizando los diseños aprobados en Figma como referencia para convertir las interfaces en código funcional.
 
-### ✅ Diseño UI/UX completado
+## ✅ Diseño UI/UX completado
 
 * Identidad visual.
 * Paleta de colores.
@@ -144,53 +144,26 @@ Los resultados obtenidos en Figma serán utilizados como referencia para la impl
 * Interfaces principales Desktop.
 * Adaptaciones Mobile trabajadas.
 
-### Interfaces Desktop
+## 💻 Implementación iniciada
 
-Durante la etapa de diseño se consolidaron las principales interfaces Desktop de la plataforma:
+La implementación frontend comenzó con la interfaz **Inicio**.
 
-1. Inicio.
-2. Autenticación.
-3. Dashboard.
-4. Perfil.
-5. Egresados.
-6. Proyectos.
-7. Noticias.
-8. Administración.
-9. Crear proyecto.
-10. Detalle de proyecto.
-11. Editar perfil.
-12. Recuperar contraseña.
-13. Registro.
-14. Editar proyecto.
-15. Crear noticia.
-16. Detalle de noticia.
-17. Editar noticia.
+Los primeros trabajos de esta etapa incluyen:
 
-### Adaptaciones Mobile
+* Implementación de la estructura base del frontend.
+* Implementación del Header.
+* Implementación del Footer.
+* Componentes PHP reutilizables.
+* Navegación responsive.
+* Menú móvil.
+* Incorporación del isotipo de Raíces Alzate.
+* Incorporación del favicon.
+* Organización modular de los estilos CSS.
+* Implementación de la interfaz Inicio Desktop.
+* Adaptación inicial de Inicio Mobile.
+* Interactividad básica mediante JavaScript.
 
-Se desarrollaron adaptaciones Mobile de las interfaces priorizadas durante la etapa de diseño, incluyendo:
-
-* Inicio.
-* Autenticación.
-* Dashboard.
-* Mi perfil.
-* Mis proyectos.
-* Oportunidades.
-
-Estas adaptaciones servirán como referencia para la implementación responsive.
-
-### Estados definidos
-
-Los componentes trabajados contemplan diferentes estados de interacción, entre ellos:
-
-* Normal.
-* Hover.
-* Focus.
-* Selected.
-* Disabled.
-* Error.
-* On.
-* Off.
+Las demás interfaces continuarán implementándose progresivamente tomando como referencia los diseños aprobados en Figma.
 
 ---
 
@@ -201,12 +174,13 @@ Los componentes trabajados contemplan diferentes estados de interacción, entre 
 | 📋 Planificación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 📚 Documentación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 🎨 Diseño UI/UX        | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
-| 💻 Desarrollo Frontend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
-| ⚙️ Desarrollo Backend  | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
-| 🧪 Pruebas             | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
-| 🚀 Despliegue          | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| 💻 Desarrollo Frontend | 🟨 **En progreso**            |
+| ⚙️ Desarrollo Backend  | ⬜ **0%**                      |
+| 🗄️ Base de Datos      | 🟨 **Preparación**            |
+| 🧪 Pruebas             | ⬜ **0%**                      |
+| 🚀 Despliegue          | ⬜ **0%**                      |
 
-> Los porcentajes representan el estado general de cada etapa y podrán modificarse conforme avance la implementación.
+> Los estados representan el avance general de cada etapa y podrán modificarse conforme avance la implementación.
 
 ---
 
@@ -289,18 +263,49 @@ Los componentes trabajados contemplan diferentes estados de interacción, entre 
 
 ## 🔄 Fase 4 — Implementación
 
-La siguiente etapa corresponde a convertir los diseños y especificaciones definidas durante la fase UI/UX en una aplicación funcional.
+La etapa actual corresponde a convertir los diseños y especificaciones definidas durante la fase UI/UX en una aplicación funcional.
 
-### Frontend
+### 💻 Frontend
 
-* Construcción de la estructura HTML.
-* Implementación de estilos CSS.
-* Implementación de componentes reutilizables.
-* Adaptación responsive.
-* Implementación de las interfaces definidas en Figma.
-* Incorporación de interactividad mediante JavaScript.
+#### Inicio
 
-### Backend
+* [x] Estructura HTML/PHP de la interfaz.
+* [x] Header.
+* [x] Footer.
+* [x] Navegación responsive.
+* [x] Componentes PHP reutilizables.
+* [x] Organización modular de estilos CSS.
+* [x] Inicio Desktop.
+* [x] Adaptación inicial de Inicio Mobile.
+* [ ] Revisión visual final contra Figma.
+
+#### Interfaces pendientes
+
+* [ ] Autenticación.
+* [ ] Dashboard.
+* [ ] Perfil.
+* [ ] Egresados.
+* [ ] Proyectos.
+* [ ] Noticias.
+* [ ] Administración.
+* [ ] Crear proyecto.
+* [ ] Detalle de proyecto.
+* [ ] Editar perfil.
+* [ ] Recuperar contraseña.
+* [ ] Registro.
+* [ ] Editar proyecto.
+* [ ] Crear noticia.
+* [ ] Detalle de noticia.
+* [ ] Editar noticia.
+
+#### Responsive
+
+* [ ] Completar adaptaciones Mobile.
+* [ ] Validar navegación responsive.
+* [ ] Revisar comportamiento en diferentes tamaños de pantalla.
+* [ ] Comparar las interfaces implementadas con los diseños de Figma.
+
+### ⚙️ Backend
 
 * Configuración de PHP.
 * Desarrollo de la lógica del sistema.
@@ -312,7 +317,7 @@ La siguiente etapa corresponde a convertir los diseños y especificaciones defin
 * Gestión de noticias.
 * Funcionalidades administrativas.
 
-### Base de datos
+### 🗄️ Base de datos
 
 * Diseño de la estructura de la base de datos.
 * Creación de tablas.
@@ -321,7 +326,9 @@ La siguiente etapa corresponde a convertir los diseños y especificaciones defin
 * Integración con PHP.
 * Pruebas de consultas y operaciones CRUD.
 
-### Integración
+> La conexión entre PHP y MySQL ya fue verificada. La estructura definitiva de las tablas se definirá posteriormente a partir de las necesidades funcionales reales del sistema.
+
+### 🔗 Integración
 
 * Conexión frontend y backend.
 * Integración con MySQL.
@@ -393,7 +400,7 @@ cd Raices-Alzate
 
 1. Configurar un servidor local compatible con PHP.
 2. Ubicar el proyecto dentro del directorio correspondiente del servidor local.
-3. Configurar la base de datos cuando se encuentre disponible para la implementación.
+3. Configurar la base de datos cuando su estructura definitiva se encuentre disponible.
 4. Configurar los parámetros de conexión a la base de datos.
 5. Iniciar el servidor local.
 6. Abrir el proyecto desde el navegador.
@@ -405,6 +412,8 @@ cd Raices-Alzate
 # ▶️ Uso
 
 Actualmente el proyecto se encuentra en desarrollo y todavía no cuenta con una versión final de producción.
+
+La implementación funcional se encuentra en proceso. La primera interfaz desarrollada corresponde a **Inicio**, utilizada como base para validar la estructura frontend, los componentes reutilizables y la organización de estilos.
 
 Las funcionalidades previstas incluyen:
 
@@ -429,17 +438,17 @@ El siguiente objetivo corresponde a continuar con la **Fase 4 — Implementació
 
 ## 💻 Frontend
 
-* Convertir las interfaces diseñadas en Figma a HTML y CSS.
+* Revisar y consolidar la implementación de Inicio.
+* Implementar las interfaces restantes diseñadas en Figma.
 * Implementar los componentes definidos en el Design System.
-* Implementar la estructura responsive.
+* Completar la estructura responsive.
 * Incorporar la interactividad necesaria mediante JavaScript.
 * Mantener correspondencia entre las interfaces desarrolladas y los diseños aprobados.
 
 ## ⚙️ Backend
 
 * Preparar la estructura PHP.
-* Implementar la conexión con MySQL.
-* Desarrollar autenticación y gestión de sesiones.
+* Implementar autenticación y gestión de sesiones.
 * Implementar roles y permisos.
 * Desarrollar las funcionalidades principales de la plataforma.
 

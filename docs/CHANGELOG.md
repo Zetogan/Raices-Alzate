@@ -21,9 +21,7 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 #### Agregado
 
 * Definición de la estructura de navegación de la plataforma.
-
 * Creación de la sección **Estructura de Navegación** en Figma.
-
 * Definición del flujo principal:
 
   * Inicio.
@@ -34,45 +32,25 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
   * Proyectos.
   * Noticias.
   * Administración.
-
 * Inicio del diseño de las interfaces principales en Desktop.
-
 * Aplicación del Design System a las interfaces finales.
-
 * Definición de la estructura visual de las pantallas.
-
 * Diseño de la interfaz **Inicio - Desktop**.
-
 * Diseño de la interfaz **Autenticación - Desktop**.
-
 * Diseño del **Dashboard - Desktop**.
-
 * Diseño de la interfaz **Perfil - Desktop**.
-
 * Diseño de la interfaz **Egresados - Desktop**.
-
 * Diseño de la interfaz **Proyectos - Desktop**.
-
 * Diseño de la interfaz **Noticias - Desktop**.
-
 * Diseño de la interfaz **Administración - Desktop**.
-
 * Diseño de **Crear proyecto - Desktop**.
-
 * Diseño de **Detalle de proyecto - Desktop**.
-
 * Diseño de **Editar perfil - Desktop**.
-
 * Diseño de **Recuperar contraseña - Desktop**.
-
 * Diseño de **Registro - Desktop**.
-
 * Diseño de **Editar proyecto - Desktop**.
-
 * Diseño de **Crear noticia - Desktop**.
-
 * Diseño de **Detalle de noticia - Desktop**.
-
 * Diseño de **Editar noticia - Desktop**.
 
 ### 📱 Diseño responsive
@@ -80,23 +58,16 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 #### Agregado
 
 * Adaptación de las interfaces al formato Mobile.
-
 * Definición del ancho de referencia Mobile de `390 px`.
-
 * Diseño de **Inicio - Mobile**.
-
 * Diseño de **Autenticación - Mobile**.
-
 * Adaptación de **Dashboard - Mobile**.
-
 * Diseño de las vistas de:
 
   * Mi perfil.
   * Mis proyectos.
   * Oportunidades.
-
 * Aplicación de los criterios responsive establecidos en **Components & Responsive**.
-
 * Adaptación de jerarquías, espaciados y componentes para pantallas de menor tamaño.
 
 ### 🔄 Consolidación del diseño
@@ -132,6 +103,68 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * El diseño dejó de considerarse una etapa en desarrollo y pasó a funcionar como referencia para la implementación.
 * Se consolidaron los criterios responsive definidos durante el diseño.
 * Se estableció la arquitectura visual necesaria para comenzar el desarrollo frontend.
+
+---
+
+## 📅 08 de octubre de 2026
+
+### 💻 Inicio de la implementación frontend
+
+#### Agregado
+
+* Inicio de la Fase 4 — Implementación.
+* Implementación inicial de la pantalla **Inicio** a partir del diseño definido en Figma.
+* Creación de componentes PHP reutilizables para Header y Footer.
+* Creación de la estructura base de estilos frontend.
+* Creación de `assets/css/fonts.css` para centralizar la tipografía Inter.
+* Creación de `assets/css/header.css` para los estilos específicos del Header.
+* Creación de `assets/css/footer.css` para los estilos específicos del Footer.
+* Implementación de la navegación responsive mediante CSS y JavaScript vanilla.
+* Implementación del Header responsive para Desktop y Mobile.
+* Implementación del Footer institucional.
+* Incorporación del isotipo de Raíces Alzate en Header y Footer.
+* Incorporación del favicon institucional.
+* Implementación de la estructura de navegación principal.
+* Implementación de la referencia Desktop de `1440 px`.
+* Inicio de la adaptación de la pantalla Inicio para Mobile con referencia de `390 px`.
+
+#### Cambiado
+
+* Se reorganizaron los estilos frontend para separar los estilos generales de los estilos específicos de Header y Footer.
+* Se mantuvieron en `main.css` los tokens visuales definidos durante el Design System.
+* Se mantuvo la paleta institucional:
+
+  * Primary: `#D32F2F`
+  * Secondary: `#1565C0`
+  * Texto principal: `#212121`
+  * Texto secundario: `#757575`
+  * Fondo claro: `#F5F5F5`
+  * Blanco: `#FFFFFF`
+  * Borde: `#E0E0E0`
+* Se ajustó el Header Mobile para mantener visible la opción **Iniciar sesión** junto al menú.
+* Se trasladó **Registrarse** al menú desplegable Mobile para evitar saturación visual.
+* Se corrigió la estructura HTML del menú de navegación.
+* Se eliminaron estilos de enlaces que no corresponden al diseño definido.
+* Se mantuvo la implementación sin frameworks frontend, utilizando PHP, HTML, CSS y JavaScript vanilla.
+
+#### Estado de implementación
+
+La primera interfaz del proyecto, **Inicio**, comenzó su transición de Figma a código.
+
+Actualmente se encuentran implementados:
+
+* Estructura base de Inicio.
+* Header reutilizable.
+* Footer reutilizable.
+* Navegación responsive.
+* Tipografía Inter.
+* Sistema base de estilos.
+* Estilos independientes para Header y Footer.
+* Favicon institucional.
+* Referencia Desktop de `1440 px`.
+* Referencia Mobile de `390 px`.
+
+Las demás interfaces diseñadas en Figma permanecen pendientes de implementación.
 
 ---
 
@@ -213,13 +246,9 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 #### Agregado
 
 * Finalización de la paleta de colores institucional.
-
 * Finalización de las categorías **Primary**, **Secondary**, **Neutral** y **Semantic**.
-
 * Definición inicial de **Poppins** como familia tipográfica del sistema de diseño.
-
 * Creación de la jerarquía tipográfica.
-
 * Definición del sistema de espaciado:
 
   * 4 px.
@@ -230,13 +259,9 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
   * 32 px.
   * 48 px.
   * 64 px.
-
 * Creación del sistema de botones reutilizables.
-
 * Creación de los botones **Primary**, **Secondary**, **Outline**, **Danger** y **Disabled**.
-
 * Definición de dimensiones, colores, radios y estilos tipográficos para los botones.
-
 * Preparación de la segunda página del archivo de Figma destinada a componentes reutilizables.
 
 #### Cambiado
@@ -254,13 +279,9 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 #### Agregado
 
 * Finalización de la página **Components & Responsive** en Figma.
-
 * Organización de los componentes reutilizables.
-
 * Definición de estados para los componentes de interacción.
-
 * Finalización del componente **Radio Button**.
-
 * Implementación de los estados:
 
   * Normal.
@@ -268,9 +289,7 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
   * Focus.
   * Disabled.
   * Error.
-
 * Finalización del componente **Switch**.
-
 * Implementación de los estados:
 
   * Off.
@@ -278,13 +297,9 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
   * Focus.
   * Disabled.
   * Error.
-
 * Aplicación de los colores institucionales.
-
 * Revisión de proporciones, tamaños, espaciado y distribución.
-
 * Definición de criterios de diseño responsive.
-
 * Organización final de **Components & Responsive**.
 
 #### Cambiado
@@ -336,21 +351,38 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * Adaptaciones Mobile.
 * Revisión y consolidación final del diseño.
 
+### Fase 4 — Implementación
+
+En desarrollo.
+
+Hasta el momento se ha iniciado la implementación frontend con:
+
+* Estructura base de Inicio.
+* Componentes reutilizables de Header y Footer.
+* Sistema de estilos modular.
+* Tipografía centralizada.
+* Navegación responsive.
+* Favicon institucional.
+* Implementación inicial de Inicio Desktop.
+* Adaptación inicial de Inicio Mobile.
+
 ---
 
 # Próxima etapa
 
-## 🚀 Fase 4 — Implementación
+## 🚀 Continuación de la Fase 4 — Implementación
 
-Las próximas actividades del proyecto estarán orientadas a transformar los diseños y especificaciones definidos en Figma en una plataforma funcional.
+Las siguientes actividades estarán orientadas a continuar transformando los diseños y especificaciones definidos en Figma en una plataforma funcional.
 
 ### Próximas actividades
 
-* Actualizar y consolidar la documentación para la etapa de implementación.
-* Preparar la estructura técnica del frontend.
-* Implementar las interfaces diseñadas.
-* Construir los componentes reutilizables.
-* Preparar la base de datos.
+* Revisar visualmente **Inicio - Desktop** frente a Figma.
+* Revisar visualmente **Inicio - Mobile** frente a Figma.
+* Corregir diferencias visuales encontradas.
+* Continuar con la implementación de las demás interfaces.
+* Construir y reutilizar los componentes definidos en el Design System.
+* Integrar progresivamente la lógica PHP.
+* Definir la estructura definitiva de la base de datos según las necesidades reales de las interfaces.
 * Implementar el backend.
 * Implementar autenticación y roles.
 * Integrar frontend, backend y base de datos.

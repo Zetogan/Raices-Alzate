@@ -35,9 +35,10 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 * Dashboard para los usuarios.
 * Arquitectura modular.
 * Design System desarrollado en Figma.
-* Componentes reutilizables.
-* Interfaces Desktop y adaptaciones Mobile trabajadas.
-* Diseño responsive.
+* Componentes PHP reutilizables.
+* Interfaces Desktop y adaptaciones Mobile diseñadas.
+* Implementación responsive.
+* CSS modularizado.
 * Documentación técnica organizada.
 * Desarrollo basado en buenas prácticas.
 
@@ -56,6 +57,9 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 | GitHub             | Gestión del repositorio      |
 | Figma              | Diseño UI/UX y Design System |
 | Visual Studio Code | Desarrollo del proyecto      |
+| XAMPP              | Entorno de desarrollo local  |
+
+Actualmente no se utiliza ningún framework frontend. La implementación se realiza con **PHP, HTML, CSS y JavaScript vanilla**, manteniendo una estructura modular y reutilizable.
 
 ---
 
@@ -65,9 +69,7 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 raices-alzate/
 
 ├── .github/
-
 ├── admin/
-
 ├── assets/
 │   ├── css/
 │   ├── js/
@@ -75,7 +77,6 @@ raices-alzate/
 │   ├── icons/
 │   ├── fonts/
 │   └── videos/
-
 ├── components/
 ├── config/
 ├── database/
@@ -84,13 +85,30 @@ raices-alzate/
 ├── pages/
 ├── usuario/
 ├── uploads/
-
 ├── .gitignore
 ├── README.md
 └── index.php
 ```
 
 La estructura del proyecto está organizada de forma modular para facilitar el mantenimiento, la escalabilidad y el trabajo colaborativo durante las diferentes fases del desarrollo.
+
+La estructura frontend actual incluye componentes PHP reutilizables y una organización modular de estilos:
+
+```text
+components/
+├── header.php
+└── footer.php
+
+includes/
+├── header.php
+└── footer.php
+
+assets/css/
+├── main.css
+├── fonts.css
+├── header.css
+└── footer.css
+```
 
 ---
 
@@ -118,7 +136,7 @@ La documentación se mantiene actualizada durante el ciclo de desarrollo para ga
 
 # 🚧 Estado del proyecto
 
-**Versión actual:** **v0.1.1**
+**Versión actual:** `v0.1.1`
 
 **Estado:** 🟡 En desarrollo
 
@@ -126,7 +144,11 @@ La documentación se mantiene actualizada durante el ciclo de desarrollo para ga
 
 Raíces Alzate se encuentra actualmente en la etapa de implementación, después de haber completado las fases de planificación, documentación y diseño UI/UX.
 
-La etapa de Diseño UI/UX dejó definidas las principales estructuras visuales, componentes, estados, criterios responsive, navegación e interfaces que servirán como referencia para el desarrollo.
+La etapa de Diseño UI/UX dejó definidas las principales estructuras visuales, componentes, estados, criterios responsive, navegación e interfaces que sirven como referencia para el desarrollo frontend.
+
+La implementación frontend ya comenzó con la interfaz **Inicio**, incluyendo su estructura Desktop y adaptación Mobile, además de la creación de componentes PHP reutilizables y una estructura CSS modular.
+
+La conexión entre PHP y MySQL también fue verificada correctamente. La estructura definitiva de tablas y relaciones de la base de datos se definirá posteriormente de acuerdo con las necesidades reales de las interfaces implementadas.
 
 ---
 
@@ -137,12 +159,15 @@ La etapa de Diseño UI/UX dejó definidas las principales estructuras visuales, 
 | 📋 Planificación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 📚 Documentación       | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
 | 🎨 Diseño UI/UX        | 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 **100%** |
-| 💻 Desarrollo Frontend | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| 💻 Desarrollo Frontend | 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ **20%**          |
 | ⚙️ Desarrollo Backend  | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
+| 🗄️ Base de datos      | 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ **10%**           |
 | 🧪 Pruebas             | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
 | 🚀 Despliegue          | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ **0%**             |
 
-> Los porcentajes representan el estado de cada etapa general del proyecto, no el porcentaje de funcionalidades individuales implementadas.
+> Los porcentajes representan una estimación del estado de cada etapa general del proyecto y no corresponden directamente al porcentaje de funcionalidades individuales implementadas.
+
+> La base de datos se encuentra en una etapa inicial debido a que la conexión PHP–MySQL ya fue verificada, pero las tablas, relaciones y estructura funcional todavía están pendientes.
 
 ---
 
@@ -255,18 +280,33 @@ Se trabajaron adaptaciones para:
 
 ## 🔄 Fase 4 — Implementación
 
-Actualmente en desarrollo:
+Actualmente en desarrollo.
 
 ### Frontend
 
-* Estructura HTML.
-* Estilos CSS.
-* JavaScript.
-* Componentes reutilizables.
-* Interfaces diseñadas.
-* Diseño responsive.
-* Interacciones.
+**Completado inicialmente:**
+
+* Estructura HTML/PHP base.
+* Componentes PHP reutilizables.
+* Header.
+* Footer.
+* Navegación responsive.
+* Menú mobile.
+* Isotipo institucional.
+* Favicon.
+* Sistema base de estilos.
+* Modularización de CSS.
+* Tipografía institucional Inter.
+* Interfaz Inicio Desktop.
+* Adaptación Inicio Mobile.
+
+**Pendiente:**
+
+* Revisión visual de Inicio frente a Figma.
+* Implementación de las demás interfaces.
+* Interacciones específicas.
 * Integración con backend.
+* Integración con base de datos.
 
 ### Backend
 
@@ -283,12 +323,14 @@ Actualmente en desarrollo:
 
 ### Base de datos
 
-* Estructura de la base de datos.
+* Diseño de la estructura.
 * Tablas.
 * Relaciones.
 * Claves primarias y foráneas.
 * Consultas.
 * Integración con PHP.
+
+La conexión PHP–MySQL ya fue verificada correctamente. La estructura funcional de la base de datos se definirá posteriormente con base en las necesidades reales de las interfaces.
 
 ### Integración
 
@@ -339,7 +381,7 @@ Actualmente en desarrollo:
 
 ## Requisitos previos
 
-Para la etapa de implementación se deberá contar con:
+Para la etapa actual de implementación se deberá contar con:
 
 * PHP 8.0 o superior.
 * MySQL 8.0 o superior.
@@ -371,12 +413,11 @@ cd Raices-Alzate
 
 1. Configurar un servidor local compatible con PHP.
 2. Ubicar el proyecto dentro del directorio correspondiente del servidor local.
-3. Preparar la base de datos durante la etapa de implementación.
+3. Iniciar Apache y MySQL desde el entorno local.
 4. Configurar los parámetros de conexión a MySQL.
-5. Iniciar el servidor local.
-6. Abrir el proyecto desde el navegador.
+5. Abrir el proyecto desde el navegador.
 
-La información definitiva de instalación y configuración será ampliada en el **Manual Técnico** cuando avance la implementación.
+La información definitiva de instalación y configuración será ampliada en el **Manual Técnico** a medida que avance la implementación.
 
 ---
 
@@ -384,7 +425,7 @@ La información definitiva de instalación y configuración será ampliada en el
 
 Actualmente el proyecto se encuentra en desarrollo.
 
-La versión funcional de la plataforma contempla progresivamente funcionalidades como:
+La implementación de la plataforma contempla progresivamente funcionalidades como:
 
 * Registro de usuarios.
 * Inicio de sesión.
@@ -398,7 +439,9 @@ La versión funcional de la plataforma contempla progresivamente funcionalidades
 * Gestión de permisos.
 * Panel administrativo.
 
-Las funcionalidades estarán disponibles progresivamente a medida que avance la implementación.
+Actualmente se encuentra implementada inicialmente la interfaz **Inicio**, junto con la estructura base de navegación, Header, Footer y comportamiento responsive.
+
+Las demás funcionalidades estarán disponibles progresivamente a medida que avance la implementación.
 
 ---
 
@@ -408,16 +451,17 @@ Las siguientes actividades corresponden a la **Fase 4 — Implementación**.
 
 ## Desarrollo Frontend
 
-* Implementar las interfaces definidas en Figma.
-* Crear los componentes reutilizables.
-* Implementar los estilos establecidos en el Design System.
+* Revisar visualmente la interfaz Inicio frente al diseño aprobado en Figma.
+* Implementar las demás interfaces definidas en Figma.
+* Crear los componentes reutilizables necesarios.
+* Mantener los estilos establecidos en el Design System.
 * Implementar el comportamiento responsive.
 * Desarrollar las interacciones necesarias.
 
 ## Desarrollo Backend
 
-* Configurar PHP.
-* Preparar la conexión con MySQL.
+* Configurar la lógica PHP.
+* Mantener la conexión con MySQL.
 * Implementar autenticación.
 * Implementar gestión de usuarios.
 * Implementar perfiles.
@@ -441,6 +485,7 @@ Las siguientes actividades corresponden a la **Fase 4 — Implementación**.
 * Pruebas de compatibilidad.
 * Validación de seguridad.
 * Corrección de errores.
+* Optimización.
 * Preparación del despliegue.
 
 ---

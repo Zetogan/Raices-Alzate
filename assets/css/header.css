@@ -1,0 +1,333 @@
+/**
+ * Raíces Alzate - Componente Header y Navegación
+ * Especificación Figma: Desktop (72px) y Mobile con Drawer Lateral
+ * Módulo independiente de estilos de la cabecera institucional
+ */
+
+/* ==========================================================================
+   1. ESTRUCTURA DEL HEADER
+   ========================================================================== */
+.site-header {
+    height: var(--section-header-height, 72px);
+    background-color: var(--color-white, #FFFFFF);
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 100%;
+}
+
+/* ==========================================================================
+   2. LOGOTIPO Y MARCA
+   ========================================================================== */
+.brand,
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12, 12px);
+    text-decoration: none !important;
+    border-bottom: none !important;
+    justify-self: start;
+}
+
+.brand-logo,
+.brand-logo-img,
+.header-logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+.brand-title {
+    font-size: var(--font-size-lg, 1.25rem);
+    font-weight: 700;
+    color: var(--color-primary, #D32F2F);
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   3. NAVEGACIÓN PRINCIPAL (DESKTOP)
+   ========================================================================== */
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: var(--space-32, 32px);
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    color: var(--color-text-main, #212121);
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 500;
+    padding: var(--space-4, 4px) 0;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+    transition: color var(--transition-fast, 0.15s ease-in-out);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--color-primary, #D32F2F);
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.nav-link.active {
+    color: var(--color-primary, #D32F2F);
+    font-weight: 600;
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.nav-link::before,
+.nav-link::after,
+.nav-link.active::before,
+.nav-link.active::after {
+    display: none !important;
+    content: none !important;
+}
+
+.mobile-drawer-actions {
+    display: none;
+}
+
+/* ==========================================================================
+   4. ACCIONES DE AUTENTICACIÓN Y GRUPO DERECHO
+   ========================================================================== */
+.header-right-group,
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16, 16px);
+    justify-self: end;
+}
+
+.btn-login,
+.header-login-link {
+    color: var(--color-secondary, #1565C0);
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 600;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    padding: var(--space-8, 8px) var(--space-12, 12px);
+    transition: color var(--transition-fast, 0.15s ease-in-out);
+    line-height: 1;
+}
+
+.btn-login:hover,
+.btn-login:focus,
+.header-login-link:hover,
+.header-login-link:focus {
+    color: var(--color-secondary-hover, #0D47A1);
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.btn-primary.btn-sm,
+.header-register-btn {
+    padding: 9px 20px;
+    border-radius: var(--radius-md, 6px);
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.btn-block {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   5. BOTÓN HAMBURGUESA (MENU TOGGLE)
+   ========================================================================== */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-8, 8px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm, 4px);
+    position: relative;
+    z-index: 1100;
+}
+
+.menu-toggle:focus-visible {
+    outline: 2px solid var(--color-primary, #D32F2F);
+    outline-offset: 2px;
+}
+
+.menu-toggle-bar {
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-text-main, #212121);
+    border-radius: 2px;
+    transition: transform var(--transition-fast, 0.2s ease-in-out),
+                opacity var(--transition-fast, 0.2s ease-in-out);
+}
+
+/* Animación a 'X' cuando el menú está abierto */
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   6. ANULACIÓN ESTRICTA DE SUBRAYADOS Y BORDES (DESIGN SYSTEM)
+   ========================================================================== */
+.header a,
+.header-logo,
+.nav a,
+.nav-link,
+.btn-login,
+.header-login-link,
+.header-register-btn,
+.btn,
+.btn-primary {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+.header a:hover,
+.header a:focus,
+.nav a:hover,
+.nav a.active,
+.header-login-link:hover,
+.header-login-link:focus {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN (DRAWER LATERAL EN MOBILE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Grupo derecho: Acceso directo a 'Iniciar sesión' + Menú hamburguesa */
+    .header-right-group {
+        display: flex;
+        align-items: center;
+        gap: var(--space-8, 8px);
+    }
+
+    /* 'Iniciar sesión' permanece visible en la barra superior */
+    .header-login-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        font-size: var(--font-size-sm, 0.875rem);
+    }
+
+    /* 'Registrarse' se oculta de la barra superior */
+    .header-register-btn {
+        display: none;
+    }
+
+    /* El botón menú hamburguesa se sitúa en el extremo exterior derecho */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Drawer lateral deslizable desde la derecha */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        max-width: 85vw;
+        height: 100vh;
+        background-color: var(--color-white, #FFFFFF);
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 80px var(--space-24, 24px) var(--space-32, 32px) var(--space-24, 24px);
+        box-sizing: border-box;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1050;
+        overflow-y: auto;
+    }
+
+    .main-nav.is-open {
+        right: 0;
+    }
+
+    /* Lista vertical de enlaces en el drawer */
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-16, 16px);
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: var(--space-8, 8px) 0;
+    }
+
+    /* Botón 'Registrarse' al final del contenido del drawer */
+    .mobile-drawer-actions {
+        display: block;
+        margin-top: auto;
+        padding-top: var(--space-24, 24px);
+        border-top: 1px solid var(--color-border, #E0E0E0);
+        width: 100%;
+    }
+
+    .mobile-drawer-actions .btn {
+        width: 100%;
+    }
+}

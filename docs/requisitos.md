@@ -15,7 +15,7 @@
 | Versión              | v0.1.1                                         |
 | Estado               | 🟡 En desarrollo                               |
 | Fase actual          | Fase 4 — Implementación                        |
-| Última actualización | 07 de octubre de 2026                          |
+| Última actualización | 08 de octubre de 2026                          |
 
 ---
 
@@ -25,7 +25,9 @@ Este documento reúne los requisitos funcionales y no funcionales que definen el
 
 Los requisitos establecidos sirven como referencia durante las etapas de diseño, desarrollo y pruebas del sistema, permitiendo mantener una relación clara entre las necesidades del proyecto y las funcionalidades que serán implementadas.
 
-La etapa de planificación y documentación se encuentra consolidada, al igual que la fase de diseño UI/UX. Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**, tomando como referencia las estructuras, componentes, recorridos e interfaces definidos durante la etapa de diseño.
+Las etapas de planificación, documentación y diseño UI/UX se encuentran consolidadas. La fase de diseño UI/UX finalizó con la definición del sistema de diseño, componentes, criterios responsive, estructura de navegación y las principales interfaces Desktop y Mobile.
+
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**. La implementación frontend ya inició tomando como referencia los diseños establecidos en Figma. La interfaz de **Inicio** constituye actualmente la primera pantalla trasladada del diseño a código.
 
 ---
 
@@ -39,6 +41,20 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Mostrar acceso al registro de usuarios.
 * Presentar de forma clara los principales contenidos y accesos de la plataforma.
 * Presentar los beneficios y propósito de la plataforma.
+* Mantener una estructura visual coherente con el diseño definido en Figma.
+* Adaptar la navegación y los contenidos a diferentes tamaños de pantalla.
+
+**Estado de implementación:**
+
+* 🟢 Estructura frontend implementada.
+* 🟢 Header implementado.
+* 🟢 Footer implementado.
+* 🟢 Navegación responsive implementada.
+* 🟢 Versión Desktop implementada como referencia de 1440 px.
+* 🟢 Versión Mobile implementada como referencia de 390 px.
+* 🟢 Isotipo institucional integrado.
+* 🟢 Favicon integrado.
+* 🟡 Revisión visual final pendiente.
 
 ---
 
@@ -55,6 +71,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Restringir el acceso a funcionalidades según el tipo de usuario.
 * Controlar el acceso a las funciones administrativas.
 
+**Estado:** ⏳ Pendiente de implementación funcional.
+
 ---
 
 ## Módulo de Usuarios y Perfil
@@ -67,6 +85,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Mantener actualizada la información personal y profesional del usuario.
 * Permitir que el usuario consulte su información desde el dashboard.
 
+**Estado:** ⏳ Pendiente de implementación funcional.
+
 ---
 
 ## Módulo de Egresados
@@ -78,6 +98,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Visualizar perfiles.
 * Mantener actualizada la información de los egresados.
 * Facilitar la consulta de información relevante de la comunidad de egresados.
+
+**Estado:** ⏳ Pendiente de implementación.
 
 ---
 
@@ -92,6 +114,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Asociar proyectos con sus respectivos egresados.
 * Gestionar la información relacionada con los proyectos.
 
+**Estado:** ⏳ Pendiente de implementación.
+
 ---
 
 ## Módulo de Noticias
@@ -103,6 +127,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Editar noticias.
 * Eliminar noticias.
 * Gestionar la información de las publicaciones.
+
+**Estado:** ⏳ Pendiente de implementación.
 
 ---
 
@@ -117,6 +143,8 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Visualizar información administrativa disponible.
 * Gestionar las operaciones correspondientes a los permisos del sistema.
 
+**Estado:** ⏳ Pendiente de implementación.
+
 ---
 
 # Requisitos No Funcionales
@@ -128,6 +156,7 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Se deben evitar recursos innecesarios que afecten el rendimiento.
 * Se deben mantener tiempos de respuesta adecuados durante la navegación.
 * La estructura del código deberá evitar procesos innecesarios que afecten el funcionamiento del sistema.
+* Los recursos frontend deberán mantenerse organizados para facilitar su mantenimiento y optimización.
 
 ---
 
@@ -141,6 +170,7 @@ La etapa de planificación y documentación se encuentra consolidada, al igual q
 * Se debe validar la información recibida antes de procesarla o almacenarla.
 * Las funcionalidades administrativas deberán estar restringidas a los usuarios autorizados.
 * Se deberán aplicar validaciones tanto en el frontend como en el backend cuando corresponda.
+* Las operaciones relacionadas con la base de datos deberán utilizar mecanismos seguros de consulta y procesamiento.
 
 ---
 
@@ -169,6 +199,7 @@ El sistema deberá mantener un funcionamiento adecuado en diferentes tamaños de
 * Los elementos de navegación deben ser claros y fáciles de identificar.
 * Las diferentes pantallas deben mantener una estructura visual consistente.
 * La experiencia de navegación debe ser coherente entre las diferentes funcionalidades.
+* Las interfaces implementadas deberán mantener correspondencia con los diseños aprobados en Figma.
 
 ---
 
@@ -208,6 +239,20 @@ Los componentes deberán contemplar los estados necesarios según su función, i
 
 El sistema de diseño se encuentra documentado en Figma y sirve como referencia visual para la implementación frontend.
 
+Los principales valores definidos incluyen:
+
+* Color primario: `#D32F2F`.
+* Color secundario: `#1565C0`.
+* Texto principal: `#212121`.
+* Texto secundario: `#757575`.
+* Fondo claro: `#F5F5F5`.
+* Blanco: `#FFFFFF`.
+* Borde: `#E0E0E0`.
+
+El sistema de espaciado contempla valores de:
+
+`4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px` y `64px`.
+
 ---
 
 # Responsive
@@ -228,6 +273,13 @@ El diseño responsive deberá considerar:
 
 Durante la fase UI/UX se definieron interfaces Desktop y se trabajaron adaptaciones Mobile para las pantallas principales, tomando como referencia los criterios establecidos en **Components & Responsive**.
 
+Durante la implementación frontend se está utilizando como referencia:
+
+* Desktop: `1440px`.
+* Mobile: `390px`.
+
+La primera implementación responsive corresponde actualmente a la interfaz de **Inicio**, incluyendo la adaptación de la navegación mediante menú móvil.
+
 ---
 
 # Mantenibilidad
@@ -241,6 +293,35 @@ Durante la fase UI/UX se definieron interfaces Desktop y se trabajaron adaptacio
 * La documentación deberá mantenerse actualizada conforme avance el proyecto.
 * Las funcionalidades deberán mantenerse organizadas de acuerdo con la arquitectura definida.
 * Los cambios relevantes deberán registrarse en la documentación y el control de versiones.
+* Los estilos deberán mantenerse organizados por responsabilidades.
+* Los elementos compartidos de la interfaz deberán utilizar componentes PHP reutilizables cuando corresponda.
+
+Actualmente, la estructura CSS del frontend se encuentra modularizada de la siguiente manera:
+
+```text
+assets/css/
+├── main.css
+├── fonts.css
+├── header.css
+└── footer.css
+```
+
+Las responsabilidades principales son:
+
+* `main.css`: estilos generales, variables, tokens, estructura base y elementos compartidos.
+* `fonts.css`: configuración y tipografía institucional.
+* `header.css`: estilos correspondientes al encabezado y navegación.
+* `footer.css`: estilos correspondientes al pie de página.
+
+Los elementos compartidos del sistema se gestionan mediante componentes PHP reutilizables:
+
+```text
+components/
+├── header.php
+└── footer.php
+```
+
+Estos componentes son integrados mediante la estructura ubicada en `includes/`.
 
 ---
 
@@ -337,21 +418,41 @@ Las interfaces definidas en Figma constituyen la referencia visual para la imple
 * Definición de interfaces principales.
 * Revisión y consolidación de las interfaces.
 
+## 🟢 Implementado actualmente
+
+* Estructura base del frontend.
+* Interfaz de Inicio.
+* Header reutilizable.
+* Footer reutilizable.
+* Navegación responsive.
+* Menú móvil.
+* Integración del isotipo.
+* Integración del favicon.
+* Estructura CSS modular.
+* Tipografía institucional mediante `fonts.css`.
+* Referencia Desktop de 1440 px.
+* Referencia Mobile de 390 px.
+* Conexión PHP con MySQL verificada previamente.
+
 ## 🟡 En implementación
 
-* Desarrollo frontend.
+* Implementación progresiva de las interfaces restantes.
+* Desarrollo frontend de los módulos definidos.
 * Desarrollo backend.
-* Implementación de la base de datos.
-* Integración entre frontend, backend y base de datos.
+* Integración entre frontend y backend.
 * Implementación de autenticación y permisos.
-* Implementación progresiva de los módulos definidos.
+* Implementación de los módulos funcionales.
+* Definición e implementación de las tablas definitivas de la base de datos.
 
 ## ⏳ Pendiente
 
+* Implementación completa de la base de datos.
+* Integración completa entre frontend, backend y base de datos.
 * Pruebas funcionales.
 * Pruebas de integración.
 * Validación completa del sistema.
 * Corrección de errores detectados durante las pruebas.
+* Pruebas de compatibilidad.
 * Despliegue de la plataforma.
 
 ---
@@ -373,6 +474,9 @@ La plataforma deberá cumplir con los siguientes criterios:
 * Las funcionalidades administrativas deberán estar protegidas mediante permisos.
 * La documentación deberá actualizarse conforme avance el desarrollo.
 * Las pruebas deberán validar el funcionamiento de las funcionalidades implementadas antes del despliegue.
+* Los componentes compartidos deberán mantener un comportamiento consistente entre las diferentes interfaces.
+* La implementación frontend deberá respetar el sistema de diseño establecido.
+* Las adaptaciones responsive deberán mantener la funcionalidad y jerarquía visual definida en Figma.
 
 ---
 
@@ -401,6 +505,11 @@ La plataforma deberá cumplir con los siguientes criterios:
 * Git.
 * GitHub.
 
+## Entorno de desarrollo
+
+* XAMPP.
+* Apache.
+
 ---
 
 # Estado actual del proyecto
@@ -411,25 +520,44 @@ Las fases de **Planificación**, **Documentación** y **Diseño UI/UX** se encue
 
 Durante la fase de Diseño UI/UX se consolidaron el Design System, los componentes reutilizables, los estados de interacción, los criterios responsive, la estructura de navegación y las principales interfaces Desktop y Mobile trabajadas.
 
-Actualmente, las interfaces definidas en Figma sirven como referencia para iniciar y desarrollar la implementación del sistema.
+La implementación frontend ya inició tomando como referencia los diseños aprobados en Figma.
 
-El siguiente paso corresponde a la implementación progresiva del **frontend, backend y base de datos**, seguida de la integración de los módulos y las pruebas correspondientes.
+Actualmente, la interfaz de **Inicio** constituye la primera pantalla implementada en código. Esta implementación incluye:
+
+* Header reutilizable.
+* Footer reutilizable.
+* Navegación responsive.
+* Menú móvil.
+* Isotipo.
+* Favicon.
+* Estructura CSS modular.
+* Tipografía institucional.
+* Adaptación Desktop.
+* Adaptación Mobile.
+
+La conexión entre PHP y MySQL también fue verificada previamente. Sin embargo, la estructura definitiva de tablas, relaciones y datos de la plataforma todavía no ha sido implementada.
+
+El desarrollo continuará de manera progresiva, implementando las interfaces restantes y posteriormente las funcionalidades backend, la base de datos y la integración completa del sistema.
 
 ---
 
 # Historial de cambios
 
-| Versión | Fecha      | Cambio                                                                                                                                                                                                                          |
-| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial de los requisitos del proyecto.                                                                                                                                                                                |
-| v0.1.0  | 05/09/2026 | Actualización de requisitos funcionales y no funcionales, incorporación de criterios UI/UX, componentes, estados, responsive y estado del proyecto.                                                                             |
-| v0.1.1  | 07/10/2026 | Actualización general de requisitos, consolidación de la fase UI/UX, incorporación de las interfaces diseñadas, actualización del estado a Fase 4 — Implementación y preparación de los requisitos para la etapa de desarrollo. |
+| Versión | Fecha      | Cambio                                                                                                                                                                                                                                               |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial de los requisitos del proyecto.                                                                                                                                                                                                     |
+| v0.1.0  | 05/09/2026 | Actualización de requisitos funcionales y no funcionales, incorporación de criterios UI/UX, componentes, estados, responsive y estado del proyecto.                                                                                                  |
+| v0.1.1  | 07/10/2026 | Actualización general de requisitos, consolidación de la fase UI/UX, incorporación de las interfaces diseñadas, actualización del estado a Fase 4 — Implementación y preparación de los requisitos para la etapa de desarrollo.                      |
+| v0.1.1  | 08/10/2026 | Actualización del estado de implementación frontend, incorporación de los avances de la interfaz Inicio, estructura CSS modular, componentes PHP reutilizables, navegación responsive, isotipo, favicon y conexión previamente verificada con MySQL. |
 
 ---
 
 # Versión del documento
 
 **Versión:** v0.1.1
+
 **Estado:** 🟡 En desarrollo
+
 **Fase:** Fase 4 — Implementación
-**Última actualización:** 07 de octubre de 2026
+
+**Última actualización:** 08 de octubre de 2026

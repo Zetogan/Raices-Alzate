@@ -355,18 +355,108 @@ Las interfaces consolidadas en Figma serán utilizadas como referencia visual pa
 
 ---
 
+## DEC-017 | Modularización de los estilos frontend
+
+**Fecha:** 08 de octubre de 2026
+
+**Decisión**
+
+Los estilos CSS del frontend se organizarán de forma modular, separando los estilos generales de los estilos específicos de componentes reutilizables.
+
+La estructura establecida contempla:
+
+```text
+assets/css/
+├── main.css
+├── fonts.css
+├── header.css
+└── footer.css
+```
+
+**Justificación**
+
+* Evitar concentrar todos los estilos en un único archivo.
+* Facilitar el mantenimiento del código.
+* Separar responsabilidades dentro de los estilos frontend.
+* Permitir modificar componentes específicos sin afectar innecesariamente otras partes de la interfaz.
+* Mantener una estructura coherente con la arquitectura modular del proyecto.
+* Facilitar el crecimiento progresivo del frontend a medida que se implementen las demás interfaces.
+
+`main.css` mantiene los estilos generales y los tokens visuales del Design System, mientras que `fonts.css`, `header.css` y `footer.css` concentran las responsabilidades específicas correspondientes.
+
+Esta organización podrá ampliarse posteriormente si la cantidad de componentes implementados justifica la creación de nuevos archivos de estilos.
+
+---
+
+## DEC-018 | Uso de componentes PHP reutilizables para elementos compartidos
+
+**Fecha:** 08 de octubre de 2026
+
+**Decisión**
+
+Los elementos compartidos entre las diferentes páginas del proyecto serán implementados mediante componentes PHP reutilizables, comenzando por el **Header** y el **Footer**.
+
+La estructura actual contempla:
+
+```text
+components/
+├── header.php
+└── footer.php
+```
+
+Estos componentes son integrados mediante la estructura existente de `includes/`.
+
+**Justificación**
+
+* Evitar duplicar código HTML entre las páginas.
+* Mantener una estructura consistente de navegación.
+* Facilitar futuras modificaciones del Header y Footer.
+* Permitir reutilizar los mismos elementos en las diferentes interfaces.
+* Reducir errores derivados de mantener múltiples versiones del mismo código.
+* Facilitar el mantenimiento y crecimiento del frontend.
+
+Esta estructura podrá ampliarse posteriormente con nuevos componentes reutilizables cuando las necesidades de la implementación lo requieran.
+
+---
+
+## DEC-019 | Mantener PHP, HTML, CSS y JavaScript vanilla en el frontend
+
+**Fecha:** 08 de octubre de 2026
+
+**Decisión**
+
+La implementación frontend continuará utilizando **PHP, HTML, CSS y JavaScript vanilla**, sin incorporar actualmente frameworks o librerías frontend como React, Vue u otros similares.
+
+**Justificación**
+
+* Mantener coherencia con las tecnologías definidas para el proyecto.
+* Reducir la complejidad de la implementación.
+* Facilitar la comprensión y mantenimiento del código.
+* Permitir trasladar directamente las estructuras diseñadas en Figma a HTML y CSS.
+* Utilizar JavaScript vanilla para comportamientos interactivos que no requieren un framework.
+* Mantener una arquitectura adecuada al alcance actual del proyecto.
+
+La decisión podrá revisarse posteriormente si las necesidades funcionales del sistema justifican la incorporación de nuevas tecnologías.
+
+---
+
 # Estado de las decisiones
 
 Las decisiones registradas establecen las principales bases técnicas, metodológicas y de diseño de Raíces Alzate.
 
 Durante la etapa de diseño UI/UX se consolidaron el **Design System**, la página **Components & Responsive**, el flujo de información y las principales interfaces de la plataforma para Desktop y las adaptaciones Mobile trabajadas.
 
-La **Fase 3 — Diseño UI/UX** se encuentra finalizada y sus resultados serán utilizados como referencia para la siguiente etapa.
+La **Fase 3 — Diseño UI/UX** se encuentra finalizada y sus resultados están siendo utilizados como referencia para la implementación.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**, en la cual se continuará con:
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**.
 
-* Construcción del frontend.
-* Implementación de componentes.
+Durante el inicio de esta fase se estableció una arquitectura frontend modular basada en componentes PHP reutilizables y estilos CSS separados por responsabilidad. La primera interfaz implementada es **Inicio**, utilizando como referencia los diseños Desktop y Mobile definidos en Figma.
+
+Actualmente se continuará con:
+
+* Construcción progresiva del frontend.
+* Implementación de componentes reutilizables.
+* Implementación de las interfaces restantes.
 * Desarrollo de la estructura backend.
 * Configuración e integración de la base de datos.
 * Implementación de autenticación y roles.
