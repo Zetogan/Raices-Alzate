@@ -43,6 +43,16 @@ if (!function_exists('assetCssUrl')) {
     <!-- 3. Componentes modulares del Frontend -->
     <link rel="stylesheet" href="<?php echo assetCssUrl('header.css'); ?>">
     <link rel="stylesheet" href="<?php echo assetCssUrl('footer.css'); ?>">
+
+    <!-- 4. Estilos específicos por pantalla / módulo -->
+    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
+    <link rel="stylesheet" href="<?php echo assetCssUrl('auth.css'); ?>">
+    <?php endif; ?>
+    <?php if (!empty($extraCss)): ?>
+        <?php foreach ((array)$extraCss as $cssFile): ?>
+            <link rel="stylesheet" href="<?php echo assetCssUrl($cssFile); ?>">
+        <?php endforeach; ?>
+    <?php endif; ?>
 </head>
 <body>
     <?php include __DIR__ . '/../components/header.php'; ?>

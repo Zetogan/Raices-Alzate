@@ -126,6 +126,12 @@
     justify-self: end;
 }
 
+.desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16, 16px);
+}
+
 .btn-login,
 .header-login-link {
     color: var(--color-secondary, #1565C0);
@@ -149,11 +155,17 @@
 
 .btn-primary.btn-sm,
 .header-register-btn {
-    padding: 9px 20px;
-    border-radius: var(--radius-md, 6px);
-    font-size: var(--font-size-sm, 0.875rem);
-    font-weight: 600;
+    width: 112px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Inter', var(--font-family-base, sans-serif);
+    font-weight: 500;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-block {
@@ -247,24 +259,19 @@
         justify-content: space-between;
     }
 
-    /* Grupo derecho: Acceso directo a 'Iniciar sesión' + Menú hamburguesa */
+    /* Grupo derecho: Exclusivamente botón hamburguesa visible en barra móvil */
     .header-right-group {
         display: flex;
         align-items: center;
-        gap: var(--space-8, 8px);
+        justify-content: flex-end;
+        gap: 0;
     }
 
-    /* 'Iniciar sesión' permanece visible en la barra superior */
-    .header-login-link {
-        display: inline-flex;
-        align-items: center;
-        padding: 6px 10px;
-        font-size: var(--font-size-sm, 0.875rem);
-    }
-
-    /* 'Registrarse' se oculta de la barra superior */
+    /* Ocultamiento completo de acciones en la barra superior mobile (Figma) */
+    .desktop-actions,
+    .header-login-link,
     .header-register-btn {
-        display: none;
+        display: none !important;
     }
 
     /* El botón menú hamburguesa se sitúa en el extremo exterior derecho */
@@ -318,16 +325,44 @@
         padding: var(--space-8, 8px) 0;
     }
 
-    /* Botón 'Registrarse' al final del contenido del drawer */
+    /* Acciones trasladadas dentro del drawer (Iniciar sesión y Registrarse a ancho completo) */
     .mobile-drawer-actions {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-12, 12px);
         margin-top: auto;
         padding-top: var(--space-24, 24px);
         border-top: 1px solid var(--color-border, #E0E0E0);
         width: 100%;
     }
 
-    .mobile-drawer-actions .btn {
+    .btn-login-drawer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        font-family: var(--font-family-base, 'Inter', sans-serif);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-secondary, #1565C0);
+        background-color: var(--color-secondary-light, #E3F2FD);
+        border: 1px solid transparent;
+        text-decoration: none !important;
+        box-sizing: border-box;
+        transition: background-color var(--transition-fast, 0.15s ease),
+                    color var(--transition-fast, 0.15s ease);
+    }
+
+    .btn-login-drawer:hover,
+    .btn-login-drawer:focus {
+        background-color: var(--color-secondary, #1565C0);
+        color: var(--color-white, #FFFFFF) !important;
+    }
+
+    .mobile-drawer-actions .btn {
+        width: 100% !important;
+        height: 40px !important;
     }
 }

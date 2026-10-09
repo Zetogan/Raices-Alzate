@@ -1,7 +1,7 @@
 <?php
 /**
- * Componente: Header / Navegación Institucional
- * Especificación: Desktop (72px) y Mobile según Figma
+ * Componente: Header Institucional
+ * Soporte: Desktop (72px) y Mobile limpio según Figma
  */
 
 if (!defined('APP_NAME')) {
@@ -12,13 +12,13 @@ $currentPage = $currentPage ?? 'inicio';
 ?>
 <header class="site-header header">
     <div class="container header-inner">
-        <!-- Izquierda: Logo / Marca -->
+        <!-- Izquierda: Identidad de Marca -->
         <a href="index.php" class="brand header-logo" aria-label="<?php echo htmlspecialchars(APP_NAME); ?>">
-            <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo <?php echo htmlspecialchars(APP_NAME); ?>" class="brand-logo-img brand-logo header-logo-img" width="36" height="36">
+            <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo Raíces Alzate" class="brand-logo-img">
             <span class="brand-title"><?php echo htmlspecialchars(APP_NAME); ?></span>
         </a>
 
-        <!-- Centro: Navegación principal (en desktop en medio; en mobile actúa como drawer lateral) -->
+        <!-- Menú / Drawer de navegación -->
         <nav class="main-nav nav" id="mainNav" aria-label="Navegación principal">
             <ul class="nav-list">
                 <li class="nav-item">
@@ -35,16 +35,19 @@ $currentPage = $currentPage ?? 'inicio';
                 </li>
             </ul>
 
-            <!-- Acciones secundarias exclusivas dentro del drawer en mobile -->
+            <!-- Acciones trasladadas dentro del drawer para mobile -->
             <div class="mobile-drawer-actions">
-                <a href="#registro" class="btn btn-primary btn-sm btn-block">Registrarse</a>
+                <a href="login.php" class="btn-login-drawer">Iniciar sesión</a>
+                <a href="registro.php" class="btn btn-primary btn-block">Registrarse</a>
             </div>
         </nav>
 
-        <!-- Derecha: Acciones directas + menú hamburguesa -->
+        <!-- Derecha: Acciones directas de Desktop + Disparador hamburguesa -->
         <div class="header-right-group">
-            <a href="#login" class="btn-login header-login-link">Iniciar sesión</a>
-            <a href="#registro" class="btn btn-primary btn-sm header-register-btn">Registrarse</a>
+            <div class="desktop-actions">
+                <a href="login.php" class="btn-login header-login-link">Iniciar sesión</a>
+                <a href="registro.php" class="btn btn-primary btn-sm header-register-btn">Registrarse</a>
+            </div>
             
             <button type="button" class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mainNav">
                 <span class="menu-toggle-bar"></span>

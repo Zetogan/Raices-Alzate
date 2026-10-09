@@ -22,7 +22,7 @@ if (!defined('APP_NAME')) {
                 <h1 class="hero-title">Conectando generaciones,<br>construyendo futuro.</h1>
                 <p class="hero-desc">Una plataforma para conectar, acompañar y fortalecer la comunidad de egresados.</p>
                 <div class="hero-actions">
-                    <a href="#que-es" class="btn btn-primary">Conocer más</a>
+                    <a href="#que-es" class="btn btn-primary hero-cta-btn">Conocer más</a>
                 </div>
             </div>
             <div class="hero-visual" aria-hidden="true">
