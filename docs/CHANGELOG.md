@@ -163,6 +163,22 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * **Integración de alertas en Login:** Se sustituyó el contenedor plano de feedback por el componente visual `.alert.alert-error` en `pages/login.php` y `assets/js/auth.js`, desplegando advertencias con iconografía vectorial SVG sin alterar la retícula.
 * **Calibración de estados de Radio Buttons e Inputs según Figma:** Se implementaron los 5 estados para Radio Buttons (Normal, Selected en rojo `#D32F2F` sin acento azul, Focus en `#1565C0`, Disabled y Error) y para Inputs (Normal, Focus en `#1565C0`, Filled, Error con borde, texto y placeholder en rojo mediante `.input-error`, y Disabled) en `assets/css/auth.css` y `assets/js/auth.js`, con limpieza reactiva al enfocar o escribir.
 
+---
+
+## 📅 09 de octubre de 2026
+
+### 🔑 Implementación de la pantalla de Recuperar Contraseña
+
+#### Agregado
+
+* Implementación integral de la pantalla **Recuperar contraseña** (`pages/recuperar-password.php`) siguiendo la especificación visual y jerarquía de Figma Desktop y Mobile.
+* Creación del controlador de acceso directo `recuperar-password.php` en la raíz del proyecto.
+* Soporte de enrutamiento modular por parámetro `?page=recuperar` y `?page=recuperar-password` en `index.php`.
+* Carga modular condicional de estilos (`assets/css/auth.css`) y scripts (`assets/js/auth.js`) para la vista de recuperación en `includes/header.php` e `includes/footer.php`.
+* Creación del endpoint de procesamiento backend seguro `auth/recuperar-process.php` con validación estricta de correo electrónico (`FILTER_VALIDATE_EMAIL`), generación de tokens temporales de recuperación y respuesta genérica unificada para prevención de enumeración de cuentas.
+* Integración de lógica reactiva de validación en `assets/js/auth.js` (`initRecuperarForm()`) aplicando los 5 estados de inputs de Figma (Normal, Focus `#1565C0`, Filled, Error `#D32F2F` en borde, texto y placeholder, y Disabled) con limpieza reactiva en `input` y `focus`, y prevención de envíos dobles.
+* Conexión bidireccional entre la pantalla de inicio de sesión (`login.php`) y la pantalla de recuperación (`recuperar-password.php`).
+
 #### Estado de implementación
 
 Las interfaces del proyecto continúan su transición progresiva de Figma a código.
@@ -172,6 +188,7 @@ Actualmente se encuentran implementados:
 * Estructura base de Inicio.
 * Pantalla de Autenticación / Inicio de Sesión (`pages/login.php`).
 * Pantalla de Registro / Crear cuenta (`pages/registro.php`, `registro.php`).
+* Pantalla de Recuperar contraseña (`pages/recuperar-password.php`, `recuperar-password.php`).
 * Header reutilizable.
 * Footer reutilizable.
 * Navegación responsive.

@@ -17,7 +17,7 @@
 | Estado               | 🟡 En desarrollo                               |
 | Versión actual       | v0.1.1                                         |
 | Fase actual          | Fase 4 — Implementación                        |
-| Última actualización | 8 de octubre de 2026                           |
+| Última actualización | 9 de octubre de 2026                           |
 
 ---
 
@@ -862,6 +862,48 @@ Los inputs y radio buttons de toda el área de autenticación cumplen con la gu�
 
 ---
 
+## 📅 09 de octubre de 2026 (Sesión 23 — Implementación Integral de Pantalla de Recuperar Contraseña)
+
+### Objetivo de la sesión
+
+Implementar con absoluta fidelidad visual y funcional la pantalla de **Recuperar contraseña** de la plataforma **Raíces Alzate** (v0.1.1), respetando estrictamente la arquitectura modular del proyecto, el diseño aprobado en Figma y las buenas prácticas de seguridad contra enumeración de cuentas.
+
+### Bitácora de modificaciones
+
+* **Archivos creados:**
+  * `recuperar-password.php`: Controlador de entrada directa en la raíz del proyecto (`config/config.php`, `$pageTitle = 'Recuperar contraseña | ' . APP_NAME;`, `$currentPage = 'recuperar'`, y carga modular de header, `pages/recuperar-password.php` y footer).
+  * `pages/recuperar-password.php`: Vista modular con tarjeta centrada (`.auth-card`), encabezado institucional alineado a la izquierda, campo único de correo electrónico con retroalimentación visual, botón de acción a ancho completo y enlace inferior para volver a iniciar sesión.
+  * `auth/recuperar-process.php`: Endpoint de procesamiento backend con validación estricta de correo electrónico, generación de token criptográfico temporal y prevención de enumeración de cuentas.
+* **Archivos modificados:**
+  * `includes/header.php`: Incorporación de `'recuperar'` y `'recuperar-password'` a la condición de carga modular de `auth.css`.
+  * `includes/footer.php`: Incorporación de `'recuperar'` y `'recuperar-password'` a la condición de carga modular de `auth.js`.
+  * `index.php`: Enrutamiento modular para los parámetros `?page=recuperar` y `?page=recuperar-password` en el Front Controller.
+  * `assets/js/auth.js`: Implementación de `initRecuperarForm()` con validación interactiva, control de estados de inputs según Figma (vaciado y placeholder rojo en vacío, inyección de "Correo electrónico inválido." en rojo ante formato erróneo), bloqueo de envíos concurrentes y limpieza reactiva en `input`, `focus` y `keydown` restableciendo el color a `#212121`.
+  * `assets/css/auth.css`: Consolidación de selectores `.form-input.is-invalid`, `.form-input.input-error` y `.input-error` con borde y color `#D32F2F !important`, además de `::placeholder` en rojo para activar los estados de error de Figma.
+
+### Justificación técnica
+
+1. **Arquitectura Modular PHP Cohesiva:** La interfaz reutiliza al 100% el layout y los componentes compartidos (`includes/header.php`, `includes/footer.php`) y la hoja de estilos modular `assets/css/auth.css`, evitando duplicación de código y manteniendo coherencia con las pantallas de Login y Registro.
+2. **Seguridad y Prevención de Enumeración de Cuentas:** En `auth/recuperar-process.php`, el flujo de negocio no revela si el correo electrónico proporcionado existe o no en la base de datos de usuarios; la respuesta genérica unificada comunica que si el correo está registrado se generaron las instrucciones, imposibilitando ataques de recolección de identidades.
+3. **No Simulación Artificial de Envíos:** El mensaje informativo aclara de forma transparente que la infraestructura de envío de correos SMTP se encuentra en fase de configuración técnica.
+4. **Estados Interactivos Fieles a Figma:** El input de correo electrónico aprovecha la lógica de estados compartida con `novalidate` en el formulario para anular tooltips del navegador: foco azul `#1565C0`, y ante error, borde y texto en rojo `#D32F2F` indicando "Ingresa tu correo electrónico" o "Correo electrónico inválido.", restaurándose dinámicamente al enfocar o escribir.
+
+### Control de diferencias
+
+* **Antes:**
+  * El enlace "¿Olvidaste tu contraseña?" en `login.php` conducía a un recurso no implementado (error 404).
+  * No existía lógica de generación de tokens ni vista de recuperación de credenciales.
+* **Después:**
+  * Pantalla de Recuperar Contraseña 100% operativa, integrada y estilizada según Figma Desktop y Mobile.
+  * Enlace bidireccional fluido: `login.php` -> `recuperar-password.php` -> `login.php`.
+  * Validación client-side inmediata y controlador seguro en backend.
+
+### Resultado
+
+La plataforma cuenta con un flujo completo y seguro de recuperación de contraseñas, cerrando el ciclo de autenticación visual junto con el inicio de sesión y registro de usuarios.
+
+---
+
 # Estado actual del proyecto
 
 **Fase actual:** Fase 4 — Implementación
@@ -923,6 +965,7 @@ Hasta el momento se ha establecido:
 * Implementación de la pantalla **Autenticación (Login)** en Desktop y Mobile (`pages/login.php`, `assets/css/auth.css`, `assets/js/auth.js`).
 * Optimización responsive de cabecera móvil (`<= 768px`) con barra limpia (isotipo y menú hamburguesa) y traslado de acciones de autenticación al interior del drawer (`components/header.php`, `assets/css/header.css`).
 * Implementación integral de la pantalla **Registro (Crear cuenta)** en Desktop y Mobile (`pages/registro.php`, `registro.php`, `auth/registro-process.php`).
+* Implementación integral de la pantalla **Recuperar contraseña** en Desktop y Mobile (`pages/recuperar-password.php`, `recuperar-password.php`, `auth/recuperar-process.php`).
 
 Las demás interfaces diseñadas en Figma continúan en proceso de implementación progresiva.
 

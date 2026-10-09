@@ -144,22 +144,26 @@
 }
 
 /* 4. Error (Figma): Borde exterior rojo, texto y placeholder en color rojo */
+.form-input.is-invalid,
 .form-input.input-error,
-.form-input.is-invalid {
-    border-color: var(--color-primary, #D32F2F) !important;
-    color: var(--color-primary, #D32F2F) !important;
+.input-error {
+    border-color: #D32F2F !important;
+    color: #D32F2F !important;
     box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15) !important;
 }
 
+.form-input.is-invalid::placeholder,
 .form-input.input-error::placeholder,
-.form-input.is-invalid::placeholder {
-    color: var(--color-primary, #D32F2F) !important;
+.input-error::placeholder {
+    color: #D32F2F !important;
     opacity: 1 !important;
 }
 
+.form-input.is-invalid:focus,
 .form-input.input-error:focus,
-.form-input.is-invalid:focus {
-    border-color: var(--color-primary, #D32F2F) !important;
+.input-error:focus {
+    border-color: #D32F2F !important;
+    color: #D32F2F !important;
     box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.25) !important;
 }
 

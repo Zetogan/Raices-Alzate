@@ -14,7 +14,7 @@ if (!defined('APP_NAME')) {
     <script src="assets/js/main.js?v=<?php echo APP_VERSION; ?>"></script>
 
     <!-- Scripts específicos por módulo -->
-    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro'])): ?>
+    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
     <script src="assets/js/auth.js?v=<?php echo APP_VERSION; ?>"></script>
     <?php endif; ?>
     <?php if (!empty($extraJs)): ?>

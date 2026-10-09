@@ -45,7 +45,7 @@ if (!function_exists('assetCssUrl')) {
     <link rel="stylesheet" href="<?php echo assetCssUrl('footer.css'); ?>">
 
     <!-- 4. Estilos específicos por pantalla / módulo -->
-    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro'])): ?>
+    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
     <link rel="stylesheet" href="<?php echo assetCssUrl('auth.css'); ?>">
     <?php endif; ?>
     <?php if (!empty($extraCss)): ?>

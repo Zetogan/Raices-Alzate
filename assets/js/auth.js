@@ -8,6 +8,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initLoginForm();
     initRegistroForm();
+    initRecuperarForm();
 });
 
 // =============================================================================
@@ -61,6 +62,13 @@ function setInputError(input, errorMessage, errorElement) {
 function clearInputError(input, errorElement) {
     if (!input) return;
 
+    if (input.dataset.hasErrorState === 'true' || 
+        input.value === 'Correo electrónico inválido.' || 
+        input.value === 'Ingresa tu correo electrónico') {
+        input.value = '';
+        delete input.dataset.hasErrorState;
+    }
+
     // Restaurar placeholder original si fue sustituido por el mensaje de error
     if (input.dataset.originalPlaceholder !== undefined) {
         input.placeholder = input.dataset.originalPlaceholder;
@@ -68,6 +76,7 @@ function clearInputError(input, errorElement) {
 
     input.classList.remove('input-error', 'is-invalid');
     input.removeAttribute('aria-invalid');
+    input.style.color = '#212121';
 
     if (errorElement) {
         errorElement.textContent = '';
@@ -521,6 +530,167 @@ function initRegistroForm() {
             submitBtn.dataset.originalText = submitBtn.textContent;
             submitBtn.textContent = 'Registrando...';
         }
+    });
+}
+
+// =============================================================================
+// INICIALIZACIÓN: FORMULARIO DE RECUPERACIÓN DE CONTRASEÑA
+// =============================================================================
+function initRecuperarForm() {
+    const recuperarForm = document.getElementById('recuperarForm');
+    if (!recuperarForm) {
+        return;
+    }
+
+    const inputCorreo = document.getElementById('correo') || document.getElementById('email');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorCorreo = document.getElementById('error_correo');
+    const feedbackBox = document.getElementById('formFeedback');
+    const feedbackText = document.getElementById('formFeedbackText');
+    const feedbackIcon = document.getElementById('formFeedbackIcon');
+
+    // Expresión regular recomendada para validación de formato de correo legítimo
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let isSubmitting = false;
+
+    // Respaldo preventivo de placeholder original
+    if (inputCorreo && inputCorreo.placeholder) {
+        inputCorreo.dataset.originalPlaceholder = inputCorreo.placeholder;
+    }
+
+    function showFeedback(message, type = 'error') {
+        if (!feedbackBox) return;
+        if (feedbackText) feedbackText.textContent = message;
+        feedbackBox.className = `alert alert-${type}`;
+        if (feedbackIcon) {
+            feedbackIcon.innerHTML = type === 'success'
+                ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'
+                : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>';
+        }
+        feedbackBox.style.display = 'flex';
+    }
+
+    function hideFeedback() {
+        if (!feedbackBox) return;
+        feedbackBox.style.display = 'none';
+        if (feedbackText) feedbackText.textContent = '';
+    }
+
+    // Limpieza de estado de error (Figma): restaura clase, placeholder y color a #212121
+    function clearErrorState() {
+        if (!inputCorreo) return;
+
+        if (inputCorreo.dataset.hasErrorState === 'true' || 
+            inputCorreo.value === 'Correo electrónico inválido.' || 
+            inputCorreo.value === 'Ingresa tu correo electrónico') {
+            inputCorreo.value = '';
+            delete inputCorreo.dataset.hasErrorState;
+        }
+
+        inputCorreo.classList.remove('input-error', 'is-invalid');
+        inputCorreo.removeAttribute('aria-invalid');
+        inputCorreo.style.color = '#212121';
+
+        if (inputCorreo.dataset.originalPlaceholder !== undefined) {
+            inputCorreo.placeholder = inputCorreo.dataset.originalPlaceholder;
+        }
+
+        if (errorCorreo) {
+            errorCorreo.textContent = '';
+            errorCorreo.classList.remove('is-visible');
+            errorCorreo.style.display = 'none';
+        }
+
+        hideFeedback();
+    }
+
+    // Escuchadores de eventos input, focus y keydown: al enfocar o escribir, retira inmediatamente el error
+    if (inputCorreo) {
+        inputCorreo.addEventListener('input', () => {
+            clearErrorState();
+        });
+
+        inputCorreo.addEventListener('focus', () => {
+            if (inputCorreo.classList.contains('input-error') || 
+                inputCorreo.classList.contains('is-invalid') || 
+                inputCorreo.value === 'Correo electrónico inválido.' ||
+                inputCorreo.dataset.hasErrorState === 'true') {
+                clearErrorState();
+            }
+        });
+
+        inputCorreo.addEventListener('keydown', () => {
+            if (inputCorreo.dataset.hasErrorState === 'true' || inputCorreo.value === 'Correo electrónico inválido.') {
+                clearErrorState();
+            }
+        });
+    }
+
+    // Manejador del evento submit
+    recuperarForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (isSubmitting) {
+            return;
+        }
+
+        if (!inputCorreo) {
+            return;
+        }
+
+        const correoVal = inputCorreo.value.trim();
+
+        // 1. Si está vacío:
+        if (correoVal === '' || correoVal === 'Ingresa tu correo electrónico' || correoVal === 'Correo electrónico inválido.') {
+            inputCorreo.classList.add('input-error', 'is-invalid');
+            inputCorreo.setAttribute('aria-invalid', 'true');
+            inputCorreo.value = '';
+            inputCorreo.placeholder = 'Ingresa tu correo electrónico';
+            inputCorreo.dataset.hasErrorState = 'true';
+
+            if (errorCorreo) {
+                errorCorreo.textContent = 'Ingresa tu correo electrónico';
+                errorCorreo.classList.add('is-visible');
+                errorCorreo.style.display = 'block';
+            }
+
+            showFeedback('Ingresa tu correo electrónico.', 'error');
+            return;
+        }
+
+        // 2. Si el formato es inválido o incompleto (ej. "alejo", "alejo@", sin dominio válido):
+        if (!emailRegex.test(correoVal)) {
+            inputCorreo.classList.add('input-error', 'is-invalid');
+            inputCorreo.setAttribute('aria-invalid', 'true');
+            inputCorreo.value = 'Correo electrónico inválido.';
+            inputCorreo.dataset.hasErrorState = 'true';
+
+            if (errorCorreo) {
+                errorCorreo.textContent = 'Correo electrónico inválido.';
+                errorCorreo.classList.add('is-visible');
+                errorCorreo.style.display = 'block';
+            }
+
+            showFeedback('Correo electrónico inválido.', 'error');
+            return;
+        }
+
+        // 3. Formato válido: enviar formulario al backend
+        hideFeedback();
+        if (errorCorreo) {
+            errorCorreo.textContent = '';
+            errorCorreo.classList.remove('is-visible');
+            errorCorreo.style.display = 'none';
+        }
+
+        isSubmitting = true;
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.dataset.originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando instrucciones...';
+        }
+
+        HTMLFormElement.prototype.submit.call(recuperarForm);
     });
 }
 
