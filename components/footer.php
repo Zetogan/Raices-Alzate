@@ -15,7 +15,7 @@ if (!defined('APP_NAME')) {
             <!-- Columna 1: Marca y lema institucional -->
             <div class="footer-brand footer-col">
                 <div class="footer-brand-header">
-                    <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Isotipo <?php echo htmlspecialchars(APP_NAME); ?>" class="footer-brand-logo" width="32" height="32">
+                    <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo <?php echo htmlspecialchars(APP_NAME); ?>" class="footer-brand-logo" width="32" height="32">
                     <h4 class="footer-brand-title footer-title"><?php echo htmlspecialchars(APP_NAME); ?></h4>
                 </div>
                 <p class="footer-desc">
@@ -28,9 +28,9 @@ if (!defined('APP_NAME')) {
                 <h4 class="footer-title">Navegación</h4>
                 <ul class="footer-links footer-nav-list">
                     <li><a href="index.php" class="footer-link">Inicio</a></li>
-                    <li><a href="#egresados" class="footer-link">Egresados</a></li>
-                    <li><a href="#proyectos" class="footer-link">Proyectos</a></li>
-                    <li><a href="#noticias" class="footer-link">Noticias</a></li>
+                    <li><a href="proyectos.php" class="footer-link">Proyectos</a></li>
+                    <li><a href="egresados.php" class="footer-link">Egresados</a></li>
+                    <li><a href="noticias.php" class="footer-link">Noticias</a></li>
                 </ul>
             </div>
 

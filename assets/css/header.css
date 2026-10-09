@@ -40,8 +40,9 @@
 .brand-logo,
 .brand-logo-img,
 .header-logo-img {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
     object-fit: contain;
     flex-shrink: 0;
     display: block;
@@ -84,29 +85,26 @@
     font-weight: 500;
     padding: var(--space-4, 4px) 0;
     text-decoration: none !important;
-    border-bottom: none !important;
+    border-bottom: 2px solid transparent;
     outline: none !important;
-    transition: color var(--transition-fast, 0.15s ease-in-out);
+    transition: color var(--transition-fast, 0.15s ease-in-out), border-color var(--transition-fast, 0.15s ease-in-out);
 }
 
 .nav-link:hover,
 .nav-link:focus {
     color: var(--color-primary, #D32F2F);
     text-decoration: none !important;
-    border-bottom: none !important;
 }
 
 .nav-link.active {
-    color: var(--color-primary, #D32F2F);
+    color: var(--color-primary, #D32F2F) !important;
     font-weight: 600;
     text-decoration: none !important;
-    border-bottom: none !important;
+    border-bottom: 2px solid var(--color-primary, #D32F2F) !important;
 }
 
 .nav-link::before,
-.nav-link::after,
-.nav-link.active::before,
-.nav-link.active::after {
+.nav-link::after {
     display: none !important;
     content: none !important;
 }
@@ -228,8 +226,8 @@
    ========================================================================== */
 .header a,
 .header-logo,
-.nav a,
-.nav-link,
+.nav a:not(.active),
+.nav-link:not(.active),
 .btn-login,
 .header-login-link,
 .header-register-btn,
@@ -241,12 +239,18 @@
 
 .header a:hover,
 .header a:focus,
-.nav a:hover,
-.nav a.active,
+.nav a:hover:not(.active),
 .header-login-link:hover,
 .header-login-link:focus {
     text-decoration: none !important;
     border-bottom: none !important;
+}
+
+.nav-link.active,
+.nav a.active {
+    color: var(--color-primary, #D32F2F) !important;
+    border-bottom: 2px solid var(--color-primary, #D32F2F) !important;
+    text-decoration: none !important;
 }
 
 /* ==========================================================================

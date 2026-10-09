@@ -1,0 +1,327 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Portal Público
+ * Pantalla: 06 - Proyectos - Desktop (y adaptación Mobile)
+ * Especificación Figma: 1440 × 900 px | Mobile: 390 px
+ * Paleta Oficial:
+ *   - Primario: #D32F2F (Rojo Alzate) | Hover: #B71C1C
+ *   - Secundario: #1565C0 (Azul Institucional) | Hover: rgba(21, 101, 192, 0.08)
+ *   - Texto principal: #212121 | Secundario: #757575
+ *   - Fondos: #FFFFFF / #F5F5F5 | Bordes: #E0E0E0
+ */
+
+/* ==========================================================================
+   1. CONTENEDOR Y SECCIÓN DE PROYECTOS
+   ========================================================================== */
+.proyectos-main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-light, #F5F5F5);
+    min-height: calc(100vh - var(--section-header-height, 72px) - var(--section-footer-height, 220px));
+}
+
+.proyectos-section {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    padding: var(--space-64, 64px) 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.proyectos-container {
+    width: 100%;
+    max-width: var(--container-max-width, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-24, 24px);
+    padding-right: var(--space-24, 24px);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. GRILLA RESPONSIVE DE DOS COLUMNAS (DESKTOP)
+   ========================================================================== */
+.proyectos-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-areas:
+        "text visual"
+        "actions visual";
+    align-items: center;
+    column-gap: 48px;
+    row-gap: 32px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   3. COLUMNA IZQUIERDA (CONTENIDO Y ACCIONES)
+   ========================================================================== */
+.proyectos-header-text {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.proyectos-title {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 2.25rem; /* 36px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+}
+
+.proyectos-desc {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+    color: var(--color-text-secondary, #757575);
+    max-width: 480px;
+    margin: 0;
+}
+
+.proyectos-actions {
+    grid-area: actions;
+    display: flex;
+    align-items: center;
+    align-self: start;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Botón 1: Iniciar sesión (Principal #D32F2F) */
+.btn-primary,
+.btn-proyectos-login,
+.btn-proyectos-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important; /* Evita que el texto se divida en 2 líneas */
+    text-align: center !important;
+    min-width: 140px;
+    width: auto;
+    height: 44px !important;
+    padding: 0 24px !important;
+    line-height: normal !important;
+    border-radius: 8px !important;
+    background-color: var(--color-primary, #D32F2F) !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none !important;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-proyectos-primary:hover,
+.btn-proyectos-primary:focus,
+.btn-proyectos-login:hover,
+.btn-proyectos-login:focus {
+    background-color: var(--color-primary-hover, #B71C1C) !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.btn-primary:active,
+.btn-proyectos-primary:active,
+.btn-proyectos-login:active {
+    background-color: #8E0000 !important;
+    transform: scale(0.98);
+}
+
+/* Botón 2: Crear una cuenta (Secundario Outline #1565C0) */
+.btn-outline-secondary,
+.btn-proyectos-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    min-width: 140px;
+    width: auto;
+    height: 44px !important;
+    padding: 0 24px !important;
+    line-height: normal !important;
+    border-radius: 8px !important;
+    border: 1.5px solid var(--color-secondary, #1565C0) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    background-color: transparent !important;
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-proyectos-secondary:hover,
+.btn-proyectos-secondary:focus {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    border-color: var(--color-secondary, #1565C0) !important;
+    text-decoration: none !important;
+}
+
+.btn-outline-secondary:active,
+.btn-proyectos-secondary:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   4. COLUMNA DERECHA (TARJETA VISUAL DE ILUSTRACIÓN)
+   ========================================================================== */
+.proyectos-visual,
+.proyectos-illustration-card {
+    grid-area: visual;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.proyectos-card,
+.proyectos-visual-card {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.proyectos-card:hover,
+.proyectos-visual-card:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+    transform: translateY(-2px);
+}
+
+.proyectos-illustration,
+.proyectos-illustration-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    display: block;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN (MOBILE & TABLET: <= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .proyectos-section {
+        padding: 40px 0 48px 0;
+    }
+
+    /* Contenedor general en columna */
+    .proyectos-container,
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .proyectos-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+    }
+
+    /* 1. Bloque de textos en primer lugar */
+    .proyectos-header-text {
+        order: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .proyectos-title {
+        font-size: 1.875rem; /* 30px */
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .proyectos-desc {
+        font-size: 0.95rem;
+        max-width: 100%;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    /* 2. Tarjeta con la ilustración en segundo lugar */
+    .proyectos-visual,
+    .proyectos-illustration-card {
+        order: 2;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 28px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .proyectos-card,
+    .proyectos-visual-card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .proyectos-illustration,
+    .proyectos-illustration-img {
+        max-height: 240px;
+        width: 100%;
+        height: auto;
+    }
+
+    /* 3. Grupo de botones al final */
+    .proyectos-actions {
+        order: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        gap: 12px;
+    }
+
+    .proyectos-actions .btn-primary,
+    .proyectos-actions .btn-proyectos-login,
+    .proyectos-actions .btn-proyectos-primary,
+    .proyectos-actions .btn-outline-secondary,
+    .proyectos-actions .btn-proyectos-secondary {
+        width: 100% !important;
+        height: 44px !important;
+    }
+}

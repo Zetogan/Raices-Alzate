@@ -18,6 +18,28 @@ El formato de este documento está inspirado en las convenciones de *Keep a Chan
 
 ## 📅 09 de octubre de 2026
 
+### 📁 Pantalla de Proyectos
+
+#### Agregado
+
+* Creación del controlador de acceso directo `proyectos.php` en la raíz del proyecto para acceso modular.
+* Creación de la vista de contenido `pages/proyectos.php` con contenedor semántico `<main>` y `<section>`.
+* Implementación de la grilla responsive de dos columnas balanceadas (Desktop 1440 px) y apilamiento centrado (Mobile < 768 px).
+* Creación de la hoja de estilos modular `assets/css/portal.css` para el módulo de proyectos y componentes del portal público.
+* Creación de la ilustración vectorial oficial `assets/img/proyectos-illustration.svg` con la laptop, el brote de planta en crecimiento (metáfora de raíces), la bombilla de innovación y credenciales de comunidad en la paleta institucional estricta (`#D32F2F`, `#1565C0`, tonos neutros).
+* Incorporación de la ruta `case 'proyectos':` en el Front Controller `index.php`.
+* Incorporación de la carga condicional de `portal.css` en `includes/header.php`.
+* Implementación de botones de acción con dimensiones y estados de interacción según Design System: «Iniciar sesión» (`#D32F2F`) y «Crear una cuenta» (outline `#1565C0`).
+
+#### Cambiado
+
+* Se actualizó la barra de navegación en `components/header.php` para vincular a `proyectos.php` con indicador visual de pestaña activa de 2 px en `#D32F2F`.
+* Se unificó la referencia del logo oficial a la ruta institucional existente en `assets/icons/logo sin fondo raices alzate.ico`, eliminando copias duplicadas en `assets/img/`.
+* Se actualizó `components/footer.php` y `assets/css/footer.css` al fondo minimalista `#1E1E1E`, tipografía `#B0BEC5` y navegación principal aprobada (`Inicio`, `Proyectos`, `Egresados`, `Noticias`), eliminando el enlace redundante a Contacto.
+* Se calibró el botón principal «Iniciar sesión» (`.btn-primary`, `.btn-proyectos-login`) con `white-space: nowrap;`, centrado perfecto, `min-width: 140px;` y altura de 44 px para garantizar su visualización en una sola línea horizontal sin quiebres.
+* Se reordenó la vista mobile (`@media (max-width: 768px)`) con Flexbox para secuenciar verticalmente: 1. Título y descripción (`order: 1`), 2. Ilustración de la laptop (`order: 2`), y 3. Botones de acción (`order: 3`).
+* Se incorporó la clase reutilizable `.btn-outline-secondary` a `assets/css/main.css`.
+
 ### 🔑 Recuperación de contraseña
 
 #### Agregado
@@ -494,6 +516,7 @@ Se ha avanzado en:
 * Registro de usuarios.
 * Sistema global de alertas.
 * Recuperación de contraseña.
+* Pantalla de Proyectos.
 
 Las demás interfaces diseñadas en Figma se implementarán progresivamente.
 

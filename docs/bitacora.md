@@ -586,6 +586,49 @@ La configuración SMTP todavía está pendiente. Por lo tanto, la generación de
 
 Se implementó la estructura de recuperación de contraseña y se preparó su procesamiento, quedando pendiente completar y verificar la integración con el servicio de correo y el flujo de restablecimiento.
 
+## Sesión 24 — Implementación de la pantalla de Proyectos
+
+**Fecha:** 9 de octubre de 2026
+
+**Objetivo:**
+
+Implementar con fidelidad visual y funcional la pantalla de Proyectos de la plataforma Raíces Alzate (v0.1.1), respetando estrictamente la arquitectura modular del repositorio y el sistema de diseño visual institucional.
+
+**Archivos creados o trabajados:**
+
+* `proyectos.php` (punto de entrada directo en la raíz).
+* `pages/proyectos.php` (vista modular con contenedor semántico).
+* `assets/css/portal.css` (hoja de estilos para el portal público y pantalla de proyectos).
+* `assets/img/proyectos-illustration.svg` (ilustración vectorial oficial con laptop, brote, bombilla e insignias de proyectos).
+* `assets/icons/logo sin fondo raices alzate.ico` (isotipo oficial reutilizado en cabecera y pie de página).
+* `index.php` (incorporación de la ruta `case 'proyectos':` en el Front Controller).
+* `includes/header.php` (incorporación condicional de `portal.css`).
+* `components/header.php` (enlace activo con indicador inferior rojo de 2 px y logo oficial en icons).
+* `components/footer.php` (pie de página minimalista con logo oficial y navegación principal de 4 enlaces).
+* `assets/css/header.css` (calibración del logo a 42 px e indicador activo).
+* `assets/css/footer.css` (fondo `#1E1E1E` y tipografía institucional `#B0BEC5`).
+* `assets/css/main.css` (incorporación de la clase `.btn-outline-secondary`).
+* `docs/bitacora.md` (registro de la sesión).
+* `docs/changelog.md` (registro en el historial de cambios).
+
+**Actividades realizadas:**
+
+* Creación del controlador de vista directo `proyectos.php` en la raíz para despachar de forma modular el encabezado, la vista de contenido y el pie de página.
+* Construcción de la vista semántica en `pages/proyectos.php` estructurada en un layout de dos columnas balanceadas en Desktop (1440 px) y una sola columna apilada en Mobile (< 768 px).
+* Incorporación del título institucional «Proyectos» y el párrafo descriptivo de llamado a la comunidad.
+* Calibración del botón principal «Iniciar sesión» (`.btn-primary`, `.btn-proyectos-login`) con `display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; text-align: center; min-width: 140px; height: 44px; padding: 0 24px; line-height: normal;` para garantizar que el texto se presente centrado y en una sola línea horizontal sin particiones.
+* Configuración del botón secundario «Crear una cuenta» en estilo outline con borde y texto en azul institucional `#1565C0`.
+* Diseño y renderizado de la ilustración vectorial oficial en formato SVG (`assets/img/proyectos-illustration.svg`), armonizada exclusivamente con la paleta de colores oficial: laptop en tonos neutros y azules, brote y planta en crecimiento con acentos en rojo Alzate, bombilla de innovación y tarjetas flotantes de código, comunidad e impacto.
+* Unificación del recurso del logo en su ubicación oficial `assets/icons/logo sin fondo raices alzate.ico`, evitando duplicaciones en `assets/img/`.
+* Actualización del indicador visual de pestaña activa en el menú de navegación (`border-bottom: 2px solid #D32F2F;`).
+* Calibración del footer a `#1E1E1E` con la navegación principal aprobada (`Inicio`, `Proyectos`, `Egresados`, `Noticias`), eliminando el enlace a Contacto.
+* Reordenamiento responsive en Mobile (<= 768 px) mediante Flexbox, estructurando la secuencia visual vertical: 1. Título y descripción (`.proyectos-header-text`, `order: 1`), 2. Tarjeta de ilustración (`.proyectos-illustration-card`, `order: 2`), 3. Botones de acción (`.proyectos-actions`, `order: 3`).
+* Verificación de la adaptabilidad para pantallas móviles garantizando que no existan desbordamientos horizontales.
+
+**Resultado:**
+
+Se implementó con éxito la pantalla de Proyectos cumpliendo todas las reglas de arquitectura modular y respetando la paleta estricta de colores del sistema de diseño institucional.
+
 ---
 
 # 📊 Estado general del proyecto
@@ -620,6 +663,7 @@ Se implementó la estructura de recuperación de contraseña y se preparó su pr
 | Inicio de sesión                      | Estructura y procesamiento desarrollados; requieren pruebas integrales    |
 | Registro de usuarios                  | Estructura y procesamiento desarrollados; requieren verificación integral |
 | Recuperación de contraseña            | Estructura y generación de token desarrolladas; SMTP pendiente            |
+| Pantalla de Proyectos                 | Implementada; vista modular, controlador y estilos calibrados             |
 | Esquema definitivo de base de datos   | Pendiente de definición y validación                                      |
 | Implementación de las demás pantallas | Pendiente de desarrollo progresivo                                        |
 | Pruebas integrales de la plataforma   | Pendientes de completar                                                   |

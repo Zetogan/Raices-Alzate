@@ -30,6 +30,11 @@ switch ($page) {
         $currentPage = 'recuperar';
         $viewFile = __DIR__ . '/pages/recuperar-password.php';
         break;
+    case 'proyectos':
+        $pageTitle = 'Proyectos | ' . APP_NAME;
+        $currentPage = 'proyectos';
+        $viewFile = __DIR__ . '/pages/proyectos.php';
+        break;
     case 'inicio':
     default:
         $pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';

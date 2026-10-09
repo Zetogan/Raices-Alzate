@@ -48,6 +48,9 @@ if (!function_exists('assetCssUrl')) {
     <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
     <link rel="stylesheet" href="<?php echo assetCssUrl('auth.css'); ?>">
     <?php endif; ?>
+    <?php if (isset($currentPage) && in_array($currentPage, ['proyectos', 'portal', 'egresados', 'noticias'])): ?>
+    <link rel="stylesheet" href="<?php echo assetCssUrl('portal.css'); ?>">
+    <?php endif; ?>
     <?php if (!empty($extraCss)): ?>
         <?php foreach ((array)$extraCss as $cssFile): ?>
             <link rel="stylesheet" href="<?php echo assetCssUrl($cssFile); ?>">
