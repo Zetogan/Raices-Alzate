@@ -1,6 +1,6 @@
 # 🌱 Raíces Alzate
 
-> Plataforma para la gestión, seguimiento y fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
+> Plataforma para la gestión, el seguimiento y el fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
 
 ---
 
@@ -15,185 +15,382 @@
 | Estado               | 🟡 En desarrollo        |
 | Fase actual          | Fase 4 — Implementación |
 | Inicio del proyecto  | 2025                    |
-| Última actualización | 8 de octubre de 2026    |
+| Última actualización | 9 de octubre de 2026    |
 
 ---
 
-# Introducción
+# 1. Introducción
 
-Este documento describe la arquitectura general de **Raíces Alzate**, incluyendo la organización del proyecto, las tecnologías utilizadas, la estructura por capas, los módulos principales, el flujo general del sistema y la relación entre las diferentes interfaces que conformarán la plataforma.
+Este documento describe la arquitectura general de **Raíces Alzate**, incluyendo la organización del proyecto, las tecnologías utilizadas, la separación de responsabilidades, los módulos principales, la estructura de archivos y los flujos de navegación y procesamiento de información.
 
-La arquitectura ha sido planteada para facilitar el mantenimiento, la escalabilidad, la reutilización de componentes y el desarrollo incremental del sistema.
+La arquitectura busca facilitar el mantenimiento, la reutilización de componentes, la seguridad, la trazabilidad y la evolución progresiva de la plataforma.
 
-El proyecto se encuentra en desarrollo desde **2025**. La **Fase 3 — Diseño UI/UX** fue completada, dejando definidos el sistema visual, los componentes reutilizables, el flujo de navegación, la estructura de las interfaces y los criterios responsive.
+El proyecto se encuentra en desarrollo desde **2025**. Durante las etapas iniciales se trabajaron la planificación, la documentación base y la definición de los requerimientos. Posteriormente se desarrolló la Fase 3 — Diseño UI/UX, completada a finales de septiembre de 2026.
 
-Actualmente el proyecto se encuentra en la **Fase 4 — Implementación**, durante la cual se está trasladando progresivamente el diseño aprobado en Figma al código frontend.
+Como resultado de la etapa de diseño, se establecieron el sistema visual, los componentes reutilizables, los estados de interacción, los flujos de navegación y las interfaces Desktop y Mobile que sirven como referencia para la implementación.
 
-Como primer avance de esta etapa se implementó la pantalla **Inicio**, tanto en su adaptación Desktop como Mobile, junto con la estructura modular de cabecera, pie de página, estilos y recursos tipográficos.
+Actualmente, Raíces Alzate se encuentra en la **Fase 4 — Implementación**, durante la cual se está trasladando progresivamente el diseño aprobado en Figma a una aplicación web funcional.
+
+Los avances de esta fase incluyen:
+
+* Implementación modular de la página de Inicio.
+* Construcción de las interfaces de autenticación.
+* Implementación de los formularios de inicio de sesión, registro y recuperación de contraseña.
+* Desarrollo de validaciones de formularios en JavaScript.
+* Implementación inicial del procesamiento de formularios mediante PHP.
+* Preparación de la conexión con la base de datos MySQL y utilización de PDO.
+* Organización de los estilos y recursos compartidos.
+* Adaptación responsive de la cabecera y de las interfaces implementadas.
+
+La implementación continúa de manera incremental. Por lo tanto, la existencia de una interfaz o de un controlador no implica que todas las funcionalidades asociadas estén terminadas o disponibles en producción.
 
 ---
 
-# Arquitectura General
+# 2. Arquitectura General
 
-La plataforma seguirá una arquitectura basada en el modelo **Cliente – Servidor**, donde cada capa tendrá responsabilidades claramente definidas.
+Raíces Alzate utiliza una arquitectura web basada en el modelo **cliente-servidor**, con separación entre la presentación, el procesamiento de solicitudes y el almacenamiento de información.
 
 ```text
-                Usuario
-                   │
-                   ▼
-             Navegador Web
-                   │
-                   ▼
-      Frontend (HTML • CSS • JS)
-                   │
-                   ▼
-           Backend (PHP)
-                   │
-                   ▼
-        Base de Datos (MySQL)
+                       USUARIO
+                          │
+                          ▼
+                    NAVEGADOR WEB
+                          │
+                          ▼
+              PRESENTACIÓN E INTERFAZ
+                HTML5 · CSS · JavaScript
+                          │
+                          ▼
+                 ENTRADA AL SISTEMA
+                       index.php
+                          │
+                          ▼
+               CONTROLADORES Y RUTAS
+                   PHP nativo
+                          │
+                          ▼
+                LÓGICA DE APLICACIÓN
+             Validaciones y procesamiento
+                          │
+                          ▼
+                  ACCESO A DATOS
+                       PDO
+                          │
+                          ▼
+                    BASE DE DATOS
+                        MySQL
 ```
 
-Esta estructura permite separar la presentación, la lógica de negocio y la gestión de datos, facilitando el mantenimiento y la evolución del sistema.
+El navegador presenta las interfaces y permite la interacción del usuario. Las solicitudes que requieren procesamiento en el servidor son atendidas por PHP, que ejecuta las validaciones y operaciones correspondientes.
 
-La implementación actual se encuentra principalmente en la **capa de presentación**, mientras que la integración completa con backend y base de datos se desarrollará progresivamente.
+Cuando una funcionalidad necesita consultar o modificar información persistente, el backend utiliza la capa de acceso a datos para comunicarse con MySQL.
+
+La implementación debe mantener separadas las responsabilidades de cada parte, evitando concentrar toda la presentación, la lógica de negocio y el acceso a datos en un único archivo.
+
+## 2.1. Enfoque arquitectónico
+
+La implementación se basa en los siguientes criterios:
+
+* PHP nativo, sin depender de frameworks de aplicación externos.
+* Organización modular de las interfaces y los recursos.
+* Uso de `index.php` como punto de entrada y enrutamiento de la aplicación cuando corresponde.
+* Controladores independientes para las operaciones y las rutas que requieren procesamiento.
+* Vistas organizadas dentro de `pages/`.
+* Componentes compartidos para elementos de interfaz reutilizables.
+* Procesamiento de formularios mediante archivos específicos dentro de `auth/`.
+* Estilos organizados según su responsabilidad.
+* Separación entre presentación, procesamiento y persistencia.
+* Integración progresiva de las funcionalidades.
+* Uso de Git y GitHub para el control de versiones.
+
+La arquitectura se irá ajustando conforme se incorporen nuevos módulos, sin perder la separación de responsabilidades establecida.
 
 ---
 
-# Arquitectura por Capas
+# 3. Tecnologías Utilizadas
 
-## Capa de Presentación
+## 3.1. Frontend
 
-Es responsable de la interacción entre el usuario y la plataforma.
+| Tecnología        | Responsabilidad                                                         |
+| ----------------- | ----------------------------------------------------------------------- |
+| HTML5             | Estructura semántica de las interfaces.                                 |
+| CSS3              | Presentación visual, distribución, componentes y adaptación responsive. |
+| JavaScript nativo | Interactividad, validación reactiva y comportamiento de componentes.    |
+| Inter             | Tipografía principal de las interfaces.                                 |
+| Figma             | Referencia del diseño visual y de los componentes.                      |
 
-Tecnologías utilizadas:
+El frontend se desarrolla utilizando tecnologías nativas, sin incorporar frameworks externos para la construcción de las interfaces.
 
-* HTML5
-* CSS3
-* JavaScript
-* PHP para la generación y organización de las vistas
+La implementación debe respetar los criterios visuales establecidos en Figma y mantener una presentación consistente entre los diferentes módulos.
 
-La interfaz se implementa tomando como referencia el **Design System desarrollado en Figma**, con el objetivo de mantener una experiencia visual consistente, reutilizable y responsive.
+## 3.2. Backend
 
-El sistema de diseño contempla:
+| Tecnología                    | Responsabilidad                                                                    |
+| ----------------------------- | ---------------------------------------------------------------------------------- |
+| PHP nativo                    | Procesamiento de solicitudes y lógica de aplicación.                               |
+| PDO                           | Acceso a la base de datos mediante una interfaz de conexión de PHP.                |
+| Sesiones PHP                  | Mecanismo previsto para mantener el estado de autenticación.                       |
+| Funciones de seguridad de PHP | Validación de datos, generación de contraseñas hash y generación segura de tokens. |
+
+Los mecanismos de autenticación, autorización y gestión de sesiones deben implementarse y verificarse conforme se desarrollen los módulos correspondientes.
+
+La utilización de una función o mecanismo de seguridad en una funcionalidad no implica que todos los controles de seguridad de la plataforma estén terminados.
+
+## 3.3. Base de datos
+
+| Tecnología | Responsabilidad                               |
+| ---------- | --------------------------------------------- |
+| MySQL      | Almacenamiento persistente de la información. |
+| PDO        | Comunicación entre PHP y la base de datos.    |
+| SQL        | Consultas y operaciones de persistencia.      |
+
+La conexión entre PHP y MySQL fue verificada durante la preparación de la implementación.
+
+La estructura definitiva de las tablas, las relaciones, las restricciones y las consultas debe documentarse conforme se definan e implementen los módulos de datos.
+
+## 3.4. Herramientas de desarrollo
+
+* Visual Studio Code para la edición del código.
+* Git para el control de versiones.
+* GitHub para el alojamiento del repositorio y la colaboración.
+* Figma para el diseño UI/UX.
+* Herramientas de desarrollo y validación para comprobar el funcionamiento de las interfaces y los archivos PHP.
+
+---
+
+# 4. Arquitectura por Capas
+
+## 4.1. Capa de presentación
+
+La capa de presentación es responsable de mostrar la información y permitir que los usuarios interactúen con la plataforma.
+
+Está compuesta principalmente por HTML5, CSS3, JavaScript y las vistas PHP.
+
+Sus responsabilidades incluyen:
+
+* Representar las interfaces diseñadas en Figma.
+* Presentar formularios y sus campos.
+* Mostrar mensajes de validación y alertas.
+* Gestionar los estados visuales de los componentes.
+* Adaptar la interfaz a Desktop y Mobile.
+* Reutilizar elementos comunes entre las diferentes páginas.
+* Facilitar la navegación entre las secciones del sistema.
+
+### Sistema visual
+
+La implementación utiliza como referencia el Design System establecido durante la etapa de diseño UI/UX.
+
+Este sistema define:
 
 * Identidad visual.
 * Paleta de colores.
 * Tipografía.
-* Sistema de espaciado.
-* Componentes reutilizables.
-* Estados de los componentes.
-* Diseño responsive.
-* Estructura y navegación de las interfaces.
+* Escala de espaciado.
+* Estilos de botones.
+* Campos de formulario.
+* Checkbox.
+* Radio Button.
+* Switch.
+* Tablas.
+* Estados de interacción.
+* Criterios responsive.
 
-Las interfaces consideran principalmente dos adaptaciones:
+Las interfaces consideran principalmente dos referencias de diseño:
 
-* Desktop: `1440 px`
-* Mobile: `390 px`
+* **Desktop:** ancho de referencia de 1440 px.
+* **Mobile:** ancho de referencia de 390 px.
 
-La implementación debe conservar la jerarquía visual y los criterios definidos durante la etapa de diseño.
+Estas dimensiones corresponden a las referencias de diseño y no representan las únicas resoluciones compatibles. La implementación debe adaptarse también a los tamaños intermedios pertinentes.
 
-### Implementación frontend actual
+### Organización de estilos CSS
 
-Durante la implementación de la pantalla **Inicio** se estableció una estructura modular para evitar la concentración de todos los estilos y componentes en un único archivo.
-
-La capa CSS se organiza actualmente de la siguiente manera:
+Los estilos se distribuyen en archivos específicos para evitar concentrar todas las reglas en una única hoja de estilos.
 
 ```text
 assets/
-└── css/
-    ├── main.css
-    ├── fonts.css
-    ├── header.css
-    └── footer.css
+├── css/
+│   ├── main.css
+│   ├── fonts.css
+│   ├── header.css
+│   ├── footer.css
+│   └── auth.css
+└── js/
+    └── auth.js
 ```
 
-### `main.css`
+Esta representación incluye los archivos identificados en los informes de implementación. La estructura definitiva puede incorporar hojas de estilos y scripts adicionales a medida que se desarrollen otros módulos.
 
-Contiene los estilos generales del proyecto y los tokens derivados del Design System, incluyendo:
+#### `main.css`
 
-* Colores institucionales.
-* Escala de espaciado.
-* Estilos base.
-* Reset y normalización de elementos.
-* Reglas generales de layout.
-* Estilos compartidos por diferentes componentes.
+Contiene los estilos generales del proyecto y los componentes visuales compartidos.
 
-También contiene el restablecimiento global de los estilos de enlaces para evitar subrayados y bordes inferiores no deseados.
+Entre sus responsabilidades se encuentran:
 
-### `fonts.css`
+* Reglas base y normalización de estilos.
+* Colores generales.
+* Estilos comunes de enlaces.
+* Estilos de botones compartidos.
+* Alertas y mensajes de estado.
+* Reglas generales de presentación.
+* Elementos visuales reutilizables.
 
-Centraliza la configuración de la tipografía **Inter** utilizada por la interfaz y su relación con los recursos tipográficos almacenados localmente en:
+Las clases compartidas deben mantenerse centralizadas cuando su responsabilidad sea global, evitando duplicar reglas entre las hojas de estilos de cada módulo.
+
+#### `fonts.css`
+
+Centraliza la declaración y configuración de la tipografía Inter, utilizando los recursos tipográficos locales del proyecto.
 
 ```text
 assets/fonts/
 ```
 
-Se contemplan los pesos utilizados actualmente:
+Los pesos considerados en la implementación son:
 
-* 400
-* 500
-* 600
-* 700
+* 400 — Regular.
+* 500 — Medium.
+* 600 — Semibold.
+* 700 — Bold.
 
-### `header.css`
+#### `header.css`
 
-Contiene exclusivamente los estilos correspondientes a la cabecera del sistema.
+Contiene los estilos específicos de la cabecera.
 
-La cabecera utiliza una altura de:
+La referencia visual de la cabecera establece una altura de 72 px.
 
-```text
-72 px
-```
-
-En Desktop organiza:
+En Desktop contempla:
 
 * Identidad visual a la izquierda.
 * Navegación en la zona central.
-* Acciones del usuario a la derecha.
+* Acciones de usuario a la derecha.
 
-En Mobile incorpora:
+En Mobile contempla:
 
+* Identidad visual.
 * Botón de menú hamburguesa.
-* Enlace **Iniciar sesión** visible en la barra superior.
-* Menú lateral tipo drawer para las opciones adicionales.
-* Adaptación de la navegación al ancho reducido de la pantalla.
+* Navegación adaptada al espacio disponible.
+* Acciones de autenticación dentro del menú desplegable o lateral, según la implementación del componente.
 
-El drawer se encuentra oculto fuera del área visible y se muestra mediante el estado correspondiente del componente.
+El comportamiento responsive oculta las acciones de cabecera que no deben mostrarse directamente en la barra superior y permite acceder a ellas desde la navegación Mobile.
 
-### `footer.css`
+#### `footer.css`
 
 Contiene los estilos específicos del pie de página.
 
-El footer utiliza:
+La estructura visual establecida contempla:
 
 * Fondo `#212121`.
 * Distribución en tres columnas en Desktop.
-* Espaciado vertical basado en el sistema definido en Figma.
-* Lista de enlaces sin viñetas.
-* Separador visual superior del bloque de copyright.
-* Adaptación responsive para Mobile.
+* Identidad de Raíces Alzate.
+* Enlaces de navegación.
+* Información institucional.
+* Separador visual del bloque de copyright.
+* Adaptación a pantallas Mobile.
 
-La estructura visual contempla:
+La estructura se mantiene como componente compartido para las páginas que requieren el pie de página institucional.
 
-1. Identidad de Raíces Alzate.
-2. Navegación.
-3. Información institucional.
+#### `auth.css`
+
+Contiene los estilos relacionados con las interfaces de autenticación.
+
+Sus responsabilidades incluyen:
+
+* Tarjetas de autenticación.
+* Distribución de formularios.
+* Campos de entrada.
+* Estados de validación.
+* Mensajes de error.
+* Botones de autenticación.
+* Espaciado y alineación de los elementos.
+* Adaptación responsive de las pantallas de autenticación.
+
+Las reglas deben mantener coherencia con los estilos globales y con los estados definidos en el Design System.
+
+### JavaScript de autenticación
+
+El archivo `assets/js/auth.js` centraliza los comportamientos de los formularios de autenticación que se han implementado hasta el momento.
+
+Entre las funciones documentadas se encuentran:
+
+* Validación reactiva de campos.
+* Limpieza de errores cuando el usuario corrige una entrada.
+* Validación del formato del correo electrónico.
+* Presentación de mensajes de retroalimentación.
+* Prevención de envíos repetidos del formulario de inicio de sesión.
+* Inicialización de la validación del formulario de registro.
+* Gestión de estados de error en los campos.
+
+Las validaciones de JavaScript mejoran la experiencia de uso, pero no sustituyen las validaciones obligatorias que debe realizar el servidor.
 
 ---
 
-## Componentes PHP
+## 4.2. Capa de enrutamiento y controladores
 
-La estructura de presentación utiliza componentes reutilizables para evitar duplicación de código.
+La capa de enrutamiento determina qué interfaz o funcionalidad debe atender una solicitud.
 
-Actualmente se utilizan componentes para:
+El archivo `index.php` actúa como punto de entrada y contiene rutas para acceder a determinadas vistas del sistema.
+
+Entre las rutas documentadas se encuentran las relacionadas con la página principal y la recuperación de contraseña.
+
+La aplicación también dispone de controladores PHP independientes en la raíz del proyecto para algunas interfaces.
+
+Entre ellos se encuentran:
+
+* `login.php`
+* `registro.php`
+* `recuperar-password.php`
+
+Estos archivos organizan el acceso a las interfaces correspondientes y permiten separar la entrada de una página de su contenido visual.
+
+La arquitectura no obliga a que todas las operaciones pasen por una única ruta: las rutas existentes deben mantenerse coherentes mientras se consolida la organización general de la aplicación.
+
+### Responsabilidades de los controladores
+
+* Preparar los datos necesarios para presentar una vista.
+* Determinar qué contenido debe mostrarse.
+* Coordinar el procesamiento de las solicitudes.
+* Invocar la lógica correspondiente cuando sea necesario.
+* Gestionar las respuestas y redirecciones.
+* Evitar concentrar la estructura visual completa dentro del controlador.
+
+Los controladores deben mantenerse ligeros y delegar el contenido visual a las vistas y el procesamiento especializado a los archivos correspondientes.
+
+---
+
+## 4.3. Capa de vistas
+
+Las vistas se encuentran organizadas dentro del directorio `pages/`.
+
+Esta capa contiene el contenido de las interfaces y la estructura HTML generada mediante PHP.
+
+Entre las vistas implementadas se encuentran:
 
 ```text
-components/
-├── header.php
-└── footer.php
+pages/
+├── login.php
+├── registro.php
+└── recuperar-password.php
 ```
 
-Estos componentes son incluidos desde:
+La vista de Inicio también forma parte de la organización del proyecto, aunque su nombre y ubicación definitivos deben mantenerse alineados con la estructura real del repositorio.
+
+### Responsabilidades de las vistas
+
+* Construir la estructura semántica de cada interfaz.
+* Presentar los campos y controles del usuario.
+* Incorporar los componentes compartidos.
+* Mostrar alertas y mensajes de retroalimentación.
+* Conservar la jerarquía visual definida en Figma.
+* Utilizar las hojas de estilos y scripts correspondientes.
+
+Las vistas no deben contener operaciones complejas de acceso a datos ni asumir que los valores enviados por el navegador son confiables.
+
+---
+
+## 4.4. Componentes PHP compartidos
+
+El proyecto mantiene componentes reutilizables para evitar duplicaciones en la estructura de las páginas.
+
+La implementación documentada utiliza:
 
 ```text
 includes/
@@ -201,141 +398,191 @@ includes/
 └── footer.php
 ```
 
-`includes/header.php` se encarga además de construir la estructura inicial del documento HTML e incorporar los recursos necesarios, incluyendo la hoja de estilos y el favicon.
+Estos componentes centralizan elementos compartidos de la interfaz.
 
-`includes/footer.php` incorpora el componente de pie de página y los recursos JavaScript antes del cierre del documento.
+### `includes/header.php`
 
-La separación permite mantener diferenciadas las responsabilidades de estructura general e implementación visual de los componentes.
+Es responsable de incorporar la estructura compartida de la cabecera y los elementos iniciales del documento HTML.
+
+Entre sus responsabilidades se encuentran:
+
+* Declaración inicial del documento.
+* Metadatos generales.
+* Inclusión de los estilos correspondientes.
+* Incorporación del favicon.
+* Presentación de la marca.
+* Navegación principal.
+* Acciones de autenticación.
+* Adaptación de la navegación a dispositivos Mobile.
+
+También contempla la carga condicional de recursos específicos para las interfaces de autenticación cuando corresponde.
+
+### `includes/footer.php`
+
+Es responsable de incorporar el pie de página compartido y los recursos JavaScript necesarios antes del cierre del documento.
+
+La carga de scripts específicos depende de la interfaz que se esté presentando.
+
+### Directorio `components/`
+
+La estructura original también contempla:
+
+```text
+components/
+├── header.php
+└── footer.php
+```
+
+No obstante, los informes de implementación identifican `includes/header.php` e `includes/footer.php` como los componentes que actualmente participan en la construcción de las páginas.
+
+Por ello, la existencia de archivos con nombres equivalentes en `components/` no debe interpretarse automáticamente como una segunda implementación activa de los mismos componentes.
+
+La estructura deberá revisarse para determinar si `components/` contiene implementaciones adicionales necesarias o si corresponde consolidar los componentes compartidos en una única ubicación.
+
+El objetivo es evitar duplicaciones y establecer una única fuente de mantenimiento para cada componente.
 
 ---
 
-## Página de Inicio
+## 4.5. Capa de lógica de aplicación
 
-La primera interfaz implementada corresponde a:
+La lógica de aplicación se desarrolla principalmente mediante PHP nativo.
 
-```text
-01 - Inicio - Desktop
-01 - Inicio - Mobile
-```
+Esta capa procesa las solicitudes, aplica las reglas correspondientes y coordina las operaciones que requieren interacción con la base de datos.
 
-La referencia Desktop utilizada en Figma tiene una dimensión de:
-
-```text
-1440 × 1472 px
-```
-
-La adaptación Mobile utiliza como referencia:
-
-```text
-390 px
-```
-
-La implementación de Inicio contempla:
-
-* Header.
-* Hero.
-* Sección informativa sobre Raíces Alzate.
-* Sección de beneficios.
-* Footer.
-
-La implementación se realizó respetando la estructura definida durante la etapa de diseño UI/UX y evitando agregar secciones que no formen parte del diseño aprobado.
-
----
-
-## Recursos institucionales
-
-La interfaz utiliza recursos gráficos institucionales almacenados dentro del proyecto.
-
-El isotipo de Raíces Alzate se integra actualmente en:
-
-* Header.
-* Footer.
-* Favicon del sitio.
-
-El favicon se declara desde el documento HTML mediante:
-
-```html
-<link rel="icon" type="image/x-icon" href="assets/icons/logo sin fondo raices alzate.ico">
-```
-
-Los recursos se mantienen dentro de la estructura de `assets/` para facilitar su reutilización.
-
----
-
-## Capa de Lógica
-
-Es responsable del procesamiento de la información y las reglas de negocio.
-
-Tecnología utilizada:
-
-* PHP
-
-Entre sus funciones principales se encuentran:
+Las funcionalidades previstas para esta capa incluyen:
 
 * Autenticación.
 * Registro de usuarios.
+* Recuperación de contraseña.
 * Gestión de perfiles.
-* Gestión de egresados.
+* Consulta de egresados.
 * Gestión de proyectos.
 * Gestión de noticias.
-* Administración del sistema.
+* Administración de la plataforma.
 * Validación de información.
 * Gestión de roles y permisos.
-* Procesamiento de solicitudes.
-* Comunicación con la base de datos.
+* Procesamiento de formularios.
+* Persistencia de datos.
 
-La implementación completa de estas funcionalidades se realizará progresivamente durante las siguientes etapas de desarrollo.
+### Organización del procesamiento de autenticación
+
+Los informes de implementación identifican los siguientes archivos:
+
+```text
+auth/
+├── login-process.php
+├── registro-process.php
+└── recuperar-process.php
+```
+
+Estos archivos se encargan del procesamiento de las operaciones relacionadas con autenticación y recuperación de contraseña.
+
+#### `auth/login-process.php`
+
+Es el punto de procesamiento del formulario de inicio de sesión.
+
+Su responsabilidad corresponde a recibir y procesar la solicitud de autenticación. La verificación definitiva de credenciales, la creación de la sesión y la autorización de acceso deben comprobarse de acuerdo con la implementación efectiva del archivo.
+
+#### `auth/registro-process.php`
+
+Procesa el formulario de registro.
+
+Los informes indican que incorpora validaciones del lado del servidor, comprobación de contraseñas coincidentes, verificación de correo electrónico único, utilización de `password_hash()` y operaciones mediante PDO.
+
+También se reporta el uso de control transaccional para las operaciones de base de datos correspondientes.
+
+La definición definitiva de los campos de registro debe mantenerse alineada con la vista y con el modelo de datos implementado.
+
+#### `auth/recuperar-process.php`
+
+Procesa las solicitudes de recuperación de contraseña.
+
+La implementación documentada contempla la validación del correo electrónico y la generación de tokens mediante `random_bytes(32)`.
+
+La respuesta se mantiene genérica para no revelar si una dirección de correo corresponde a una cuenta existente.
+
+El envío real de mensajes electrónicos todavía depende de configurar e integrar un servicio de correo, por ejemplo mediante SMTP.
+
+La generación de un token, por sí sola, no significa que todo el proceso de recuperación se encuentre terminado. También deben verificarse su almacenamiento seguro, expiración, utilización única, validación y el proceso final de restablecimiento de contraseña.
 
 ---
 
-## Capa de Datos
+## 4.6. Capa de acceso a datos
 
-Es responsable del almacenamiento, consulta y gestión de la información.
+La capa de acceso a datos conecta la lógica de aplicación con la base de datos MySQL.
 
-Tecnología prevista:
+El proyecto utiliza PDO como mecanismo de acceso desde PHP.
 
-* MySQL
+Sus responsabilidades incluyen:
 
-La base de datos almacenará información relacionada con:
+* Establecer conexiones con la base de datos.
+* Ejecutar consultas SQL.
+* Recuperar información.
+* Insertar nuevos registros.
+* Actualizar datos existentes.
+* Eliminar registros cuando la funcionalidad lo permita.
+* Gestionar transacciones.
+* Tratar los errores de acceso a datos.
+
+Las consultas que incorporan valores proporcionados por los usuarios deben utilizar sentencias preparadas cuando corresponda.
+
+La configuración de conexión debe mantenerse separada de las vistas y no debe exponer credenciales en el código público del repositorio.
+
+La organización definitiva de esta capa deberá documentarse cuando se consoliden los archivos de configuración, las funciones de acceso a datos y los modelos o módulos de persistencia.
+
+---
+
+## 4.7. Capa de datos
+
+La base de datos MySQL está destinada a almacenar la información persistente de la plataforma.
+
+Las entidades previstas incluyen:
 
 * Usuarios.
-* Egresados.
 * Perfiles.
+* Egresados.
 * Proyectos.
 * Noticias.
-* Roles.
-* Configuración del sistema.
+* Roles y permisos.
+* Información complementaria de la plataforma.
 
-La conexión entre PHP y MySQL ya fue verificada satisfactoriamente durante la preparación de la implementación.
+La conexión entre PHP y MySQL fue verificada satisfactoriamente durante la preparación de la implementación.
 
-La estructura definitiva de tablas, relaciones y consultas será desarrollada posteriormente a partir de las necesidades reales de las interfaces y funcionalidades implementadas.
+Sin embargo, la verificación de conectividad no implica que todas las tablas, relaciones y operaciones de persistencia estén terminadas.
+
+La estructura definitiva deberá responder a los requerimientos funcionales de cada módulo y documentarse a medida que avance la integración.
 
 ---
 
-# Arquitectura del Diseño
+# 5. Arquitectura del Diseño
 
-Antes de iniciar la implementación se construyó un **Design System en Figma** que establece las bases visuales para la construcción de la interfaz gráfica.
+La arquitectura visual de Raíces Alzate se definió durante la Fase 3 — Diseño UI/UX.
 
-La etapa de diseño UI/UX se encuentra finalizada y sirve como referencia para la implementación frontend.
+El diseño de las interfaces se considera completado y constituye la referencia visual para la implementación frontend.
 
-## Design System
+## 5.1. Design System
 
-Esta sección establece las bases visuales del proyecto:
+El Design System establece las bases visuales compartidas por las interfaces.
+
+Incluye:
 
 * Identidad visual.
 * Paleta de colores.
 * Tipografía.
 * Sistema de espaciado.
-* Estilos base.
-* Botones y elementos de interacción.
-
-La tipografía principal utilizada en las interfaces es **Inter**.
+* Estilos de botones.
+* Campos de entrada.
+* Componentes de selección.
+* Estados de interacción.
+* Criterios de accesibilidad visual.
+* Adaptación responsive.
 
 ### Paleta principal
 
 | Elemento         | Valor     |
 | ---------------- | --------- |
 | Primary          | `#D32F2F` |
+| Primary Hover    | `#B71C1C` |
 | Secondary        | `#1565C0` |
 | Texto principal  | `#212121` |
 | Texto secundario | `#757575` |
@@ -343,17 +590,23 @@ La tipografía principal utilizada en las interfaces es **Inter**.
 | Blanco           | `#FFFFFF` |
 | Borde            | `#E0E0E0` |
 
+### Tipografía
+
+La tipografía utilizada en las interfaces es **Inter**.
+
+Los pesos contemplados son 400, 500, 600 y 700, de acuerdo con la jerarquía y la función de cada elemento.
+
 ### Sistema de espaciado
 
-Se utiliza una escala basada principalmente en:
+La escala de espaciado se basa principalmente en:
 
 `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px`
 
----
+La implementación debe conservar la consistencia entre los márgenes, el espaciado interno de los componentes y la separación entre secciones.
 
-# Components & Responsive
+## 5.2. Components & Responsive
 
-Esta sección contiene los componentes reutilizables de la interfaz, sus diferentes estados y los criterios utilizados para adaptar las interfaces a diferentes tamaños de pantalla.
+La página `Components & Responsive` contiene los componentes reutilizables, sus estados y los criterios de adaptación a distintos tamaños de pantalla.
 
 Los componentes definidos incluyen:
 
@@ -364,7 +617,7 @@ Los componentes definidos incluyen:
 * Switch.
 * Tablas.
 
-Los componentes contemplan los estados correspondientes según su función, entre ellos:
+Los estados contemplados incluyen:
 
 * Normal.
 * Focus.
@@ -373,22 +626,21 @@ Los componentes contemplan los estados correspondientes según su función, entr
 * Error.
 * On / Off en componentes que lo requieren.
 
-El diseño responsive se desarrolló considerando principalmente:
+Los estados implementados en el código deben conservar los colores, los indicadores y el comportamiento definidos en el sistema visual.
 
-* Desktop: `1440 px` de ancho.
-* Mobile: `390 px` de ancho.
+Por ejemplo, los campos de entrada deben permitir distinguir entre el estado normal, el enfoque, el error y la deshabilitación. Los errores no deben comunicarse únicamente mediante un cambio de color cuando sea posible acompañarlos de un mensaje textual.
 
-La adaptación responsive mantiene la jerarquía visual, los espacios, los tamaños de interacción y la legibilidad de los contenidos.
-
-Esta sección se utiliza actualmente como referencia durante la implementación de los componentes frontend.
+La página de componentes se utiliza como referencia durante la construcción y calibración de las interfaces.
 
 ---
 
-# Interfaces del Sistema
+# 6. Interfaces del Sistema
 
-Como resultado de la Fase 3 — Diseño UI/UX, se definieron las principales interfaces necesarias para la plataforma y sus respectivas adaptaciones responsive.
+Como resultado de la etapa de diseño UI/UX se definieron 17 interfaces principales para Desktop y sus correspondientes diseños Mobile.
 
-## Interfaces Desktop
+La implementación de las interfaces continúa de manera progresiva.
+
+## 6.1. Interfaces Desktop
 
 1. Inicio.
 2. Autenticación.
@@ -408,9 +660,7 @@ Como resultado de la Fase 3 — Diseño UI/UX, se definieron las principales int
 16. Detalle de noticia.
 17. Editar noticia.
 
-## Interfaces Mobile
-
-Las interfaces principales también fueron consideradas dentro del diseño responsive, tomando como referencia un ancho de `390 px`.
+## 6.2. Interfaces Mobile
 
 1. Inicio.
 2. Autenticación.
@@ -430,15 +680,15 @@ Las interfaces principales también fueron consideradas dentro del diseño respo
 16. Detalle de noticia.
 17. Editar noticia.
 
-Las interfaces fueron diseñadas manteniendo la identidad visual, los componentes y los criterios establecidos en el Design System.
+Las interfaces Mobile deben mantener la jerarquía visual y la identidad de las versiones Desktop, adaptando la distribución, la navegación y los controles al espacio disponible.
 
-Actualmente la implementación frontend se encuentra iniciada con la interfaz **Inicio**, mientras que las demás interfaces serán trasladadas progresivamente desde Figma al código.
+La existencia de un diseño Mobile no implica que su implementación se encuentre completada.
 
 ---
 
-# Navegación del Sistema
+# 7. Navegación del Sistema
 
-El flujo principal de navegación se estructura de la siguiente manera:
+El flujo general de navegación se definió durante el diseño UI/UX.
 
 ```text
 Inicio
@@ -457,9 +707,9 @@ Dashboard
   └── Administración
 ```
 
-A partir de estos módulos se accede a las diferentes acciones y vistas del sistema.
+Este diagrama representa el flujo conceptual de navegación. Las rutas efectivamente disponibles dependen de la implementación de cada módulo.
 
-## Flujo de proyectos
+## 7.1. Flujo de proyectos
 
 ```text
 Proyectos
@@ -468,7 +718,7 @@ Proyectos
   └── Editar proyecto
 ```
 
-## Flujo de noticias
+## 7.2. Flujo de noticias
 
 ```text
 Noticias
@@ -477,7 +727,7 @@ Noticias
   └── Editar noticia
 ```
 
-## Flujo de perfil
+## 7.3. Flujo de perfil
 
 ```text
 Perfil
@@ -485,7 +735,7 @@ Perfil
   └── Egresados
 ```
 
-## Flujo administrativo
+## 7.4. Flujo administrativo
 
 ```text
 Administración
@@ -498,175 +748,464 @@ Administración
   └── Editar noticia
 ```
 
+La navegación deberá complementarse con controles de autenticación y autorización del lado del servidor cuando se implementen las funcionalidades privadas y administrativas.
+
 ---
 
-# Estructura del Proyecto
+# 8. Estructura del Proyecto
 
-La estructura base actual del proyecto se organiza de la siguiente manera:
+La estructura del repositorio se organiza por responsabilidades.
+
+La siguiente representación combina los archivos y directorios identificados en la estructura documentada con los archivos incorporados durante la implementación de autenticación. Debe entenderse como una estructura de referencia, no como una verificación exhaustiva del estado actual de cada archivo.
 
 ```text
 raices-alzate/
-
 ├── .github/
-
 ├── admin/
-
 ├── usuario/
-
 ├── assets/
 │   ├── css/
 │   │   ├── main.css
 │   │   ├── fonts.css
 │   │   ├── header.css
-│   │   └── footer.css
+│   │   ├── footer.css
+│   │   └── auth.css
 │   ├── js/
+│   │   └── auth.js
 │   ├── img/
 │   ├── icons/
 │   ├── fonts/
 │   └── videos/
-
+├── auth/
+│   ├── login-process.php
+│   ├── registro-process.php
+│   └── recuperar-process.php
 ├── components/
-│   ├── header.php
-│   └── footer.php
-
 ├── config/
-
 ├── database/
-
 ├── docs/
-
 ├── includes/
 │   ├── header.php
 │   └── footer.php
-
 ├── pages/
-│   └── inicio.php
-
+│   ├── login.php
+│   ├── registro.php
+│   └── recuperar-password.php
 ├── uploads/
-
+├── index.php
+├── login.php
+├── registro.php
+├── recuperar-password.php
 ├── .gitignore
-
-├── README.md
-
-└── index.php
+└── README.md
 ```
 
-Esta estructura permite separar los recursos visuales, componentes, configuración, documentación, páginas y archivos relacionados con la aplicación.
+### Responsabilidad de los directorios
 
-La estructura podrá continuar ajustándose durante la implementación a medida que se incorporen los diferentes módulos del sistema.
+| Directorio o archivo     | Responsabilidad                                                                          |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `.github/`               | Configuraciones y recursos relacionados con GitHub.                                      |
+| `admin/`                 | Organización prevista para funcionalidades administrativas.                              |
+| `usuario/`               | Organización prevista para funcionalidades relacionadas con usuarios.                    |
+| `assets/css/`            | Hojas de estilos.                                                                        |
+| `assets/js/`             | Scripts JavaScript.                                                                      |
+| `assets/img/`            | Recursos gráficos.                                                                       |
+| `assets/icons/`          | Iconos y recursos gráficos pequeños.                                                     |
+| `assets/fonts/`          | Recursos tipográficos locales.                                                           |
+| `assets/videos/`         | Recursos audiovisuales.                                                                  |
+| `auth/`                  | Procesamiento de operaciones de autenticación.                                           |
+| `components/`            | Espacio previsto para componentes reutilizables, sujeto a consolidación con `includes/`. |
+| `config/`                | Configuración de la aplicación y sus servicios.                                          |
+| `database/`              | Recursos relacionados con la base de datos.                                              |
+| `docs/`                  | Documentación técnica y de seguimiento.                                                  |
+| `includes/`              | Componentes PHP compartidos.                                                             |
+| `pages/`                 | Vistas de las interfaces.                                                                |
+| `uploads/`               | Espacio destinado a archivos cargados por los usuarios, sujeto a controles de seguridad. |
+| `index.php`              | Punto de entrada y enrutamiento de las rutas que gestiona.                               |
+| `login.php`              | Entrada a la interfaz de inicio de sesión.                                               |
+| `registro.php`           | Entrada a la interfaz de registro.                                                       |
+| `recuperar-password.php` | Entrada a la interfaz de recuperación de contraseña.                                     |
+
+### Criterios de organización
+
+* Mantener las vistas separadas de los controladores.
+* Centralizar los componentes compartidos.
+* Separar los estilos globales de los estilos específicos de cada módulo.
+* Evitar duplicar implementaciones de componentes.
+* Mantener las credenciales fuera de los archivos públicos.
+* No incorporar archivos estáticos redundantes en la raíz cuando exista una versión modular equivalente.
+* Incorporar los nuevos módulos respetando la organización existente.
+* Actualizar esta estructura cuando se consoliden o reubiquen archivos.
 
 ---
 
-# Módulos del Sistema
+# 9. Módulos del Sistema
 
-La plataforma estará compuesta por los siguientes módulos principales:
+## 9.1. Inicio
 
-## Inicio
+Presenta la plataforma y comunica su propósito, sus beneficios y su propuesta para la comunidad de egresados.
 
-Presenta la plataforma y comunica su propósito, beneficios y propuesta para la comunidad de egresados.
+La interfaz diseñada contempla:
 
-La implementación frontend de este módulo ya fue iniciada y cuenta con adaptación Desktop y Mobile.
+* Header.
+* Hero.
+* Sección informativa sobre Raíces Alzate.
+* Sección de beneficios.
+* Footer.
 
-## Autenticación
+La implementación inicial de Inicio fue desarrollada para Desktop y Mobile, estableciendo las bases de los componentes compartidos.
 
-Gestiona el acceso de los usuarios mediante:
+## 9.2. Autenticación
+
+Agrupa las funcionalidades de acceso a la plataforma.
+
+Incluye:
 
 * Inicio de sesión.
 * Registro.
 * Recuperación de contraseña.
 
-## Usuarios y Perfil
+Durante la implementación se desarrollaron las vistas, los estilos y parte del procesamiento asociado a estas funcionalidades.
 
-Permite gestionar la información personal y profesional de los usuarios.
+El funcionamiento completo de la autenticación debe evaluarse considerando tanto el procesamiento del servidor como la integración con la base de datos, la gestión de sesiones y los controles de autorización.
 
-## Egresados
+## 9.3. Usuarios y perfil
 
-Permite consultar y visualizar información de los egresados que forman parte de la comunidad.
+Está destinado a la consulta y gestión de la información de los usuarios.
 
-## Proyectos
+Entre sus responsabilidades previstas se encuentran:
 
-Permite consultar, crear, visualizar y editar proyectos publicados por la comunidad.
+* Visualización del perfil.
+* Consulta de información personal.
+* Actualización de datos.
+* Gestión de información académica y profesional.
 
-## Noticias
+La implementación de estas operaciones se realizará de acuerdo con los requerimientos y las interfaces correspondientes.
 
-Permite consultar, crear, visualizar y editar noticias relacionadas con la comunidad.
+## 9.4. Egresados
 
-## Administración
+Permitirá consultar y visualizar información de los egresados que forman parte de la comunidad.
 
-Permite gestionar información y contenido de la plataforma según los permisos correspondientes.
+El módulo deberá respetar los permisos correspondientes y limitar la exposición de información personal a los datos que sea apropiado mostrar.
+
+## 9.5. Proyectos
+
+Permitirá consultar y gestionar los proyectos publicados por la comunidad.
+
+Las interfaces contempladas incluyen:
+
+* Listado de proyectos.
+* Creación de proyectos.
+* Detalle de proyecto.
+* Edición de proyecto.
+
+## 9.6. Noticias
+
+Permitirá consultar y gestionar noticias relacionadas con la institución y la comunidad de egresados.
+
+Las interfaces contempladas incluyen:
+
+* Listado de noticias.
+* Detalle de noticia.
+* Creación de noticias.
+* Edición de noticias.
+
+## 9.7. Administración
+
+Agrupará las funciones administrativas de la plataforma.
+
+Entre sus responsabilidades previstas se encuentran la gestión de egresados, proyectos, noticias y otros recursos del sistema.
+
+El acceso a este módulo deberá estar protegido mediante controles de autorización del lado del servidor. Ocultar enlaces o botones en la interfaz no es suficiente para impedir el acceso no autorizado.
 
 ---
 
-# Flujo General del Sistema
+# 10. Flujos de Procesamiento
 
-El flujo general previsto para el funcionamiento de la plataforma es:
+## 10.1. Flujo general de una solicitud
 
-1. El usuario accede a la plataforma.
-2. Navega por la página principal.
-3. Selecciona la opción correspondiente.
-4. Inicia sesión o crea una cuenta.
-5. El sistema valida las credenciales.
-6. El backend procesa la solicitud.
-7. Se consulta o modifica la información correspondiente en la base de datos.
-8. El sistema determina el rol y los permisos del usuario.
-9. Se concede acceso a los módulos correspondientes.
-10. El usuario interactúa con las funcionalidades disponibles.
-11. El sistema procesa y almacena los cambios realizados.
-12. El sistema devuelve la respuesta correspondiente a la interfaz.
+El flujo previsto para las operaciones que requieren procesamiento en el servidor es:
+
+1. El usuario interactúa con una interfaz.
+2. El navegador envía una solicitud al servidor.
+3. La solicitud llega al controlador o al punto de procesamiento correspondiente.
+4. PHP valida los datos recibidos.
+5. Se ejecutan las reglas de negocio aplicables.
+6. Cuando es necesario, se consulta o modifica la base de datos.
+7. El servidor construye una respuesta o realiza una redirección.
+8. La interfaz presenta el resultado al usuario.
+
+Las validaciones del navegador sirven como apoyo a la experiencia de uso, pero las reglas de seguridad y las validaciones obligatorias deben ejecutarse en el servidor.
+
+## 10.2. Flujo de inicio de sesión
+
+```text
+Formulario de inicio de sesión
+            │
+            ▼
+Validación inicial en el navegador
+            │
+            ▼
+auth/login-process.php
+            │
+            ▼
+Validación del lado del servidor
+            │
+            ▼
+Verificación de credenciales
+            │
+            ▼
+Gestión de la sesión
+            │
+            ▼
+Respuesta o redirección
+```
+
+Este diagrama representa el flujo esperado de autenticación. Los pasos concretos deben verificarse en el código antes de considerar terminada la funcionalidad.
+
+La contraseña debe verificarse mediante el mecanismo de hashing correspondiente y nunca compararse como texto plano con una contraseña almacenada.
+
+## 10.3. Flujo de registro
+
+```text
+Formulario de registro
+          │
+          ▼
+Validación reactiva en JavaScript
+          │
+          ▼
+auth/registro-process.php
+          │
+          ▼
+Validación del servidor
+          │
+          ▼
+Comprobación de restricciones
+          │
+          ▼
+Hash de la contraseña
+          │
+          ▼
+Persistencia mediante PDO
+          │
+          ▼
+Respuesta al usuario
+```
+
+Los informes de implementación indican que el procesamiento de registro contempla validación del servidor, comprobación de contraseñas coincidentes, verificación de correo único y uso de `password_hash()`.
+
+Los campos definitivos deben corresponder a los definidos en la vista y en el modelo de datos.
+
+## 10.4. Flujo de recuperación de contraseña
+
+```text
+Formulario de recuperación
+            │
+            ▼
+Validación del correo
+            │
+            ▼
+auth/recuperar-process.php
+            │
+            ▼
+Respuesta genérica
+            │
+            ▼
+Generación segura de token
+            │
+            ▼
+Almacenamiento y expiración
+            │
+            ▼
+Envío de instrucciones
+            │
+            ▼
+Validación del token
+            │
+            ▼
+Restablecimiento de contraseña
+```
+
+Los informes documentan la validación del correo, la respuesta genérica y la generación de tokens.
+
+El almacenamiento, la expiración, el envío de instrucciones y el restablecimiento final deben verificarse individualmente. El envío real de correos requiere completar la integración con un servicio de correo.
 
 ---
 
-# Flujo de Desarrollo del Proyecto
+# 11. Seguridad y Validación
 
-El desarrollo de **Raíces Alzate** sigue una metodología incremental organizada en las siguientes etapas:
+La seguridad constituye un criterio transversal de la arquitectura.
+
+Las medidas deben implementarse en cada módulo y verificarse antes de considerar una funcionalidad lista para su utilización.
+
+## 11.1. Validación de datos
+
+* Validar en el servidor los datos recibidos.
+* Comprobar los formatos requeridos.
+* Aplicar restricciones de longitud y contenido cuando corresponda.
+* Validar las operaciones antes de acceder a la base de datos.
+* No confiar exclusivamente en JavaScript para aceptar o rechazar información.
+
+## 11.2. Contraseñas
+
+* Utilizar funciones seguras de hashing de contraseñas, como `password_hash()`.
+* Verificar contraseñas con los mecanismos apropiados de PHP.
+* No almacenar contraseñas en texto plano.
+* Evitar incluir credenciales en mensajes de error o registros públicos.
+
+## 11.3. Acceso a la base de datos
+
+* Utilizar sentencias preparadas mediante PDO para consultas con datos variables.
+* Mantener separadas las credenciales de conexión.
+* Controlar los errores de base de datos sin exponer detalles internos al usuario.
+* Utilizar transacciones cuando una operación requiera mantener la consistencia de varios cambios relacionados.
+
+## 11.4. Autenticación y autorización
+
+* Verificar las credenciales en el servidor.
+* Gestionar de manera segura las sesiones.
+* Comprobar los permisos antes de ejecutar operaciones protegidas.
+* Restringir las funciones administrativas a los usuarios autorizados.
+* No depender únicamente de los elementos visibles en la interfaz para controlar el acceso.
+
+## 11.5. Recuperación de contraseña
+
+* Utilizar tokens generados de forma criptográficamente segura.
+* Evitar revelar si un correo está registrado.
+* Definir una expiración adecuada.
+* Almacenar los tokens de forma segura.
+* Evitar su reutilización después de completar la operación.
+* Validar el token antes de permitir el cambio de contraseña.
+
+## 11.6. Formularios y sesiones
+
+A medida que se completen los módulos, deberán verificarse también las medidas aplicables frente a solicitudes no autorizadas, ataques CSRF, manejo incorrecto de sesiones, exposición de información y carga de archivos inseguros.
+
+La presencia de algunas medidas de seguridad no implica que toda la aplicación haya sido auditada o que se encuentre preparada para producción.
+
+---
+
+# 12. Recursos Institucionales
+
+La interfaz utiliza recursos gráficos de Raíces Alzate almacenados dentro del proyecto.
+
+El isotipo se incorpora en los componentes de marca, como la cabecera, el pie de página y el favicon.
+
+El favicon se declara en el documento HTML mediante una referencia al recurso almacenado localmente.
+
+La ruta actualmente documentada es:
+
+```html
+<link rel="icon" type="image/x-icon" href="assets/icons/logo sin fondo raices alzate.ico">
+```
+
+La ruta relativa definitiva debe verificarse según la ubicación de la página que genera el documento y la forma en que se gestionan las rutas de los recursos.
+
+Cuando corresponda, se recomienda centralizar la construcción de las rutas para evitar que los recursos dejen de cargarse al acceder a páginas ubicadas en distintas rutas.
+
+---
+
+# 13. Pruebas y Verificación Técnica
+
+La implementación requiere verificaciones continuas para comprobar que las modificaciones no afecten las funcionalidades existentes.
+
+Los informes de implementación registran verificaciones de sintaxis PHP y respuestas HTTP satisfactorias para los archivos evaluados durante las sesiones correspondientes.
+
+Estas verificaciones constituyen evidencia de pruebas realizadas en ese momento, pero no sustituyen una prueba integral de todos los módulos.
+
+## 13.1. Validaciones técnicas
+
+Las verificaciones aplicables incluyen:
+
+* Comprobación de sintaxis PHP.
+* Revisión de las rutas.
+* Comprobación de carga de CSS y JavaScript.
+* Verificación de recursos gráficos y tipográficos.
+* Pruebas de formularios.
+* Pruebas de validación en el navegador.
+* Pruebas de validación en el servidor.
+* Verificación de consultas y operaciones de base de datos.
+* Pruebas de navegación Desktop y Mobile.
+* Comprobación de regresiones en las interfaces previamente implementadas.
+
+## 13.2. Fidelidad visual
+
+La implementación se calibra tomando como referencia las interfaces aprobadas en Figma.
+
+Las verificaciones visuales deben considerar:
+
+* Dimensiones y distribución de los componentes.
+* Tipografía y jerarquía visual.
+* Colores.
+* Espaciado.
+* Estados de interacción.
+* Comportamiento responsive.
+* Consistencia de los componentes compartidos.
+
+Las diferencias entre el diseño y la implementación deben corregirse sin incorporar secciones o comportamientos que no correspondan a los requerimientos aprobados.
+
+---
+
+# 14. Flujo de Desarrollo del Proyecto
+
+El desarrollo de Raíces Alzate se organiza de manera incremental.
+
+Las etapas generales comprenden:
 
 1. Planificación.
 2. Documentación.
-3. Diseño UI/UX.
-4. Definición del flujo de información.
-5. Diseño de pantallas.
-6. Desarrollo Frontend.
-7. Desarrollo Backend.
+3. Definición de requerimientos.
+4. Diseño UI/UX.
+5. Definición de flujos de información.
+6. Implementación frontend.
+7. Implementación backend.
 8. Integración con la base de datos.
-9. Pruebas.
-10. Control de versiones.
-11. Actualización continua de la documentación.
+9. Pruebas funcionales y técnicas.
+10. Corrección de errores.
+11. Control de versiones.
+12. Actualización de la documentación.
 
-Las etapas de planificación, documentación base y diseño UI/UX han sido desarrolladas.
+Las etapas iniciales de planificación, documentación base y diseño UI/UX se han desarrollado.
 
-Actualmente se encuentra en ejecución la etapa de **Desarrollo Frontend**, iniciando con la implementación de la pantalla Inicio y sus componentes compartidos.
+La etapa actual corresponde a la implementación. En esta fase se han construido las primeras interfaces y se han incorporado partes del procesamiento de autenticación.
 
-La integración completa entre frontend, backend y base de datos se realizará progresivamente después de completar las interfaces correspondientes.
+El trabajo continuará por módulos, integrando progresivamente las vistas, la lógica de aplicación y las operaciones de persistencia.
+
+La documentación técnica deberá actualizarse conforme cambie la arquitectura o se incorporen funcionalidades.
 
 ---
 
-# Principios de Desarrollo
+# 15. Principios de Desarrollo
 
-Durante el desarrollo del proyecto se aplicarán los siguientes principios:
+Durante la implementación se aplicarán los siguientes principios:
 
 * Código organizado y mantenible.
-* Componentes reutilizables.
 * Arquitectura modular.
-* Documentación continua.
-* Control de versiones mediante Git y GitHub.
+* Separación de responsabilidades.
+* Componentes reutilizables.
+* Consistencia visual mediante el Design System.
 * Diseño responsive.
-* Seguridad desde el desarrollo.
-* Escalabilidad.
-* Consistencia visual mediante un Design System.
-* Separación de responsabilidades entre las diferentes capas del sistema.
 * Validación de datos.
-* Reutilización de recursos y componentes.
-* Separación de estilos por responsabilidades cuando la complejidad del frontend lo requiera.
+* Seguridad desde el desarrollo.
+* Control de versiones mediante Git y GitHub.
+* Documentación continua.
+* Reutilización de recursos.
+* Reducción de duplicaciones.
+* Pruebas después de modificaciones relevantes.
+* Evolución incremental de los módulos.
+* Coherencia entre el diseño aprobado y la interfaz implementada.
+
+La incorporación de nuevas funcionalidades deberá respetar estos principios y mantener la compatibilidad con los módulos existentes.
 
 ---
 
-# Estado Actual
+# 16. Estado Actual de la Arquitectura
 
-Actualmente el proyecto se encuentra en la **Fase 4 — Implementación**.
+## 16.1. Diseño UI/UX
 
-La **Fase 3 — Diseño UI/UX** ha sido completada y dejó establecidos los fundamentos visuales y estructurales necesarios para el desarrollo del sistema.
+La Fase 3 — Diseño UI/UX se considera completada a finales de septiembre de 2026.
 
-Durante la fase de diseño se completaron:
+Los resultados incluyen:
 
 * Design System en Figma.
 * Identidad visual.
@@ -674,56 +1213,108 @@ Durante la fase de diseño se completaron:
 * Tipografía.
 * Sistema de espaciado.
 * Componentes reutilizables.
-* Estados de los componentes.
-* Página **Components & Responsive**.
+* Estados de interacción.
+* Página `Components & Responsive`.
 * Criterios de diseño responsive.
 * Flujo de navegación.
-* Estructura de las interfaces.
-* Interfaces principales para Desktop.
-* Adaptaciones responsive para Mobile.
+* Definición de las interfaces Desktop.
+* Diseño de las adaptaciones Mobile.
 
-El diseño realizado en Figma constituye la referencia visual para la implementación frontend.
+El diseño aprobado constituye la referencia visual de la implementación.
 
-## Avance de implementación frontend
+## 16.2. Implementación frontend
 
-Durante la sesión del **8 de octubre de 2026** se avanzó en la implementación de la primera pantalla del sistema.
+La implementación comenzó con la página de Inicio y los componentes compartidos.
 
-Se realizaron las siguientes actividades:
+Durante las jornadas de implementación se realizaron ajustes en:
 
-* Implementación y corrección de la pantalla **Inicio**.
-* Adaptación de Inicio para Desktop y Mobile.
-* Corrección de la estructura HTML de la navegación.
-* Reestructuración de las acciones de usuario para responsive.
-* Implementación del comportamiento del menú lateral Mobile.
-* Integración del isotipo institucional en Header y Footer.
-* Incorporación del favicon institucional.
-* Implementación del Footer en tres columnas.
-* Ajuste del bloque de copyright.
-* Modularización de los estilos CSS.
-* Creación de `fonts.css`.
-* Creación de `header.css`.
-* Creación de `footer.css`.
-* Corrección del reset global de enlaces.
-* Eliminación de reglas CSS obsoletas.
-* Organización de los estilos según responsabilidades.
+* Estructura HTML.
+* Cabecera.
+* Navegación Desktop y Mobile.
+* Menú Mobile.
+* Pie de página.
+* Recursos institucionales.
+* Favicon.
+* Tipografía local.
+* Organización de las hojas de estilos.
+* Botones compartidos.
+* Alertas globales.
+* Estados visuales de los campos y componentes.
 
-La primera pantalla implementada establece además la base para la reutilización de Header, Footer, tipografía y estilos generales en las siguientes interfaces.
+Los avances se incorporan de manera incremental para facilitar su revisión y evitar regresiones.
 
-## Siguiente etapa
+## 16.3. Implementación de autenticación
 
-La implementación continuará trasladando progresivamente las demás interfaces diseñadas en Figma al frontend.
+Los informes de implementación identifican los siguientes avances:
 
-El desarrollo deberá respetar:
+* Creación de `login.php` y `pages/login.php`.
+* Creación de `auth/login-process.php`.
+* Creación de `registro.php` y `pages/registro.php`.
+* Creación de `auth/registro-process.php`.
+* Creación de `recuperar-password.php` y `pages/recuperar-password.php`.
+* Creación de `auth/recuperar-process.php`.
+* Incorporación de estilos de autenticación en `assets/css/auth.css`.
+* Incorporación de validaciones y comportamientos en `assets/js/auth.js`.
+* Validaciones reactivas de campos.
+* Mensajes de retroalimentación.
+* Validación de correo electrónico.
+* Hash de contraseñas en el procesamiento de registro.
+* Generación de tokens para el proceso de recuperación.
+* Respuestas genéricas para evitar revelar si una cuenta existe.
+* Carga condicional de recursos según la interfaz.
 
-* La arquitectura definida.
-* El Design System.
-* Los componentes diseñados.
-* Los flujos de navegación.
-* Las interfaces aprobadas.
-* La estructura de módulos.
-* Los criterios responsive.
-* La separación de responsabilidades del código.
+Los informes también registran pruebas de sintaxis y respuestas HTTP satisfactorias durante las jornadas correspondientes.
 
-Posteriormente se continuará con la implementación de la lógica backend y la integración definitiva con la base de datos.
+Estos avances deben entenderse como implementación documentada de los módulos de autenticación, no como confirmación de que todas las operaciones de producción estén terminadas.
 
-La documentación será actualizada continuamente conforme avance el desarrollo.
+## 16.4. Estado de la base de datos
+
+La conexión entre PHP y MySQL fue verificada durante la preparación del proyecto.
+
+La integración debe continuar con la consolidación de los modelos de datos, las consultas y las operaciones requeridas por cada módulo.
+
+La arquitectura debe distinguir entre conectividad verificada y funcionalidades que ya realizan operaciones completas sobre datos persistentes.
+
+## 16.5. Pendientes técnicos identificados
+
+Entre los aspectos que requieren continuidad o verificación se encuentran:
+
+* Completar y verificar el flujo de autenticación.
+* Comprobar la gestión segura de sesiones.
+* Completar la recuperación de contraseña.
+* Configurar el servicio de correo para el envío real de instrucciones.
+* Verificar el almacenamiento, la expiración y la utilización de tokens.
+* Consolidar la estructura de componentes compartidos.
+* Continuar la implementación de las interfaces diseñadas.
+* Integrar progresivamente los módulos con MySQL.
+* Implementar y comprobar los controles de autorización.
+* Ampliar las pruebas funcionales y de seguridad.
+* Mantener actualizados los documentos técnicos.
+
+---
+
+# 17. Próxima Etapa
+
+La implementación continuará con el desarrollo incremental de los módulos de la plataforma.
+
+Cada módulo deberá incorporar progresivamente:
+
+1. La vista correspondiente al diseño aprobado.
+2. Los estilos y componentes reutilizables.
+3. Los comportamientos necesarios en JavaScript.
+4. El procesamiento requerido en PHP.
+5. La validación de los datos.
+6. La integración con la base de datos, cuando corresponda.
+7. Los controles de seguridad aplicables.
+8. Las pruebas funcionales y visuales.
+9. La actualización de la documentación.
+
+Las interfaces y los módulos se considerarán terminados únicamente cuando se hayan verificado los criterios funcionales y técnicos correspondientes.
+
+La documentación de arquitectura se mantendrá como referencia viva del proyecto, reflejando las decisiones y los cambios que realmente se incorporen al repositorio.
+
+---
+
+**Raíces Alzate — Institución Educativa Gilberto Alzate Avendaño**
+
+*Arquitectura del proyecto · v0.1.1 · Fase 4 — Implementación*

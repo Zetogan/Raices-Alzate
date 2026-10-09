@@ -6,213 +6,254 @@
 
 # 📖 Glosario
 
-## Información General
+## Información general
 
-| Campo           | Información                                    |
-| --------------- | ---------------------------------------------- |
-| Proyecto        | Raíces Alzate                                  |
-| Institución     | Institución Educativa Gilberto Alzate Avendaño |
-| Fecha de inicio | 2025                                           |
-| Versión         | v0.1.1                                         |
-| Estado          | 🟡 En desarrollo                               |
-| Fase actual     | Fase 4 — Implementación                        |
+| Campo                        | Información                                    |
+| ---------------------------- | ---------------------------------------------- |
+| Proyecto                     | Raíces Alzate                                  |
+| Institución                  | Institución Educativa Gilberto Alzate Avendaño |
+| Fecha de inicio              | 2025                                           |
+| Versión                      | v0.1.1                                         |
+| Estado                       | 🟡 En desarrollo                               |
+| Fase actual                  | Fase 4 — Implementación                        |
+| Responsable de documentación | Santiago Emitola                               |
 
 ---
 
-# Introducción
+## Introducción
 
 El presente documento reúne los términos técnicos, académicos y funcionales utilizados durante el desarrollo del proyecto **Raíces Alzate**.
 
 Su propósito es establecer un lenguaje común entre los integrantes del proyecto, docentes y futuros colaboradores, facilitando la comprensión de la documentación, el código fuente, el diseño y el funcionamiento general de la plataforma.
 
-Este glosario será actualizado de forma continua conforme evolucionen las funcionalidades, tecnologías, procesos y decisiones del proyecto.
+Los términos se organizan por categorías e incluyen referencias a los documentos en los que se desarrollan con mayor profundidad.
+
+Este glosario se actualizará progresivamente conforme evolucionen las funcionalidades, tecnologías, procesos y decisiones del proyecto.
 
 ---
 
-# Índice
+## Índice
 
-* [Conceptos del Proyecto](#conceptos-del-proyecto)
-* [Desarrollo Web](#desarrollo-web)
+* [Conceptos del proyecto](#conceptos-del-proyecto)
+* [Desarrollo web](#desarrollo-web)
 * [Diseño UI/UX](#diseño-uiux)
 * [Tecnologías](#tecnologías)
-* [Arquitectura Frontend](#arquitectura-frontend)
-* [Control de Versiones](#control-de-versiones)
-* [Usuarios y Roles](#usuarios-y-roles)
-* [Base de Datos](#base-de-datos)
-* [Implementación](#implementación)
+* [Arquitectura frontend](#arquitectura-frontend)
+* [Autenticación y seguridad](#autenticación-y-seguridad)
+* [Control de versiones](#control-de-versiones)
+* [Usuarios y roles](#usuarios-y-roles)
+* [Base de datos](#base-de-datos)
+* [Implementación y pruebas](#implementación-y-pruebas)
 * [Notas](#notas)
-* [Control de Cambios](#control-de-cambios)
+* [Control de cambios](#control-de-cambios)
 
 ---
 
-# Conceptos del Proyecto
+## Conceptos del proyecto
 
-| Término                  | Definición                                                                                            | Documento relacionado                        |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Bitácora**             | Documento donde se registran cronológicamente las actividades, avances y novedades del proyecto.      | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **Changelog**            | Documento que registra los cambios importantes realizados durante el desarrollo del proyecto.         | [`CHANGELOG.md`](./CHANGELOG.md)             |
-| **Documentación**        | Conjunto de documentos técnicos, funcionales y organizativos del proyecto.                            | [`README.md`](../README.md)                  |
-| **Flujo de Información** | Representación de cómo circula la información entre usuarios, módulos y componentes del sistema.      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Módulo**               | Conjunto de funcionalidades relacionadas que cumplen un objetivo específico dentro de la plataforma.  | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Plataforma**           | Sistema web desarrollado para fortalecer el vínculo entre la institución y sus egresados.             | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Sistema**              | Conjunto de componentes que trabajan de manera integrada para ofrecer los servicios de la plataforma. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-
----
-
-# Desarrollo Web
-
-| Término        | Definición                                                                                                         | Documento relacionado                        |
-| -------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| **Backend**    | Parte del sistema encargada del procesamiento de datos, reglas de negocio y comunicación con la base de datos.     | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Cliente**    | Navegador desde el cual un usuario accede e interactúa con la plataforma.                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **CRUD**       | Conjunto de operaciones básicas para Crear, Leer, Actualizar y Eliminar información.                               | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Dashboard**  | Panel principal desde el cual un usuario puede consultar y acceder a las funcionalidades disponibles según su rol. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Frontend**   | Parte visual del sistema con la que interactúa directamente el usuario.                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Interfaz**   | Medio visual mediante el cual el usuario interactúa con las funcionalidades del sistema.                           | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Responsive** | Capacidad de una interfaz para adaptarse a diferentes tamaños de pantalla y dispositivos.                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Servidor**   | Equipo o servicio que ejecuta la aplicación y responde a las solicitudes realizadas por los clientes.              | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Término              | Definición                                                                                                      | Documento relacionado                        |
+| -------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Bitácora             | Documento que registra cronológicamente las actividades, avances, dificultades y novedades del proyecto.        | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| Changelog            | Documento que registra los cambios relevantes realizados entre las versiones del proyecto.                      | [`CHANGELOG.md`](../CHANGELOG.md)            |
+| Documentación        | Conjunto de documentos técnicos, funcionales y organizativos que describen el proyecto.                         | [`README.md`](../README.md)                  |
+| Flujo de información | Representación de cómo circulan los datos entre los usuarios, los módulos y los componentes del sistema.        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Módulo               | Conjunto de funcionalidades relacionadas que cumplen un objetivo específico dentro de la plataforma.            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Plataforma           | Sistema web desarrollado para fortalecer el vínculo entre la institución educativa y su comunidad de egresados. | [`03_Requisitos.md`](./03_Requisitos.md)     |
+| Sistema              | Conjunto de componentes que trabajan de manera integrada para ofrecer las funcionalidades de la plataforma.     | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Versión              | Identificador que permite distinguir un estado o una actualización del proyecto.                                | [`CHANGELOG.md`](../CHANGELOG.md)            |
 
 ---
 
-# Diseño UI/UX
+## Desarrollo web
 
-| Término                                | Definición                                                                                                                                  | Documento relacionado                        |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Componente**                         | Elemento reutilizable de la interfaz que cumple una función específica dentro del sistema.                                                  | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Components & Responsive**            | Página del archivo de Figma destinada a organizar los componentes reutilizables, sus estados y criterios de adaptación responsive.          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Design System**                      | Conjunto organizado de reglas, estilos, criterios y componentes que establecen la identidad visual y los principios de diseño del proyecto. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Estado**                             | Representación visual de una condición o situación de interacción de un componente.                                                         | [`decisiones.md`](./decisiones.md)           |
-| **Figma**                              | Herramienta utilizada para diseñar, organizar y documentar la interfaz de usuario y el Design System del proyecto.                          | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **Focus**                              | Estado visual que indica que un elemento de la interfaz ha recibido el foco y está preparado para una interacción.                          | [`decisiones.md`](./decisiones.md)           |
-| **Hover**                              | Estado visual que aparece cuando el cursor se encuentra sobre un elemento interactivo.                                                      | [`decisiones.md`](./decisiones.md)           |
-| **Normal**                             | Estado visual predeterminado de un componente cuando no presenta una interacción o condición especial.                                      | [`decisiones.md`](./decisiones.md)           |
-| **Radio Button**                       | Componente de selección que permite elegir una única opción dentro de un conjunto de alternativas.                                          | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **Selected**                           | Estado visual que indica que una opción o componente ha sido seleccionado.                                                                  | [`decisiones.md`](./decisiones.md)           |
-| **Switch**                             | Componente de interfaz utilizado para activar o desactivar una opción o funcionalidad.                                                      | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **UI (Interfaz de Usuario)**           | Conjunto de elementos visuales mediante los cuales el usuario interactúa con la plataforma.                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **UX (Experiencia de Usuario)**        | Experiencia general que tiene una persona al utilizar la plataforma y sus funcionalidades.                                                  | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Wireframe / Estructura de Pantalla** | Representación estructural de una interfaz utilizada para definir la distribución de sus elementos antes de la implementación.              | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **Desktop**                            | Versión de una interfaz diseñada para visualizarse principalmente en pantallas de computador de mayor tamaño.                               | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Mobile**                             | Versión de una interfaz adaptada para dispositivos móviles y pantallas de menor tamaño.                                                     | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Término    | Definición                                                                                                                            | Documento relacionado                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Backend    | Parte del sistema encargada de procesar solicitudes, aplicar reglas de negocio y comunicarse con la base de datos.                    | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Cliente    | Programa, normalmente un navegador web, desde el cual una persona accede e interactúa con la plataforma.                              | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| CRUD       | Conjunto de operaciones básicas para crear, consultar, actualizar y eliminar información. Proviene de *Create, Read, Update, Delete*. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Dashboard  | Panel principal desde el cual un usuario puede consultar información y acceder a las funcionalidades disponibles según sus permisos.  | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Frontend   | Capa de presentación con la que interactúa directamente el usuario.                                                                   | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Interfaz   | Medio visual y funcional mediante el cual el usuario interactúa con el sistema.                                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Responsive | Capacidad de una interfaz para adaptarse a diferentes tamaños de pantalla y dispositivos.                                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Servidor   | Equipo o servicio que procesa las solicitudes de los clientes y entrega las respuestas correspondientes.                              | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 
 ---
 
-# Tecnologías
+## Diseño UI/UX
 
-| Término                | Definición                                                                                                                           | Documento relacionado                        |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| **CSS**                | Lenguaje utilizado para definir la apariencia visual, distribución y estilos de la aplicación web.                                   | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **HTML**               | Lenguaje de marcado utilizado para estructurar las páginas y elementos de la aplicación web.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **JavaScript**         | Lenguaje utilizado para implementar interactividad y comportamientos dinámicos en la interfaz.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **MySQL**              | Sistema gestor de bases de datos utilizado para almacenar y administrar la información de la plataforma.                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **PHP**                | Lenguaje de programación utilizado para desarrollar la lógica del servidor y generar las interfaces dinámicas de la plataforma.      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Inter**              | Familia tipográfica utilizada como tipografía principal en las interfaces de la plataforma.                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Poppins**            | Familia tipográfica utilizada inicialmente dentro de la definición del Design System durante la etapa inicial de diseño.             | [`01_Bitacora.md`](./01_Bitacora.md)         |
-| **Vanilla JavaScript** | Uso de JavaScript sin depender de frameworks o bibliotecas frontend adicionales para implementar la interactividad de la plataforma. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-
----
-
-# Arquitectura Frontend
-
-| Término                         | Definición                                                                                                                                                                                | Documento relacionado                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Componente PHP reutilizable** | Archivo PHP diseñado para contener una parte de la interfaz que puede utilizarse en diferentes páginas del sistema, evitando duplicación de código.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Front Controller**            | Punto de entrada principal de la aplicación web encargado de iniciar la configuración común y cargar la página correspondiente. En el proyecto, esta función se encuentra en `index.php`. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **CSS modular**                 | Organización de los estilos en diferentes archivos según la responsabilidad de cada parte de la interfaz.                                                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **main.css**                    | Hoja de estilos principal que contiene estilos generales, variables visuales, espaciados y reglas compartidas por la aplicación.                                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **fonts.css**                   | Hoja de estilos destinada a centralizar la configuración tipográfica y la carga de las fuentes utilizadas por la interfaz.                                                                | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **header.css**                  | Hoja de estilos encargada de definir la apariencia y comportamiento responsive del encabezado y la navegación.                                                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **footer.css**                  | Hoja de estilos encargada de definir la apariencia y distribución del pie de página.                                                                                                      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Header**                      | Encabezado principal de la interfaz que contiene la identidad de Raíces Alzate, navegación y acciones principales del usuario.                                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Footer**                      | Pie de página que contiene información institucional, navegación secundaria y datos legales de la plataforma.                                                                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Favicon**                     | Icono asociado al sitio web que se muestra en elementos del navegador como la pestaña de la página.                                                                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Responsive Navigation**       | Sistema de navegación que adapta la presentación del menú según el tamaño de pantalla, incluyendo el menú lateral utilizado en dispositivos móviles.                                      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Término                 | Definición                                                                                                                                         | Documento relacionado                        |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Componentes             | Elementos reutilizables de la interfaz que cumplen una función específica, como botones, campos de entrada, tarjetas y controles de selección.     | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Components & Responsive | Página del archivo de Figma destinada a organizar los componentes reutilizables, sus estados y sus criterios de adaptación a diferentes pantallas. | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| Design System           | Conjunto organizado de criterios, estilos, reglas visuales y componentes que orientan la construcción coherente de las interfaces.                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Desktop                 | Versión de una interfaz diseñada principalmente para pantallas de computador.                                                                      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Estado de componente    | Representación visual de una condición o situación de interacción de un elemento de la interfaz.                                                   | [`decisiones.md`](./decisiones.md)           |
+| Figma                   | Herramienta utilizada para diseñar, organizar y documentar las interfaces y los componentes visuales del proyecto.                                 | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| Focus                   | Estado visual que indica que un elemento ha recibido el foco de interacción, por ejemplo, mediante el teclado.                                     | [`decisiones.md`](./decisiones.md)           |
+| Hover                   | Estado visual que aparece cuando el cursor se sitúa sobre un elemento interactivo compatible.                                                      | [`decisiones.md`](./decisiones.md)           |
+| Mobile                  | Versión de una interfaz adaptada a dispositivos móviles y pantallas de menor tamaño.                                                               | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Normal                  | Estado visual predeterminado de un componente cuando no presenta una interacción o condición especial.                                             | [`decisiones.md`](./decisiones.md)           |
+| Radio Button            | Control de selección que permite elegir una única opción dentro de un grupo de alternativas.                                                       | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| Selected                | Estado que indica que una opción o un componente se encuentra seleccionado.                                                                        | [`decisiones.md`](./decisiones.md)           |
+| Switch                  | Control visual que permite activar o desactivar una opción o funcionalidad.                                                                        | [`01_Bitacora.md`](./01_Bitacora.md)         |
+| UI (*User Interface*)   | Interfaz de usuario: conjunto de elementos visuales e interactivos mediante los cuales una persona utiliza la plataforma.                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| UX (*User Experience*)  | Experiencia de usuario: percepción y experiencia general de una persona al utilizar la plataforma.                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Wireframe               | Representación estructural de una interfaz que permite definir la distribución de sus elementos antes de desarrollar el diseño visual definitivo.  | [`01_Bitacora.md`](./01_Bitacora.md)         |
 
 ---
 
-# Control de Versiones
+## Tecnologías
 
-| Término                  | Definición                                                                                                 | Documento relacionado                            |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| **Commit**               | Registro de un conjunto de cambios realizados en el repositorio mediante Git.                              | [`02_Planificacion.md`](./02_Planificacion.md)   |
-| **Git**                  | Sistema de control de versiones distribuido utilizado durante el desarrollo del proyecto.                  | [`02_Planificacion.md`](./02_Planificacion.md)   |
-| **GitHub**               | Plataforma utilizada para alojar y gestionar remotamente el repositorio del proyecto.                      | [`02_Planificacion.md`](./02_Planificacion.md)   |
-| **Rama (Branch)**        | Línea de desarrollo independiente utilizada para implementar funcionalidades, cambios o correcciones.      | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
-| **Repositorio**          | Espacio donde se almacena el código fuente, documentación y demás archivos versionados del proyecto.       | [`README.md`](../README.md)                      |
-| **Push**                 | Operación mediante la cual los cambios registrados localmente se envían al repositorio remoto.             | [`02_Planificacion.md`](./02_Planificacion.md)   |
-| **Control de Versiones** | Sistema utilizado para registrar, organizar y recuperar diferentes versiones de los archivos del proyecto. | [`02_Planificacion.md`](./02_Planificacion.md)   |
-
----
-
-# Usuarios y Roles
-
-| Término           | Definición                                                                                                                                               | Documento relacionado                        |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Administrador** | Usuario con permisos para administrar funcionalidades y contenidos de la plataforma según los permisos definidos.                                        | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Egresado**      | Persona que culminó sus estudios en la Institución Educativa Gilberto Alzate Avendaño y utiliza la plataforma como miembro de la comunidad de egresados. | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Rol**           | Conjunto de permisos y capacidades asignados a un usuario dentro de la plataforma.                                                                       | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Usuario**       | Persona que interactúa con la plataforma mediante una cuenta registrada.                                                                                 | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Autenticación** | Proceso mediante el cual el sistema verifica la identidad de un usuario.                                                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Permiso**       | Autorización que determina qué acciones o funcionalidades puede realizar un usuario dentro del sistema.                                                  | [`03_Requisitos.md`](./03_Requisitos.md)     |
-| **Perfil**        | Espacio donde se almacena y presenta la información asociada a un usuario o egresado.                                                                    | [`03_Requisitos.md`](./03_Requisitos.md)     |
+| Término                  | Definición                                                                                                                                       | Documento relacionado                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
+| CSS                      | Lenguaje utilizado para definir la apariencia, distribución y presentación visual de una página web.                                             | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| HTML                     | Lenguaje de marcado utilizado para estructurar el contenido de las páginas web.                                                                  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| JavaScript               | Lenguaje de programación utilizado para implementar interactividad y comportamientos dinámicos en el navegador.                                  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| MySQL                    | Sistema gestor de bases de datos relacionales utilizado para almacenar y administrar información estructurada.                                   | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| PHP                      | Lenguaje de programación utilizado en el servidor para procesar solicitudes y generar contenido web dinámico.                                    | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Inter                    | Familia tipográfica utilizada como tipografía principal en las interfaces de la plataforma.                                                      | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Poppins                  | Familia tipográfica utilizada inicialmente durante la definición del Design System. Se conserva como referencia histórica de la etapa de diseño. | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| PDO (*PHP Data Objects*) | Extensión de PHP que proporciona una interfaz para acceder a bases de datos mediante una API común.                                              | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Vanilla JavaScript       | Uso de JavaScript sin depender de frameworks o bibliotecas adicionales para implementar la interactividad.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| XAMPP                    | Paquete de herramientas que permite preparar un entorno de desarrollo local con servicios como Apache, PHP y MySQL o MariaDB.                    | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
 
 ---
 
-# Base de Datos
+## Arquitectura frontend
 
-| Término                          | Definición                                                                                                | Documento relacionado                        |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| **Base de Datos**                | Conjunto organizado de información almacenada y administrada para ser utilizada por la plataforma.        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Tabla**                        | Estructura de la base de datos utilizada para organizar información relacionada en filas y columnas.      | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Registro**                     | Conjunto de datos almacenados como una unidad dentro de una tabla.                                        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Campo**                        | Elemento que representa un tipo específico de información dentro de una tabla.                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Clave Primaria (Primary Key)** | Campo o conjunto de campos utilizado para identificar de manera única un registro dentro de una tabla.    | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Clave Foránea (Foreign Key)**  | Campo utilizado para establecer una relación entre registros de diferentes tablas.                        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Consulta (Query)**             | Instrucción utilizada para solicitar, modificar o administrar información almacenada en la base de datos. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-| **Relación**                     | Asociación existente entre datos de diferentes tablas dentro de una base de datos.                        | [`04_Arquitectura.md`](./04_Arquitectura.md) |
-
-> **Nota:** La estructura definitiva de las tablas de la base de datos se definirá a partir de las necesidades reales identificadas durante la implementación funcional de las interfaces.
-
----
-
-# Implementación
-
-| Término                        | Definición                                                                                                                                | Documento relacionado                          |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **Implementación**             | Etapa del proyecto en la que los diseños, estructuras y especificaciones definidas previamente se convierten en código funcional.         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Integración**                | Proceso de conectar y hacer funcionar conjuntamente los diferentes componentes del sistema, como frontend, backend y base de datos.       | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Validación**                 | Proceso mediante el cual se comprueba que los datos o acciones cumplen las condiciones establecidas por el sistema.                       | [`03_Requisitos.md`](./03_Requisitos.md)       |
-| **Prueba**                     | Actividad realizada para comprobar el funcionamiento correcto de una funcionalidad o componente.                                          | [`02_Planificacion.md`](./02_Planificacion.md) |
-| **Frontend**                   | Capa de presentación que implementa visualmente las interfaces definidas durante el diseño UI/UX.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Backend**                    | Capa lógica que procesa solicitudes, aplica reglas de negocio y se comunica con la base de datos.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Implementación de Interfaz** | Proceso de convertir una pantalla definida en Figma en una interfaz funcional mediante HTML, CSS, PHP y JavaScript.                       | [`01_Bitacora.md`](./01_Bitacora.md)           |
-| **Fidelidad Visual**           | Grado de correspondencia entre una interfaz implementada en código y el diseño previamente definido en Figma.                             | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
-| **Responsive Design**          | Enfoque de desarrollo que permite que una interfaz conserve su estructura, legibilidad y funcionalidad en diferentes tamaños de pantalla. | [`04_Arquitectura.md`](./04_Arquitectura.md)   |
+| Término                         | Definición                                                                                                                                                                                                | Documento relacionado                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Componente PHP reutilizable     | Archivo o fragmento PHP que contiene una parte de la interfaz que puede incluirse en diferentes páginas para evitar la duplicación de código.                                                             | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Front Controller                | Patrón en el que un punto de entrada central recibe las solicitudes y coordina la carga de la sección correspondiente. En el proyecto, `index.php` cumple esta función según la arquitectura documentada. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| CSS modular                     | Organización de los estilos en archivos separados según la responsabilidad de cada componente o sección de la interfaz.                                                                                   | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| `main.css`                      | Hoja de estilos destinada a contener reglas generales y estilos compartidos por la aplicación.                                                                                                            | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| `fonts.css`                     | Hoja de estilos destinada a centralizar la configuración tipográfica y, cuando corresponda, la carga de fuentes.                                                                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| `header.css`                    | Hoja de estilos destinada a definir la apariencia y el comportamiento responsive del encabezado y la navegación.                                                                                          | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| `footer.css`                    | Hoja de estilos destinada a definir la apariencia y distribución del pie de página.                                                                                                                       | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Header                          | Encabezado principal que puede contener la identidad visual, la navegación y las acciones principales de la plataforma.                                                                                   | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Footer                          | Pie de página que puede contener información institucional, enlaces secundarios y otros datos relevantes.                                                                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Favicon                         | Icono asociado al sitio web que puede aparecer en la pestaña del navegador y otros elementos de la interfaz del navegador.                                                                                | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Navegación responsive           | Sistema de navegación que adapta la presentación del menú según el tamaño de pantalla, por ejemplo, mediante un menú desplegable en dispositivos móviles.                                                 | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Separación de responsabilidades | Principio de organización que distribuye el código según la función de cada archivo o componente, facilitando su mantenimiento.                                                                           | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 
 ---
 
-# Notas
+## Autenticación y seguridad
 
-* Los términos están organizados por categorías para facilitar su consulta.
-* Los enlaces permiten acceder directamente al documento donde cada concepto se desarrolla con mayor profundidad.
-* Algunos términos pueden pertenecer a más de una categoría debido a su relación con diferentes partes del proyecto.
+| Término                          | Definición                                                                                                                                                                                          | Documento relacionado                            |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Autenticación                    | Proceso mediante el cual el sistema verifica la identidad de una persona que intenta acceder a una cuenta.                                                                                          | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Inicio de sesión (*Login*)       | Proceso mediante el cual un usuario proporciona sus credenciales para intentar acceder a su cuenta.                                                                                                 | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Registro                         | Proceso mediante el cual una persona proporciona los datos necesarios para crear una cuenta en la plataforma.                                                                                       | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Recuperación de contraseña       | Proceso que permite solicitar instrucciones para recuperar el acceso a una cuenta cuando se ha olvidado la contraseña.                                                                              | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Credenciales                     | Datos utilizados para verificar la identidad de un usuario, como el correo electrónico y la contraseña.                                                                                             | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Hash de contraseña               | Representación criptográfica de una contraseña que permite almacenarla sin guardar directamente el texto original. En PHP pueden utilizarse funciones como `password_hash()` y `password_verify()`. | [`decisiones.md`](./decisiones.md)               |
+| Token                            | Valor generado para identificar o autorizar una operación específica. En un flujo de recuperación de contraseña, debe gestionarse de forma segura.                                                  | [`decisiones.md`](./decisiones.md)               |
+| Validación del lado del cliente  | Comprobación de datos mediante JavaScript o las capacidades del navegador antes de enviar un formulario al servidor.                                                                                | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Validación del lado del servidor | Comprobación de datos en el backend antes de ejecutar una operación. Es necesaria aunque exista validación en el navegador.                                                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Consulta preparada               | Consulta SQL en la que los valores se suministran mediante parámetros separados de la instrucción SQL, ayudando a prevenir la inyección SQL cuando se utiliza correctamente.                        | [`decisiones.md`](./decisiones.md)               |
+| Inyección SQL                    | Vulnerabilidad que puede producirse cuando datos no confiables se incorporan incorrectamente a una consulta SQL, permitiendo alterar su comportamiento.                                             | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Enumeración de cuentas           | Situación en la que una respuesta del sistema permite descubrir si un correo electrónico u otro identificador corresponde a una cuenta registrada.                                                  | [`decisiones.md`](./decisiones.md)               |
+| Respuesta genérica               | Mensaje que evita revelar información sensible sobre la existencia o el estado de una cuenta. En recuperación de contraseña, ayuda a reducir la enumeración de cuentas.                             | [`decisiones.md`](./decisiones.md)               |
+| SMTP                             | Protocolo utilizado para enviar correos electrónicos. Su configuración permite integrar el envío de mensajes de recuperación u otras notificaciones.                                                | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+
+---
+
+## Control de versiones
+
+| Término              | Definición                                                                                                                                    | Documento relacionado                            |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Commit               | Registro de un conjunto de cambios realizados en el repositorio mediante Git.                                                                 | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Git                  | Sistema de control de versiones distribuido que permite registrar y administrar cambios en los archivos del proyecto.                         | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| GitHub               | Plataforma utilizada para alojar y gestionar repositorios Git de forma remota.                                                                | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Rama (*Branch*)      | Línea independiente de desarrollo que permite trabajar en cambios sin modificar directamente otra rama.                                       | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Repositorio          | Espacio que contiene los archivos versionados del proyecto y el historial de cambios registrado por Git.                                      | [`README.md`](../README.md)                      |
+| Push                 | Operación mediante la cual los commits locales se envían a un repositorio remoto.                                                             | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Pull                 | Operación que permite obtener e integrar cambios de un repositorio remoto en el entorno local, según la configuración y el estado de la rama. | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Control de versiones | Práctica de registrar y organizar los cambios realizados en los archivos para consultar su historial y recuperar versiones anteriores.        | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Rama remota          | Referencia que representa el estado de una rama en un repositorio remoto.                                                                     | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Working tree         | Estado de los archivos del repositorio local, que puede incluir cambios sin registrar mediante un commit.                                     | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+
+---
+
+## Usuarios y roles
+
+| Término       | Definición                                                                                                                         | Documento relacionado                    |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Administrador | Usuario con permisos para gestionar funcionalidades y contenidos según las autorizaciones definidas por el sistema.                | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Egresado      | Persona que culminó sus estudios en la Institución Educativa Gilberto Alzate Avendaño y forma parte de su comunidad de egresados.  | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Estudiante    | Persona que cursa estudios en la institución y que puede acceder a las funcionalidades que se definan para este tipo de usuario.   | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Rol           | Categoría que agrupa los permisos y las capacidades asignadas a un usuario dentro de la plataforma.                                | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Usuario       | Persona que interactúa con la plataforma. Cuando dispone de una cuenta, puede acceder a las funcionalidades habilitadas para ella. | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Permiso       | Autorización que determina qué acciones puede realizar un usuario dentro del sistema.                                              | [`03_Requisitos.md`](./03_Requisitos.md) |
+| Perfil        | Espacio en el que se presenta y administra la información asociada a un usuario o egresado, según las funcionalidades disponibles. | [`03_Requisitos.md`](./03_Requisitos.md) |
+
+---
+
+## Base de datos
+
+| Término                        | Definición                                                                                                                                   | Documento relacionado                            |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Base de datos                  | Conjunto organizado de información almacenada y administrada para su consulta y utilización por parte de una aplicación.                     | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Tabla                          | Estructura de una base de datos relacional que organiza información en filas y columnas.                                                     | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Registro                       | Conjunto de valores que representa una fila dentro de una tabla.                                                                             | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Campo                          | Elemento que representa un atributo o tipo de dato dentro de una tabla.                                                                      | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Clave primaria (*Primary Key*) | Campo o conjunto de campos que identifica de forma única cada registro de una tabla.                                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Clave foránea (*Foreign Key*)  | Campo o conjunto de campos que establece una relación con una clave de otra tabla o de la misma tabla.                                       | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Consulta (*Query*)             | Instrucción utilizada para consultar o manipular información de una base de datos.                                                           | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Relación                       | Asociación entre tablas o registros que permite representar vínculos entre diferentes tipos de información.                                  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| SQL                            | Lenguaje utilizado para definir estructuras, consultar y manipular datos en bases de datos relacionales.                                     | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| INNER JOIN                     | Operación SQL que combina registros de dos tablas cuando existe coincidencia entre las columnas relacionadas según la condición establecida. | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Esquema de base de datos       | Definición de la estructura de una base de datos, incluidas sus tablas, columnas, relaciones y restricciones.                                | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Integridad referencial         | Conjunto de reglas que mantiene la coherencia de las relaciones entre registros vinculados mediante claves.                                  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+
+> **Nota:** la estructura definitiva de las tablas, sus relaciones y restricciones debe documentarse de acuerdo con el esquema aprobado e implementado para las funcionalidades del proyecto. La conexión técnica con MySQL no implica que todo el modelo de datos esté terminado.
+
+---
+
+## Implementación y pruebas
+
+| Término                    | Definición                                                                                                                                      | Documento relacionado                            |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Implementación             | Etapa en la que los diseños, estructuras y especificaciones se convierten en código y funcionalidades de la aplicación.                         | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Integración                | Proceso de conectar componentes para que trabajen conjuntamente, como las interfaces, los procesos PHP y la base de datos.                      | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Validación                 | Comprobación de que los datos o las acciones cumplen las condiciones establecidas por el sistema.                                               | [`03_Requisitos.md`](./03_Requisitos.md)         |
+| Prueba                     | Actividad destinada a comprobar el comportamiento de una funcionalidad, componente o sistema bajo determinadas condiciones.                     | [`02_Planificacion.md`](./02_Planificacion.md)   |
+| Implementación de interfaz | Proceso de convertir una pantalla definida en Figma en una interfaz web mediante tecnologías como HTML, CSS, PHP y JavaScript.                  | [`01_Bitacora.md`](./01_Bitacora.md)             |
+| Fidelidad visual           | Grado de correspondencia entre una interfaz implementada y su diseño de referencia en Figma.                                                    | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Diseño responsive          | Enfoque de diseño y desarrollo que busca mantener la legibilidad, estructura y funcionalidad de una interfaz en diferentes tamaños de pantalla. | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Regresión                  | Aparición de un error o deterioro en una funcionalidad que antes funcionaba correctamente, después de introducir cambios.                       | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Lint                       | Análisis automatizado del código para detectar ciertos errores, inconsistencias o problemas de estilo. No sustituye las pruebas funcionales.    | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Criterio de aceptación     | Condición verificable que debe cumplir una funcionalidad para considerarse aceptable dentro del alcance definido.                               | [`03_Requisitos.md`](./03_Requisitos.md)         |
+
+---
+
+## Notas
+
+* Los términos se organizan por categorías para facilitar su consulta.
+* Las referencias permiten localizar documentos en los que se desarrollan con mayor profundidad los conceptos.
+* Algunos términos pueden aparecer en más de una categoría debido a su relación con diferentes áreas del proyecto.
 * Los estados de los componentes pueden variar según las necesidades de interacción definidas durante el diseño.
-* La tipografía Poppins se conserva en el glosario como referencia histórica de la etapa inicial del Design System, mientras que Inter corresponde a la tipografía utilizada posteriormente en las interfaces.
-* La etapa de Diseño UI/UX fue completada antes del inicio de la implementación frontend.
-* La implementación frontend comenzó con la interfaz de Inicio, tomando como referencia los diseños Desktop y Mobile definidos previamente en Figma.
-* El frontend actual utiliza PHP, HTML, CSS y JavaScript sin frameworks frontend adicionales.
-* Los estilos frontend se encuentran organizados de forma modular para facilitar su mantenimiento y evolución.
-* La conexión entre PHP y MySQL fue verificada durante la preparación técnica del proyecto. La estructura definitiva de las tablas de la base de datos aún se encuentra pendiente de definición e implementación.
-* El glosario deberá actualizarse durante todo el ciclo de vida del proyecto.
-* Los nombres de los documentos relacionados deben mantenerse sincronizados con la estructura actual de la carpeta `docs/`.
+* Poppins se conserva como referencia histórica de la etapa inicial del Design System; Inter es la tipografía principal utilizada en las interfaces.
+* La etapa de Diseño UI/UX se dio por finalizada a finales de septiembre de 2026, antes del inicio de la implementación frontend.
+* La implementación frontend comenzó con la interfaz de Inicio y continuó con las pantallas de autenticación, tomando Figma como referencia visual.
+* El stack frontend utiliza PHP, HTML, CSS y JavaScript sin frameworks frontend adicionales.
+* Los estilos se organizan de forma modular para facilitar el mantenimiento y la evolución de la aplicación.
+* Se reportó la verificación de la conexión técnica entre PHP y MySQL; esto no significa que el esquema definitivo de la base de datos o todas las operaciones funcionales estén terminados.
+* Las pantallas de inicio de sesión, registro y recuperación de contraseña cuentan con trabajo de implementación documentado. Su funcionamiento integral debe confirmarse mediante pruebas.
+* El envío real de correos para recuperar contraseñas depende de la configuración e integración de un servicio de correo, como SMTP.
+* La generación de un token de recuperación no demuestra por sí sola que todo el proceso de recuperación esté operativo. Deben verificarse su almacenamiento, expiración, validación, uso único y el cambio seguro de contraseña.
+* Los nombres y ubicaciones de los archivos mencionados deben mantenerse sincronizados con la estructura real del repositorio.
+* El glosario deberá actualizarse durante el ciclo de vida del proyecto para reflejar cambios técnicos, funcionales y organizativos.
 
 ---
 
-# Control de Cambios
+## Control de cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                                                                                         | Autor            |
-| ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| v0.1.0  | 09/07/2026 | Creación del glosario, organización por categorías e incorporación de referencias cruzadas entre documentos.                                                                                                                                        | Santiago Emitola |
-| v0.1.0  | 05/09/2026 | Actualización del glosario con conceptos relacionados con Figma, Design System, Components & Responsive, componentes, estados y flujo de información.                                                                                               | Santiago Emitola |
-| v0.1.1  | 07/10/2026 | Actualización general del glosario para reflejar la finalización de la etapa de Diseño UI/UX, el avance hacia la implementación y la incorporación de nuevos conceptos técnicos, de diseño, usuarios, base de datos e implementación.               | Santiago Emitola |
-| v0.1.1  | 08/10/2026 | Actualización del glosario para documentar el inicio de la implementación frontend, la arquitectura CSS modular, los componentes PHP reutilizables, el Front Controller, la navegación responsive y los recursos técnicos incorporados al frontend. | Santiago Emitola |
+| Versión | Fecha      | Descripción                                                                                                                                                                                                                                                               | Autor            |
+| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| v0.1.0  | 09/07/2026 | Creación del glosario, organización inicial por categorías e incorporación de referencias cruzadas entre documentos.                                                                                                                                                      | Santiago Emitola |
+| v0.1.0  | 05/09/2026 | Actualización de conceptos relacionados con Figma, Design System, Components & Responsive, componentes, estados y flujo de información.                                                                                                                                   | Santiago Emitola |
+| v0.1.1  | 07/10/2026 | Actualización general para reflejar la finalización de la etapa de Diseño UI/UX y el avance hacia la implementación.                                                                                                                                                      | Santiago Emitola |
+| v0.1.1  | 08/10/2026 | Incorporación de conceptos relacionados con la implementación frontend, la arquitectura CSS modular, los componentes PHP reutilizables, el Front Controller y la navegación responsive.                                                                                   | Santiago Emitola |
+| v0.1.1  | 09/10/2026 | Consolidación de definiciones y referencias; incorporación de términos relacionados con autenticación, seguridad, validación de formularios, bases de datos, control de versiones e implementación. Se precisan las funcionalidades que requieren verificación adicional. | Santiago Emitola |

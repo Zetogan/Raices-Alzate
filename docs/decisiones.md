@@ -6,218 +6,250 @@
 
 # 📘 Registro de Decisiones
 
-## Información General
+## Información general
 
-| Campo           | Información                                    |
-| --------------- | ---------------------------------------------- |
-| Proyecto        | Raíces Alzate                                  |
-| Institución     | Institución Educativa Gilberto Alzate Avendaño |
-| Fecha de inicio | 2025                                           |
-| Versión         | v0.1.1                                         |
-| Estado          | 🟡 En desarrollo                               |
-| Fase actual     | Fase 4 — Implementación                        |
+| Campo                | Información                                    |
+| -------------------- | ---------------------------------------------- |
+| Proyecto             | Raíces Alzate                                  |
+| Institución          | Institución Educativa Gilberto Alzate Avendaño |
+| Fecha de inicio      | 2025                                           |
+| Versión documental   | v0.1.1                                         |
+| Estado               | 🟡 En desarrollo                               |
+| Fase actual          | Fase 4 — Implementación                        |
+| Última actualización | 9 de octubre de 2026                           |
 
 ---
 
-# Introducción
+## Introducción
 
 Este documento registra las decisiones técnicas, funcionales, metodológicas y de diseño tomadas durante el desarrollo de Raíces Alzate.
 
-Su propósito es dejar evidencia de por qué se eligieron determinadas tecnologías, metodologías, estructuras o soluciones, facilitando el mantenimiento, la evolución y la implementación del proyecto.
+Su propósito es documentar por qué se seleccionaron determinadas tecnologías, estructuras, metodologías y soluciones, facilitando el mantenimiento, la evolución y la implementación de la plataforma.
 
-Las decisiones se conservan como parte del historial del proyecto y pueden ser revisadas o complementadas cuando las necesidades del desarrollo lo requieran.
+Cada decisión incluye su fecha de registro, descripción y justificación. Cuando corresponde, también se documentan las estructuras establecidas y las condiciones bajo las cuales una decisión podría revisarse.
+
+Las decisiones forman parte del historial del proyecto y podrán actualizarse o complementarse conforme evolucionen sus necesidades.
+
+> **Nota:** Las fechas registradas corresponden a sesiones y actualizaciones documentadas durante el desarrollo. El proyecto se encuentra en desarrollo desde 2025.
 
 ---
 
-# Decisiones
+# Decisiones registradas
 
 ## DEC-001 | Uso de PHP como lenguaje backend
 
-**Fecha:** 09 de julio de 2026
+**Fecha:** 9 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-El backend del proyecto será desarrollado utilizando PHP.
+El backend de Raíces Alzate se desarrollará utilizando PHP.
 
-**Justificación**
+### Justificación
 
-* Hace parte de las tecnologías aprendidas durante la formación.
-* Tiene una integración sencilla con MySQL.
-* Es ampliamente utilizado en aplicaciones web.
-* Facilita el despliegue en servidores compartidos.
+* Forma parte de las tecnologías trabajadas durante la formación.
+* Permite integrar la aplicación con MySQL.
+* Facilita el procesamiento de formularios y las operaciones del servidor.
+* Es compatible con diferentes entornos de alojamiento web.
+* Permite desarrollar la lógica de negocio sin incorporar un framework backend obligatorio.
 
 ---
 
 ## DEC-002 | Control de versiones con Git y GitHub
 
-**Fecha:** 09 de julio de 2026
+**Fecha:** 9 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Todo el desarrollo del proyecto será gestionado mediante Git y alojado en GitHub.
+El desarrollo del proyecto se gestionará mediante Git y se alojará en GitHub.
 
-**Justificación**
+### Justificación
 
 * Mantener un historial de cambios.
-* Facilitar la recuperación de versiones.
-* Llevar un desarrollo organizado.
-* Aplicar buenas prácticas de control de versiones.
+* Facilitar la recuperación de versiones anteriores.
+* Organizar el desarrollo mediante commits.
+* Permitir la creación y administración de ramas.
+* Facilitar la revisión de modificaciones.
+* Mantener un respaldo remoto del repositorio.
 
 ---
 
 ## DEC-003 | Documentación en Markdown
 
-**Fecha:** 09 de julio de 2026
+**Fecha:** 9 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-La documentación técnica y de seguimiento del proyecto será escrita principalmente en archivos Markdown (`.md`).
+La documentación técnica y de seguimiento del proyecto se escribirá principalmente en archivos Markdown (`.md`).
 
-**Justificación**
+### Justificación
 
 * Es compatible con GitHub.
-* Es fácil de leer y mantener.
-* Permite documentar el proyecto junto con el código.
-* Facilita el control de cambios mediante Git.
+* Permite leer y editar la documentación fácilmente.
+* Facilita mantener los documentos junto al código.
+* Permite controlar los cambios mediante Git.
+* Admite títulos, tablas, listas, enlaces y bloques de código.
+* Facilita la actualización de los documentos durante el desarrollo.
 
 ---
 
-## DEC-004 | Diseño previo al desarrollo
+## DEC-004 | Diseño previo a la implementación
 
-**Fecha:** 09 de julio de 2026
+**Fecha:** 9 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Antes de implementar los módulos principales se realizará su planificación, definición y diseño previo.
+Las interfaces y los módulos principales se planificarán y diseñarán antes de avanzar en su implementación correspondiente.
 
-**Justificación**
+### Justificación
 
-* Reduce retrabajos.
-* Permite detectar problemas antes de programar.
-* Mantiene una interfaz consistente.
-* Facilita la organización del proyecto.
-* Permite utilizar el diseño como referencia durante la implementación.
+* Reducir retrabajos.
+* Identificar necesidades antes de programar.
+* Mantener una interfaz visual consistente.
+* Facilitar la organización del trabajo.
+* Utilizar los diseños como referencia durante la implementación.
+* Identificar los componentes reutilizables antes de construir las interfaces.
+
+Esta decisión establece una metodología de trabajo, sin impedir que los diseños se ajusten cuando las pruebas o las necesidades técnicas lo justifiquen.
 
 ---
 
-## DEC-005 | Metodología de trabajo
+## DEC-005 | Metodología de trabajo por etapas
 
-**Fecha:** 09 de julio de 2026
+**Fecha:** 9 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-El desarrollo del proyecto seguirá un flujo organizado por etapas:
+El proyecto seguirá un proceso organizado por etapas:
 
 1. Planificación.
 2. Documentación.
-3. Diseño.
-4. Desarrollo.
-5. Pruebas.
-6. Documentación de cambios.
-7. Commit y Push.
+3. Diseño UI/UX.
+4. Implementación.
+5. Pruebas y validación.
+6. Actualización de la documentación.
+7. Consolidación de cambios mediante Git.
 
-**Justificación**
+### Justificación
 
-Esta metodología permite mantener un desarrollo ordenado, documentado y fácil de mantener, además de conservar un historial claro de los cambios realizados.
+Esta metodología permite mantener un desarrollo organizado, documentado y verificable, además de facilitar el seguimiento de los avances y la identificación de tareas pendientes.
+
+Las etapas pueden desarrollarse de forma iterativa cuando la implementación revele necesidades de ajuste en el diseño o la arquitectura.
 
 ---
 
 ## DEC-006 | Uso de Figma para el diseño UI/UX
 
 **Fecha:** 10 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-El diseño de la interfaz de usuario y la experiencia de usuario del proyecto se realizará utilizando Figma.
+Figma será la herramienta de referencia para el diseño de las interfaces y la planificación de la experiencia de usuario de Raíces Alzate.
 
-**Justificación**
+### Justificación
 
-* Permite organizar y documentar el diseño antes del desarrollo.
-* Facilita la creación y definición de componentes reutilizables.
-* Permite establecer una guía visual para la implementación frontend.
-* Facilita la planificación de las interfaces y sus diferentes estados.
-* Permite definir previamente las dimensiones y distribución de las pantallas.
+* Permite diseñar las interfaces antes de implementarlas.
+* Facilita organizar los componentes reutilizables.
+* Permite definir dimensiones, distribución y jerarquía visual.
+* Facilita documentar los estados de los componentes.
+* Sirve como referencia para la implementación frontend.
+* Permite planificar las versiones Desktop y Mobile.
 
 ---
 
 ## DEC-007 | Implementación de un Design System
 
 **Fecha:** 10 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-El proyecto utilizará un **Design System** como base para definir y mantener la identidad visual de la plataforma.
+El proyecto utilizará un Design System como base para definir y mantener la identidad visual de la plataforma.
 
-**Justificación**
+### Justificación
 
-* Mantener consistencia visual.
+* Mantener la consistencia visual.
 * Centralizar los criterios de diseño.
 * Facilitar la reutilización de elementos.
-* Establecer una referencia común para el desarrollo frontend.
-* Reducir inconsistencias entre las diferentes pantallas.
+* Reducir inconsistencias entre las pantallas.
+* Establecer una referencia común para diseño e implementación.
 
-El Design System contempla elementos como:
+El sistema de diseño contempla:
 
 * Identidad visual.
 * Paleta de colores.
 * Tipografía.
+* Jerarquía tipográfica.
 * Sistema de espaciado.
 * Botones.
-* Estados de componentes.
 * Componentes reutilizables.
+* Estados de interacción.
+* Criterios responsive.
 
 ---
 
 ## DEC-008 | Separación de fundamentos y componentes en Figma
 
 **Fecha:** 20 de julio de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-El archivo de Figma se organizará separando los fundamentos visuales del sistema de diseño y los componentes reutilizables.
+El archivo de Figma se organizará separando los fundamentos visuales de los componentes reutilizables.
 
-La estructura contempla:
+La estructura contempla las páginas:
 
-1. **Design System**
-2. **Components & Responsive**
+1. `Design System`.
+2. `Components & Responsive`.
 
-**Justificación**
+### Justificación
 
-* Evitar sobrecargar una sola página del archivo.
+* Evitar sobrecargar una sola página.
 * Mantener una organización clara.
 * Facilitar la consulta de los componentes.
-* Separar los estilos base de los componentes de interfaz.
-* Mantener una estructura compatible con las limitaciones del plan utilizado.
+* Separar los fundamentos visuales de los elementos de interfaz.
+* Aprovechar de manera organizada las limitaciones del plan de Figma utilizado.
 
 ---
 
 ## DEC-009 | Diseño responsive
 
-**Fecha:** 05 de septiembre de 2026
+**Fecha:** 5 de septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Los componentes y las interfaces de Raíces Alzate se diseñarán teniendo en cuenta diferentes tamaños de pantalla.
+Las interfaces de Raíces Alzate se diseñarán considerando diferentes tamaños de pantalla.
 
-**Justificación**
+### Justificación
 
-* Garantizar una experiencia adecuada en diferentes dispositivos.
-* Facilitar la adaptación de las interfaces durante el desarrollo frontend.
-* Mantener la consistencia visual independientemente del tamaño de pantalla.
-* Preparar el sistema de diseño para la construcción de interfaces adaptables.
-* Permitir definir versiones Desktop y Mobile de las interfaces principales.
+* Proporcionar una experiencia adecuada en diferentes dispositivos.
+* Facilitar la adaptación durante la implementación frontend.
+* Mantener la consistencia visual en distintas resoluciones.
+* Identificar anticipadamente los cambios necesarios entre Desktop y Mobile.
+* Establecer criterios comunes para la construcción de interfaces adaptables.
+
+Durante el diseño se utilizó un ancho de referencia de 390 px para las interfaces móviles trabajadas.
+
+La implementación deberá comprobarse posteriormente en diferentes anchos de pantalla para verificar su comportamiento responsive.
 
 ---
 
-## DEC-010 | Uso de componentes reutilizables y estados
+## DEC-010 | Componentes reutilizables y estados de interacción
 
-**Fecha:** 05 de septiembre de 2026
+**Fecha:** 5 de septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Los componentes de interfaz serán diseñados de forma reutilizable y contemplarán los estados necesarios para representar diferentes situaciones de interacción.
+Los componentes de interfaz se diseñarán de forma reutilizable y contemplarán los estados de interacción que correspondan a su comportamiento.
 
-Entre los estados trabajados se encuentran:
+### Estados considerados
 
 * Normal.
 * Selected.
@@ -226,51 +258,56 @@ Entre los estados trabajados se encuentran:
 * Disabled.
 * Error.
 
-**Justificación**
+No todos los componentes necesitan todos los estados. Su definición dependerá del tipo de elemento y de las interacciones previstas.
 
-* Mantener consistencia entre las interfaces.
+### Justificación
+
+* Mantener la consistencia entre las interfaces.
 * Evitar diseñar repetidamente los mismos elementos.
-* Representar correctamente los diferentes estados de interacción.
-* Facilitar la posterior implementación de los componentes en frontend.
+* Representar correctamente las situaciones de interacción.
+* Facilitar la posterior implementación en HTML, CSS y JavaScript.
+* Mejorar la claridad de los estados de los formularios.
 
 ---
 
-## DEC-011 | No utilizar Auto Layout durante esta etapa de Figma
+## DEC-011 | No utilizar Auto Layout durante la etapa inicial de Figma
 
 **Fecha:** 20 de julio de 2026
+**Estado:** Vigente para el diseño realizado
 
-**Decisión**
+### Decisión
 
-Durante esta etapa del diseño en Figma no se utilizará **Auto Layout** para la construcción de los componentes y las páginas del Design System.
+Durante la construcción inicial del Design System y sus componentes en Figma no se utilizará Auto Layout.
 
-**Justificación**
+### Justificación
 
 * Mantener un proceso de construcción manual y controlado.
-* Comprender la estructura y proporciones de los componentes antes de incorporar herramientas avanzadas.
-* Adaptar el proceso a las condiciones y limitaciones actuales del archivo de diseño.
-* Mantener el control directo sobre la distribución visual de los elementos.
+* Comprender las proporciones y la distribución de los componentes.
+* Conservar el control directo sobre las posiciones de los elementos.
+* Adaptar el procedimiento a las condiciones del archivo de diseño.
 
-Esta decisión corresponde a la etapa de diseño realizada y podrá revisarse posteriormente si las necesidades de implementación lo requieren.
+Esta decisión corresponde a la metodología utilizada durante la etapa de diseño. Podrá revisarse si las necesidades futuras de mantenimiento o evolución del archivo lo justifican.
 
 ---
 
 ## DEC-012 | Definición del flujo de información antes del diseño de pantallas
 
-**Fecha:** Septiembre de 2026
+**Fecha:** septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Antes de consolidar el diseño de las pantallas finales de la plataforma se definió el **flujo de información** y los recorridos principales del sistema.
+Antes de consolidar las pantallas finales se definieron los recorridos principales y las relaciones entre los módulos de la plataforma.
 
-**Justificación**
+### Justificación
 
-* Permitir comprender cómo se relacionan los módulos.
-* Definir los recorridos principales de los usuarios.
-* Identificar las pantallas necesarias.
-* Evitar diseñar interfaces sin conocer previamente su relación dentro del sistema.
-* Utilizar el flujo como base para el diseño de las pantallas.
+* Comprender cómo se relacionan las diferentes secciones.
+* Identificar los recorridos principales de los usuarios.
+* Determinar las pantallas necesarias.
+* Evitar diseñar interfaces sin conocer su función dentro del sistema.
+* Utilizar la navegación como referencia para el diseño y la implementación.
 
-El flujo establecido contempla relaciones principales como:
+### Flujo general definido
 
 * Inicio → Autenticación → Dashboard.
 * Dashboard → Perfil.
@@ -279,189 +316,334 @@ El flujo establecido contempla relaciones principales como:
 * Perfil → Egresados.
 * Proyectos → Noticias.
 
+Este esquema representa la estructura general documentada. Las rutas concretas y los permisos deberán definirse y verificarse durante la implementación.
+
 ---
 
-## DEC-013 | Definición de interfaces Desktop y Mobile
+## DEC-013 | Diseño de interfaces Desktop y Mobile
 
-**Fecha:** Septiembre de 2026
+**Fecha:** septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Las interfaces principales de Raíces Alzate se diseñarán considerando versiones para **Desktop y Mobile**, utilizando como referencia las dimensiones y criterios definidos durante el proceso de UI/UX.
+Las interfaces principales se diseñarán considerando versiones Desktop y adaptaciones Mobile según las necesidades de cada pantalla.
 
-**Justificación**
+### Justificación
 
-* Garantizar una experiencia coherente en diferentes dispositivos.
-* Facilitar la posterior implementación responsive.
-* Identificar desde la etapa de diseño los cambios necesarios entre resoluciones.
-* Mantener una estructura visual consistente entre las diferentes versiones.
+* Proporcionar una experiencia coherente en diferentes dispositivos.
+* Facilitar la implementación responsive.
+* Identificar desde el diseño las diferencias de distribución entre resoluciones.
+* Mantener una identidad visual consistente.
+* Preparar referencias visuales para el desarrollo frontend.
 
-Las interfaces Desktop desarrolladas abarcan los principales módulos y flujos de la plataforma, mientras que las adaptaciones Mobile se realizaron sobre las interfaces priorizadas durante la etapa de diseño.
+Se desarrollaron las principales interfaces Desktop y se trabajaron adaptaciones Mobile para las pantallas priorizadas.
+
+La finalización de la fase de diseño no significa que todas las interfaces móviles estén terminadas o que todas las resoluciones hayan sido validadas en código.
 
 ---
 
 ## DEC-014 | Uso de Inter como tipografía de las interfaces
 
-**Fecha:** Septiembre de 2026
+**Fecha:** septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-La tipografía utilizada en las interfaces de la plataforma será **Inter**, manteniendo una jerarquía visual clara para títulos, textos y elementos de interacción.
+La tipografía principal de las interfaces implementadas será Inter, manteniendo una jerarquía visual coherente para títulos, textos y elementos de interacción.
 
-**Justificación**
+### Justificación
 
 * Favorecer la legibilidad en interfaces digitales.
-* Mantener una apariencia limpia y moderna.
+* Mantener una apariencia limpia.
 * Facilitar la lectura en diferentes tamaños de pantalla.
-* Mantener consistencia tipográfica entre las diferentes interfaces.
+* Conservar la consistencia tipográfica entre las interfaces.
 
-La tipografía inicialmente definida dentro del Design System fue Poppins. Posteriormente, durante el desarrollo de las interfaces, se adoptó Inter como tipografía principal de la interfaz.
+### Evolución de la decisión
+
+Poppins se utilizó inicialmente para definir la jerarquía tipográfica del Design System. Posteriormente, Inter se adoptó como tipografía principal de las interfaces.
+
+Esta evolución permite distinguir la referencia tipográfica inicial del sistema de diseño de la tipografía utilizada en la implementación.
 
 ---
 
-## DEC-015 | Uso de una estructura visual simple y consistente
+## DEC-015 | Estructura visual simple y consistente
 
-**Fecha:** Septiembre de 2026
+**Fecha:** septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
 Las interfaces de Raíces Alzate seguirán una estructura visual limpia, organizada y con suficiente espacio entre los elementos, evitando la sobrecarga de información.
 
-**Justificación**
+### Justificación
 
 * Facilitar la comprensión de las interfaces.
-* Mejorar la lectura y navegación.
+* Mejorar la lectura y la navegación.
 * Evitar interfaces visualmente saturadas.
 * Mantener una jerarquía clara de la información.
-* Facilitar la implementación posterior del diseño.
+* Facilitar la adaptación del diseño a diferentes dispositivos.
 
 ---
 
-## DEC-016 | Diseño de las interfaces como referencia para la implementación
+## DEC-016 | Figma como referencia visual para la implementación
 
-**Fecha:** Septiembre de 2026
+**Fecha:** septiembre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Las interfaces consolidadas en Figma serán utilizadas como referencia visual para la etapa de implementación frontend.
+Las interfaces consolidadas en Figma se utilizarán como referencia visual durante la implementación frontend.
 
-**Justificación**
+### Justificación
 
-* Mantener correspondencia entre diseño y desarrollo.
+* Mantener la correspondencia entre diseño y desarrollo.
 * Reducir diferencias visuales durante la programación.
-* Facilitar la construcción de componentes HTML, CSS y JavaScript.
-* Utilizar las medidas, estilos, estados y estructuras definidas durante la etapa UI/UX.
-* Servir como guía para la implementación responsive.
+* Facilitar la construcción de estructuras HTML y estilos CSS.
+* Utilizar las dimensiones, los colores, los estados y las estructuras definidas.
+* Servir como referencia para la adaptación responsive.
+
+Cuando las limitaciones técnicas requieran modificar una decisión de diseño, el cambio deberá evaluarse y documentarse para mantener la coherencia del proyecto.
 
 ---
 
 ## DEC-017 | Modularización de los estilos frontend
 
-**Fecha:** 08 de octubre de 2026
+**Fecha:** 8 de octubre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Los estilos CSS del frontend se organizarán de forma modular, separando los estilos generales de los estilos específicos de componentes reutilizables.
+Los estilos CSS se organizarán de forma modular, separando los estilos generales de los estilos específicos de los componentes compartidos.
 
-La estructura establecida contempla:
+### Estructura de estilos registrada
 
 ```text
-assets/css/
-├── main.css
-├── fonts.css
-├── header.css
-└── footer.css
+assets/
+└── css/
+    ├── main.css
+    ├── fonts.css
+    ├── header.css
+    ├── footer.css
+    └── auth.css
 ```
 
-**Justificación**
+### Responsabilidades
 
-* Evitar concentrar todos los estilos en un único archivo.
+* `main.css`: estilos generales, reglas compartidas y tokens visuales.
+* `fonts.css`: centralización de la tipografía.
+* `header.css`: estilos específicos del encabezado.
+* `footer.css`: estilos específicos del pie de página.
+* `auth.css`: estilos de las interfaces y componentes de autenticación.
+
+### Justificación
+
+* Evitar concentrar todos los estilos en un solo archivo.
 * Facilitar el mantenimiento del código.
-* Separar responsabilidades dentro de los estilos frontend.
-* Permitir modificar componentes específicos sin afectar innecesariamente otras partes de la interfaz.
-* Mantener una estructura coherente con la arquitectura modular del proyecto.
-* Facilitar el crecimiento progresivo del frontend a medida que se implementen las demás interfaces.
+* Separar responsabilidades visuales.
+* Reducir el riesgo de afectar componentes no relacionados.
+* Facilitar el crecimiento progresivo del frontend.
 
-`main.css` mantiene los estilos generales y los tokens visuales del Design System, mientras que `fonts.css`, `header.css` y `footer.css` concentran las responsabilidades específicas correspondientes.
-
-Esta organización podrá ampliarse posteriormente si la cantidad de componentes implementados justifica la creación de nuevos archivos de estilos.
+La estructura podrá ampliarse cuando el número de pantallas y componentes justifique nuevos archivos.
 
 ---
 
-## DEC-018 | Uso de componentes PHP reutilizables para elementos compartidos
+## DEC-018 | Componentes PHP reutilizables para elementos compartidos
 
-**Fecha:** 08 de octubre de 2026
+**Fecha:** 8 de octubre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-Los elementos compartidos entre las diferentes páginas del proyecto serán implementados mediante componentes PHP reutilizables, comenzando por el **Header** y el **Footer**.
+Los elementos compartidos entre las páginas se implementarán mediante componentes PHP reutilizables, comenzando por el Header y el Footer.
 
-La estructura actual contempla:
+### Justificación
 
-```text
-components/
-├── header.php
-└── footer.php
-```
+* Evitar duplicar estructuras HTML.
+* Mantener una navegación consistente.
+* Facilitar futuras modificaciones de los elementos compartidos.
+* Reutilizar la misma estructura entre distintas pantallas.
+* Reducir errores derivados de mantener versiones duplicadas.
+* Facilitar el mantenimiento del frontend.
 
-Estos componentes son integrados mediante la estructura existente de `includes/`.
+### Consideración de arquitectura
 
-**Justificación**
+Los componentes compartidos se integran mediante la estructura modular existente del proyecto.
 
-* Evitar duplicar código HTML entre las páginas.
-* Mantener una estructura consistente de navegación.
-* Facilitar futuras modificaciones del Header y Footer.
-* Permitir reutilizar los mismos elementos en las diferentes interfaces.
-* Reducir errores derivados de mantener múltiples versiones del mismo código.
-* Facilitar el mantenimiento y crecimiento del frontend.
-
-Esta estructura podrá ampliarse posteriormente con nuevos componentes reutilizables cuando las necesidades de la implementación lo requieran.
+La ubicación definitiva de cada archivo debe corresponder con la estructura real del repositorio. Antes de ampliar o reorganizar los componentes, se verificará si su ubicación es `includes/`, `components/` o una combinación de ambas según sus responsabilidades.
 
 ---
 
-## DEC-019 | Mantener PHP, HTML, CSS y JavaScript vanilla en el frontend
+## DEC-019 | Uso de PHP, HTML, CSS y JavaScript vanilla
 
-**Fecha:** 08 de octubre de 2026
+**Fecha:** 8 de octubre de 2026
+**Estado:** Vigente
 
-**Decisión**
+### Decisión
 
-La implementación frontend continuará utilizando **PHP, HTML, CSS y JavaScript vanilla**, sin incorporar actualmente frameworks o librerías frontend como React, Vue u otros similares.
+La implementación frontend utilizará PHP, HTML, CSS y JavaScript vanilla, sin incorporar actualmente frameworks frontend como React o Vue.
 
-**Justificación**
+### Justificación
 
-* Mantener coherencia con las tecnologías definidas para el proyecto.
+* Mantener coherencia con las tecnologías del proyecto.
 * Reducir la complejidad de la implementación.
-* Facilitar la comprensión y mantenimiento del código.
-* Permitir trasladar directamente las estructuras diseñadas en Figma a HTML y CSS.
-* Utilizar JavaScript vanilla para comportamientos interactivos que no requieren un framework.
-* Mantener una arquitectura adecuada al alcance actual del proyecto.
+* Facilitar la comprensión y el mantenimiento del código.
+* Trasladar las estructuras diseñadas en Figma a HTML y CSS.
+* Utilizar JavaScript para los comportamientos interactivos necesarios.
+* Mantener una arquitectura adecuada al alcance actual.
 
-La decisión podrá revisarse posteriormente si las necesidades funcionales del sistema justifican la incorporación de nuevas tecnologías.
+La decisión podrá revisarse si las necesidades funcionales o técnicas justifican incorporar nuevas tecnologías.
 
 ---
 
-# Estado de las decisiones
+## DEC-020 | Centralización de los estados y validaciones de formularios
 
-Las decisiones registradas establecen las principales bases técnicas, metodológicas y de diseño de Raíces Alzate.
+**Fecha:** 8 de octubre de 2026
+**Estado:** Vigente
 
-Durante la etapa de diseño UI/UX se consolidaron el **Design System**, la página **Components & Responsive**, el flujo de información y las principales interfaces de la plataforma para Desktop y las adaptaciones Mobile trabajadas.
+### Decisión
 
-La **Fase 3 — Diseño UI/UX** se encuentra finalizada y sus resultados están siendo utilizados como referencia para la implementación.
+Los formularios de autenticación utilizarán criterios visuales y funciones de validación compartidos para mantener un comportamiento consistente entre las diferentes pantallas.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**.
+### Aplicación
 
-Durante el inicio de esta fase se estableció una arquitectura frontend modular basada en componentes PHP reutilizables y estilos CSS separados por responsabilidad. La primera interfaz implementada es **Inicio**, utilizando como referencia los diseños Desktop y Mobile definidos en Figma.
+La implementación registrada contempla:
 
-Actualmente se continuará con:
+* Estados visuales para campos de formulario.
+* Estados de botones de opción.
+* Mensajes de error asociados a los campos.
+* Limpieza reactiva de los errores.
+* Validaciones en JavaScript.
+* Procesamiento y validaciones en PHP.
+* Prevención de envíos duplicados en los formularios correspondientes.
 
-* Construcción progresiva del frontend.
-* Implementación de componentes reutilizables.
-* Implementación de las interfaces restantes.
-* Desarrollo de la estructura backend.
-* Configuración e integración de la base de datos.
-* Implementación de autenticación y roles.
-* Integración entre frontend, backend y MySQL.
-* Pruebas funcionales y de interfaz.
-* Documentación de los avances y cambios.
+Entre las funciones auxiliares registradas se encuentran:
 
-Las decisiones podrán actualizarse o complementarse conforme avance el proyecto, manteniendo el registro histórico de las decisiones tomadas durante cada etapa.
+* `setInputError()`.
+* `clearInputError()`.
+* `setRadioGroupError()`.
+* `clearRadioGroupError()`.
+
+### Justificación
+
+* Evitar comportamientos inconsistentes entre formularios.
+* Reducir la duplicación de código.
+* Facilitar la corrección de errores.
+* Mantener coherencia visual con Figma.
+* Mejorar la retroalimentación durante la interacción.
+
+Las validaciones del frontend complementan las del backend, pero no las sustituyen.
+
+---
+
+## DEC-021 | Uso de PDO y consultas preparadas para el acceso a datos
+
+**Fecha:** octubre de 2026
+**Estado:** Aplicado en los procesos registrados; sujeto a revisión integral
+
+### Decisión
+
+El acceso a la base de datos mediante PHP utilizará PDO y consultas preparadas en las operaciones correspondientes.
+
+### Justificación
+
+* Separar los datos recibidos de las instrucciones SQL.
+* Reducir el riesgo de inyección SQL.
+* Facilitar el manejo de errores de base de datos.
+* Mantener una estructura consistente para las operaciones de persistencia.
+* Facilitar la integración con MySQL.
+
+### Alcance
+
+El uso de PDO y consultas preparadas se encuentra registrado en los procesos de autenticación desarrollados.
+
+La definición del esquema definitivo de la base de datos y la validación integral de las operaciones de la plataforma permanecen sujetas al avance de la implementación.
+
+---
+
+## DEC-022 | Almacenamiento seguro de contraseñas
+
+**Fecha:** octubre de 2026
+**Estado:** Aplicado en el registro; pendiente de verificación integral
+
+### Decisión
+
+Las contraseñas se procesarán mediante las funciones de hashing seguras disponibles en PHP, utilizando `password_hash()` con `PASSWORD_DEFAULT`.
+
+### Justificación
+
+* Evitar almacenar contraseñas en texto plano.
+* Utilizar un mecanismo de hashing diseñado para contraseñas.
+* Aprovechar los parámetros de seguridad proporcionados por PHP.
+* Facilitar la verificación posterior de las contraseñas mediante las funciones correspondientes.
+
+### Consideraciones
+
+* El sistema no debe almacenar contraseñas en texto plano.
+* La verificación del inicio de sesión debe utilizar el mecanismo apropiado para comprobar las contraseñas.
+* Las credenciales y otros datos sensibles no deben exponerse en mensajes de error ni en registros innecesarios.
+* La implementación debe probarse de forma integral antes de considerar finalizado el módulo de autenticación.
+
+---
+
+## DEC-023 | Uso de respuestas genéricas en la recuperación de contraseña
+
+**Fecha:** 9 de octubre de 2026
+**Estado:** Implementación parcial
+
+### Decisión
+
+La pantalla de recuperación de contraseña utilizará una respuesta genérica para evitar revelar si una dirección de correo electrónico corresponde a una cuenta registrada.
+
+### Justificación
+
+* Reducir el riesgo de enumeración de cuentas.
+* Evitar que una respuesta revele información sobre los usuarios registrados.
+* Mantener un comportamiento uniforme en las solicitudes de recuperación.
+
+### Respuesta registrada
+
+> Si el correo electrónico ingresado coincide con una cuenta activa en la comunidad, recibirás las instrucciones correspondientes.
+
+### Consideraciones
+
+La implementación registrada contempla la generación de tokens de recuperación mediante `random_bytes(32)`.
+
+Para completar el flujo se requiere verificar:
+
+* El almacenamiento seguro de los tokens.
+* Su expiración.
+* Su validación durante el restablecimiento.
+* El uso único de los tokens cuando corresponda.
+* La integración con un servicio de correo electrónico.
+* La respuesta del sistema ante tokens inválidos o vencidos.
+
+La configuración SMTP permanece pendiente, por lo que no debe considerarse finalizado el envío efectivo de las instrucciones de recuperación.
+
+---
+
+# Estado general de las decisiones
+
+Las decisiones registradas establecen las principales bases metodológicas, visuales y técnicas de Raíces Alzate.
+
+Durante las etapas anteriores se consolidaron la documentación, el Design System, los componentes reutilizables, la estructura de navegación y las principales referencias de diseño en Figma.
+
+La **Fase 3 — Diseño UI/UX** finalizó a finales de septiembre de 2026. Sus resultados se utilizan como referencia para la implementación.
+
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**, iniciada formalmente en octubre de 2026.
+
+Durante esta etapa se han desarrollado la estructura inicial de Inicio, los componentes compartidos, los estilos modulares y las primeras interfaces de autenticación.
+
+## Próximas áreas de trabajo
+
+* Validación visual de las interfaces frente a Figma.
+* Implementación progresiva de las pantallas restantes.
+* Consolidación de los componentes reutilizables.
+* Definición y validación del esquema definitivo de la base de datos.
+* Integración del frontend con el backend y MySQL.
+* Verificación de autenticación, sesiones y roles.
+* Finalización del flujo de recuperación de contraseña.
+* Pruebas funcionales, de seguridad y de accesibilidad.
+* Actualización continua de la documentación.
+
+Las decisiones podrán modificarse o ampliarse conforme avance el proyecto. Los cambios relevantes deberán quedar registrados para conservar el historial y la justificación de las decisiones técnicas.
