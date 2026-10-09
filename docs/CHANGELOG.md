@@ -136,6 +136,10 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * Creación del endpoint preliminar `auth/login-process.php`.
 * Creación del componente global reutilizable de alertas (`.alert`) en `assets/css/main.css` con cuatro variantes semánticas (`success`, `warning`, `error`, `info`), accesibilidad ARIA e iconografía SVG vectorial inline.
 * Traslado de las acciones de autenticación ("Iniciar sesión" y "Registrarse") al bloque `.mobile-drawer-actions` dentro del drawer de navegación para dispositivos móviles.
+* Implementación integral de la pantalla de **Registro de Usuarios / Crear cuenta** (`pages/registro.php`, `registro.php`).
+* Creación del endpoint de procesamiento backend `auth/registro-process.php` con validación server-side, cifrado seguro mediante `password_hash()` y verificación/inserción en base de datos vía PDO.
+* Implementación del selector de rol personalizado mediante radio buttons en línea estilizados en CSS (`Estudiante` y `Egresado`) con indicador `#1565C0` dentro de `assets/css/auth.css`.
+* Implementación de validación client-side interactiva en `assets/js/auth.js` con retroalimentación granular por campo (`.field-error-message`), control de prevención de doble envío y preparación estructurada de payload JSON.
 
 #### Cambiado
 
@@ -157,6 +161,7 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * Se mantuvo la implementación sin frameworks frontend, utilizando PHP, HTML, CSS y JavaScript vanilla.
 * **Calibración visual en Autenticación:** Se forzó la alineación izquierda (`text-align: left !important`) en el encabezado institucional (`.auth-header`, `.auth-brand-title`, `.auth-brand-subtitle`) en `assets/css/auth.css` para coincidir 1:1 con la referencia visual de Figma.
 * **Integración de alertas en Login:** Se sustituyó el contenedor plano de feedback por el componente visual `.alert.alert-error` en `pages/login.php` y `assets/js/auth.js`, desplegando advertencias con iconografía vectorial SVG sin alterar la retícula.
+* **Calibración de estados de Radio Buttons e Inputs según Figma:** Se implementaron los 5 estados para Radio Buttons (Normal, Selected en rojo `#D32F2F` sin acento azul, Focus en `#1565C0`, Disabled y Error) y para Inputs (Normal, Focus en `#1565C0`, Filled, Error con borde, texto y placeholder en rojo mediante `.input-error`, y Disabled) en `assets/css/auth.css` y `assets/js/auth.js`, con limpieza reactiva al enfocar o escribir.
 
 #### Estado de implementación
 
@@ -166,6 +171,7 @@ Actualmente se encuentran implementados:
 
 * Estructura base de Inicio.
 * Pantalla de Autenticación / Inicio de Sesión (`pages/login.php`).
+* Pantalla de Registro / Crear cuenta (`pages/registro.php`, `registro.php`).
 * Header reutilizable.
 * Footer reutilizable.
 * Navegación responsive.

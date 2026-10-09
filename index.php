@@ -19,6 +19,11 @@ switch ($page) {
         $currentPage = 'login';
         $viewFile = __DIR__ . '/pages/login.php';
         break;
+    case 'registro':
+        $pageTitle = 'Crear una cuenta | ' . APP_NAME;
+        $currentPage = 'registro';
+        $viewFile = __DIR__ . '/pages/registro.php';
+        break;
     case 'inicio':
     default:
         $pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';

@@ -766,6 +766,102 @@ La cabecera móvil de **Raíces Alzate** replica fielmente el diseño limpio de 
 
 ---
 
+## 📅 08 de octubre de 2026 (Sesión 21 — Implementación Integral de Pantalla de Registro)
+
+### Objetivo de la sesión
+
+Implementar con absoluta fidelidad visual y funcional la pantalla de Registro de usuarios para la plataforma **Raíces Alzate** (v0.1.1) para la Institución Educativa Gilberto Alzate Avendaño, basándose estrictamente en el diseño UI aprobado en Figma.
+
+### Bitácora de modificaciones
+
+* **Archivos creados:**
+  * `pages/registro.php`: Vista modular que contiene la tarjeta institucional y el formulario de registro, diseñada para renderizarse limpiamente entre `includes/header.php` e `includes/footer.php`.
+  * `registro.php`: Controlador y punto de entrada directo en la raíz (`config/config.php`, `$pageTitle`, `$currentPage = 'registro'`, y `require_once` de header, `pages/registro.php` y footer, análogo a `login.php`).
+  * `auth/registro-process.php`: Endpoint backend para procesamiento vía POST, sanitización, validaciones de seguridad, cifrado con `password_hash()` y persistencia/verificación en base de datos MySQL vía PDO.
+* **Archivos modificados:**
+  * `index.php`: Enrutamiento modular para el parámetro `?page=registro` hacia `pages/registro.php`.
+  * `assets/css/auth.css`: Integración centralizada de estilos de registro reutilizando variables del login: radio de tarjeta a 20px, `.field-error-message`, `.radio-group` y radio buttons estilizados en línea con acento `#1565C0`.
+  * `assets/js/auth.js`: Incorporación de `initRegistroForm()` con validación reactiva campo por campo, accesibilidad ARIA, prevención de doble envío y preparación de payload JSON.
+* **Archivos descartados y eliminados:**
+  * Se eliminaron los archivos planos sueltos en la raíz (`registro.css`, `registro.js`, `registro.html`, `login.html`), garantizando que todo el proyecto opere exclusivamente bajo la arquitectura PHP modular establecida.
+
+### Justificación técnica
+
+1. **Fidelidad Estricta al Design System y Arquitectura Modular:** Se integraron los tokens oficiales aprobados (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`, `#FFFFFF`), tarjeta de 460px con radio de curvatura de 20px y controles a 8px, respetando el ciclo de vida modular del proyecto sin duplicar hojas de estilo ni scripts fuera de `assets/`.
+2. **Selector de Rol Personalizado Accesible:** Los radio buttons (`Estudiante` y `Egresado`) se concibieron con CSS puro mediante `appearance: none;`, logrando el contorno y punto interior activo en `#1565C0` de 10px sin perder navegación por teclado ni semántica nativa para lectores de pantalla.
+3. **Validación Granular no Destructiva:** Los errores se comunican campo por campo mediante elementos `.field-error-message` y clases `.is-invalid` con borde `#D32F2F`, vinculados mediante `aria-describedby` y `aria-invalid`, limpiándose dinámicamente cuando el usuario interactúa.
+4. **Seguridad Backend y Persistencia:** En `auth/registro-process.php` se implementó validación de requerimientos, chequeo de correo con `FILTER_VALIDATE_EMAIL`, longitud mínima de 6 caracteres, verificación de coincidencia y hasheo mediante `password_hash($password, PASSWORD_DEFAULT)` junto con verificación de existencia previa de usuario vía PDO.
+5. **Prevención de Doble Envío y Preparación de Datos:** El disparador de envío bloquea intentos concurrentes (`isSubmitting`), deshabilita el botón con estado "Registrando..." y estructura un objeto JSON estándar listo para consumo por API o backend.
+
+### Control de diferencias
+
+* **Antes:**
+  * No existía la pantalla de Registro en el sistema; los enlaces en cabecera y pie de login apuntaban a recursos no implementados.
+  * Ausencia de componentes de radio button personalizados en el sistema de estilos.
+* **Después:**
+  * Pantalla de Registro completa, modular y 100% funcional en `pages/registro.php`, accesible mediante `registro.php` e `index.php?page=registro`.
+  * Estilos centralizados en `assets/css/auth.css` y lógica de cliente unificada en `assets/js/auth.js`.
+  * Procesamiento backend en `auth/registro-process.php` con hashing seguro de contraseñas y control PDO.
+  * Raíz del repositorio depurada y libre de archivos estáticos redundantes.
+
+### Resultado
+
+La plataforma cuenta con un flujo de registro de usuarios fiel al prototipo de Figma, integrado en la arquitectura PHP del proyecto, plenamente accesible, robusto frente a errores de entrada y preparado para la gestión en base de datos.
+
+---
+
+## 📅 08 de octubre de 2026 (Sesión 22 — Calibración de Estados de Radio Buttons e Inputs según Figma)
+
+### Objetivo de la sesión
+
+Alinear con exactitud los 5 estados de componentes definidos en la guía de Figma para los Radio Buttons y los Inputs compartidos de Login y Registro (`assets/css/auth.css` y `assets/js/auth.js`), eliminando el acento azul en radios seleccionados (cambiándolo a rojo institucional `#D32F2F`), implementando foco accesible `#1565C0`, estados deshabilitados y feedback interactivo de error en inputs (texto y placeholder en rojo al quedar vacíos o inválidos, con limpieza reactiva en `input` y `focus`).
+
+### Bitácora de modificaciones
+
+* **Archivos modificados:**
+  * `assets/css/auth.css`:
+    * **Radio Buttons (5 estados Figma):**
+      1. *Normal:* Círculo con borde gris `#E0E0E0` y fondo blanco `#FFFFFF`.
+      2. *Selected:* Borde rojo `#D32F2F` y punto central sólido relleno en rojo `#D32F2F` (eliminado el color azul en selección).
+      3. *Focus:* Contorno / borde azul secundario `#1565C0` (`outline: 2px solid #1565C0; outline-offset: 2px;` y sombra accesible).
+      4. *Disabled:* Fondo gris tenue `#F5F5F5`, borde `#E0E0E0`, punto `#BDBDBD`, cursor no permitido y texto `#9E9E9E`.
+      5. *Error:* Borde rojo `#D32F2F`, halo sutil y texto de la opción teñido de rojo (`color: #D32F2F;`).
+    * **Inputs (5 estados Figma):**
+      1. *Normal:* Borde `#E0E0E0`, texto `#212121`, placeholder `#9E9E9E`.
+      2. *Focus:* Borde azul `#1565C0` con resplandor suave sin desplazar el contenido.
+      3. *Filled:* Texto ingresado en `#212121` con borde normal.
+      4. *Error:* Borde exterior en `#D32F2F`, texto ingresado en `#D32F2F` y `::placeholder` teñido en `#D32F2F` mediante `.input-error` e `.is-invalid`.
+      5. *Disabled:* Fondo `#F5F5F5`, borde `#E0E0E0`, texto `#9E9E9E` y cursor `not-allowed`.
+  * `assets/js/auth.js`:
+    * Implementación de helpers compartidos `setInputError()` y `clearInputError()` para Login y Registro.
+    * Al detectar campo vacío o inválido, se añade la clase `.input-error`, se tiñe el texto en rojo y se asigna el mensaje en el `placeholder` del input en rojo.
+    * Se agregan escuchadores en `input` y `focus` para restaurar instantáneamente el placeholder original y remover la clase `.input-error` en cuanto el usuario interactúa.
+    * Validación y limpieza reactiva para Radio Buttons con `setRadioGroupError()` y `clearRadioGroupError()`.
+  * `pages/registro.php`:
+    * Incorporación del contenedor accesible `<span class="field-error-message" id="error_tipo_usuario">` dentro del grupo de rol.
+
+### Justificación técnica
+
+1. **Fidelidad Estricta a los Estados de Figma:** La guía de componentes especifica que el estado activo/seleccionado de los controles de selección pertenece a la identidad primaria (`#D32F2F`), reservando el color secundario (`#1565C0`) exclusivamente para el foco de navegación por teclado. Se erradicó el punto azul en radios seleccionados.
+2. **Comportamiento Dinámico de Error en Inputs:** En lugar de depender únicamente de textos inferiores estáticos, la interfaz adopta el patrón Figma donde el propio input comunica el fallo de forma integrada (placeholder/texto en rojo), brindando feedback inmediato que se limpia de manera natural al recuperar el foco o iniciar la escritura.
+
+### Control de diferencias
+
+* **Antes:**
+  * Radio buttons seleccionados utilizaban acento azul `#1565C0`.
+  * Los inputs en error solo cambiaban de borde, sin teñir el texto ni el placeholder en rojo.
+  * No existía limpieza reactiva en el evento `focus` para restaurar placeholders modificados.
+* **Después:**
+  * Radio buttons operan en 5 estados 100% calibrados con Figma (Selected en `#D32F2F`, Focus en `#1565C0`).
+  * Inputs con clase `.input-error`: borde `#D32F2F`, texto en `#D32F2F`, placeholder en `#D32F2F`, y restauración automática en `input`/`focus`.
+  * Experiencia homogénea y compartida entre las pantallas de Login y Registro.
+
+### Resultado
+
+Los inputs y radio buttons de toda el área de autenticación cumplen con la guía de estilos de Figma, ofreciendo una experiencia visual y de interacción depurada, accesible y coherente.
+
+---
+
 # Estado actual del proyecto
 
 **Fase actual:** Fase 4 — Implementación
@@ -826,6 +922,7 @@ Hasta el momento se ha establecido:
 * Calibración 1:1 de botones globales del Design System.
 * Implementación de la pantalla **Autenticación (Login)** en Desktop y Mobile (`pages/login.php`, `assets/css/auth.css`, `assets/js/auth.js`).
 * Optimización responsive de cabecera móvil (`<= 768px`) con barra limpia (isotipo y menú hamburguesa) y traslado de acciones de autenticación al interior del drawer (`components/header.php`, `assets/css/header.css`).
+* Implementación integral de la pantalla **Registro (Crear cuenta)** en Desktop y Mobile (`pages/registro.php`, `registro.php`, `auth/registro-process.php`).
 
 Las demás interfaces diseñadas en Figma continúan en proceso de implementación progresiva.
 
