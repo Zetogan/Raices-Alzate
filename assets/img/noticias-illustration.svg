@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="100%" height="100%" fill="none" role="img" aria-labelledby="svgTitle svgDesc">
+  <title id="svgTitle">Ilustración de Noticias Raíces Alzate</title>
+  <desc id="svgDesc">Portal de noticias y actualidad institucional de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.</desc>
+
+  <defs>
+    <!-- Filtros de sombra suave -->
+    <filter id="noticiasSoftShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.06" />
+    </filter>
+    <filter id="noticiasCardShadow" x="-20%" y="-20%" width="140%" height="150%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Gradientes institucionales estrictos -->
+    <linearGradient id="noticiasBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="redBadgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#B71C1C" />
+    </linearGradient>
+
+    <linearGradient id="blueBadgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1976D2" />
+      <stop offset="100%" stop-color="#1565C0" />
+    </linearGradient>
+
+    <linearGradient id="noticiasStemGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1565C0" />
+      <stop offset="50%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#B71C1C" />
+    </linearGradient>
+  </defs>
+
+  <!-- ======================================================================
+       1. FONDOS DECORATIVOS Y HALOS
+       ====================================================================== -->
+  <!-- Halo central principal -->
+  <circle cx="320" cy="240" r="195" fill="url(#noticiasBgGrad)" />
+
+  <!-- Anillos concéntricos de difusión -->
+  <circle cx="320" cy="240" r="220" stroke="#E0E0E0" stroke-width="1.5" stroke-dasharray="6 6" />
+  <circle cx="320" cy="240" r="165" stroke="#D32F2F" stroke-width="1" stroke-opacity="0.15" />
+
+  <!-- Sombra base -->
+  <ellipse cx="320" cy="430" rx="210" ry="14" fill="#212121" fill-opacity="0.05" />
+  <ellipse cx="320" cy="430" rx="150" ry="8" fill="#212121" fill-opacity="0.07" />
+
+  <!-- ======================================================================
+       2. TARJETA PORTAL CENTRAL (TABLÓN DE NOTICIAS / PERIÓDICO DIGITAL)
+       ====================================================================== -->
+  <g id="main-news-board" filter="url(#noticiasSoftShadow)">
+    <!-- Marco de ventana del boletín -->
+    <rect x="150" y="105" width="340" height="280" rx="16" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+
+    <!-- Barra de cabecera de la ventana -->
+    <path d="M 150 121 C 150 112.16 157.16 105 166 105 L 474 105 C 482.84 105 490 112.16 490 121 L 490 145 L 150 145 Z" fill="#F5F5F5" />
+    <line x1="150" y1="145" x2="490" y2="145" stroke="#E0E0E0" stroke-width="1" />
+
+    <!-- Puntos de ventana (Rojo Alzate, Neutros) -->
+    <circle cx="170" cy="125" r="4" fill="#D32F2F" />
+    <circle cx="183" cy="125" r="4" fill="#BDBDBD" />
+    <circle cx="196" cy="125" r="4" fill="#E0E0E0" />
+
+    <!-- Título de cabecera de noticias simulado -->
+    <rect x="230" y="121" width="180" height="8" rx="4" fill="#E0E0E0" />
+
+    <!-- Contenido interno: Artículo Principal Destacado -->
+    <!-- Imagen destacada del artículo -->
+    <rect x="175" y="165" width="290" height="100" rx="10" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1" />
+    <!-- Miniatura gráfica en la imagen -->
+    <rect x="185" y="175" width="90" height="80" rx="6" fill="#E3F2FD" />
+    <!-- Gráfico estilizado dentro de la miniatura: Paisaje / Edificio institucional -->
+    <path d="M 195 240 L 210 215 L 225 240 Z" fill="#1565C0" fill-opacity="0.7" />
+    <path d="M 220 240 L 240 205 L 260 240 Z" fill="#D32F2F" fill-opacity="0.8" />
+    <circle cx="215" cy="195" r="7" fill="#1565C0" />
+
+    <!-- Tag "Institucional" -->
+    <rect x="290" y="175" width="75" height="18" rx="4" fill="#FFEBEE" />
+    <rect x="298" y="181" width="59" height="6" rx="3" fill="#D32F2F" />
+
+    <!-- Fecha simulada -->
+    <rect x="375" y="178" width="50" height="6" rx="3" fill="#BDBDBD" />
+
+    <!-- Título de la noticia -->
+    <rect x="290" y="202" width="165" height="10" rx="4" fill="#212121" />
+    <rect x="290" y="217" width="140" height="8" rx="4" fill="#212121" fill-opacity="0.8" />
+
+    <!-- Líneas de extracto -->
+    <rect x="290" y="233" width="165" height="5" rx="2.5" fill="#757575" />
+    <rect x="290" y="243" width="120" height="5" rx="2.5" fill="#757575" />
+
+    <!-- Sección de noticias secundarias en cuadrícula -->
+    <!-- Noticia secundaria 1 (Izquierda) -->
+    <rect x="175" y="280" width="138" height="85" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <rect x="185" y="290" width="45" height="14" rx="3" fill="#E3F2FD" />
+    <rect x="191" y="294" width="33" height="5" rx="2.5" fill="#1565C0" />
+    <rect x="185" y="312" width="118" height="7" rx="3.5" fill="#212121" />
+    <rect x="185" y="324" width="95" height="6" rx="3" fill="#757575" />
+    <rect x="185" y="338" width="60" height="16" rx="4" fill="#F5F5F5" />
+    <rect x="193" y="343" width="44" height="5" rx="2.5" fill="#D32F2F" />
+
+    <!-- Noticia secundaria 2 (Derecha) -->
+    <rect x="327" y="280" width="138" height="85" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <rect x="337" y="290" width="55" height="14" rx="3" fill="#FFEBEE" />
+    <rect x="343" y="294" width="43" height="5" rx="2.5" fill="#D32F2F" />
+    <rect x="337" y="312" width="118" height="7" rx="3.5" fill="#212121" />
+    <rect x="337" y="324" width="105" height="6" rx="3" fill="#757575" />
+    <rect x="337" y="338" width="60" height="16" rx="4" fill="#F5F5F5" />
+    <rect x="345" y="343" width="44" height="5" rx="2.5" fill="#1565C0" />
+  </g>
+
+  <!-- ======================================================================
+       3. ELEMENTOS DE COMUNICACIÓN (ALTAVOZ / DIFUSIÓN Y NOTIFICACIÓN)
+       ====================================================================== -->
+  <!-- ALTAVOZ / MEGÁFONO DE DIFUSIÓN (Flotante superior izquierdo) -->
+  <g id="broadcast-megaphone" filter="url(#noticiasCardShadow)">
+    <g transform="translate(100, 75)">
+      <!-- Cono principal del megáfono -->
+      <polygon points="40,25 90,5 90,55 40,35" fill="url(#redBadgeGrad)" />
+      <!-- Parte trasera / Asa -->
+      <rect x="25" y="23" width="18" height="14" rx="3" fill="#212121" />
+      <path d="M 32 37 L 30 55 C 30 58 35 58 35 55 L 37 37 Z" fill="#212121" />
+      <!-- Boca delantera del megáfono -->
+      <ellipse cx="90" cy="30" rx="7" ry="25" fill="#B71C1C" stroke="#FFFFFF" stroke-width="1.5" />
+      <!-- Anillo decorativo en el cono -->
+      <line x1="65" y1="15" x2="65" y2="45" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.8" />
+      <!-- Ondas sonoras de difusión -->
+      <path d="M 103 16 Q 112 30 103 44" stroke="#D32F2F" stroke-width="2.5" stroke-linecap="round" fill="none" />
+      <path d="M 112 10 Q 125 30 112 50" stroke="#1565C0" stroke-width="2.5" stroke-linecap="round" fill="none" />
+      <path d="M 121 4 Q 138 30 121 56" stroke="#D32F2F" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6" />
+    </g>
+  </g>
+
+  <!-- CAMPANA DE NOTIFICACIONES (Flotante inferior derecho) -->
+  <g id="notification-bell" filter="url(#noticiasCardShadow)">
+    <g transform="translate(450, 290)">
+      <circle cx="35" cy="35" r="32" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+      <!-- Cuerpo de la campana -->
+      <path d="M 35 18 C 30 18 26 22 26 27 L 26 35 C 26 37 23 39 23 41 L 47 41 C 47 39 44 37 44 35 L 44 27 C 44 22 40 18 35 18 Z" fill="#1565C0" />
+      <circle cx="35" cy="16" r="2.5" fill="#1565C0" />
+      <!-- Badajo -->
+      <path d="M 32 43 C 32 45 33.5 46.5 35 46.5 C 36.5 46.5 38 45 38 43 Z" fill="#0D47A1" />
+      <!-- Punto rojo de alerta / novedad -->
+      <circle cx="45" cy="18" r="7" fill="#D32F2F" stroke="#FFFFFF" stroke-width="2" />
+    </g>
+  </g>
+
+  <!-- ======================================================================
+       4. TARJETAS FLOTANTES DE ACTUALIDAD Y EVENTOS
+       ====================================================================== -->
+  <!-- Tarjeta flotante 1: Evento Institucional / Calendario (Superior Derecha) -->
+  <g id="card-evento" filter="url(#noticiasCardShadow)">
+    <rect x="440" y="55" width="155" height="66" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <!-- Icono calendario -->
+    <rect x="455" y="70" width="32" height="34" rx="6" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1" />
+    <path d="M 455 77 L 487 77" stroke="#E0E0E0" stroke-width="1" />
+    <path d="M 455 70 C 455 67 458 64 461 64 L 481 64 C 484 64 487 67 487 70 L 487 77 L 455 77 Z" fill="#D32F2F" />
+    <rect x="462" y="62" width="3" height="4" rx="1" fill="#FFFFFF" />
+    <rect x="477" y="62" width="3" height="4" rx="1" fill="#FFFFFF" />
+    <!-- Número / Día en el calendario -->
+    <text x="471" y="94" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#212121" text-anchor="middle">15</text>
+    <!-- Textos -->
+    <text x="496" y="81" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#212121">Eventos</text>
+    <text x="496" y="96" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#1565C0">Agenda Alzatista</text>
+  </g>
+
+  <!-- Tarjeta flotante 2: Actualidad Comunitaria (Inferior Izquierda) -->
+  <g id="card-actualidad" filter="url(#noticiasCardShadow)">
+    <rect x="60" y="325" width="160" height="58" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="88" cy="354" r="16" fill="#1565C0" fill-opacity="0.1" />
+    <!-- Icono de artículo / documento -->
+    <rect x="80" y="346" width="16" height="18" rx="2" stroke="#1565C0" stroke-width="1.5" fill="none" />
+    <line x1="84" y1="351" x2="92" y2="351" stroke="#1565C0" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="84" y1="356" x2="92" y2="356" stroke="#1565C0" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="84" y1="360" x2="89" y2="360" stroke="#1565C0" stroke-width="1.2" stroke-linecap="round" />
+    <!-- Textos -->
+    <text x="114" y="348" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#212121">Actualidad</text>
+    <text x="114" y="363" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#757575">Edición en línea</text>
+  </g>
+
+  <!-- ======================================================================
+       5. DETALLES DE CRECIMIENTO (BROTES Y RAÍCES - SIMBOLISMO INSTITUCIONAL)
+       ====================================================================== -->
+  <g id="growth-sprout" transform="translate(320, 395)">
+    <!-- Tallo principal ascendente -->
+    <path d="M 0 35 C 0 15, -8 10, -5 -5 C -2 -20, 8 -25, 0 -45" stroke="url(#noticiasStemGrad)" stroke-width="3" fill="none" stroke-linecap="round" />
+    <!-- Hoja izquierda (Azul Institucional) -->
+    <path d="M -5 -5 C -20 -10, -25 -2, -18 8 C -11 18, -4 5, -5 -5 Z" fill="#1565C0" fill-opacity="0.85" />
+    <path d="M -5 -5 Q -14 0 -18 8" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <!-- Hoja derecha (Rojo Alzate) -->
+    <path d="M 0 -22 C 18 -26, 22 -16, 15 -7 C 8 2, 1 -12, 0 -22 Z" fill="#D32F2F" fill-opacity="0.9" />
+    <path d="M 0 -22 Q 10 -15 15 -7" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <!-- Brote superior (Voz / Difusión) -->
+    <circle cx="0" cy="-48" r="6" fill="#D32F2F" />
+    <circle cx="0" cy="-48" r="3" fill="#FFFFFF" />
+  </g>
+
+  <!-- Puntos flotantes de innovación y dinamismo -->
+  <circle cx="120" cy="190" r="4" fill="#D32F2F" fill-opacity="0.7" />
+  <circle cx="510" cy="180" r="3.5" fill="#1565C0" fill-opacity="0.7" />
+  <circle cx="490" cy="390" r="4" fill="#1565C0" fill-opacity="0.5" />
+  <circle cx="210" cy="65" r="3" fill="#E0E0E0" />
+  <circle cx="270" cy="60" r="2.5" fill="#1565C0" fill-opacity="0.4" />
+  <circle cx="380" cy="65" r="3" fill="#D32F2F" fill-opacity="0.4" />
+</svg>

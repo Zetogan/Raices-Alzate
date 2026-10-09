@@ -35,6 +35,16 @@ switch ($page) {
         $currentPage = 'proyectos';
         $viewFile = __DIR__ . '/pages/proyectos.php';
         break;
+    case 'egresados':
+        $pageTitle = 'Egresados | ' . APP_NAME;
+        $currentPage = 'egresados';
+        $viewFile = __DIR__ . '/pages/egresados.php';
+        break;
+    case 'noticias':
+        $pageTitle = 'Noticias | ' . APP_NAME;
+        $currentPage = 'noticias';
+        $viewFile = __DIR__ . '/pages/noticias.php';
+        break;
     case 'inicio':
     default:
         $pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';

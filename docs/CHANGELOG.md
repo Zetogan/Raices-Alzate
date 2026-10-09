@@ -18,6 +18,32 @@ El formato de este documento está inspirado en las convenciones de *Keep a Chan
 
 ## 📅 09 de octubre de 2026
 
+### 📰 Pantalla de Noticias
+
+#### Agregado
+
+* Creación del controlador de acceso directo `noticias.php` en la raíz del proyecto para acceso modular respetando la arquitectura del repositorio.
+* Creación de la vista de contenido `pages/noticias.php` con contenedor semántico `<main>` y `<section>` (`07 - Noticias - Desktop` y adaptación Mobile).
+* Implementación de la grilla responsive de dos columnas balanceadas (Desktop 1440 px) y apilamiento centrado (Mobile < 768 px).
+* Creación de la ilustración vectorial oficial `assets/img/noticias-illustration.svg` con portal digital de novedades, megáfono de difusión comunitaria, calendario de eventos alzatistas, campana de alertas y brote institucional en la paleta oficial estricta (`#D32F2F`, `#1565C0`, tonos neutros).
+* Incorporación de la ruta `case 'noticias':` en el Front Controller `index.php`.
+* Ampliación de la hoja de estilos modular `assets/css/portal.css` para compartir las reglas de diseño y tokens del portal público en Noticias.
+* Implementación del reordenamiento visual vertical en Mobile (< 768 px) mediante Flexbox: 1. Textos explicativos (`order: 1`), 2. Tarjeta con la ilustración (`order: 2`), 3. Botones de acción (`order: 3`).
+* Activación automática de la pestaña en `components/header.php` mediante `$currentPage = 'noticias';`.
+
+### 🎓 Pantalla de Egresados
+
+#### Agregado
+
+* Creación del controlador de acceso directo `egresados.php` en la raíz del proyecto para acceso modular.
+* Creación de la vista de contenido `pages/egresados.php` con contenedor semántico `<main>` y `<section>` (`05 - Egresados - Desktop` y adaptación Mobile).
+* Implementación de la grilla responsive de dos columnas balanceadas (Desktop 1440 px) y apilamiento centrado (Mobile < 768 px).
+* Creación de la ilustración vectorial oficial `assets/img/egresados-illustration.svg` con birrete de graduación, diplomas, red de conexiones comunitarias y brote institucional en la paleta oficial estricta (`#D32F2F`, `#1565C0`, tonos neutros).
+* Incorporación de la ruta `case 'egresados':` en el Front Controller `index.php`.
+* Ampliación de la hoja de estilos modular `assets/css/portal.css` para compartir las reglas de diseño y tokens del portal público en Egresados.
+* Implementación del reordenamiento visual vertical en Mobile (< 768 px) mediante Flexbox: 1. Textos explicativos (`order: 1`), 2. Ilustración comunitaria (`order: 2`), 3. Botones de acción (`order: 3`).
+* Activación automática del menú de navegación en `components/header.php` mediante `$currentPage = 'egresados';`.
+
 ### 📁 Pantalla de Proyectos
 
 #### Agregado

@@ -629,6 +629,74 @@ Implementar con fidelidad visual y funcional la pantalla de Proyectos de la plat
 
 Se implementó con éxito la pantalla de Proyectos cumpliendo todas las reglas de arquitectura modular y respetando la paleta estricta de colores del sistema de diseño institucional.
 
+## Sesión 25 — Implementación de la pantalla modular de Egresados
+
+**Fecha:** 9 de octubre de 2026
+
+**Objetivo:**
+
+Implementar de forma modular y con estricta fidelidad visual la pantalla de Egresados (`05 - Egresados - Desktop` y Mobile), respetando la arquitectura modular existente en `proyectos.php`, reutilizando los componentes globales sin alteración y aplicando la paleta institucional oficial.
+
+**Archivos creados o trabajados:**
+
+* `egresados.php` (punto de entrada directo en la raíz).
+* `pages/egresados.php` (vista modular con contenedor semántico y layout accesible).
+* `assets/css/portal.css` (ampliación de estilos modulares para compartir selectores con Egresados).
+* `assets/img/egresados-illustration.svg` (ilustración vectorial oficial con birrete de graduación, diplomas, red comunitaria y brote institucional).
+* `index.php` (incorporación de la ruta `case 'egresados':` en el Front Controller).
+* `docs/bitacora.md` (registro de la sesión de trabajo).
+* `docs/changelog.md` (registro en el historial de cambios).
+
+**Actividades realizadas:**
+
+* Creación del controlador de vista directo `egresados.php` en la raíz del proyecto para despachar modularmente `header.php`, `pages/egresados.php` y `footer.php`, asignando `$currentPage = 'egresados'` para la activación automática del menú institucional.
+* Construcción de la vista semántica en `pages/egresados.php` estructurada en un layout de dos columnas en escritorio (1440 px) y una sola columna en mobile (< 768 px).
+* Incorporación del título institucional «Egresados» y párrafo descriptivo de vinculación a la comunidad alzatista.
+* Inclusión de botones de acción institucionales «Iniciar sesión» (`#D32F2F`) y «Crear una cuenta» (outline `#1565C0`) con dimensionamiento de 44 px de altura, min-width 140 px y prevención de saltos de línea.
+* Creación de la ilustración vectorial oficial `assets/img/egresados-illustration.svg` alineada con la paleta de colores oficial (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`): birrete con borla roja, certificado enrollado con sello institucional, tarjetas flotantes de red comunitaria y brote de raíces.
+* Integración de la ruta `case 'egresados':` en el enrutador central `index.php`.
+* Verificación de la carga modular de `portal.css` mediante la directiva condicional existente en `includes/header.php`.
+* Aplicación de la secuencia vertical en Mobile (<= 768 px) mediante Flexbox: 1. Textos (`order: 1`), 2. Tarjeta de ilustración (`order: 2`), 3. Botones de acción (`order: 3`).
+* Validación de sintaxis PHP y verificación de salida HTML limpia sin errores.
+
+**Resultado:**
+
+Se implementó con éxito la pantalla de Egresados bajo la arquitectura modular estándar, sin alterar los archivos base de encabezado, pie de página ni duplicar recursos de imagen.
+
+## Sesión 26 — Implementación de la pantalla modular de Noticias
+
+**Fecha:** 9 de octubre de 2026
+
+**Objetivo:**
+
+Implementar de forma modular y con estricta fidelidad visual la pantalla de Noticias (`07 - Noticias - Desktop` y Mobile), respetando la arquitectura modular ya consolidada en `proyectos.php` y `egresados.php`, reutilizando los componentes globales sin alteración y aplicando la paleta institucional oficial.
+
+**Archivos creados o trabajados:**
+
+* `noticias.php` (punto de entrada directo en la raíz).
+* `pages/noticias.php` (vista modular con contenedor semántico y layout accesible).
+* `assets/css/portal.css` (ampliación de estilos modulares para compartir selectores con Noticias).
+* `assets/img/noticias-illustration.svg` (ilustración vectorial oficial con portal de noticias, megáfono de difusión, calendario de eventos y brote institucional).
+* `index.php` (incorporación de la ruta `case 'noticias':` en el Front Controller).
+* `docs/bitacora.md` (registro de la sesión de trabajo).
+* `docs/changelog.md` (registro en el historial de cambios).
+
+**Actividades realizadas:**
+
+* Creación del controlador de vista directo `noticias.php` en la raíz del proyecto para despachar modularmente `header.php`, `pages/noticias.php` y `footer.php`, asignando `$currentPage = 'noticias'` para la activación automática de la pestaña en la navegación institucional.
+* Construcción de la vista semántica en `pages/noticias.php` estructurada en un layout de dos columnas en escritorio (1440 px) y una sola columna en mobile (< 768 px).
+* Incorporación del título institucional «Noticias» y párrafo descriptivo de novedades institucionales y eventos para la comunidad.
+* Inclusión de botones de acción institucionales «Iniciar sesión» (`#D32F2F`) y «Crear una cuenta» (outline `#1565C0`) con dimensionamiento de 44 px de altura, min-width 140 px y texto continuo en una sola línea.
+* Creación de la ilustración vectorial oficial `assets/img/noticias-illustration.svg` alineada estrictamente con la paleta de colores oficial: tablón digital con artículo destacado e insignia institucional, megáfono con ondas de difusión en rojo y azul, campana de notificaciones, tarjeta flotante de eventos con fecha 15 de octubre y brote de raíces alzatistas.
+* Integración de la ruta `case 'noticias':` en el enrutador central `index.php`.
+* Verificación de la carga modular de `portal.css` mediante la directiva condicional existente en `includes/header.php`.
+* Aplicación de la secuencia vertical en Mobile (<= 768 px) mediante Flexbox: 1. Textos (`order: 1`), 2. Tarjeta de ilustración (`order: 2`), 3. Botones de acción (`order: 3`).
+* Validación de sintaxis PHP y verificación de salida HTML limpia sin errores.
+
+**Resultado:**
+
+Se implementó con éxito la pantalla de Noticias bajo la arquitectura modular estándar, completando la tríada de pantallas informativas públicas (`Proyectos`, `Egresados`, `Noticias`) alineadas con Figma.
+
 ---
 
 # 📊 Estado general del proyecto
@@ -664,6 +732,8 @@ Se implementó con éxito la pantalla de Proyectos cumpliendo todas las reglas d
 | Registro de usuarios                  | Estructura y procesamiento desarrollados; requieren verificación integral |
 | Recuperación de contraseña            | Estructura y generación de token desarrolladas; SMTP pendiente            |
 | Pantalla de Proyectos                 | Implementada; vista modular, controlador y estilos calibrados             |
+| Pantalla de Egresados                 | Implementada; vista modular, controlador y estilos calibrados             |
+| Pantalla de Noticias                  | Implementada; vista modular, controlador y estilos calibrados             |
 | Esquema definitivo de base de datos   | Pendiente de definición y validación                                      |
 | Implementación de las demás pantallas | Pendiente de desarrollo progresivo                                        |
 | Pruebas integrales de la plataforma   | Pendientes de completar                                                   |

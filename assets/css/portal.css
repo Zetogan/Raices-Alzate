@@ -1,6 +1,9 @@
 /**
  * Raíces Alzate - Hoja de Estilos del Portal Público
- * Pantalla: 06 - Proyectos - Desktop (y adaptación Mobile)
+ * Pantallas:
+ *   - 05 - Egresados - Desktop (y adaptación Mobile)
+ *   - 06 - Proyectos - Desktop (y adaptación Mobile)
+ *   - 07 - Noticias - Desktop (y adaptación Mobile)
  * Especificación Figma: 1440 × 900 px | Mobile: 390 px
  * Paleta Oficial:
  *   - Primario: #D32F2F (Rojo Alzate) | Hover: #B71C1C
@@ -10,9 +13,12 @@
  */
 
 /* ==========================================================================
-   1. CONTENEDOR Y SECCIÓN DE PROYECTOS
+   1. CONTENEDOR Y SECCIÓN DEL PORTAL PÚBLICO (PROYECTOS / EGRESADOS / NOTICIAS)
    ========================================================================== */
-.proyectos-main {
+.portal-main,
+.proyectos-main,
+.egresados-main,
+.noticias-main {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
@@ -20,7 +26,10 @@
     min-height: calc(100vh - var(--section-header-height, 72px) - var(--section-footer-height, 220px));
 }
 
-.proyectos-section {
+.portal-section,
+.proyectos-section,
+.egresados-section,
+.noticias-section {
     flex: 1 0 auto;
     display: flex;
     align-items: center;
@@ -29,7 +38,10 @@
     box-sizing: border-box;
 }
 
-.proyectos-container {
+.portal-container,
+.proyectos-container,
+.egresados-container,
+.noticias-container {
     width: 100%;
     max-width: var(--container-max-width, 1200px);
     margin-left: auto;
@@ -42,7 +54,10 @@
 /* ==========================================================================
    2. GRILLA RESPONSIVE DE DOS COLUMNAS (DESKTOP)
    ========================================================================== */
-.proyectos-grid {
+.portal-grid,
+.proyectos-grid,
+.egresados-grid,
+.noticias-grid {
     display: grid;
     grid-template-columns: 1.05fr 0.95fr;
     grid-template-areas:
@@ -57,7 +72,10 @@
 /* ==========================================================================
    3. COLUMNA IZQUIERDA (CONTENIDO Y ACCIONES)
    ========================================================================== */
-.proyectos-header-text {
+.portal-header-text,
+.proyectos-header-text,
+.egresados-header-text,
+.noticias-header-text {
     grid-area: text;
     display: flex;
     flex-direction: column;
@@ -66,7 +84,10 @@
     box-sizing: border-box;
 }
 
-.proyectos-title {
+.portal-title,
+.proyectos-title,
+.egresados-title,
+.noticias-title {
     font-family: var(--font-family-base, 'Inter', sans-serif);
     font-size: 2.25rem; /* 36px */
     font-weight: 700;
@@ -76,7 +97,10 @@
     letter-spacing: -0.02em;
 }
 
-.proyectos-desc {
+.portal-desc,
+.proyectos-desc,
+.egresados-desc,
+.noticias-desc {
     font-family: var(--font-family-base, 'Inter', sans-serif);
     font-size: 1rem; /* 16px */
     line-height: 1.6;
@@ -85,7 +109,10 @@
     margin: 0;
 }
 
-.proyectos-actions {
+.portal-actions,
+.proyectos-actions,
+.egresados-actions,
+.noticias-actions {
     grid-area: actions;
     display: flex;
     align-items: center;
@@ -97,8 +124,13 @@
 
 /* Botón 1: Iniciar sesión (Principal #D32F2F) */
 .btn-primary,
+.btn-portal-primary,
 .btn-proyectos-login,
-.btn-proyectos-primary {
+.btn-proyectos-primary,
+.btn-egresados-login,
+.btn-egresados-primary,
+.btn-noticias-login,
+.btn-noticias-primary {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -124,25 +156,43 @@
 
 .btn-primary:hover,
 .btn-primary:focus,
+.btn-portal-primary:hover,
+.btn-portal-primary:focus,
 .btn-proyectos-primary:hover,
 .btn-proyectos-primary:focus,
 .btn-proyectos-login:hover,
-.btn-proyectos-login:focus {
+.btn-proyectos-login:focus,
+.btn-egresados-primary:hover,
+.btn-egresados-primary:focus,
+.btn-egresados-login:hover,
+.btn-egresados-login:focus,
+.btn-noticias-primary:hover,
+.btn-noticias-primary:focus,
+.btn-noticias-login:hover,
+.btn-noticias-login:focus {
     background-color: var(--color-primary-hover, #B71C1C) !important;
     color: #FFFFFF !important;
     text-decoration: none !important;
 }
 
 .btn-primary:active,
+.btn-portal-primary:active,
 .btn-proyectos-primary:active,
-.btn-proyectos-login:active {
+.btn-proyectos-login:active,
+.btn-egresados-primary:active,
+.btn-egresados-login:active,
+.btn-noticias-primary:active,
+.btn-noticias-login:active {
     background-color: #8E0000 !important;
     transform: scale(0.98);
 }
 
 /* Botón 2: Crear una cuenta (Secundario Outline #1565C0) */
 .btn-outline-secondary,
-.btn-proyectos-secondary {
+.btn-portal-secondary,
+.btn-proyectos-secondary,
+.btn-egresados-secondary,
+.btn-noticias-secondary {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -168,8 +218,14 @@
 
 .btn-outline-secondary:hover,
 .btn-outline-secondary:focus,
+.btn-portal-secondary:hover,
+.btn-portal-secondary:focus,
 .btn-proyectos-secondary:hover,
-.btn-proyectos-secondary:focus {
+.btn-proyectos-secondary:focus,
+.btn-egresados-secondary:hover,
+.btn-egresados-secondary:focus,
+.btn-noticias-secondary:hover,
+.btn-noticias-secondary:focus {
     background-color: rgba(21, 101, 192, 0.08) !important;
     color: var(--color-secondary, #1565C0) !important;
     border-color: var(--color-secondary, #1565C0) !important;
@@ -177,7 +233,10 @@
 }
 
 .btn-outline-secondary:active,
-.btn-proyectos-secondary:active {
+.btn-portal-secondary:active,
+.btn-proyectos-secondary:active,
+.btn-egresados-secondary:active,
+.btn-noticias-secondary:active {
     background-color: rgba(21, 101, 192, 0.16) !important;
     transform: scale(0.98);
 }
@@ -185,8 +244,14 @@
 /* ==========================================================================
    4. COLUMNA DERECHA (TARJETA VISUAL DE ILUSTRACIÓN)
    ========================================================================== */
+.portal-visual,
 .proyectos-visual,
-.proyectos-illustration-card {
+.egresados-visual,
+.noticias-visual,
+.portal-illustration-card,
+.proyectos-illustration-card,
+.egresados-illustration-card,
+.noticias-illustration-card {
     grid-area: visual;
     display: flex;
     justify-content: flex-end;
@@ -194,8 +259,14 @@
     width: 100%;
 }
 
+.portal-card,
 .proyectos-card,
-.proyectos-visual-card {
+.egresados-card,
+.noticias-card,
+.portal-visual-card,
+.proyectos-visual-card,
+.egresados-visual-card,
+.noticias-visual-card {
     background-color: var(--color-white, #FFFFFF);
     border: 1px solid var(--color-border, #E0E0E0);
     border-radius: 16px;
@@ -212,14 +283,26 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.portal-card:hover,
 .proyectos-card:hover,
-.proyectos-visual-card:hover {
+.egresados-card:hover,
+.noticias-card:hover,
+.portal-visual-card:hover,
+.proyectos-visual-card:hover,
+.egresados-visual-card:hover,
+.noticias-visual-card:hover {
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
     transform: translateY(-2px);
 }
 
+.portal-illustration,
 .proyectos-illustration,
-.proyectos-illustration-img {
+.egresados-illustration,
+.noticias-illustration,
+.portal-illustration-img,
+.proyectos-illustration-img,
+.egresados-illustration-img,
+.noticias-illustration-img {
     width: 100%;
     height: auto;
     max-height: 400px;
@@ -231,12 +314,18 @@
    5. RESPONSIVE DESIGN (MOBILE & TABLET: <= 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    .proyectos-section {
+    .portal-section,
+    .proyectos-section,
+    .egresados-section,
+    .noticias-section {
         padding: 40px 0 48px 0;
     }
 
     /* Contenedor general en columna */
+    .portal-container,
     .proyectos-container,
+    .egresados-container,
+    .noticias-container,
     .hero-section {
         display: flex;
         flex-direction: column;
@@ -244,7 +333,10 @@
         align-items: center;
     }
 
-    .proyectos-grid {
+    .portal-grid,
+    .proyectos-grid,
+    .egresados-grid,
+    .noticias-grid {
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -254,7 +346,10 @@
     }
 
     /* 1. Bloque de textos en primer lugar */
-    .proyectos-header-text {
+    .portal-header-text,
+    .proyectos-header-text,
+    .egresados-header-text,
+    .noticias-header-text {
         order: 1;
         width: 100%;
         display: flex;
@@ -264,13 +359,19 @@
         margin-bottom: 24px;
     }
 
-    .proyectos-title {
+    .portal-title,
+    .proyectos-title,
+    .egresados-title,
+    .noticias-title {
         font-size: 1.875rem; /* 30px */
         margin-bottom: 14px;
         text-align: center;
     }
 
-    .proyectos-desc {
+    .portal-desc,
+    .proyectos-desc,
+    .egresados-desc,
+    .noticias-desc {
         font-size: 0.95rem;
         max-width: 100%;
         margin-bottom: 0;
@@ -278,8 +379,14 @@
     }
 
     /* 2. Tarjeta con la ilustración en segundo lugar */
+    .portal-visual,
     .proyectos-visual,
-    .proyectos-illustration-card {
+    .egresados-visual,
+    .noticias-visual,
+    .portal-illustration-card,
+    .proyectos-illustration-card,
+    .egresados-illustration-card,
+    .noticias-illustration-card {
         order: 2;
         width: 100%;
         max-width: 320px;
@@ -288,8 +395,14 @@
         justify-content: center;
     }
 
+    .portal-card,
     .proyectos-card,
-    .proyectos-visual-card {
+    .egresados-card,
+    .noticias-card,
+    .portal-visual-card,
+    .proyectos-visual-card,
+    .egresados-visual-card,
+    .noticias-visual-card {
         width: 100%;
         max-width: 320px;
         margin: 0 auto;
@@ -297,15 +410,24 @@
         border-radius: 16px;
     }
 
+    .portal-illustration,
     .proyectos-illustration,
-    .proyectos-illustration-img {
+    .egresados-illustration,
+    .noticias-illustration,
+    .portal-illustration-img,
+    .proyectos-illustration-img,
+    .egresados-illustration-img,
+    .noticias-illustration-img {
         max-height: 240px;
         width: 100%;
         height: auto;
     }
 
     /* 3. Grupo de botones al final */
-    .proyectos-actions {
+    .portal-actions,
+    .proyectos-actions,
+    .egresados-actions,
+    .noticias-actions {
         order: 3;
         display: flex;
         flex-direction: column;
@@ -316,11 +438,23 @@
         gap: 12px;
     }
 
+    .portal-actions .btn-primary,
+    .portal-actions .btn-outline-secondary,
     .proyectos-actions .btn-primary,
     .proyectos-actions .btn-proyectos-login,
     .proyectos-actions .btn-proyectos-primary,
     .proyectos-actions .btn-outline-secondary,
-    .proyectos-actions .btn-proyectos-secondary {
+    .proyectos-actions .btn-proyectos-secondary,
+    .egresados-actions .btn-primary,
+    .egresados-actions .btn-egresados-login,
+    .egresados-actions .btn-egresados-primary,
+    .egresados-actions .btn-outline-secondary,
+    .egresados-actions .btn-egresados-secondary,
+    .noticias-actions .btn-primary,
+    .noticias-actions .btn-noticias-login,
+    .noticias-actions .btn-noticias-primary,
+    .noticias-actions .btn-outline-secondary,
+    .noticias-actions .btn-noticias-secondary {
         width: 100% !important;
         height: 44px !important;
     }
