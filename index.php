@@ -9,11 +9,25 @@
 // Carga de configuración global (sin conexión a base de datos en esta etapa)
 require_once __DIR__ . '/config/config.php';
 
-// Definición de variables de vista
-$pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';
-$currentPage = 'inicio';
+// Enrutamiento básico por parámetro
+$page = $_GET['page'] ?? 'inicio';
+
+switch ($page) {
+    case 'login':
+    case 'autenticacion':
+        $pageTitle = 'Iniciar sesión | ' . APP_NAME;
+        $currentPage = 'login';
+        $viewFile = __DIR__ . '/pages/login.php';
+        break;
+    case 'inicio':
+    default:
+        $pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';
+        $currentPage = 'inicio';
+        $viewFile = __DIR__ . '/pages/inicio.php';
+        break;
+}
 
 // Renderizado modular de la interfaz
 require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/pages/inicio.php';
+require_once $viewFile;
 require_once __DIR__ . '/includes/footer.php';

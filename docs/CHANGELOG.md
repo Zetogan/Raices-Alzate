@@ -127,6 +127,15 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
 * Implementación de la estructura de navegación principal.
 * Implementación de la referencia Desktop de `1440 px`.
 * Inicio de la adaptación de la pantalla Inicio para Mobile con referencia de `390 px`.
+* Creación de la pantalla de **Autenticación (Login)** (`pages/login.php`) siguiendo la especificación de Figma Desktop / Mobile.
+* Creación de `assets/css/auth.css` para el aislamiento modular de estilos de la tarjeta de autenticación.
+* Creación de `assets/js/auth.js` con validación de formularios accesible y control de doble submit.
+* Creación del controlador de acceso directo `login.php` en la raíz.
+* Soporte de enrutamiento por parámetro `?page=login` en `index.php`.
+* Carga condicional y aislada de estilos y scripts en `includes/header.php` e `includes/footer.php`.
+* Creación del endpoint preliminar `auth/login-process.php`.
+* Creación del componente global reutilizable de alertas (`.alert`) en `assets/css/main.css` con cuatro variantes semánticas (`success`, `warning`, `error`, `info`), accesibilidad ARIA e iconografía SVG vectorial inline.
+* Traslado de las acciones de autenticación ("Iniciar sesión" y "Registrarse") al bloque `.mobile-drawer-actions` dentro del drawer de navegación para dispositivos móviles.
 
 #### Cambiado
 
@@ -141,30 +150,31 @@ El proyecto se encuentra en desarrollo desde **2025**. Las fechas registradas co
   * Fondo claro: `#F5F5F5`
   * Blanco: `#FFFFFF`
   * Borde: `#E0E0E0`
-* Se ajustó el Header Mobile para mantener visible la opción **Iniciar sesión** junto al menú.
-* Se trasladó **Registrarse** al menú desplegable Mobile para evitar saturación visual.
-* Se corrigió la estructura HTML del menú de navegación.
+* **Ocultamiento de acciones en cabecera responsive móvil:** Se ocultaron por completo los botones directos de autenticación de la barra superior en pantallas móviles (`<= 768px`) en `components/header.php` y `assets/css/header.css`, logrando una barra superior limpia con únicamente el logotipo a la izquierda y el botón hamburguesa (`.menu-toggle`) al extremo derecho, tal como en Figma Mobile.
+* Se trasladaron tanto **Iniciar sesión** (`.btn-login-drawer`) como **Registrarse** (`.btn.btn-primary.btn-block`) a ancho completo (100%) al interior del menú lateral desplegable (`.main-nav`).
+* Se corrigió la estructura HTML del menú de navegación y del agrupador de acciones de escritorio (`.desktop-actions`).
 * Se eliminaron estilos de enlaces que no corresponden al diseño definido.
 * Se mantuvo la implementación sin frameworks frontend, utilizando PHP, HTML, CSS y JavaScript vanilla.
+* **Calibración visual en Autenticación:** Se forzó la alineación izquierda (`text-align: left !important`) en el encabezado institucional (`.auth-header`, `.auth-brand-title`, `.auth-brand-subtitle`) en `assets/css/auth.css` para coincidir 1:1 con la referencia visual de Figma.
+* **Integración de alertas en Login:** Se sustituyó el contenedor plano de feedback por el componente visual `.alert.alert-error` en `pages/login.php` y `assets/js/auth.js`, desplegando advertencias con iconografía vectorial SVG sin alterar la retícula.
 
 #### Estado de implementación
 
-La primera interfaz del proyecto, **Inicio**, comenzó su transición de Figma a código.
+Las interfaces del proyecto continúan su transición progresiva de Figma a código.
 
 Actualmente se encuentran implementados:
 
 * Estructura base de Inicio.
+* Pantalla de Autenticación / Inicio de Sesión (`pages/login.php`).
 * Header reutilizable.
 * Footer reutilizable.
 * Navegación responsive.
 * Tipografía Inter.
-* Sistema base de estilos.
-* Estilos independientes para Header y Footer.
+* Sistema base de estilos (`main.css`) y módulos específicos (`header.css`, `footer.css`, `auth.css`).
 * Favicon institucional.
-* Referencia Desktop de `1440 px`.
-* Referencia Mobile de `390 px`.
+* Referencia Desktop de `1440 px` y adaptaciones Mobile.
 
-Las demás interfaces diseñadas en Figma permanecen pendientes de implementación.
+Las demás interfaces diseñadas en Figma permanecen en desarrollo.
 
 ---
 

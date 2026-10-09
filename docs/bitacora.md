@@ -561,6 +561,211 @@ La conexión PHP → MySQL ya había sido verificada previamente, pero la constr
 
 ---
 
+## 📅 08 de octubre de 2026 (Sesión 16 — Calibración de Botones, Tipografía CTA y Hover)
+
+### Objetivo de la sesión
+
+Ajustar la tipografía del botón CTA del Hero a su proporción visual de 15px, corregir los problemas de especificidad en los estados `:hover` y `:active` para restaurar el feedback interactivo de puntero y documentar el control de diferencias del sistema de botones de **Raíces Alzate**.
+
+### Bitácora de modificaciones
+
+* **Archivos modificados:**
+  * `assets/css/main.css`:
+    * Se actualizó la sección de botones globales del Design System.
+    * Se ajustó el tamaño de fuente (`font-size`) del botón "Conocer más" (`.btn-primary`, `.hero-cta-btn`) de 16px a **15px**.
+    * Se mantuvieron las dimensiones nominales extraídas de Figma: 123 × 40 px para el botón del Hero y 112 × 40 px para el botón de registro, con `border-radius: 8px` y `height: 40px`.
+    * Se corrigió la especificidad de los estados `:hover` y `:active` agregando selectores explícitos con `!important` para sobrescribir reglas fijas y restaurar la retroalimentación visual al pasar el cursor o interactuar.
+    * Se configuró el tono rojo oscuro institucional (`#B71C1C`) para `:hover` y `#8E0000` con microinteracción `transform: scale(0.98)` para `:active`.
+
+### Justificación técnica
+
+1. **Ajuste en `font-size` para el CTA de Hero ("Conocer más"):**
+   Aunque las medidas de caja del botón (`123 × 40 px`, `border-radius: 8px`) coinciden con Figma, forzar un tamaño tipográfico de `16px` producía una saturación de texto dentro del contenedor de 123px, reduciendo el aire visual interno y desbalanceando la jerarquía con respecto al título y descripción del Hero. La reducción a **15px** restaura la armonía tipográfica y respiración del componente.
+2. **Corrección de especificidad en estados `:hover` / `:focus` / `:active`:**
+   Al establecer `color: #FFFFFF !important;` y reglas de fondo absolutas en declaraciones de clase anteriores, se había invalidado la cascada de estilos para el hover en `.header-register-btn` y botones secundarios, eliminando el feedback de interactividad esencial para accesibilidad y usabilidad web. Se añadieron selectores combinados de alta especificidad (`.btn:hover`, `.btn-primary:hover`, `.hero-cta-btn:hover`, `.btn-sm:hover`, `.header-register-btn:hover`) garantizando que cualquier botón muestre el oscurecimiento a `#B71C1C` y microanimación en click.
+
+### Control de diferencias
+
+* **Antes:**
+  * Botón "Conocer más": `font-size: 16px` forzado, causando que la etiqueta quedara apretada visualmente en el bloque de 123px.
+  * Botón "Registrarse": hover inactivo o bloqueado por especificidad de color/fondo, sin cambio visual al pasar el cursor.
+  * Estados `:active` sin microfeedback consistente.
+* **Después:**
+  * Botón "Conocer más": `font-size: 15px` restaurado, preservando dimensiones fijas de 123 × 40 px y radio de 8px con proporción equilibrada.
+  * Botón "Registrarse": interacción `:hover` 100% activa con transición suave (`transition: background-color 0.2s ease, transform 0.1s ease;`), fondo a `#B71C1C` y dimensiones fijas conservadas (112 × 40 px).
+  * Estados `:active`: feedback táctil con escala sutil (`transform: scale(0.98)`) y color institucional `#8E0000`.
+
+### Resultado
+
+El sistema de botones de la cabecera y el Hero cuenta ahora con precisión milimétrica de dimensiones Figma, balance tipográfico armónico y retroalimentación interactiva en todos sus estados de hover y clic.
+
+---
+
+## 📅 08 de octubre de 2026 (Sesión 17 — Implementación Integral de Pantalla de Autenticación / Login)
+
+### Objetivo de la sesión
+
+Implementar de forma completa y modular la pantalla de Autenticación (Inicio de Sesión) correspondiente al diseño Figma (`02 - Autenticación - Desktop / Mobile`), construyendo los módulos frontend (`pages/login.php`, `assets/css/auth.css`, `assets/js/auth.js`), integrando los layouts compartidos (`includes/header.php`, `includes/footer.php`, `login.php`, `index.php`) y asegurando accesibilidad, validación client-side y aislamiento de estilos.
+
+### Bitácora de modificaciones
+
+* **Archivos creados:**
+  * `pages/login.php`: Estructura semántica en HTML5 de la tarjeta de autenticación (`.auth-card`) compuesta por encabezado de marca institucional, formulario accesible con atributos ARIA y pie de navegación hacia el registro.
+  * `assets/css/auth.css`: Módulo de estilos independiente para autenticación con tokens del Design System, card centrada de `440px`, inputs de `44px` con focus en `#1565C0`, botón de `44px` en `#D32F2F` y adaptabilidad mobile.
+  * `assets/js/auth.js`: Lógica client-side para validación accesible en tiempo real (correo y contraseña), feedback ARIA con role alert (`#formFeedback`), foco programático al primer campo inválido y bloqueo de doble submit con estado visual de progreso.
+  * `login.php`: Controlador de acceso directo en la raíz para servir la pantalla de login con header y footer institucionales.
+  * `auth/login-process.php`: Endpoint preliminar en backend que captura la petición POST y gestiona mensajes flash en sesión evitando errores 404.
+* **Archivos actualizados:**
+  * `includes/header.php`: Carga condicional y aislada de `auth.css` solo cuando `$currentPage` sea `'login'` o `'auth'`, protegiendo el rendimiento y la pureza de la página de Inicio.
+  * `includes/footer.php`: Inclusión modular de `auth.js` vinculada al contexto de autenticación.
+  * `index.php`: Enrutador básico para permitir el acceso mediante parámetro (`?page=login`) manteniendo `inicio` como ruta predeterminada.
+  * `components/header.php`: Vinculación del enlace directo **Iniciar sesión** (`.header-login-link`) hacia `login.php`.
+
+### Justificación técnica
+
+1. **Arquitectura semántica en HTML5:**
+   La interfaz se estructuró empleando `<main class="auth-page">`, `<header class="auth-header">`, `<section class="auth-content">` y `<footer class="auth-footer">`, garantizando una clara jerarquía de landmarks para tecnologías de asistencia y lectores de pantalla.
+2. **Modularización de CSS (`auth.css`) y uso estricto de tokens:**
+   Para preservar la integridad de `main.css`, los estilos específicos de la tarjeta de login se encapsularon en `auth.css`. Se utilizaron estrictamente las variables y tokens corporativos:
+   * Primario: `#D32F2F` (Marca, botón de submit).
+   * Primario hover/active: `#B71C1C` y `#8E0000`.
+   * Secundario: `#1565C0` (Enlaces, foco de inputs).
+   * Textos: `#212121` (Títulos y etiquetas), `#757575` (Subtítulos y pie), `#9E9E9E` (Placeholders).
+   * Superficies: `#FFFFFF` (Tarjeta, inputs) y `#F5F5F5` (Fondo de página).
+   * Bordes: `#E0E0E0` (Perímetro de tarjeta y campos).
+3. **Tipografía institucional Inter:**
+   Uso uniforme de la fuente Inter en sus pesos 400 (regular), 500 (medium), 600 (semi-bold) y 700 (bold), asegurando total fidelidad al prototipo de Figma.
+4. **Validación client-side accesible y prevención de doble submit:**
+   En `auth.js`, la validación intercepta el envío, valida formato de correo mediante expresión regular y contraseña mínima de 6 caracteres. Si existen inconsistencias, se activa un contenedor de alerta accesible (`role="alert"`, `aria-live="polite"`), se añaden clases de estado (`.is-invalid`, `aria-invalid="true"`) y se traslada el foco automáticamente. En envíos válidos, se deshabilita el botón de submit (`disabled = true`) y se actualiza el texto a `"Iniciando sesión..."`, evitando solicitudes duplicadas por clics reiterados.
+
+### Control de diferencias
+
+* **Integración frente a Figma (`02 - Autenticación - Desktop / Mobile`):**
+  * Se materializó la segunda pantalla del sistema en código ejecutable con total fidelidad dimensional: tarjeta de ancho máximo `440px`, bordes redondeados a `16px`, campos de `44px` con esquinas de `8px` y botón CTA de ancho completo (100%) a `44px`.
+* **Aislamiento de estilos:**
+  * Al cargar `auth.css` únicamente en los flujos de autenticación, la pantalla **Inicio** y los componentes globales de cabecera y pie permanecen inalterados, preservando los estilos calibrados previamente.
+* **Comportamiento Mobile (`390px`):**
+  * En dispositivos móviles, la tarjeta reduce sus paddings internos a `28px 20px`, mantiene el margen horizontal y preserva la legibilidad y ergonomía táctil en pantallas compactas.
+
+### Resultado
+
+La pantalla de Autenticación / Inicio de Sesión quedó 100% implementada, modularizada y enlazada en la plataforma, cumpliendo con la fidelidad visual de Figma, estándares de accesibilidad y buenas prácticas de ingeniería de software frontend.
+
+---
+
+## 📅 08 de octubre de 2026 (Sesión 18 — Calibración Visual: Alineación Izquierda del Encabezado de Autenticación)
+
+### Objetivo de la sesión
+
+Corregir la alineación del bloque superior institucional (`.auth-header`) en la tarjeta de autenticación dentro de `assets/css/auth.css`, garantizando que el título de marca y subtítulo se alineen estrictamente a la izquierda en concordancia 1:1 con la referencia visual de Figma (`02 - Autenticación`).
+
+### Bitácora de modificaciones
+
+* **Archivo modificado:**
+  * `assets/css/auth.css`:
+    * Se forzó `text-align: left !important;` en `.auth-header`, `.auth-brand-title` y `.auth-brand-subtitle`.
+    * Se ajustó el margen inferior de `.auth-header` a `24px` y el espaciado entre el título y subtítulo (`margin: 0 0 6px 0;`).
+    * Se aseguró un ancho del contenedor al 100% (`width: 100%`) para un anclaje perfecto al margen izquierdo de la tarjeta.
+
+### Justificación técnica
+
+En la implementación inicial de la pantalla de autenticación, el encabezado institucional utilizaba `text-align: center`, lo que producía un desacople visual con respecto al título de sección `"Iniciar sesión"` y los bordes de los campos de entrada (`input`), los cuales se encuentran orientados a la izquierda. En el diseño de Figma (`02 - Autenticación`), la totalidad de los elementos de la tarjeta comparten una misma línea guía vertical en el margen izquierdo. El uso de `text-align: left !important;` elimina cualquier centrado involuntario o heredado, consolidando la coherencia compositiva y jerarquía visual del contenedor.
+
+### Control de diferencias
+
+* **Antes:**
+  * Título `"Raíces Alzate"` y subtítulo `"Inicia sesión en tu cuenta"` renderizados con centrado horizontal (`text-align: center`), generando asimetría con el bloque del formulario.
+* **Después:**
+  * Título de marca y subtítulo rigurosamente alineados al margen izquierdo (`text-align: left !important`), coincidiendo en su eje vertical con el título `"Iniciar sesión"`, los labels y los campos de entrada, replicando con exactitud 1:1 el diseño oficial de Figma.
+
+### Resultado
+
+La tarjeta de inicio de sesión (`.auth-card`) presenta ahora una alineación tipográfica uniforme en todo su flujo vertical, preservando los tokens del Design System y la adaptabilidad responsive en Desktop y Mobile.
+
+---
+
+## 📅 08 de octubre de 2026 (Sesión 19 — Implementación del Componente Global de Alertas e Integración en Login)
+
+### Objetivo de la sesión
+
+Implementar en el sistema de diseño (`assets/css/main.css`) el componente global reutilizable de alertas (`.alert`), dotado de sus cuatro variantes semánticas (`success`, `warning`, `error`, `info`), accesibilidad ARIA e iconografía vectorial SVG, e integrarlo en la pantalla de autenticación (`pages/login.php`, `assets/js/auth.js`) para sustituir el contenedor plano previo.
+
+### Bitácora de modificaciones
+
+* **Archivos modificados:**
+  * `assets/css/main.css`:
+    * Se incorporó el componente global reutilizable `.alert` con `display: flex; align-items: center; gap: 12px; border-radius: 8px; padding: 12px 16px; width: 100%;`.
+    * Se configuró el contenedor de icono `.alert-icon` (`18 × 18 px`) y el contenedor de texto `.alert-text` (`font-size: 14px; font-family: 'Inter'; color: #212121;`).
+    * Se definieron los cuatro estados oficiales del Design System:
+      1. `.alert-success`: fondo `#E8F5E9`, icono verde `#2E7D32`.
+      2. `.alert-warning`: fondo `#FFF8E1`, icono ámbar `#F57F17`.
+      3. `.alert-error`: fondo `#FFEBEE`, icono rojo institucional `#D32F2F`.
+      4. `.alert-info`: fondo `#E3F2FD`, icono azul institucional `#1565C0`.
+  * `pages/login.php`:
+    * Se reemplazó el antiguo contenedor `.form-feedback` por el componente visual `.alert` (`.alert-error` / `.alert-success`), integrando `<span class="alert-icon">` con iconos SVG vectoriales inline y `<p class="alert-text">` con soporte para mensajes flash de sesión.
+  * `assets/js/auth.js`:
+    * Se actualizó la función `showFeedback` para inyectar dinámicamente los iconos SVG vectoriales correspondientes a cada estado (`error`, `success`, `warning`, `info`) y desplegar el contenedor con `display: flex;`.
+
+### Justificación técnica
+
+1. **Componente global y transversal (.alert):**
+   El componente de alertas unifica la comunicación visual de notificaciones y validaciones en toda la plataforma. Al estar ubicado en `main.css`, queda disponible tanto para módulos de autenticación como para futuras interfaces (dashboard, egresados, administración).
+2. **Accesibilidad ARIA y tecnología asistiva:**
+   Mantiene los atributos `role="alert"` y `aria-live="polite"` garantizando que lectores de pantalla anuncien inmediatamente cualquier advertencia al usuario. Los iconos SVG vectoriales incorporan `aria-hidden="true"` para evitar lecturas redundantes.
+3. **Iconografía vectorial SVG inline:**
+   Los iconos inline se escalan nítidamente a `18 × 18 px`, heredan el color temático mediante `currentColor` y evitan peticiones HTTP adicionales o parpadeos de carga de fuentes de iconos externas.
+
+### Control de diferencias
+
+* **Antes:**
+  * Contenedor de feedback plano (`.form-feedback`) sin icono vectorial, con padding simple (`10px 14px`) y renderizado tipo bloque (`display: block`).
+* **Después:**
+  * Componente oficial `.alert.alert-error` con iconografía vectorial SVG de cruz roja (`#D32F2F`), fondo suave (`#FFEBEE`), esquinas redondeadas a `8px`, espaciado interno de `12px 16px` y disposición Flexbox con `gap: 12px`.
+  * Integración armónica en la tarjeta de login (`.auth-card`) sin quebrar la retícula, respetando el ancho máximo de `440px` y la alineación izquierda estricta de Figma.
+
+### Resultado
+
+El sistema cuenta ahora con un componente de alertas corporativo completo y estandarizado, operando en tiempo real en la pantalla de inicio de sesión con feedback visual de alta fidelidad.
+
+---
+
+## 📅 08 de octubre de 2026 (Sesión 20 — Ocultamiento de Acciones en Cabecera Responsive y Traslado al Menú Hamburguesa)
+
+### Objetivo de la sesión
+
+Corregir la saturación visual en la cabecera para dispositivos móviles (`<= 768px`), garantizando que la barra superior permanezca completamente limpia (únicamente con el isotipo oficial y el botón menú hamburguesa) y trasladando el acceso a "Iniciar sesión" y "Registrarse" exclusivamente al interior del panel lateral desplegable (`.main-nav`), cumpliendo al 100% con la especificación de diseño de Figma Mobile.
+
+### Bitácora de modificaciones
+
+* **Archivos modificados:**
+  * `components/header.php`:
+    * Se encapsularon las acciones de autenticación directas en el contenedor `.desktop-actions` dentro de `.header-right-group`.
+    * Se incorporó el enlace `.btn-login-drawer` ("Iniciar sesión") junto con el botón `.btn.btn-primary.btn-block` ("Registrarse") dentro de `.mobile-drawer-actions` en el drawer de navegación.
+  * `assets/css/header.css`:
+    * Se definió la clase `.desktop-actions` con `display: flex; align-items: center; gap: 16px;` para pantallas de escritorio.
+    * En el breakpoint móvil (`@media (max-width: 768px)`), se ocultó por completo `.desktop-actions`, `.header-login-link` y `.header-register-btn` con `display: none !important;`.
+    * Se ajustó `.header-right-group` para albergar únicamente el botón menú hamburguesa (`.menu-toggle`), pegado limpiamente al margen derecho.
+    * Se dio estilo al bloque `.mobile-drawer-actions` con disposición vertical (`flex-direction: column; gap: 12px;`), estilizando `.btn-login-drawer` a ancho completo con estilo institucional secundario (`#1565C0`) y `.btn` de registro a 100% de ancho y 40px de altura.
+
+### Justificación técnica
+
+En viewports móviles (`<= 768px`), desplegar simultáneamente el logotipo, el texto "Iniciar sesión", el botón "Registrarse" y el menú hamburguesa saturaba el espacio disponible de 390px, provocando saltos de línea indeseados y duplicidad de controles interactivos. En el prototipo de Figma Mobile, la cabecera superior se concibe estrictamente minimalista: el logotipo anclado a la izquierda y el activador hamburguesa anclado al extremo derecho. Al transferir las dos acciones de autenticación a la base del drawer (`.mobile-drawer-actions`), se logra una ergonomía táctil superior para interacción con pulgar (thumb zone), eliminando la polución visual en la barra fija y manteniendo una clara separación entre navegación desktop y móvil.
+
+### Control de diferencias
+
+* **Antes:**
+  * Barra superior móvil saturada con "Iniciar sesión" visible, desbordando el ancho útil del header junto al logo y el menú hamburguesa.
+  * Controles de autenticación fragmentados entre la barra y el drawer.
+* **Después:**
+  * Barra superior móvil limpia y despejada: isotipo + texto "Raíces Alzate" a la izquierda, y exclusivamente el icono hamburguesa (`.menu-toggle`) en el extremo derecho.
+  * Menú desplegable lateral (`.main-nav`): alberga en su base tanto "Iniciar sesión" (`.btn-login-drawer`) como "Registrarse" (`.btn.btn-primary.btn-block`), ambos a ancho completo (100%) y 40px de altura, en exacta consonancia con Figma Mobile.
+
+### Resultado
+
+La cabecera móvil de **Raíces Alzate** replica fielmente el diseño limpio de Figma, garantizando máxima legibilidad, ausencia de desbordamiento horizontal y acceso intuitivo a las acciones de cuenta dentro del drawer de navegación.
+
+---
+
 # Estado actual del proyecto
 
 **Fase actual:** Fase 4 — Implementación
@@ -617,12 +822,16 @@ Hasta el momento se ha establecido:
 * Sistema de tipografía centralizado.
 * Navegación responsive.
 * Favicon institucional.
-* Implementación inicial de la pantalla **Inicio** en Desktop.
-* Adaptación inicial de **Inicio** para Mobile.
+* Implementación inicial de la pantalla **Inicio** en Desktop y adaptación Mobile.
+* Calibración 1:1 de botones globales del Design System.
+* Implementación de la pantalla **Autenticación (Login)** en Desktop y Mobile (`pages/login.php`, `assets/css/auth.css`, `assets/js/auth.js`).
+* Optimización responsive de cabecera móvil (`<= 768px`) con barra limpia (isotipo y menú hamburguesa) y traslado de acciones de autenticación al interior del drawer (`components/header.php`, `assets/css/header.css`).
 
-Las demás interfaces diseñadas en Figma permanecen pendientes de implementación.
+Las demás interfaces diseñadas en Figma continúan en proceso de implementación progresiva.
 
 ### Próximas actividades de la Fase 4
+
+* Validar visualmente **Autenticación - Desktop / Mobile** frente a Figma.
 
 * Validar visualmente **Inicio - Desktop**.
 * Validar visualmente **Inicio - Mobile**.
