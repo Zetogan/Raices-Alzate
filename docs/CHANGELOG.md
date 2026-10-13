@@ -16,6 +16,35 @@ El formato de este documento está inspirado en las convenciones de *Keep a Chan
 
 # [v0.1.1] — En desarrollo
 
+## 📅 10 de octubre de 2026
+
+### 📊 Dashboard Desktop y Mobile
+
+#### Agregado
+
+* Creación del controlador de acceso directo `dashboard.php` en la raíz del proyecto con control estricto de acceso y verificación de sesión activa.
+* Implementación de la vista modular privada `pages/dashboard.php` basada con exactitud en el frame de Figma `03 - Dashboard - Desktop`.
+* Creación del componente reutilizable `includes/sidebar.php` (ancho 240px, fondo `#FFFFFF`, cabecera de marca en `#D32F2F`, navegación vertical con elemento activo, enlaces del sistema y cierre de sesión).
+* Creación del componente reutilizable `includes/topbar.php` con título `Dashboard`, disparador de menú para mobile, datos dinámicos del usuario y avatar circular (`#D32F2F`) con inicial calculada en UTF-8.
+* Creación del controlador `logout.php` en la raíz para destrucción segura de sesiones y cookies.
+* Creación de la hoja de estilos modular `assets/css/dashboard.css` aislada para evitar colisiones con el portal público.
+* Extracción dinámica de datos de usuario desde `$_SESSION['user']` (`nombre`, `rol`, inicial), prohibiendo nombres fijos en duro en el código.
+* Implementación de la sección de bienvenida institucional y fila de 3 tarjetas de resumen (`Mi perfil`, `Mis proyectos`, `Oportunidades`) con enlaces de acción `Ver... →` en azul institucional `#1565C0`.
+* Implementación del bloque inferior a dos columnas en Desktop: columna izquierda (~65%) con `Actividad reciente` y `Acciones rápidas` (`Actualizar mi perfil` en `#D32F2F` y `Publicar proyecto` en contorno `#1565C0`); columna derecha (~35%) con `Próximas oportunidades` categorizadas con insignias institucionales.
+* Adaptación responsive para Mobile (< 768px): barra lateral en cajón desplegable (drawer con backdrop), tarjetas en 1 columna y reordenamiento estricto mediante Flexbox (1. Actividad reciente, 2. Próximas oportunidades, 3. Acciones rápidas al 100%).
+* Incorporación de la ruta `case 'dashboard':` en el Front Controller `index.php`.
+
+#### Modificado
+
+* **Ajuste UI de dimensiones y legibilidad del botón "Actualizar mi perfil":** En `pages/dashboard.php` y `assets/css/dashboard.css`, se actualizaron las reglas para `.dashboard-actions .btn-primary` y `.btn-actualizar-perfil` con altura accesible estándar de `44px`, padding horizontal de `0 24px`, ancho mínimo `min-width: 180px` (`width: auto !important;`), tipografía `Inter` semibold (`600`, `0.95rem`) y `white-space: nowrap` para evitar saltos o recortes de línea, manteniendo el rojo oficial `#D32F2F` y hover `#B71C1C`.
+* **Implementación de Barra Lateral Colapsable (Mini-Sidebar en Desktop):** En `includes/sidebar.php`, `assets/css/dashboard.css` y `pages/dashboard.php`:
+  * Adición del botón de alternancia `#sidebarToggleBtn` con icono SVG rotatorio en la cabecera `.sidebar-header`.
+  * Estado expandido por defecto (`240px`) con logotipo, textos institucionales y etiquetas de menú completas.
+  * Estado contraído mini-sidebar (`76px`) en pantallas de escritorio (`>= 769px`), centrando el isotipo institucional e iconos de navegación dentro de casillas de `48px`, y ocultando limpiamente las etiquetas de texto.
+  * Persistencia de preferencia del usuario mediante `localStorage.setItem('sidebar_collapsed', 'true' | 'false')` y prevención de parpadeo visual (FOUC) mediante script inicial en el `<head>`.
+  * Transición suave (`0.3s ease`) en el sidebar y el área principal (`.dashboard-main-area`).
+  * Aislamiento completo del modo móvil (`<= 768px`), donde el botón de colapso se oculta y el cajón desplegable (drawer) mantiene su comportamiento habitual.
+
 ## 📅 09 de octubre de 2026
 
 ### 📰 Pantalla de Noticias

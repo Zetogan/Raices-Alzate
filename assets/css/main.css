@@ -83,6 +83,8 @@ html {
     font-size: 16px;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
 body {

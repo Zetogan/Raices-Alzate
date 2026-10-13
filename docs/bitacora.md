@@ -697,6 +697,54 @@ Implementar de forma modular y con estricta fidelidad visual la pantalla de Noti
 
 Se implementó con éxito la pantalla de Noticias bajo la arquitectura modular estándar, completando la tríada de pantallas informativas públicas (`Proyectos`, `Egresados`, `Noticias`) alineadas con Figma.
 
+## Sesión 27 — Implementación del Dashboard Desktop y Mobile (Fase 4 — v0.1.1)
+
+**Fecha:** 10 de octubre de 2026
+
+**Objetivo:**
+
+Implementar con fidelidad exacta la pantalla de Dashboard (`03 - Dashboard - Desktop` y Mobile) para usuarios autenticados de Raíces Alzate, aplicando control estricto de sesiones, extracción dinámica de información de usuario, componentes modulares reutilizables y el sistema de diseño institucional.
+
+**Archivos creados o trabajados:**
+
+* `dashboard.php` (controlador de entrada directo en la raíz con verificación de sesión activa).
+* `logout.php` (controlador de cierre seguro de sesión).
+* `pages/dashboard.php` (vista modular privada con grid de 3 tarjetas y bloque inferior organizado).
+* `includes/sidebar.php` (componente reutilizable de barra lateral de 240px, navegación y marca).
+* `includes/topbar.php` (componente reutilizable de barra superior con datos dinámicos y avatar).
+* `assets/css/dashboard.css` (hoja de estilos modular para la interfaz privada).
+* `index.php` (incorporación de la ruta `case 'dashboard':` en el Front Controller).
+* `docs/bitacora.md` (registro de la sesión de trabajo).
+* `docs/changelog.md` (registro en el historial de cambios).
+
+**Actividades realizadas:**
+
+* Creación del controlador de entrada `dashboard.php` en la raíz con verificación estricta de sesión activa (`empty($_SESSION['user'])`), redirigiendo a `login.php` en caso de acceso no autorizado.
+* Implementación de la extracción dinámica de los datos del usuario en sesión (`nombre`, `rol`, inicial calculada en UTF-8), evitando nombres fijos en duro en el código.
+* Construcción del componente reutilizable `includes/sidebar.php` (240px, fondo `#FFFFFF`) con cabecera institucional en `#D32F2F`, elemento activo `Dashboard` y enlaces secundarios.
+* Creación de `includes/topbar.php` con título de vista, disparador accesible para menú móvil (`#dashboardMenuToggle`), nombre de usuario, rol y avatar circular institucional (`#D32F2F`).
+* Implementación de la vista `pages/dashboard.php`:
+  * Sección de bienvenida institucional con título y párrafo explicativo.
+  * Fila de 3 tarjetas de resumen (`Mi perfil`, `Mis proyectos`, `Oportunidades`) en grid de 3 columnas (desktop) y 1 columna (mobile), con enlaces `Ver... →` en azul institucional `#1565C0`.
+  * Bloque inferior a dos columnas en Desktop (~65% / ~35%):
+    - Columna izquierda: tarjeta de `Actividad reciente` con lista de eventos temporales y bloque de `Acciones rápidas` (`Actualizar mi perfil` en `#D32F2F` y `Publicar proyecto` en contorno `#1565C0`).
+    - Columna derecha: tarjeta de `Próximas oportunidades` categorizadas con insignias institucionales (Beca, Empleo, Capacitación).
+* Adaptación responsive para Mobile (< 768px):
+  * Barra lateral oculta off-canvas que se despliega como cajón lateral (drawer) con telón de fondo (`.sidebar-backdrop`).
+  * Reordenamiento vertical del bloque inferior mediante Flexbox: 1. Actividad reciente (`order: 1`), 2. Próximas oportunidades (`order: 2`), 3. Acciones rápidas con botones al 100% de ancho (`order: 3`).
+  * Exclusión del pie de página público en la vista del dashboard conforme al diseño de Figma.
+* Implementación de la barra lateral colapsable (Mini-Sidebar en Desktop):
+  * Toggle `#sidebarToggleBtn` con SVG animado (180deg).
+  * Ancho reducido de 76px con isotipo e iconos de 48px centrados y textos ocultos.
+  * Persistencia en `localStorage` (`sidebar_collapsed`) y prevención de FOUC al recargar.
+  * Compatibilidad intacta con el menú móvil.
+* Creación del controlador `logout.php` para cierre de sesión seguro con limpieza de cookies.
+* Validación sintáctica PHP con `php -l` (0 errores) y pruebas unitarias de redirección de seguridad y dinamismo de sesión.
+
+**Resultado:**
+
+Se implementó el Dashboard Desktop y Mobile con plena fidelidad visual al frame de Figma `03 - Dashboard - Desktop`, garantizando seguridad en acceso de sesiones y dinamismo de datos.
+
 ---
 
 # 📊 Estado general del proyecto
@@ -734,6 +782,7 @@ Se implementó con éxito la pantalla de Noticias bajo la arquitectura modular e
 | Pantalla de Proyectos                 | Implementada; vista modular, controlador y estilos calibrados             |
 | Pantalla de Egresados                 | Implementada; vista modular, controlador y estilos calibrados             |
 | Pantalla de Noticias                  | Implementada; vista modular, controlador y estilos calibrados             |
+| Pantalla de Dashboard                 | Implementada; controlador, vista modular, sidebar, topbar y estilos       |
 | Esquema definitivo de base de datos   | Pendiente de definición y validación                                      |
 | Implementación de las demás pantallas | Pendiente de desarrollo progresivo                                        |
 | Pruebas integrales de la plataforma   | Pendientes de completar                                                   |

@@ -45,6 +45,9 @@ switch ($page) {
         $currentPage = 'noticias';
         $viewFile = __DIR__ . '/pages/noticias.php';
         break;
+    case 'dashboard':
+        header('Location: dashboard.php');
+        exit;
     case 'inicio':
     default:
         $pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';

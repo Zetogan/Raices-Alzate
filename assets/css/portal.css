@@ -13,6 +13,66 @@
  */
 
 /* ==========================================================================
+   0. ESTANDARIZACIÓN E INMUTABILIDAD DEL HEADER / NAVBAR
+   ========================================================================== */
+/* Header sticky persistente */
+.portal-header,
+.main-navbar,
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  background-color: #FFFFFF; /* Fondo completamente sólido */
+  border-bottom: 1px solid #E0E0E0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil para despegar del contenido */
+  z-index: 1000; /* Asegurar que flote sobre imágenes, tarjetas y modales */
+  box-sizing: border-box;
+}
+
+/* Contenedor interior del navbar con ancho máximo constante */
+.navbar-container,
+.header-content {
+  width: 100%;
+  max-width: 1200px; /* Asegura el mismo ancho en todas las pantallas */
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Blindaje de botones y elementos del header frente a estilos del portal */
+.portal-header .header-register-btn,
+.main-navbar .header-register-btn,
+.site-header .header-register-btn,
+header .header-register-btn {
+  width: 112px !important;
+  min-width: 112px !important;
+  max-width: 112px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.portal-header .header-login-link,
+.main-navbar .header-login-link,
+.site-header .header-login-link,
+header .header-login-link {
+  height: auto !important;
+  padding: 8px 12px !important;
+  font-size: 0.875rem !important;
+  line-height: 1 !important;
+}
+
+/* ==========================================================================
    1. CONTENEDOR Y SECCIÓN DEL PORTAL PÚBLICO (PROYECTOS / EGRESADOS / NOTICIAS)
    ========================================================================== */
 .portal-main,
@@ -123,7 +183,11 @@
 }
 
 /* Botón 1: Iniciar sesión (Principal #D32F2F) */
-.btn-primary,
+.portal-actions .btn-primary,
+.portal-main .btn-primary,
+.proyectos-actions .btn-primary,
+.egresados-actions .btn-primary,
+.noticias-actions .btn-primary,
 .btn-portal-primary,
 .btn-proyectos-login,
 .btn-proyectos-primary,
@@ -154,8 +218,16 @@
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
+.portal-actions .btn-primary:hover,
+.portal-actions .btn-primary:focus,
+.portal-main .btn-primary:hover,
+.portal-main .btn-primary:focus,
+.proyectos-actions .btn-primary:hover,
+.proyectos-actions .btn-primary:focus,
+.egresados-actions .btn-primary:hover,
+.egresados-actions .btn-primary:focus,
+.noticias-actions .btn-primary:hover,
+.noticias-actions .btn-primary:focus,
 .btn-portal-primary:hover,
 .btn-portal-primary:focus,
 .btn-proyectos-primary:hover,
@@ -175,7 +247,11 @@
     text-decoration: none !important;
 }
 
-.btn-primary:active,
+.portal-actions .btn-primary:active,
+.portal-main .btn-primary:active,
+.proyectos-actions .btn-primary:active,
+.egresados-actions .btn-primary:active,
+.noticias-actions .btn-primary:active,
 .btn-portal-primary:active,
 .btn-proyectos-primary:active,
 .btn-proyectos-login:active,
@@ -188,7 +264,11 @@
 }
 
 /* Botón 2: Crear una cuenta (Secundario Outline #1565C0) */
-.btn-outline-secondary,
+.portal-actions .btn-outline-secondary,
+.portal-main .btn-outline-secondary,
+.proyectos-actions .btn-outline-secondary,
+.egresados-actions .btn-outline-secondary,
+.noticias-actions .btn-outline-secondary,
 .btn-portal-secondary,
 .btn-proyectos-secondary,
 .btn-egresados-secondary,
@@ -216,8 +296,16 @@
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
 }
 
-.btn-outline-secondary:hover,
-.btn-outline-secondary:focus,
+.portal-actions .btn-outline-secondary:hover,
+.portal-actions .btn-outline-secondary:focus,
+.portal-main .btn-outline-secondary:hover,
+.portal-main .btn-outline-secondary:focus,
+.proyectos-actions .btn-outline-secondary:hover,
+.proyectos-actions .btn-outline-secondary:focus,
+.egresados-actions .btn-outline-secondary:hover,
+.egresados-actions .btn-outline-secondary:focus,
+.noticias-actions .btn-outline-secondary:hover,
+.noticias-actions .btn-outline-secondary:focus,
 .btn-portal-secondary:hover,
 .btn-portal-secondary:focus,
 .btn-proyectos-secondary:hover,
@@ -232,7 +320,11 @@
     text-decoration: none !important;
 }
 
-.btn-outline-secondary:active,
+.portal-actions .btn-outline-secondary:active,
+.portal-main .btn-outline-secondary:active,
+.proyectos-actions .btn-outline-secondary:active,
+.egresados-actions .btn-outline-secondary:active,
+.noticias-actions .btn-outline-secondary:active,
 .btn-portal-secondary:active,
 .btn-proyectos-secondary:active,
 .btn-egresados-secondary:active,

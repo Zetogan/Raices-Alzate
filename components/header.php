@@ -10,8 +10,8 @@ if (!defined('APP_NAME')) {
 
 $currentPage = $currentPage ?? 'inicio';
 ?>
-<header class="site-header header">
-    <div class="container header-inner">
+<header class="portal-header main-navbar site-header header">
+    <div class="navbar-container header-content container header-inner">
         <!-- Izquierda: Identidad de Marca -->
         <a href="index.php" class="brand header-logo" aria-label="<?php echo htmlspecialchars(APP_NAME); ?>">
             <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo Raíces Alzate" class="brand-logo-img">

@@ -1,0 +1,1136 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Panel Privado (Dashboard)
+ * Pantalla de referencia: 03 - Dashboard - Desktop (1440 × 900 px) y Mobile (< 768 px)
+ * Paleta Oficial:
+ *   - Primario Institucional: #D32F2F (Rojo Alzate) | Hover: #B71C1C
+ *   - Secundario / Acentos: #1565C0 (Azul Institucional) | Hover: rgba(21, 101, 192, 0.08)
+ *   - Superficies: #FFFFFF (Sidebar, tarjetas) | #F5F5F5 (Fondo general)
+ *   - Bordes y divisores: #E0E0E0
+ *   - Tipografía: #212121 (Títulos) | #757575 (Subtítulos) | #9E9E9E (Tiempos/auxiliar)
+ */
+
+/* ==========================================================================
+   1. RESET Y ESTRUCTURA GENERAL DEL DASHBOARD
+   ========================================================================== */
+.dashboard-body-page {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg-light, #F5F5F5);
+    color: var(--color-text-main, #212121);
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    min-height: 100vh;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.sidebar-drawer-active {
+    overflow: hidden;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: var(--color-bg-light, #F5F5F5);
+}
+
+/* ==========================================================================
+   2. BARRA LATERAL (SIDEBAR - 240px, FONDO #FFFFFF)
+   ========================================================================== */
+.dashboard-sidebar {
+    width: 240px;
+    min-width: 240px;
+    background-color: var(--color-white, #FFFFFF);
+    border-right: 1px solid var(--color-border, #E0E0E0);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    z-index: 100;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2.1 Cabecera de marca y botón toggle en el Sidebar */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    box-sizing: border-box;
+    gap: 10px;
+    min-height: 72px;
+    transition: padding 0.3s ease, gap 0.3s ease;
+}
+
+.sidebar-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.sidebar-brand-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+    transition: gap 0.3s ease;
+}
+
+.sidebar-brand-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.brand-title,
+.sidebar-brand-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary, #D32F2F);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.brand-subtitle,
+.sidebar-brand-subtitle {
+    font-size: 0.775rem;
+    color: var(--color-text-secondary, #757575);
+    font-weight: 400;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Botón de alternancia de colapso (Toggle Btn) */
+.sidebar-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border, #E0E0E0);
+    background-color: #FFFFFF;
+    color: var(--color-text-secondary, #757575);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: var(--color-bg-light, #F5F5F5);
+    color: var(--color-primary, #D32F2F);
+    border-color: #D32F2F;
+    box-shadow: 0 2px 6px rgba(211, 47, 47, 0.12);
+}
+
+.sidebar-toggle-btn:focus-visible {
+    outline: 2px solid var(--color-primary, #D32F2F);
+    outline-offset: 2px;
+}
+
+.sidebar-toggle-btn .toggle-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2.2 Lista de navegación vertical */
+.sidebar-nav {
+    padding: 20px 12px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: padding 0.3s ease;
+}
+
+.sidebar-menu,
+.sidebar-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.sidebar-nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item,
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: var(--color-text-main, #212121);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, color 0.15s ease, padding 0.3s ease, width 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+}
+
+.nav-icon,
+.sidebar-nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: currentColor;
+    transition: transform 0.2s ease;
+}
+
+.nav-label,
+.sidebar-nav-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
+}
+
+.nav-item:hover,
+.sidebar-nav-link:hover {
+    background-color: var(--color-bg-light, #F5F5F5);
+    color: var(--color-text-main, #212121);
+    text-decoration: none;
+}
+
+/* Elemento activo en Sidebar: fondo #D32F2F y texto blanco */
+.nav-item.active,
+.sidebar-nav-link.active {
+    background-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.nav-item.active:hover,
+.sidebar-nav-link.active:hover {
+    background-color: var(--color-primary-hover, #B71C1C);
+    color: #FFFFFF;
+}
+
+/* 2.3 Pie de la Barra Lateral: Cerrar Sesión */
+.sidebar-footer-item {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border, #E0E0E0);
+    transition: padding 0.3s ease;
+}
+
+.nav-logout,
+.sidebar-logout-link {
+    color: var(--color-text-secondary, #757575);
+}
+
+.nav-logout:hover,
+.sidebar-logout-link:hover {
+    color: var(--color-primary, #D32F2F);
+    background-color: var(--color-primary-light, #FFEBEE);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   2.4 ESTADO CONTRAÍDO (MINI-SIDEBAR: 76px EN ESCRITORIO >= 769px)
+   ========================================================================== */
+@media (min-width: 769px) {
+    /* Ancho reducido del contenedor del sidebar */
+    .dashboard-sidebar.is-collapsed,
+    .dashboard-sidebar.collapsed,
+    html.sidebar-is-collapsed .dashboard-sidebar {
+        width: 76px;
+        min-width: 76px;
+    }
+
+    /* Cabecera del Sidebar: distribución vertical compacta */
+    .dashboard-sidebar.is-collapsed .sidebar-header,
+    .dashboard-sidebar.collapsed .sidebar-header,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 8px;
+        gap: 12px;
+        min-height: auto;
+    }
+
+    /* Ocultar logotipo/título textual y subtítulo */
+    .dashboard-sidebar.is-collapsed .sidebar-brand-text,
+    .dashboard-sidebar.collapsed .sidebar-brand-text,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-brand-text,
+    .dashboard-sidebar.is-collapsed .brand-title,
+    .dashboard-sidebar.collapsed .brand-title,
+    html.sidebar-is-collapsed .dashboard-sidebar .brand-title,
+    .dashboard-sidebar.is-collapsed .brand-subtitle,
+    .dashboard-sidebar.collapsed .brand-subtitle,
+    html.sidebar-is-collapsed .dashboard-sidebar .brand-subtitle {
+        display: none !important;
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    /* Centrar isotipo institucional */
+    .dashboard-sidebar.is-collapsed .sidebar-brand-link,
+    .dashboard-sidebar.collapsed .sidebar-brand-link,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-brand-link {
+        justify-content: center;
+        gap: 0;
+        margin: 0 auto;
+    }
+
+    /* Centrar botón toggle y rotar flecha hacia la derecha (180deg) */
+    .dashboard-sidebar.is-collapsed .sidebar-toggle-btn,
+    .dashboard-sidebar.collapsed .sidebar-toggle-btn,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-toggle-btn {
+        margin: 0 auto;
+    }
+
+    .dashboard-sidebar.is-collapsed .sidebar-toggle-btn .toggle-icon,
+    .dashboard-sidebar.collapsed .sidebar-toggle-btn .toggle-icon,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-toggle-btn .toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Reducir padding de la navegación vertical */
+    .dashboard-sidebar.is-collapsed .sidebar-nav,
+    .dashboard-sidebar.collapsed .sidebar-nav,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-nav {
+        padding: 16px 8px;
+    }
+
+    /* Ocultar etiquetas de texto de todos los ítems de navegación */
+    .dashboard-sidebar.is-collapsed .nav-label,
+    .dashboard-sidebar.collapsed .nav-label,
+    html.sidebar-is-collapsed .dashboard-sidebar .nav-label,
+    .dashboard-sidebar.is-collapsed .sidebar-nav-label,
+    .dashboard-sidebar.collapsed .sidebar-nav-label,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-nav-label {
+        display: none !important;
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    /* Centrar los iconos horizontalmente dentro de botones cuadrados de 48px */
+    .dashboard-sidebar.is-collapsed .nav-item,
+    .dashboard-sidebar.collapsed .nav-item,
+    html.sidebar-is-collapsed .dashboard-sidebar .nav-item,
+    .dashboard-sidebar.is-collapsed .sidebar-nav-link,
+    .dashboard-sidebar.collapsed .sidebar-nav-link,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-nav-link {
+        justify-content: center;
+        padding: 0;
+        width: 48px;
+        height: 48px;
+        margin: 0 auto;
+        gap: 0;
+        border-radius: 10px;
+    }
+
+    .dashboard-sidebar.is-collapsed .nav-icon,
+    .dashboard-sidebar.collapsed .nav-icon,
+    html.sidebar-is-collapsed .dashboard-sidebar .nav-icon,
+    .dashboard-sidebar.is-collapsed .sidebar-nav-icon,
+    .dashboard-sidebar.collapsed .sidebar-nav-icon,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-nav-icon {
+        margin: 0 auto;
+        width: 22px;
+        height: 22px;
+    }
+
+    .dashboard-sidebar.is-collapsed .sidebar-footer-item,
+    .dashboard-sidebar.collapsed .sidebar-footer-item,
+    html.sidebar-is-collapsed .dashboard-sidebar .sidebar-footer-item {
+        padding-top: 12px;
+    }
+}
+
+/* ==========================================================================
+   3. ÁREA PRINCIPAL Y BARRA SUPERIOR (TOPBAR)
+   ========================================================================== */
+.dashboard-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--color-bg-light, #F5F5F5);
+}
+
+.dashboard-topbar {
+    height: 72px;
+    background-color: var(--color-white, #FFFFFF);
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dashboard-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.dashboard-menu-toggle:hover {
+    background-color: var(--color-bg-light, #F5F5F5);
+}
+
+.hamburger-bar {
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-text-main, #212121);
+    border-radius: 2px;
+    display: block;
+}
+
+.topbar-title {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+/* 3.1 Información del usuario y Avatar */
+.topbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-user-profile,
+.dashboard-user-info,
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-user-details,
+.dashboard-user-meta,
+.user-details {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.topbar-user-name,
+.dashboard-user-name,
+.user-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-main, #212121);
+    line-height: 1.25;
+}
+
+.topbar-user-role,
+.dashboard-user-role,
+.user-role {
+    font-size: 0.825rem;
+    color: var(--color-text-secondary, #757575);
+    line-height: 1.25;
+}
+
+.topbar-user-avatar,
+.dashboard-user-avatar,
+.user-avatar {
+    order: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    user-select: none;
+    box-shadow: 0 2px 6px rgba(211, 47, 47, 0.2);
+}
+
+/* ==========================================================================
+   4. CONTENIDO CENTRAL (FONDO #F5F5F5, PADDING 32px)
+   ========================================================================== */
+.dashboard-content {
+    padding: 32px;
+    flex: 1 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 4.1 Sección Bienvenida */
+.dashboard-welcome,
+.dashboard-welcome-header {
+    position: static !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    display: block !important;
+    margin-bottom: 28px;
+}
+
+.welcome-title,
+.dashboard-welcome-title {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+}
+
+.welcome-message,
+.dashboard-welcome-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary, #757575);
+    margin: 0;
+}
+
+/* ==========================================================================
+   5. FILA DE 3 TARJETAS DE RESUMEN (GRID 3 COLUMNAS)
+   ========================================================================== */
+.dashboard-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dashboard-card {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 12px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.summary-card-body {
+    flex: 1 1 auto;
+}
+
+.summary-card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: var(--color-bg-light, #F5F5F5);
+    color: var(--color-text-main, #212121);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.summary-card-title {
+    font-size: 1.15rem; /* 18px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+}
+
+.summary-card-desc {
+    font-size: 0.925rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary, #757575);
+    margin: 0 0 16px 0;
+}
+
+.summary-card-footer {
+    margin-top: auto;
+}
+
+.dashboard-action-link {
+    color: var(--color-secondary, #1565C0);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s ease, gap 0.15s ease;
+}
+
+.dashboard-action-link:hover {
+    color: var(--color-secondary-hover, #0D47A1);
+    gap: 9px;
+    text-decoration: none;
+}
+
+.arrow-symbol {
+    transition: transform 0.15s ease;
+}
+
+.dashboard-action-link:hover .arrow-symbol {
+    transform: translateX(2px);
+}
+
+/* ==========================================================================
+   6. BLOQUE INFERIOR A DOS COLUMNAS (~65% / ~35%)
+   ========================================================================== */
+.dashboard-split-block {
+    display: grid;
+    grid-template-columns: 1.75fr 1.25fr;
+    gap: 24px;
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dashboard-column-left,
+.dashboard-column-right {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.dashboard-block-section {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dashboard-section-title {
+    font-size: 1.15rem; /* 18px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.01em;
+}
+
+/* 6.1 Actividad Reciente */
+.activity-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.activity-timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.activity-timeline-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+.activity-timeline-item:last-child {
+    border-bottom: none;
+}
+
+.activity-timeline-item:hover {
+    background-color: #FAFAFA;
+}
+
+.activity-icon-bullet {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--color-secondary-light, #E3F2FD);
+    color: var(--color-secondary, #1565C0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-item-details {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.activity-action-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 4px 0;
+    line-height: 1.35;
+}
+
+.activity-timestamp {
+    font-size: 0.825rem;
+    color: var(--color-text-muted, #9E9E9E);
+    display: block;
+}
+
+/* 6.2 Acciones Rápidas */
+.quick-actions-section {
+    margin-top: 28px;
+}
+
+.quick-actions-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Botón 1: Actualizar mi perfil (Primario #D32F2F) */
+.dashboard-actions .btn-primary,
+.btn-actualizar-perfil,
+.btn-quick-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 44px !important; /* Altura estándar accesible */
+    padding: 0 24px !important; /* Espaciado lateral suficiente */
+    min-width: 180px !important; /* Ancho mínimo para que el texto respire */
+    width: auto !important; /* Anula el width: 123px global de .btn-primary */
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.95rem !important; /* ~15px para lectura clara */
+    font-weight: 600 !important;
+    line-height: normal !important;
+    white-space: nowrap !important; /* Evita que el texto salte de línea */
+    color: #FFFFFF !important;
+    background-color: #D32F2F !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.dashboard-actions .btn-primary:hover,
+.btn-actualizar-perfil:hover,
+.btn-quick-primary:hover {
+    background-color: #B71C1C !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.dashboard-actions .btn-primary:active,
+.btn-actualizar-perfil:active,
+.btn-quick-primary:active {
+    transform: scale(0.98);
+}
+
+/* Botón 2: Publicar proyecto (Contorno #1565C0) */
+.dashboard-actions .btn-outline-secondary,
+.btn-publicar-proyecto,
+.btn-quick-outline {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 44px !important;
+    padding: 0 24px !important;
+    min-width: 180px !important;
+    width: auto !important;
+    border-radius: 8px !important;
+    background-color: transparent !important;
+    border: 1.5px solid var(--color-secondary, #1565C0) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    line-height: normal !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.dashboard-actions .btn-outline-secondary:hover,
+.btn-publicar-proyecto:hover,
+.btn-quick-outline:hover {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    border-color: var(--color-secondary, #1565C0) !important;
+    text-decoration: none !important;
+}
+
+.dashboard-actions .btn-outline-secondary:active,
+.btn-publicar-proyecto:active,
+.btn-quick-outline:active {
+    transform: scale(0.98);
+}
+
+/* 6.3 Próximas Oportunidades */
+.opportunities-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.opportunities-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.opportunity-item {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+.opportunity-item:last-child {
+    border-bottom: none;
+}
+
+.opportunity-item:hover {
+    background-color: #FAFAFA;
+}
+
+.opportunity-header-row {
+    margin-bottom: 6px;
+}
+
+.opportunity-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.tag-blue {
+    background-color: var(--color-secondary-light, #E3F2FD);
+    color: var(--color-secondary, #1565C0);
+}
+
+.tag-red {
+    background-color: var(--color-primary-light, #FFEBEE);
+    color: var(--color-primary, #D32F2F);
+}
+
+.tag-dark {
+    background-color: #EEEEEE;
+    color: var(--color-text-main, #212121);
+}
+
+.opportunity-item-title {
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 4px 0;
+    line-height: 1.35;
+}
+
+.opportunity-item-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary, #757575);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   7. ADAPTACIÓN RESPONSIVE (MOBILE & TABLET: < 768px)
+   ========================================================================== */
+.sidebar-backdrop {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* 7.1 Barra Superior Móvil */
+    /* Contenedor del encabezado móvil */
+    .dashboard-topbar,
+    .topbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Izquierda: usuario | Derecha: menú */
+        width: 100%;
+        height: 64px;
+        padding: 12px 16px;
+        box-sizing: border-box;
+    }
+
+    .topbar-right {
+        order: 1; /* Forzar bloque de usuario a la izquierda */
+        display: flex;
+        align-items: center;
+    }
+
+    .topbar-left {
+        order: 2; /* Forzar contenedor de menú hamburguesa a la derecha */
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    .topbar-title {
+        display: none; /* Ocultar título repetitivo en mobile para dar espacio a la identidad */
+    }
+
+    /* Bloque de identidad de usuario alineado a la izquierda */
+    .dashboard-user-info,
+    .topbar-user,
+    .topbar-user-profile {
+        order: 1; /* Forzar posición a la izquierda */
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+    }
+
+    /* Avatar / inicial */
+    .dashboard-user-avatar,
+    .user-avatar,
+    .topbar-user-avatar {
+        order: 1;
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+        flex-shrink: 0;
+    }
+
+    /* Textos de nombre y rol */
+    .dashboard-user-meta,
+    .user-details,
+    .topbar-user-details {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .dashboard-user-name,
+    .user-name,
+    .topbar-user-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #212121;
+        line-height: 1.2;
+    }
+
+    .dashboard-user-role,
+    .user-role,
+    .topbar-user-role {
+        display: block !important;
+        font-size: 0.75rem;
+        color: #757575;
+        line-height: 1.2;
+    }
+
+    /* Botón de menú hamburguesa alineado a la derecha */
+    .mobile-menu-toggle,
+    .btn-menu-hamburguesa,
+    .dashboard-menu-toggle {
+        order: 2; /* Forzar posición a la derecha */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    /* 7.2 Barra Lateral como Cajón Desplegable (Drawer) */
+    .sidebar-toggle-btn {
+        display: none !important;
+    }
+
+    .dashboard-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        max-width: 85vw;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    /* Telón de fondo activo */
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+    .sidebar-backdrop.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* 7.3 Contenido Principal en Mobile */
+    .dashboard-content {
+        padding: 20px 16px;
+    }
+
+    .dashboard-welcome,
+    .dashboard-welcome-header {
+        margin-bottom: 20px;
+    }
+
+    .welcome-title,
+    .dashboard-welcome-title {
+        font-size: 1.35rem; /* 22px */
+    }
+
+    .welcome-message,
+    .dashboard-welcome-desc {
+        font-size: 0.925rem;
+    }
+
+    /* 7.4 Tarjetas de resumen en 1 columna fluida */
+    .dashboard-summary-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .summary-card {
+        padding: 20px 16px;
+    }
+
+    /* 7.5 Reordenamiento vertical del bloque inferior:
+       1. Actividad reciente
+       2. Próximas oportunidades
+       3. Acciones rápidas (botones al 100%)
+    */
+    .dashboard-split-block {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .dashboard-column-left {
+        display: contents; /* Desenvuelve hijos en el flex de dashboard-split-block */
+    }
+
+    .dashboard-column-right {
+        display: contents;
+    }
+
+    /* 1. Actividad reciente */
+    .activity-section {
+        order: 1;
+        width: 100%;
+    }
+
+    /* 2. Próximas oportunidades */
+    .opportunities-section {
+        order: 2;
+        width: 100%;
+    }
+
+    /* 3. Acciones rápidas */
+    .quick-actions-section {
+        order: 3;
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .quick-actions-buttons-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .btn-quick-primary,
+    .btn-quick-outline,
+    .btn-actualizar-perfil,
+    .btn-publicar-proyecto,
+    .dashboard-actions .btn-primary,
+    .dashboard-actions .btn-outline-secondary {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}

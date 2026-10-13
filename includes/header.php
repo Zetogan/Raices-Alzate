@@ -58,4 +58,5 @@ if (!function_exists('assetCssUrl')) {
     <?php endif; ?>
 </head>
 <body>
+    <!-- Navbar / Header unificado, sticky e inmutable (72px fijos, fondo sólido #FFFFFF, z-index 1000) -->
     <?php include __DIR__ . '/../components/header.php'; ?>
