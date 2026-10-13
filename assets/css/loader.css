@@ -1,0 +1,656 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Page Loader Global
+ * Componente: Precarga con Skeleton Screen Fiel a Figma (03 - Dashboard - Desktop) & Spinner Circular
+ * Paleta Oficial:
+ *   - Rojo Alzate: #D32F2F
+ *   - Azul Institucional: #1565C0
+ *   - Fondo translúcido: rgba(255, 255, 255, 0.88) con blur(4px)
+ *   - Grises Institucionales: #E0E0E0 / #F5F5F5 / #EEEEEE
+ * Versión: 0.1.7
+ */
+
+/* ==========================================================================
+   1. CONTENEDOR PRINCIPAL DEL LOADER
+   ========================================================================== */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Estado de desvanecimiento (Fade-out seguro compatible con ambas clases) */
+.page-loader.loader-hidden,
+.page-loader.is-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* ==========================================================================
+   2. CAPA DE SKELETON SCREEN (DISTRIBUCIÓN REAL SEGÚN FIGMA 03 - DASHBOARD)
+   ========================================================================== */
+.loader-skeleton-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    pointer-events: none;
+    overflow: hidden;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+/* Animación de pulso/resplandor institucional en grises (#E0E0E0 / #F5F5F5) */
+@keyframes skeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton-box,
+.skeleton-pill,
+.skeleton-line,
+.skeleton-circle {
+    background: linear-gradient(90deg, #E0E0E0 25%, #F5F5F5 50%, #E0E0E0 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.8s infinite ease-in-out;
+}
+
+/* 2.1 Macroestructura: Sidebar a la izquierda (240px, 100vh) + Área Principal */
+.skeleton-dashboard-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #F5F5F5;
+    box-sizing: border-box;
+}
+
+/* 2.2 Skeleton Sidebar (240px fija, fondo blanco, borde derecho) */
+.skeleton-sidebar {
+    width: 240px;
+    min-width: 240px;
+    height: 100vh;
+    background-color: #FFFFFF;
+    border-right: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    box-sizing: border-box;
+}
+
+.skeleton-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 20px;
+}
+
+.skeleton-brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.skeleton-brand-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.skeleton-brand-title {
+    width: 110px;
+    height: 14px;
+    border-radius: 4px;
+}
+
+.skeleton-brand-subtitle {
+    width: 85px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.skeleton-sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1 1 auto;
+}
+
+.skeleton-menu-item {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.skeleton-menu-active {
+    background: linear-gradient(90deg, #D32F2F 20%, #EF5350 50%, #D32F2F 80%) !important;
+    opacity: 0.22;
+}
+
+.skeleton-sidebar-footer {
+    padding-top: 16px;
+    border-top: 1px solid #E0E0E0;
+    margin-top: auto;
+}
+
+/* 2.3 Skeleton Main Area (Topbar 72px + Contenido Central) */
+.skeleton-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #F5F5F5;
+}
+
+/* Topbar Skeleton (72px) */
+.skeleton-topbar {
+    height: 72px;
+    min-height: 72px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+.skeleton-topbar-title {
+    width: 140px;
+    height: 22px;
+    border-radius: 6px;
+}
+
+.skeleton-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.skeleton-topbar-user-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.skeleton-user-name {
+    width: 110px;
+    height: 14px;
+    border-radius: 4px;
+}
+
+.skeleton-user-role {
+    width: 65px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.skeleton-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Contenido Principal Skeleton (Padding 32px, max-width 1400px) */
+.skeleton-content {
+    padding: 32px;
+    flex: 1 1 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    box-sizing: border-box;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* A. Bloque de Bienvenida */
+.skeleton-welcome {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skeleton-welcome-title {
+    width: 240px;
+    height: 28px;
+    border-radius: 6px;
+}
+
+.skeleton-welcome-desc {
+    width: 65%;
+    height: 15px;
+    border-radius: 4px;
+}
+
+/* B. Fila de 3 Tarjetas de Resumen */
+.skeleton-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.skeleton-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 24px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.skeleton-card-icon-wrap {
+    margin-bottom: 16px;
+}
+
+.skeleton-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+}
+
+.skeleton-card-title {
+    width: 50%;
+    height: 18px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.skeleton-card-desc {
+    width: 85%;
+    height: 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.skeleton-card-link {
+    width: 35%;
+    height: 14px;
+    border-radius: 4px;
+    margin-top: auto;
+}
+
+/* C. Bloque a dos columnas (~65% / ~35%) */
+.skeleton-split-block {
+    display: grid;
+    grid-template-columns: 1.75fr 1.25fr;
+    gap: 24px;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+.skeleton-col-left,
+.skeleton-col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.skeleton-section-title {
+    width: 140px;
+    height: 18px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+/* Actividad reciente */
+.skeleton-activity-card {
+    padding: 20px;
+}
+
+.skeleton-timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.skeleton-timeline-item:last-child {
+    border-bottom: none;
+}
+
+.skeleton-timeline-bullet {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.skeleton-timeline-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.skeleton-timeline-line-1 {
+    width: 70%;
+    height: 14px;
+    border-radius: 4px;
+}
+
+.skeleton-timeline-line-2 {
+    width: 90px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+/* Acciones rápidas */
+.skeleton-quick-actions {
+    display: flex;
+    flex-direction: column;
+}
+
+.skeleton-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.skeleton-btn-primary {
+    width: 180px;
+    height: 44px;
+    border-radius: 8px;
+}
+
+.skeleton-btn-secondary {
+    width: 180px;
+    height: 44px;
+    border-radius: 8px;
+}
+
+/* Próximas oportunidades */
+.skeleton-opportunities-card {
+    padding: 20px;
+}
+
+.skeleton-opp-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.skeleton-opp-item:last-child {
+    border-bottom: none;
+}
+
+.skeleton-opp-badge {
+    width: 55px;
+    height: 18px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+.skeleton-opp-title {
+    width: 80%;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.skeleton-opp-desc {
+    width: 65%;
+    height: 12px;
+    border-radius: 3px;
+}
+
+/* ==========================================================================
+   3. CONTENEDOR CENTRAL: SPINNER CIRCULAR & LOGO OFICIAL
+   ========================================================================== */
+.loader-center-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 36px;
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 24px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(224, 224, 224, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transform: translateZ(0);
+}
+
+.loader-spinner-wrapper {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animación de rotación continua del spinner */
+@keyframes rotateSpinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 4px solid rgba(211, 47, 47, 0.12); /* Base suave */
+    border-top: 4px solid #D32F2F;              /* Borde principal Rojo Alzate */
+    border-right: 4px solid #1565C0;            /* Acento Azul Institucional */
+    animation: rotateSpinner 1s linear infinite;
+}
+
+/* Animación de suave pulso institucional para el isotipo centrado */
+@keyframes pulseLogo {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.95;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 1;
+    }
+}
+
+.loader-logo {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    animation: pulseLogo 2.2s ease-in-out infinite;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Leyenda accesible "Cargando..." */
+.loader-caption,
+.loader-text {
+    margin: 16px 0 0 0;
+    font-family: var(--font-family-base, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #212121;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: baseline;
+    user-select: none;
+}
+
+.loader-caption-text {
+    line-height: 1;
+}
+
+/* Puntos suspensivos animados */
+@keyframes dotPulse {
+    0%, 20% {
+        opacity: 0.2;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+    100% {
+        opacity: 0.2;
+        transform: translateY(0);
+    }
+}
+
+.loader-dots {
+    display: inline-flex;
+    margin-left: 2px;
+}
+
+.loader-dots span {
+    display: inline-block;
+    animation: dotPulse 1.4s infinite;
+    font-weight: 700;
+    color: #D32F2F; /* Rojo Alzate */
+}
+
+.loader-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loader-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* ==========================================================================
+   4. ADAPTACIÓN RESPONSIVE (MÓVIL < 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .skeleton-sidebar {
+        display: none;
+    }
+
+    .skeleton-topbar {
+        padding: 12px 16px;
+        height: 64px;
+        min-height: 64px;
+    }
+
+    .skeleton-topbar-left {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .skeleton-topbar-title {
+        display: none;
+    }
+
+    .skeleton-topbar-right {
+        order: 1;
+        gap: 10px;
+    }
+
+    .skeleton-topbar-user-text {
+        align-items: flex-start;
+    }
+
+    .skeleton-user-avatar {
+        order: 1;
+        width: 36px;
+        height: 36px;
+    }
+
+    .skeleton-topbar-user-text {
+        order: 2;
+    }
+
+    .skeleton-content {
+        padding: 20px 16px;
+        gap: 20px;
+    }
+
+    .skeleton-welcome-desc {
+        width: 100%;
+    }
+
+    .skeleton-summary-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .skeleton-split-block {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .skeleton-action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .skeleton-btn-primary,
+    .skeleton-btn-secondary {
+        width: 100%;
+    }
+
+    .loader-center-content {
+        padding: 24px 28px;
+        border-radius: 20px;
+    }
+
+    .loader-spinner-wrapper {
+        width: 84px;
+        height: 84px;
+    }
+
+    .loader-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .loader-caption {
+        font-size: 0.9rem;
+    }
+}

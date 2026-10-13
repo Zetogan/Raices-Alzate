@@ -39,6 +39,14 @@
    ========================================================================== */
 
 .auth-header {
+    position: static !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    display: block !important;
     text-align: left !important;
     margin-bottom: 24px;
     width: 100%;

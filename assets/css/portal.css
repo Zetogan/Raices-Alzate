@@ -1,0 +1,553 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Portal Público
+ * Pantallas:
+ *   - 05 - Egresados - Desktop (y adaptación Mobile)
+ *   - 06 - Proyectos - Desktop (y adaptación Mobile)
+ *   - 07 - Noticias - Desktop (y adaptación Mobile)
+ * Especificación Figma: 1440 × 900 px | Mobile: 390 px
+ * Paleta Oficial:
+ *   - Primario: #D32F2F (Rojo Alzate) | Hover: #B71C1C
+ *   - Secundario: #1565C0 (Azul Institucional) | Hover: rgba(21, 101, 192, 0.08)
+ *   - Texto principal: #212121 | Secundario: #757575
+ *   - Fondos: #FFFFFF / #F5F5F5 | Bordes: #E0E0E0
+ */
+
+/* ==========================================================================
+   0. ESTANDARIZACIÓN E INMUTABILIDAD DEL HEADER / NAVBAR
+   ========================================================================== */
+/* Header sticky persistente */
+.portal-header,
+.main-navbar,
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  background-color: #FFFFFF; /* Fondo completamente sólido */
+  border-bottom: 1px solid #E0E0E0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil para despegar del contenido */
+  z-index: 1000; /* Asegurar que flote sobre imágenes, tarjetas y modales */
+  box-sizing: border-box;
+}
+
+/* Contenedor interior del navbar con ancho máximo constante */
+.navbar-container,
+.header-content {
+  width: 100%;
+  max-width: 1200px; /* Asegura el mismo ancho en todas las pantallas */
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Blindaje de botones y elementos del header frente a estilos del portal */
+.portal-header .header-register-btn,
+.main-navbar .header-register-btn,
+.site-header .header-register-btn,
+header .header-register-btn {
+  width: 112px !important;
+  min-width: 112px !important;
+  max-width: 112px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.portal-header .header-login-link,
+.main-navbar .header-login-link,
+.site-header .header-login-link,
+header .header-login-link {
+  height: auto !important;
+  padding: 8px 12px !important;
+  font-size: 0.875rem !important;
+  line-height: 1 !important;
+}
+
+/* ==========================================================================
+   1. CONTENEDOR Y SECCIÓN DEL PORTAL PÚBLICO (PROYECTOS / EGRESADOS / NOTICIAS)
+   ========================================================================== */
+.portal-main,
+.proyectos-main,
+.egresados-main,
+.noticias-main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-light, #F5F5F5);
+    min-height: calc(100vh - var(--section-header-height, 72px) - var(--section-footer-height, 220px));
+}
+
+.portal-section,
+.proyectos-section,
+.egresados-section,
+.noticias-section {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    padding: var(--space-64, 64px) 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.portal-container,
+.proyectos-container,
+.egresados-container,
+.noticias-container {
+    width: 100%;
+    max-width: var(--container-max-width, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-24, 24px);
+    padding-right: var(--space-24, 24px);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. GRILLA RESPONSIVE DE DOS COLUMNAS (DESKTOP)
+   ========================================================================== */
+.portal-grid,
+.proyectos-grid,
+.egresados-grid,
+.noticias-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-areas:
+        "text visual"
+        "actions visual";
+    align-items: center;
+    column-gap: 48px;
+    row-gap: 32px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   3. COLUMNA IZQUIERDA (CONTENIDO Y ACCIONES)
+   ========================================================================== */
+.portal-header-text,
+.proyectos-header-text,
+.egresados-header-text,
+.noticias-header-text {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.portal-title,
+.proyectos-title,
+.egresados-title,
+.noticias-title {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 2.25rem; /* 36px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+}
+
+.portal-desc,
+.proyectos-desc,
+.egresados-desc,
+.noticias-desc {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+    color: var(--color-text-secondary, #757575);
+    max-width: 480px;
+    margin: 0;
+}
+
+.portal-actions,
+.proyectos-actions,
+.egresados-actions,
+.noticias-actions {
+    grid-area: actions;
+    display: flex;
+    align-items: center;
+    align-self: start;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Botón 1: Iniciar sesión (Principal #D32F2F) */
+.portal-actions .btn-primary,
+.portal-main .btn-primary,
+.proyectos-actions .btn-primary,
+.egresados-actions .btn-primary,
+.noticias-actions .btn-primary,
+.btn-portal-primary,
+.btn-proyectos-login,
+.btn-proyectos-primary,
+.btn-egresados-login,
+.btn-egresados-primary,
+.btn-noticias-login,
+.btn-noticias-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important; /* Evita que el texto se divida en 2 líneas */
+    text-align: center !important;
+    min-width: 140px;
+    width: auto;
+    height: 44px !important;
+    padding: 0 24px !important;
+    line-height: normal !important;
+    border-radius: 8px !important;
+    background-color: var(--color-primary, #D32F2F) !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none !important;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.portal-actions .btn-primary:hover,
+.portal-actions .btn-primary:focus,
+.portal-main .btn-primary:hover,
+.portal-main .btn-primary:focus,
+.proyectos-actions .btn-primary:hover,
+.proyectos-actions .btn-primary:focus,
+.egresados-actions .btn-primary:hover,
+.egresados-actions .btn-primary:focus,
+.noticias-actions .btn-primary:hover,
+.noticias-actions .btn-primary:focus,
+.btn-portal-primary:hover,
+.btn-portal-primary:focus,
+.btn-proyectos-primary:hover,
+.btn-proyectos-primary:focus,
+.btn-proyectos-login:hover,
+.btn-proyectos-login:focus,
+.btn-egresados-primary:hover,
+.btn-egresados-primary:focus,
+.btn-egresados-login:hover,
+.btn-egresados-login:focus,
+.btn-noticias-primary:hover,
+.btn-noticias-primary:focus,
+.btn-noticias-login:hover,
+.btn-noticias-login:focus {
+    background-color: var(--color-primary-hover, #B71C1C) !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.portal-actions .btn-primary:active,
+.portal-main .btn-primary:active,
+.proyectos-actions .btn-primary:active,
+.egresados-actions .btn-primary:active,
+.noticias-actions .btn-primary:active,
+.btn-portal-primary:active,
+.btn-proyectos-primary:active,
+.btn-proyectos-login:active,
+.btn-egresados-primary:active,
+.btn-egresados-login:active,
+.btn-noticias-primary:active,
+.btn-noticias-login:active {
+    background-color: #8E0000 !important;
+    transform: scale(0.98);
+}
+
+/* Botón 2: Crear una cuenta (Secundario Outline #1565C0) */
+.portal-actions .btn-outline-secondary,
+.portal-main .btn-outline-secondary,
+.proyectos-actions .btn-outline-secondary,
+.egresados-actions .btn-outline-secondary,
+.noticias-actions .btn-outline-secondary,
+.btn-portal-secondary,
+.btn-proyectos-secondary,
+.btn-egresados-secondary,
+.btn-noticias-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    min-width: 140px;
+    width: auto;
+    height: 44px !important;
+    padding: 0 24px !important;
+    line-height: normal !important;
+    border-radius: 8px !important;
+    border: 1.5px solid var(--color-secondary, #1565C0) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    background-color: transparent !important;
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.portal-actions .btn-outline-secondary:hover,
+.portal-actions .btn-outline-secondary:focus,
+.portal-main .btn-outline-secondary:hover,
+.portal-main .btn-outline-secondary:focus,
+.proyectos-actions .btn-outline-secondary:hover,
+.proyectos-actions .btn-outline-secondary:focus,
+.egresados-actions .btn-outline-secondary:hover,
+.egresados-actions .btn-outline-secondary:focus,
+.noticias-actions .btn-outline-secondary:hover,
+.noticias-actions .btn-outline-secondary:focus,
+.btn-portal-secondary:hover,
+.btn-portal-secondary:focus,
+.btn-proyectos-secondary:hover,
+.btn-proyectos-secondary:focus,
+.btn-egresados-secondary:hover,
+.btn-egresados-secondary:focus,
+.btn-noticias-secondary:hover,
+.btn-noticias-secondary:focus {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    border-color: var(--color-secondary, #1565C0) !important;
+    text-decoration: none !important;
+}
+
+.portal-actions .btn-outline-secondary:active,
+.portal-main .btn-outline-secondary:active,
+.proyectos-actions .btn-outline-secondary:active,
+.egresados-actions .btn-outline-secondary:active,
+.noticias-actions .btn-outline-secondary:active,
+.btn-portal-secondary:active,
+.btn-proyectos-secondary:active,
+.btn-egresados-secondary:active,
+.btn-noticias-secondary:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   4. COLUMNA DERECHA (TARJETA VISUAL DE ILUSTRACIÓN)
+   ========================================================================== */
+.portal-visual,
+.proyectos-visual,
+.egresados-visual,
+.noticias-visual,
+.portal-illustration-card,
+.proyectos-illustration-card,
+.egresados-illustration-card,
+.noticias-illustration-card {
+    grid-area: visual;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.portal-card,
+.proyectos-card,
+.egresados-card,
+.noticias-card,
+.portal-visual-card,
+.proyectos-visual-card,
+.egresados-visual-card,
+.noticias-visual-card {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.portal-card:hover,
+.proyectos-card:hover,
+.egresados-card:hover,
+.noticias-card:hover,
+.portal-visual-card:hover,
+.proyectos-visual-card:hover,
+.egresados-visual-card:hover,
+.noticias-visual-card:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+    transform: translateY(-2px);
+}
+
+.portal-illustration,
+.proyectos-illustration,
+.egresados-illustration,
+.noticias-illustration,
+.portal-illustration-img,
+.proyectos-illustration-img,
+.egresados-illustration-img,
+.noticias-illustration-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    display: block;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN (MOBILE & TABLET: <= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .portal-section,
+    .proyectos-section,
+    .egresados-section,
+    .noticias-section {
+        padding: 40px 0 48px 0;
+    }
+
+    /* Contenedor general en columna */
+    .portal-container,
+    .proyectos-container,
+    .egresados-container,
+    .noticias-container,
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .portal-grid,
+    .proyectos-grid,
+    .egresados-grid,
+    .noticias-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+    }
+
+    /* 1. Bloque de textos en primer lugar */
+    .portal-header-text,
+    .proyectos-header-text,
+    .egresados-header-text,
+    .noticias-header-text {
+        order: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    .portal-title,
+    .proyectos-title,
+    .egresados-title,
+    .noticias-title {
+        font-size: 1.875rem; /* 30px */
+        margin-bottom: 14px;
+        text-align: center;
+    }
+
+    .portal-desc,
+    .proyectos-desc,
+    .egresados-desc,
+    .noticias-desc {
+        font-size: 0.95rem;
+        max-width: 100%;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    /* 2. Tarjeta con la ilustración en segundo lugar */
+    .portal-visual,
+    .proyectos-visual,
+    .egresados-visual,
+    .noticias-visual,
+    .portal-illustration-card,
+    .proyectos-illustration-card,
+    .egresados-illustration-card,
+    .noticias-illustration-card {
+        order: 2;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 28px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .portal-card,
+    .proyectos-card,
+    .egresados-card,
+    .noticias-card,
+    .portal-visual-card,
+    .proyectos-visual-card,
+    .egresados-visual-card,
+    .noticias-visual-card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .portal-illustration,
+    .proyectos-illustration,
+    .egresados-illustration,
+    .noticias-illustration,
+    .portal-illustration-img,
+    .proyectos-illustration-img,
+    .egresados-illustration-img,
+    .noticias-illustration-img {
+        max-height: 240px;
+        width: 100%;
+        height: auto;
+    }
+
+    /* 3. Grupo de botones al final */
+    .portal-actions,
+    .proyectos-actions,
+    .egresados-actions,
+    .noticias-actions {
+        order: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        gap: 12px;
+    }
+
+    .portal-actions .btn-primary,
+    .portal-actions .btn-outline-secondary,
+    .proyectos-actions .btn-primary,
+    .proyectos-actions .btn-proyectos-login,
+    .proyectos-actions .btn-proyectos-primary,
+    .proyectos-actions .btn-outline-secondary,
+    .proyectos-actions .btn-proyectos-secondary,
+    .egresados-actions .btn-primary,
+    .egresados-actions .btn-egresados-login,
+    .egresados-actions .btn-egresados-primary,
+    .egresados-actions .btn-outline-secondary,
+    .egresados-actions .btn-egresados-secondary,
+    .noticias-actions .btn-primary,
+    .noticias-actions .btn-noticias-login,
+    .noticias-actions .btn-noticias-primary,
+    .noticias-actions .btn-outline-secondary,
+    .noticias-actions .btn-noticias-secondary {
+        width: 100% !important;
+        height: 44px !important;
+    }
+}

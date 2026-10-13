@@ -15,7 +15,7 @@
 | Versión actual         | v0.1.1                                                                                         |
 | Estado                 | 🟡 En desarrollo                                                                               |
 | Fase actual            | Fase 4 — Implementación                                                                        |
-| Última actualización   | 9 de octubre de 2026                                                                           |
+| Última actualización   | 13 de octubre de 2026                                                                          |
 | Responsable documental | Santiago Emitola                                                                               |
 
 ---
@@ -24,15 +24,19 @@
 
 Este directorio contiene la documentación del proyecto **Raíces Alzate**, en la que se registran la planificación, los requisitos, la arquitectura, las decisiones técnicas, la evolución y los avances de desarrollo de la plataforma.
 
-Su objetivo es mantener organizada la información del proyecto, facilitar la comprensión de su estructura y proporcionar una referencia para las distintas etapas de implementación y mantenimiento.
+Su objetivo es mantener organizada la información del proyecto, facilitar la comprensión de su estructura y proporcionar una referencia para las distintas etapas de implementación, integración, pruebas y mantenimiento.
 
 Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**.
 
-Las etapas de planificación y diseño UI/UX se encuentran consolidadas. La implementación ya cuenta con una estructura inicial de frontend, la interfaz de Inicio y avances reportados en autenticación, registro y recuperación de contraseña.
+Las etapas de planificación y diseño UI/UX están consolidadas. La fase de diseño se cerró a finales de septiembre de 2026, con un total de 34 pantallas diseñadas en Figma: 17 interfaces Desktop y 17 adaptaciones Mobile.
 
-La conexión entre PHP y MySQL también fue verificada. Sin embargo, todavía se deben completar las funcionalidades del sistema, definir la estructura definitiva de la base de datos y verificar integralmente los flujos desarrollados.
+La implementación ya cuenta con una estructura inicial de frontend, la interfaz de Inicio y avances reportados en autenticación, registro, recuperación de contraseña, navegación interna y Dashboard.
+
+La conexión entre PHP y MySQL también fue verificada. Sin embargo, todavía deben completarse las funcionalidades del sistema, definirse la estructura definitiva de la base de datos y verificarse integralmente los flujos desarrollados.
 
 La documentación se actualizará progresivamente para mantenerla alineada con el estado real del repositorio.
+
+> La existencia de un diseño, una estructura de código o un procesamiento inicial no implica que una funcionalidad esté terminada. Los módulos deben validarse mediante las pruebas correspondientes antes de considerarse completos.
 
 ---
 
@@ -67,7 +71,7 @@ El archivo `docs/README.md` funciona como índice de la documentación técnica.
 
 # 📑 Índice de documentos
 
-## 📝 `01_Bitacora.md`
+## 📝 [`01_Bitacora.md`](01_Bitacora.md)
 
 **Registro histórico del desarrollo del proyecto.**
 
@@ -82,11 +86,11 @@ Contiene:
 * Avances de implementación.
 * Problemas identificados y actividades pendientes.
 
-**Estado:** ✅ Actualizada según los avances documentados.
+**Estado:** 🟡 Actualizada según los avances documentados; debe seguir incorporando las nuevas actividades relevantes.
 
 ---
 
-## 📋 `02_Planificacion.md`
+## 📋 [`02_Planificacion.md`](02_Planificacion.md)
 
 **Organización general del trabajo y gestión del proyecto.**
 
@@ -104,11 +108,11 @@ Incluye:
 * Criterios de finalización.
 * Avances y actividades pendientes.
 
-**Estado:** ✅ Actualizada.
+**Estado:** 🟡 Documento de planificación actualizado; sujeto a revisiones conforme evolucione la implementación.
 
 ---
 
-## 📌 `03_Requisitos.md`
+## 📌 [`03_Requisitos.md`](03_Requisitos.md)
 
 **Definición de las necesidades y funcionalidades del sistema.**
 
@@ -125,13 +129,13 @@ Incluye:
 * Criterios de aceptación.
 * Estado de implementación de los requisitos.
 
-**Estado:** ✅ Actualizada.
+**Estado:** 🟡 Documento de referencia para el desarrollo y la validación de funcionalidades.
 
 > Los requisitos describen las necesidades del sistema. Su documentación no implica que todas las funcionalidades correspondientes estén implementadas o verificadas.
 
 ---
 
-## 🏗️ `04_Arquitectura.md`
+## 🏗️ [`04_Arquitectura.md`](04_Arquitectura.md)
 
 **Descripción técnica de la estructura del sistema.**
 
@@ -150,11 +154,11 @@ Incluye:
 * Integración con la base de datos.
 * Consideraciones técnicas de seguridad y mantenimiento.
 
-**Estado:** 📌 Documento de referencia técnica que debe mantenerse sincronizado con la arquitectura realmente implementada.
+**Estado:** 🟡 Documento de referencia técnica que debe mantenerse sincronizado con la arquitectura realmente implementada.
 
 ---
 
-## ⚙️ `05_Manual_Tecnico.md`
+## ⚙️ [`05_Manual_Tecnico.md`](05_Manual_Tecnico.md)
 
 **Guía técnica destinada a desarrolladores y responsables del mantenimiento.**
 
@@ -178,7 +182,7 @@ Incluirá progresivamente:
 
 ---
 
-## 👤 `06_Manual_Usuario.md`
+## 👤 [`06_Manual_Usuario.md`](06_Manual_Usuario.md)
 
 **Guía destinada a los usuarios finales de la plataforma.**
 
@@ -202,9 +206,9 @@ Incluirá:
 
 # 📚 Documentos complementarios
 
-Los siguientes archivos se encuentran previstos en la raíz del repositorio y complementan la documentación de `docs/`.
+Los siguientes archivos complementan la documentación de `docs/` y se encuentran previstos en la raíz del repositorio.
 
-## 🗺️ `../ROADMAP.md`
+## 🗺️ [`../ROADMAP.md`](../ROADMAP.md)
 
 **Plan de evolución y seguimiento de las fases del proyecto.**
 
@@ -217,11 +221,11 @@ Incluye:
 * Próximos objetivos.
 * Estado general del proyecto.
 
-**Estado:** ✅ Actualizado.
+**Estado:** 🟡 Actualizado al 13 de octubre de 2026.
 
 ---
 
-## ⚖️ `../decisiones.md`
+## ⚖️ [`../decisiones.md`](../decisiones.md)
 
 **Registro de decisiones importantes tomadas durante el desarrollo.**
 
@@ -234,11 +238,11 @@ Incluye:
 * Criterios adoptados.
 * Evolución de las decisiones del proyecto.
 
-**Estado:** ✅ Actualizado.
+**Estado:** 📌 Documento de referencia para las decisiones registradas; debe actualizarse cuando se adopten nuevas decisiones relevantes.
 
 ---
 
-## 📖 `../glosario.md`
+## 📖 [`../glosario.md`](../glosario.md)
 
 **Definición de los términos utilizados durante el desarrollo.**
 
@@ -259,11 +263,11 @@ Incluye conceptos relacionados con:
 * Git y GitHub.
 * Implementación.
 
-**Estado:** ✅ Actualizado.
+**Estado:** 📌 Documento de referencia terminológica.
 
 ---
 
-## 📝 `../CHANGELOG.md`
+## 📝 [`../CHANGELOG.md`](../CHANGELOG.md)
 
 **Registro de cambios y evolución de las versiones del proyecto.**
 
@@ -278,7 +282,7 @@ Permite consultar:
 * Cambios entre versiones.
 * Avances de implementación.
 
-**Estado:** ✅ Actualizado.
+**Estado:** 📌 Debe mantenerse actualizado con los cambios relevantes del proyecto y las versiones registradas.
 
 ---
 
@@ -364,39 +368,41 @@ La documentación se relaciona de forma progresiva para facilitar la trazabilida
 
 ```text
 Planificación
-      │
-      ▼
+     │
+     ▼
 Requisitos
-      │
-      ▼
+     │
+     ▼
 Arquitectura
-      │
-      ▼
+     │
+     ▼
 Diseño UI/UX
-      │
-      ▼
+     │
+     ▼
 Implementación
-      │
-      ├── Frontend
-      ├── Backend
-      └── Base de datos
-              │
-              ▼
+     │
+     ├── Frontend
+     ├── Backend
+     └── Base de datos
+             │
+             ▼
          Integración
-              │
-              ▼
+             │
+             ▼
            Pruebas
-              │
-              ▼
-      Documentación final
-              │
-              ▼
-          Despliegue
+             │
+             ▼
+     Documentación final
+             │
+             ▼
+         Despliegue
 ```
 
 La Bitácora, el `CHANGELOG.md` y `decisiones.md` acompañan transversalmente las diferentes etapas del proyecto.
 
 El glosario proporciona definiciones comunes para mantener una terminología coherente entre los documentos.
+
+El diseño UI/UX ya está cerrado. Por lo tanto, en la etapa actual, Figma se utiliza como referencia para implementar y validar las interfaces, no como una fase de diseño todavía abierta.
 
 ---
 
@@ -430,6 +436,8 @@ Realizar el commit en Git
 
 No todos los cambios requieren modificar todos los documentos. Las actualizaciones deben realizarse según su alcance e impacto.
 
+Cuando un cambio modifique la arquitectura, los requisitos, las rutas o la estructura de archivos, también deberán revisarse las referencias relacionadas.
+
 ---
 
 # 📌 Buenas prácticas de documentación
@@ -448,6 +456,9 @@ Para mantener la calidad y la coherencia documental se aplican las siguientes pr
 * Distinguir las funcionalidades planificadas de las implementadas.
 * No declarar una funcionalidad como terminada sin verificar su funcionamiento.
 * Mantener las referencias y los enlaces internos actualizados.
+* Verificar los nombres y las rutas de los archivos antes de documentarlos como definitivos.
+* No registrar datos simulados como información real de la aplicación.
+* Separar las herramientas temporales de desarrollo de las funcionalidades destinadas a producción.
 
 ---
 
@@ -485,7 +496,7 @@ Ejemplo de commit:
 
 ```bash
 git add docs/README.md
-git commit -m "docs: consolidar indice de documentacion"
+git commit -m "docs: actualizar indice de documentacion"
 git push
 ```
 
@@ -495,14 +506,15 @@ El mensaje es un ejemplo de referencia; debe ajustarse a los archivos incluidos 
 
 # 📅 Control de cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                                   | Autor            |
-| ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial del índice documental y organización de los documentos del proyecto.                                                                                                         | Santiago Emitola |
-| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con los avances del diseño UI/UX.                                                                                                          | Santiago Emitola |
-| v0.1.0  | 05/09/2026 | Actualización del índice documental según los avances del Design System, Components & Responsive, los estados de los componentes y la estructura de navegación.                               | Santiago Emitola |
-| v0.1.1  | 07/10/2026 | Actualización general del índice, revisión de referencias documentales y consolidación del estado de la fase UI/UX y la transición a implementación.                                          | Santiago Emitola |
-| v0.1.1  | 08/10/2026 | Actualización del índice según los avances iniciales del frontend, los estilos CSS modulares, los componentes PHP reutilizables y la navegación responsive.                                   | Santiago Emitola |
-| v0.1.1  | 09/10/2026 | Incorporación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las referencias al estado actual del proyecto y sus actividades pendientes. | Santiago Emitola |
+| Versión | Fecha      | Descripción                                                                                                                                                                                                             | Autor            |
+| ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial del índice documental y organización de los documentos del proyecto. El proyecto había comenzado en 2025.                                                                                              | Santiago Emitola |
+| v0.1.0  | 20/07/2026 | Actualización de la documentación y sincronización con los avances del diseño UI/UX.                                                                                                                                    | Santiago Emitola |
+| v0.1.0  | 05/09/2026 | Actualización del índice documental según los avances del Design System, Components & Responsive, los estados de los componentes y la estructura de navegación.                                                         | Santiago Emitola |
+| v0.1.1  | 07/10/2026 | Actualización general del índice, revisión de referencias documentales y consolidación del estado de la fase UI/UX y la transición a implementación.                                                                    | Santiago Emitola |
+| v0.1.1  | 08/10/2026 | Actualización del índice según los avances iniciales del frontend, los estilos CSS modulares, los componentes PHP reutilizables y la navegación responsive.                                                             | Santiago Emitola |
+| v0.1.1  | 09/10/2026 | Incorporación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las referencias al estado actual del proyecto y sus actividades pendientes.                           | Santiago Emitola |
+| v0.1.1  | 13/10/2026 | Actualización del estado general, consolidación de la referencia a las 34 pantallas diseñadas y registro de los avances reportados en Dashboard, navegación interna y tareas pendientes de implementación y validación. | Santiago Emitola |
 
 > El proyecto comenzó en 2025. Las fechas de esta tabla corresponden a registros de creación y actualización documental, no a la fecha de inicio del proyecto.
 
@@ -528,7 +540,7 @@ Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
 * [x] Consolidación de la página Components & Responsive.
 * [x] Definición de la estructura de navegación.
 * [x] Diseño de las 17 interfaces Desktop.
-* [x] Trabajo en las adaptaciones Mobile indicadas en la documentación de diseño.
+* [x] Diseño de las 17 adaptaciones Mobile.
 * [x] Finalización de la fase de diseño UI/UX.
 * [x] Preparación de la estructura base del frontend.
 * [x] Desarrollo inicial de componentes PHP reutilizables para Header y Footer.
@@ -537,8 +549,9 @@ Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
 * [x] Implementación inicial de la interfaz de Inicio Mobile.
 * [x] Implementación de la navegación responsive.
 * [x] Integración del isotipo y el favicon.
-* [x] Verificación de la conexión entre PHP y MySQL.
-* [x] Desarrollo inicial de las pantallas y procesos de autenticación, registro y recuperación de contraseña, según los avances reportados.
+* [x] Verificación reportada de la conexión entre PHP y MySQL.
+* [x] Desarrollo inicial de las pantallas y procesos de autenticación, registro y recuperación de contraseña.
+* [x] Avances reportados en la estructura del Dashboard y la navegación interna.
 
 > Estos elementos representan avances documentados. La marca de verificación no sustituye las pruebas funcionales necesarias para confirmar que cada módulo está completamente operativo.
 
@@ -546,6 +559,7 @@ Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
 
 * 🟡 Consolidación e implementación del frontend.
 * 🟡 Desarrollo inicial de los procesos de autenticación y formularios.
+* 🟡 Desarrollo de la interfaz y navegación interna del Dashboard.
 * ⏳ Verificación funcional de los flujos de registro e inicio de sesión.
 * ⏳ Finalización y validación del proceso de recuperación de contraseña.
 * ⏳ Diseño e implementación del modelo definitivo de la base de datos.
@@ -558,7 +572,9 @@ Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
 * Revisar Inicio Mobile frente a Figma.
 * Corregir las diferencias visuales y estructurales identificadas.
 * Consolidar los componentes y estilos reutilizables.
+* Revisar el Dashboard y su comportamiento responsive.
 * Verificar los formularios y procesos iniciales de autenticación.
+* Revisar el manejo de sesiones y los mecanismos temporales de prueba.
 * Continuar con la implementación de las interfaces restantes.
 * Definir el modelo entidad-relación y la estructura definitiva de la base de datos.
 * Implementar las funcionalidades del backend.

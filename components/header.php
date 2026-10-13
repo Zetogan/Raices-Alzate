@@ -10,8 +10,8 @@ if (!defined('APP_NAME')) {
 
 $currentPage = $currentPage ?? 'inicio';
 ?>
-<header class="site-header header">
-    <div class="container header-inner">
+<header class="portal-header main-navbar site-header header">
+    <div class="navbar-container header-content container header-inner">
         <!-- Izquierda: Identidad de Marca -->
         <a href="index.php" class="brand header-logo" aria-label="<?php echo htmlspecialchars(APP_NAME); ?>">
             <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo Raíces Alzate" class="brand-logo-img">
@@ -25,13 +25,13 @@ $currentPage = $currentPage ?? 'inicio';
                     <a href="index.php" class="nav-link <?php echo ($currentPage === 'inicio') ? 'active' : ''; ?>">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#proyectos" class="nav-link">Proyectos</a>
+                    <a href="proyectos.php" class="nav-link <?php echo ($currentPage === 'proyectos') ? 'active' : ''; ?>">Proyectos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#egresados" class="nav-link">Egresados</a>
+                    <a href="egresados.php" class="nav-link <?php echo ($currentPage === 'egresados') ? 'active' : ''; ?>">Egresados</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#noticias" class="nav-link">Noticias</a>
+                    <a href="noticias.php" class="nav-link <?php echo ($currentPage === 'noticias') ? 'active' : ''; ?>">Noticias</a>
                 </li>
             </ul>
 

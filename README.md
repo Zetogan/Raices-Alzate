@@ -1,6 +1,6 @@
 # 🌱 Raíces Alzate
 
-> Plataforma digital para la gestión, seguimiento y fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
+> Plataforma digital para la gestión, el seguimiento y el fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
 
 ---
 
@@ -26,7 +26,7 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 
 ## ✨ Características
 
-La plataforma contempla las siguientes funcionalidades y características:
+La plataforma contempla las siguientes funcionalidades y características.
 
 ### Funcionalidades de la plataforma
 
@@ -50,15 +50,16 @@ La plataforma contempla las siguientes funcionalidades y características:
 * HTML5 semántico.
 * CSS modularizado.
 * JavaScript vanilla.
-* Integración con MySQL mediante PHP.
+* Integración con MySQL mediante PHP y PDO.
 * Diseño UI/UX desarrollado en Figma.
 * Design System y componentes reutilizables.
-* Interfaces Desktop diseñadas y adaptaciones Mobile trabajadas.
+* 17 interfaces principales diseñadas para Desktop.
+* 17 adaptaciones de las interfaces para Mobile.
 * Criterios de diseño responsive.
 * Documentación técnica organizada.
 * Control de versiones mediante Git y GitHub.
 
-> Las funcionalidades descritas representan el alcance previsto del sistema. Algunas ya cuentan con avances de implementación, mientras que otras continúan pendientes de desarrollo, integración o validación funcional.
+> **Nota:** Las funcionalidades descritas representan el alcance previsto del sistema. Algunas cuentan con avances de implementación, mientras que otras continúan pendientes de desarrollo, integración o validación funcional.
 
 ---
 
@@ -66,7 +67,7 @@ La plataforma contempla las siguientes funcionalidades y características:
 
 | Tecnología         | Uso                                                   |
 | ------------------ | ----------------------------------------------------- |
-| HTML5              | Estructura de las interfaces.                         |
+| HTML5              | Estructura semántica de las interfaces.               |
 | CSS3               | Diseño visual, estilos y adaptación responsive.       |
 | JavaScript         | Interactividad y validaciones del lado del cliente.   |
 | PHP                | Procesamiento del servidor y lógica de la aplicación. |
@@ -78,7 +79,46 @@ La plataforma contempla las siguientes funcionalidades y características:
 | Visual Studio Code | Entorno de desarrollo.                                |
 | XAMPP              | Entorno de desarrollo local.                          |
 
-Actualmente, el frontend se desarrolla sin frameworks, utilizando **PHP, HTML, CSS y JavaScript vanilla**. La estructura se organiza de manera modular para facilitar el mantenimiento y la evolución del proyecto.
+El frontend se desarrolla sin frameworks, utilizando **PHP, HTML, CSS y JavaScript vanilla**. La estructura se organiza de manera modular para facilitar el mantenimiento y la evolución del proyecto.
+
+---
+
+## 🎨 Diseño UI/UX
+
+La fase de diseño UI/UX se encuentra **completada y cerrada**. Las interfaces fueron diseñadas en Figma antes de continuar con la implementación.
+
+### Design System
+
+El sistema visual establece criterios comunes para mantener la consistencia de la plataforma:
+
+* Paleta de colores.
+* Tipografía.
+* Sistema de espaciado.
+* Botones y campos de entrada.
+* Checkbox, Radio Button y Switch.
+* Tablas y estados de interacción.
+* Criterios de diseño responsive.
+
+### Interfaces diseñadas
+
+Se completaron **34 pantallas en total**: 17 para Desktop y sus 17 adaptaciones para Mobile.
+
+Las pantallas abarcan:
+
+* Inicio.
+* Autenticación.
+* Dashboard.
+* Perfil.
+* Egresados.
+* Proyectos.
+* Noticias.
+* Administración.
+* Creación, edición y detalle de proyectos.
+* Registro.
+* Recuperación de contraseña.
+* Creación, edición y detalle de noticias.
+
+La finalización del diseño no implica que todas las pantallas estén implementadas. La construcción y validación del frontend continúan de manera progresiva.
 
 ---
 
@@ -117,11 +157,13 @@ raices-alzate/
 └── index.php
 ```
 
-> Esta estructura es una referencia general del proyecto. La ubicación definitiva de los archivos y la presencia de directorios adicionales deben coincidir con el estado real del repositorio.
+> Esta estructura es una referencia general. La ubicación definitiva de los archivos y la presencia de directorios adicionales deben coincidir con el estado real del repositorio.
 
 ### Organización de estilos
 
-La estructura CSS reportada incluye los siguientes archivos:
+La organización de los estilos se realiza mediante archivos CSS separados según las responsabilidades de cada componente o módulo.
+
+Entre los archivos utilizados se encuentran:
 
 ```text
 assets/css/
@@ -129,14 +171,19 @@ assets/css/
 ├── fonts.css
 ├── header.css
 ├── footer.css
-└── auth.css
+├── auth.css
+├── dashboard.css
+├── loader.css
+└── portal.css
 ```
+
+La lista puede ampliarse conforme se implementen nuevas interfaces y componentes.
 
 ### Componentes y recursos compartidos
 
-El proyecto utiliza componentes PHP reutilizables para elementos comunes de la interfaz, como el encabezado y el pie de página.
+El proyecto utiliza componentes PHP reutilizables para elementos comunes de la interfaz, como el encabezado, el pie de página, la navegación lateral y la barra superior del dashboard.
 
-La ubicación y las responsabilidades de los archivos compartidos deben mantenerse consistentes con la arquitectura efectiva del repositorio.
+Los archivos compartidos se organizan entre `components/` e `includes/`, según su responsabilidad dentro de la arquitectura.
 
 ---
 
@@ -170,30 +217,32 @@ Los manuales Técnico y de Usuario se completarán progresivamente cuando exista
 * **Estado:** 🟡 En desarrollo
 * **Inicio del proyecto:** 2025
 * **Fase actual:** Fase 4 — Implementación
-* **Última actualización documental:** 9 de octubre de 2026
+* **Última actualización documental:** 13 de octubre de 2026
 
-Las fases de planificación y diseño UI/UX se encuentran consolidadas. La implementación del sistema está en curso.
+Las fases de preparación, planificación, documentación base y diseño UI/UX se encuentran consolidadas. La implementación del sistema está en curso.
 
 ### Avances registrados
 
+* [x] Preparación inicial del repositorio y configuración de Git y GitHub.
 * [x] Planificación general del proyecto.
 * [x] Definición de los requisitos funcionales y no funcionales.
-* [x] Documentación base.
+* [x] Elaboración de la documentación base.
 * [x] Definición de la identidad visual.
 * [x] Creación del Design System.
 * [x] Diseño de componentes y estados de interacción.
 * [x] Definición de la estructura de navegación.
 * [x] Diseño de 17 interfaces Desktop.
-* [x] Trabajo en las adaptaciones Mobile documentadas.
-* [x] Consolidación de la fase de diseño UI/UX.
+* [x] Diseño de 17 adaptaciones Mobile.
+* [x] Cierre de la fase de diseño UI/UX.
 * [x] Preparación de la estructura inicial del frontend.
 * [x] Desarrollo inicial de componentes PHP reutilizables.
 * [x] Organización modular de los estilos CSS.
-* [x] Implementación inicial de la interfaz de Inicio.
-* [x] Desarrollo de la navegación responsive y el menú móvil.
+* [x] Implementación inicial de la interfaz de Inicio para Desktop y Mobile.
+* [x] Desarrollo inicial del encabezado y los elementos de navegación responsive.
 * [x] Integración del isotipo y el favicon.
-* [x] Verificación de la conexión entre PHP y MySQL.
-* [x] Desarrollo inicial de las interfaces y procesos de autenticación, registro y recuperación de contraseña, según los avances reportados.
+* [x] Desarrollo inicial de la estructura del dashboard y sus elementos de navegación.
+* [x] Implementación visual inicial de las interfaces de autenticación, registro y recuperación de contraseña.
+* [x] Verificación inicial de la conexión entre PHP y MySQL.
 
 ### Actividades pendientes
 
@@ -203,10 +252,11 @@ Las fases de planificación y diseño UI/UX se encuentran consolidadas. La imple
 * [ ] Continuar con la implementación de las interfaces restantes.
 * [ ] Verificar funcionalmente el registro y el inicio de sesión.
 * [ ] Completar y probar el flujo de recuperación de contraseña.
-* [ ] Configurar el envío de correos electrónicos para la recuperación.
+* [ ] Configurar y verificar el envío de correos electrónicos para la recuperación.
 * [ ] Diseñar e implementar el modelo definitivo de la base de datos.
 * [ ] Completar las funcionalidades del backend.
-* [ ] Implementar los módulos de usuarios, egresados, proyectos y noticias.
+* [ ] Implementar los módulos de usuarios y egresados.
+* [ ] Implementar los módulos de proyectos y noticias.
 * [ ] Implementar y verificar los roles y permisos.
 * [ ] Integrar los módulos con la base de datos.
 * [ ] Realizar pruebas funcionales, de integración, responsive y de seguridad.
@@ -278,7 +328,7 @@ Los manuales Técnico y de Usuario continúan pendientes de completar.
 * Paleta de colores.
 * Tipografía.
 * Sistema de espaciado.
-* Botones e Inputs.
+* Botones y campos de entrada.
 * Checkbox, Radio Button y Switch.
 * Tablas.
 * Estados de interacción.
@@ -291,37 +341,35 @@ Los manuales Técnico y de Usuario continúan pendientes de completar.
 * Estructura de navegación.
 * Relación entre módulos.
 
-**Interfaces Desktop**
+**Interfaces Desktop y Mobile**
 
-Se diseñaron 17 interfaces principales, incluyendo Inicio, Autenticación, Dashboard, Perfil, Egresados, Proyectos, Noticias, Administración y pantallas de creación, detalle y edición.
+Se diseñaron 17 interfaces principales y sus 17 adaptaciones para Mobile, incluyendo Inicio, Autenticación, Dashboard, Perfil, Egresados, Proyectos, Noticias, Administración y pantallas de creación, edición y detalle.
 
-**Adaptaciones Mobile**
-
-Se trabajaron adaptaciones para Inicio, Autenticación, Dashboard, Mi perfil, Mis proyectos y Oportunidades.
-
-**Estado:** Completada a finales de septiembre de 2026.
+**Estado:** Completada y cerrada a finales de septiembre de 2026.
 
 ### 🔄 Fase 4 — Implementación
 
 **Frontend**
 
-* Estructura inicial HTML/PHP.
+* Estructura inicial PHP.
 * Componentes reutilizables.
-* Header y Footer.
+* Encabezado y pie de página.
 * Navegación responsive.
 * Menú móvil.
 * Isotipo y favicon.
 * Estilos CSS modulares.
-* Interfaz de Inicio Desktop y Mobile.
+* Interfaz de Inicio para Desktop y Mobile.
+* Estructura inicial del dashboard.
+* Interfaces iniciales de autenticación y formularios.
 
 **Autenticación y formularios**
 
 * Estructura inicial de inicio de sesión.
-* Procesamiento inicial del registro.
+* Desarrollo inicial del registro.
 * Validaciones visuales de formularios.
 * Alertas reutilizables.
 * Estructura inicial de recuperación de contraseña.
-* Generación inicial de tokens de recuperación.
+* Avances en la generación de tokens de recuperación.
 
 **Pendiente**
 
@@ -401,7 +449,7 @@ cd Raices-Alzate
 
 ### 4. Configurar la base de datos
 
-La conexión entre PHP y MySQL se ha verificado, pero la estructura definitiva de tablas y relaciones todavía debe consolidarse.
+La conexión entre PHP y MySQL se ha verificado inicialmente, pero la estructura definitiva de tablas y relaciones todavía debe consolidarse.
 
 Antes de utilizar las funcionalidades que dependan de datos persistentes, será necesario completar la configuración de la base de datos y verificar las tablas requeridas por cada módulo.
 
@@ -428,9 +476,11 @@ La plataforma contempla:
 * Gestión de roles y permisos.
 * Paneles de usuario y administración.
 
-Actualmente se han desarrollado la interfaz inicial de Inicio, elementos compartidos de navegación y avances en los formularios y procesos de autenticación.
+Actualmente existen avances en la interfaz de Inicio, los elementos compartidos de navegación, el dashboard y los formularios de autenticación.
 
-La disponibilidad y el funcionamiento de cada módulo dependerán de su nivel de implementación y validación.
+La disponibilidad y el funcionamiento de cada módulo dependerán de su nivel de implementación, integración y validación.
+
+**Importante:** las interfaces de desarrollo y las rutas de prueba no deben considerarse funcionalidades listas para producción. Antes de publicar el sistema será necesario verificar los controles de acceso, la gestión de sesiones, la persistencia de datos y los mecanismos de seguridad.
 
 ---
 
@@ -472,7 +522,7 @@ La disponibilidad y el funcionamiento de cada módulo dependerán de su nivel de
 * Validar la compatibilidad responsive.
 * Verificar la seguridad de la aplicación.
 * Corregir errores.
-* Preparar la versión estable.
+* Preparar una versión estable.
 * Completar la documentación técnica y de usuario.
 * Preparar el despliegue.
 

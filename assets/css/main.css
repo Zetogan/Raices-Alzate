@@ -83,6 +83,8 @@ html {
     font-size: 16px;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
 body {
@@ -200,6 +202,40 @@ img {
     font-size: 15px; /* Restaurado a su proporción visual previa */
     background-color: #D32F2F;
     color: #FFFFFF !important;
+}
+
+/* Botón secundario outline (Azul Institucional) */
+.btn-outline-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1;
+    text-decoration: none !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 44px;
+    padding: 0 24px;
+    border: 1.5px solid var(--color-secondary, #1565C0);
+    color: var(--color-secondary, #1565C0) !important;
+    background-color: transparent !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    border-color: var(--color-secondary, #1565C0) !important;
+    text-decoration: none !important;
+}
+
+.btn-outline-secondary:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    transform: scale(0.98);
 }
 
 /* ==========================================================================

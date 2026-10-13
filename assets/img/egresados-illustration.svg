@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="100%" height="100%" fill="none" role="img" aria-labelledby="svgTitle svgDesc">
+  <title id="svgTitle">Ilustración de Egresados Raíces Alzate</title>
+  <desc id="svgDesc">Comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño con birrete de graduación, diplomas, red de conexiones y crecimiento institucional.</desc>
+
+  <defs>
+    <!-- Filtros de sombra suave -->
+    <filter id="egresadosSoftShadow" x="-10%" y="-10%" width="120%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.06" />
+    </filter>
+    <filter id="egresadosCardShadow" x="-20%" y="-20%" width="140%" height="150%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Gradientes institucionales estrictos -->
+    <linearGradient id="egresadosBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="portalWindowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F5F5F5" />
+    </linearGradient>
+
+    <linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2C3437" />
+      <stop offset="100%" stop-color="#212121" />
+    </linearGradient>
+
+    <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#B71C1C" />
+    </linearGradient>
+
+    <linearGradient id="blueAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1976D2" />
+      <stop offset="100%" stop-color="#1565C0" />
+    </linearGradient>
+
+    <linearGradient id="stemGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1565C0" />
+      <stop offset="50%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#B71C1C" />
+    </linearGradient>
+  </defs>
+
+  <!-- ======================================================================
+       1. FONDOS DECORATIVOS Y HALOS
+       ====================================================================== -->
+  <!-- Halo central principal -->
+  <circle cx="320" cy="240" r="195" fill="url(#egresadosBgGrad)" />
+
+  <!-- Anillos concéntricos de conexión -->
+  <circle cx="320" cy="240" r="220" stroke="#E0E0E0" stroke-width="1.5" stroke-dasharray="6 6" />
+  <circle cx="320" cy="240" r="165" stroke="#1565C0" stroke-width="1" stroke-opacity="0.2" />
+
+  <!-- Sombra base -->
+  <ellipse cx="320" cy="430" rx="210" ry="14" fill="#212121" fill-opacity="0.05" />
+  <ellipse cx="320" cy="430" rx="150" ry="8" fill="#212121" fill-opacity="0.07" />
+
+  <!-- ======================================================================
+       2. TARJETA PORTAL CENTRAL (DIRECTORIO / COMUNIDAD INSTITUCIONAL)
+       ====================================================================== -->
+  <g id="main-directory-board" filter="url(#egresadosSoftShadow)">
+    <!-- Marco de ventana del directorio -->
+    <rect x="145" y="105" width="350" height="280" rx="16" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+
+    <!-- Barra de cabecera de la ventana -->
+    <path d="M 145 121 C 145 112.16 152.16 105 161 105 L 479 105 C 487.84 105 495 112.16 495 121 L 495 145 L 145 145 Z" fill="#F5F5F5" />
+    <line x1="145" y1="145" x2="495" y2="145" stroke="#E0E0E0" stroke-width="1" />
+
+    <!-- Puntos de ventana (Rojo Alzate, Neutros) -->
+    <circle cx="165" cy="125" r="4" fill="#D32F2F" />
+    <circle cx="178" cy="125" r="4" fill="#BDBDBD" />
+    <circle cx="191" cy="125" r="4" fill="#E0E0E0" />
+
+    <!-- Título de cabecera simulado -->
+    <rect x="225" y="121" width="190" height="8" rx="4" fill="#E0E0E0" />
+
+    <!-- Contenido interno de la tarjeta / directorio -->
+    <!-- Barra de búsqueda simulada -->
+    <rect x="175" y="165" width="290" height="30" rx="8" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="195" cy="180" r="5" stroke="#757575" stroke-width="1.5" fill="none" />
+    <line x1="198.5" y1="183.5" x2="204" y2="189" stroke="#757575" stroke-width="1.5" stroke-linecap="round" />
+    <rect x="215" y="177" width="130" height="6" rx="3" fill="#BDBDBD" />
+    <rect x="420" y="171" width="35" height="18" rx="4" fill="#1565C0" fill-opacity="0.1" />
+    <rect x="428" y="178" width="19" height="4" rx="2" fill="#1565C0" />
+
+    <!-- Red de perfiles destacados simulados -->
+    <!-- Perfil 1 (Izquierda) -->
+    <rect x="175" y="210" width="135" height="85" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="205" cy="235" r="14" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5" />
+    <path d="M 197 245 C 197 239 213 239 213 245" fill="#1565C0" />
+    <circle cx="205" cy="233" r="5" fill="#1565C0" />
+    <rect x="228" y="228" width="70" height="6" rx="3" fill="#212121" />
+    <rect x="228" y="238" width="50" height="5" rx="2.5" fill="#757575" />
+    <rect x="187" y="260" width="111" height="18" rx="4" fill="#F5F5F5" />
+    <rect x="200" y="266" width="85" height="6" rx="3" fill="#D32F2F" fill-opacity="0.8" />
+
+    <!-- Perfil 2 (Derecha) -->
+    <rect x="330" y="210" width="135" height="85" rx="10" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="360" cy="235" r="14" fill="#FFEBEE" stroke="#D32F2F" stroke-width="1.5" />
+    <path d="M 352 245 C 352 239 368 239 368 245" fill="#D32F2F" />
+    <circle cx="360" cy="233" r="5" fill="#D32F2F" />
+    <rect x="383" y="228" width="70" height="6" rx="3" fill="#212121" />
+    <rect x="383" y="238" width="50" height="5" rx="2.5" fill="#757575" />
+    <rect x="342" y="260" width="111" height="18" rx="4" fill="#F5F5F5" />
+    <rect x="355" y="266" width="85" height="6" rx="3" fill="#1565C0" fill-opacity="0.8" />
+
+    <!-- Líneas de vinculación y conexiones -->
+    <line x1="310" y1="250" x2="330" y2="250" stroke="#1565C0" stroke-width="2" stroke-dasharray="3 3" />
+
+    <!-- Estadísticas o pie de ventana -->
+    <rect x="175" y="310" width="290" height="55" rx="8" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="195" cy="337" r="10" fill="#1565C0" fill-opacity="0.15" />
+    <path d="M 191 337 L 194 340 L 200 334" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <rect x="215" y="328" width="120" height="6" rx="3" fill="#212121" />
+    <rect x="215" y="340" width="180" height="5" rx="2.5" fill="#757575" />
+  </g>
+
+  <!-- ======================================================================
+       3. ELEMENTOS DE GRADUACIÓN (BIRRETE Y DIPLOMA)
+       ====================================================================== -->
+  <!-- BIRRETE DE GRADUACIÓN (Flotante superior izquierdo) -->
+  <g id="graduation-cap" filter="url(#egresadosCardShadow)">
+    <!-- Base inferior de la cabeza del birrete -->
+    <path d="M 125 105 Q 125 125 155 128 Q 185 125 185 105 Z" fill="#212121" />
+    <!-- Tapa romboidal del birrete -->
+    <polygon points="155,70 215,95 155,115 95,95" fill="url(#capGrad)" stroke="#212121" stroke-width="1" />
+    <!-- Cinta y botón superior -->
+    <circle cx="155" cy="92" r="4.5" fill="#D32F2F" />
+    <!-- Borla roja colgante (Tassel) -->
+    <path d="M 155 92 Q 130 96 122 118" stroke="#D32F2F" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <polygon points="119,118 125,118 127,135 117,135" fill="url(#ribbonGrad)" />
+    <circle cx="122" cy="118" r="2.5" fill="#B71C1C" />
+  </g>
+
+  <!-- DIPLOMA / CERTIFICADO ENROLLADO (Flotante inferior derecho) -->
+  <g id="graduation-diploma" filter="url(#egresadosCardShadow)">
+    <g transform="translate(435, 290) rotate(-15)">
+      <!-- Cuerpo del pergamino -->
+      <rect x="0" y="0" width="100" height="42" rx="6" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+      <path d="M 8 0 L 8 42" stroke="#E0E0E0" stroke-width="1" />
+      <path d="M 92 0 L 92 42" stroke="#E0E0E0" stroke-width="1" />
+      <!-- Líneas de texto caligráfico -->
+      <line x1="20" y1="12" x2="80" y2="12" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" />
+      <line x1="25" y1="21" x2="75" y2="21" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" />
+      <line x1="30" y1="30" x2="70" y2="30" stroke="#BDBDBD" stroke-width="2" stroke-linecap="round" />
+      <!-- Cinta roja con sello de cera -->
+      <rect x="42" y="-2" width="16" height="46" rx="2" fill="url(#ribbonGrad)" />
+      <!-- Medallón / Sello institucional -->
+      <circle cx="50" cy="21" r="10" fill="#D32F2F" stroke="#FFFFFF" stroke-width="1.5" />
+      <circle cx="50" cy="21" r="7" fill="#B71C1C" />
+      <polygon points="50,16 52,20 56,20 53,22 54,26 50,23 46,26 47,22 44,20 48,20" fill="#FFFFFF" />
+      <!-- Cintas colgantes del sello -->
+      <polygon points="45,29 42,42 47,38 52,42 49,29" fill="#B71C1C" />
+    </g>
+  </g>
+
+  <!-- ======================================================================
+       4. TARJETAS FLOTANTES DE COMUNIDAD Y REDES (NETWORKING)
+       ====================================================================== -->
+  <!-- Tarjeta flotante 1: Comunidad Alzatista (Superior Derecha) -->
+  <g id="card-comunidad" filter="url(#egresadosCardShadow)">
+    <rect x="440" y="60" width="150" height="60" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="468" cy="90" r="16" fill="#1565C0" fill-opacity="0.1" />
+    <!-- Icono de grupo / red -->
+    <path d="M 462 96 C 462 92 474 92 474 96" stroke="#1565C0" stroke-width="1.5" fill="none" stroke-linecap="round" />
+    <circle cx="468" cy="86" r="4.5" stroke="#1565C0" stroke-width="1.5" fill="none" />
+    <!-- Textos -->
+    <text x="494" y="84" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#212121">Comunidad</text>
+    <text x="494" y="99" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#1565C0">Alzatistas activos</text>
+  </g>
+
+  <!-- Tarjeta flotante 2: Vínculo Institucional / Raíces (Inferior Izquierda) -->
+  <g id="card-vinculo" filter="url(#egresadosCardShadow)">
+    <rect x="60" y="325" width="155" height="58" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <circle cx="88" cy="354" r="16" fill="#D32F2F" fill-opacity="0.1" />
+    <!-- Icono de corazón / vínculo -->
+    <path d="M 88 359 C 88 359 80 354 80 349 C 80 346 83 344 85.5 344 C 87 344 88 345 88 345 C 88 345 89 344 90.5 344 C 93 344 96 346 96 349 C 96 354 88 359 88 359 Z" fill="#D32F2F" />
+    <!-- Textos -->
+    <text x="114" y="348" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#212121">Red Exalumnos</text>
+    <text x="114" y="363" font-family="'Inter', sans-serif" font-size="10" font-weight="500" fill="#757575">Conexión activa</text>
+  </g>
+
+  <!-- ======================================================================
+       5. DETALLES DE CRECIMIENTO (BROTES Y RAÍCES - SIMBOLISMO INSTITUCIONAL)
+       ====================================================================== -->
+  <g id="growth-sprout" transform="translate(320, 395)">
+    <!-- Tallo principal ascendente -->
+    <path d="M 0 35 C 0 15, -8 10, -5 -5 C -2 -20, 8 -25, 0 -45" stroke="url(#stemGrad)" stroke-width="3" fill="none" stroke-linecap="round" />
+    <!-- Hoja izquierda (Azul Institucional) -->
+    <path d="M -5 -5 C -20 -10, -25 -2, -18 8 C -11 18, -4 5, -5 -5 Z" fill="#1565C0" fill-opacity="0.85" />
+    <path d="M -5 -5 Q -14 0 -18 8" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <!-- Hoja derecha (Rojo Alzate) -->
+    <path d="M 0 -22 C 18 -26, 22 -16, 15 -7 C 8 2, 1 -12, 0 -22 Z" fill="#D32F2F" fill-opacity="0.9" />
+    <path d="M 0 -22 Q 10 -15 15 -7" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <!-- Brote superior (Fruto / Futuro) -->
+    <circle cx="0" cy="-48" r="6" fill="#D32F2F" />
+    <circle cx="0" cy="-48" r="3" fill="#FFFFFF" />
+  </g>
+
+  <!-- Puntos flotantes de innovación y dinamismo -->
+  <circle cx="120" cy="180" r="4" fill="#D32F2F" fill-opacity="0.7" />
+  <circle cx="510" cy="190" r="3.5" fill="#1565C0" fill-opacity="0.7" />
+  <circle cx="490" cy="380" r="4" fill="#1565C0" fill-opacity="0.5" />
+  <circle cx="180" cy="70" r="3" fill="#E0E0E0" />
+  <circle cx="280" cy="65" r="2.5" fill="#1565C0" fill-opacity="0.4" />
+  <circle cx="370" cy="70" r="3" fill="#D32F2F" fill-opacity="0.4" />
+</svg>
