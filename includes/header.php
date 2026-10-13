@@ -43,6 +43,7 @@ if (!function_exists('assetCssUrl')) {
     <!-- 3. Componentes modulares del Frontend -->
     <link rel="stylesheet" href="<?php echo assetCssUrl('header.css'); ?>">
     <link rel="stylesheet" href="<?php echo assetCssUrl('footer.css'); ?>">
+    <link rel="stylesheet" href="<?php echo assetCssUrl('loader.css'); ?>">
 
     <!-- 4. Estilos específicos por pantalla / módulo -->
     <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
@@ -58,5 +59,8 @@ if (!function_exists('assetCssUrl')) {
     <?php endif; ?>
 </head>
 <body>
+    <!-- Componente de precarga global (Page Loader con Skeleton y Spinner) -->
+    <?php include __DIR__ . '/loader.php'; ?>
+
     <!-- Navbar / Header unificado, sticky e inmutable (72px fijos, fondo sólido #FFFFFF, z-index 1000) -->
     <?php include __DIR__ . '/../components/header.php'; ?>

@@ -38,6 +38,7 @@ if (!function_exists('dashboardAssetCssUrl')) {
     <link rel="stylesheet" href="<?php echo dashboardAssetCssUrl('fonts.css'); ?>">
     <link rel="stylesheet" href="<?php echo dashboardAssetCssUrl('main.css'); ?>">
     <link rel="stylesheet" href="<?php echo dashboardAssetCssUrl('dashboard.css'); ?>">
+    <link rel="stylesheet" href="<?php echo dashboardAssetCssUrl('loader.css'); ?>">
 
     <!-- Prevención de FOUC para sidebar colapsado según preferencia en localStorage -->
     <script>
@@ -51,6 +52,9 @@ if (!function_exists('dashboardAssetCssUrl')) {
     </script>
 </head>
 <body class="dashboard-body-page">
+    <!-- Componente de precarga global (Page Loader con Skeleton y Spinner) -->
+    <?php require_once __DIR__ . '/../includes/loader.php'; ?>
+
     <!-- Telón de fondo para menú en dispositivos móviles -->
     <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
@@ -356,5 +360,8 @@ if (!function_exists('dashboardAssetCssUrl')) {
             }
         });
     </script>
+
+    <!-- Script global del Page Loader (desvanecimiento y desmontaje) -->
+    <script src="assets/js/loader.js?v=<?php echo APP_VERSION; ?>"></script>
 </body>
 </html>

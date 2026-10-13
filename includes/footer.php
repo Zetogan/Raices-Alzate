@@ -22,5 +22,8 @@ if (!defined('APP_NAME')) {
             <script src="<?php echo htmlspecialchars($jsFile); ?>?v=<?php echo APP_VERSION; ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
+
+    <!-- Script global del Page Loader (desvanecimiento y desmontaje) -->
+    <script src="assets/js/loader.js?v=<?php echo APP_VERSION; ?>"></script>
 </body>
 </html>

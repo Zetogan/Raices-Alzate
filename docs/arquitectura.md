@@ -1,164 +1,183 @@
 # 🌱 Raíces Alzate
 
-> Plataforma para la gestión, el seguimiento y el fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
+> Plataforma web para la gestión, el seguimiento y el fortalecimiento de la comunidad de egresados de la Institución Educativa Gilberto Alzate Avendaño.
 
 ---
 
 # 🏗️ Arquitectura del Proyecto
 
-## Información General
+## Información general
 
-| Campo                | Información             |
-| -------------------- | ----------------------- |
-| Proyecto             | Raíces Alzate           |
-| Versión              | v0.1.1                  |
-| Estado               | 🟡 En desarrollo        |
-| Fase actual          | Fase 4 — Implementación |
-| Inicio del proyecto  | 2025                    |
-| Última actualización | 9 de octubre de 2026    |
+| Campo                            | Información                                        |
+| -------------------------------- | -------------------------------------------------- |
+| Proyecto                         | Raíces Alzate                                      |
+| Institución                      | Institución Educativa Gilberto Alzate Avendaño     |
+| Desarrollador                    | Santiago Emitola                                   |
+| Versión                          | v0.1.1                                             |
+| Estado                           | 🟡 En desarrollo                                   |
+| Fase actual                      | Fase 4 — Implementación y refinamiento de interfaz |
+| Inicio del proyecto              | 2025                                               |
+| Última actualización documentada | 13 de octubre de 2026                              |
 
 ---
 
 # 1. Introducción
 
-Este documento describe la arquitectura general de **Raíces Alzate**, incluyendo la organización del proyecto, las tecnologías utilizadas, la separación de responsabilidades, los módulos principales, la estructura de archivos y los flujos de navegación y procesamiento de información.
+Este documento describe la arquitectura general de **Raíces Alzate**, incluyendo las tecnologías utilizadas, la separación de responsabilidades, los módulos principales, la organización de archivos, los flujos de navegación y los mecanismos previstos para procesar y almacenar información.
 
 La arquitectura busca facilitar el mantenimiento, la reutilización de componentes, la seguridad, la trazabilidad y la evolución progresiva de la plataforma.
 
-El proyecto se encuentra en desarrollo desde **2025**. Durante las etapas iniciales se trabajaron la planificación, la documentación base y la definición de los requerimientos. Posteriormente se desarrolló la Fase 3 — Diseño UI/UX, completada a finales de septiembre de 2026.
+El proyecto comenzó en **2025**. Durante sus primeras etapas se trabajaron la planificación, la documentación base y la definición de requerimientos. Posteriormente se desarrolló la Fase 3 — Diseño UI/UX, que se encuentra finalizada.
 
-Como resultado de la etapa de diseño, se establecieron el sistema visual, los componentes reutilizables, los estados de interacción, los flujos de navegación y las interfaces Desktop y Mobile que sirven como referencia para la implementación.
+Como resultado del diseño se definieron el sistema visual, los componentes reutilizables, los estados de interacción, los flujos de navegación y las interfaces de escritorio y dispositivos móviles.
 
-Actualmente, Raíces Alzate se encuentra en la **Fase 4 — Implementación**, durante la cual se está trasladando progresivamente el diseño aprobado en Figma a una aplicación web funcional.
+La etapa actual corresponde a la **Fase 4 — Implementación**, durante la cual se está trasladando progresivamente el diseño aprobado en Figma a una aplicación web funcional.
 
-Los avances de esta fase incluyen:
+Los avances documentados incluyen:
 
-* Implementación modular de la página de Inicio.
-* Construcción de las interfaces de autenticación.
-* Implementación de los formularios de inicio de sesión, registro y recuperación de contraseña.
-* Desarrollo de validaciones de formularios en JavaScript.
-* Implementación inicial del procesamiento de formularios mediante PHP.
-* Preparación de la conexión con la base de datos MySQL y utilización de PDO.
-* Organización de los estilos y recursos compartidos.
-* Adaptación responsive de la cabecera y de las interfaces implementadas.
+* Implementación de la página de Inicio.
+* Implementación visual del Dashboard.
+* Organización de componentes PHP compartidos.
+* Estandarización y adaptación responsive de la cabecera pública.
+* Implementación de una navegación autenticada con barra superior y menú lateral.
+* Incorporación de un sidebar colapsable en escritorio.
+* Ajustes de navegación para dispositivos móviles.
+* Desarrollo de un sistema de carga visual mediante un loader.
+* Correcciones relacionadas con las sesiones PHP y el envío de cabeceras HTTP.
+* Incorporación de un mecanismo local para facilitar las pruebas visuales del Dashboard.
+* Ajustes en las rutas de acceso a las interfaces.
+* Actualización de documentación técnica y registro de avances.
 
-La implementación continúa de manera incremental. Por lo tanto, la existencia de una interfaz o de un controlador no implica que todas las funcionalidades asociadas estén terminadas o disponibles en producción.
+La implementación continúa de manera incremental.
+
+**La existencia de una interfaz, un controlador o un componente no implica que toda la funcionalidad asociada esté terminada, conectada a la base de datos o preparada para producción.**
+
+Actualmente, el Dashboard cuenta con avances de implementación visual y de navegación. Los módulos de Perfil, Egresados, Proyectos, Noticias y Administración todavía requieren desarrollo. También está pendiente completar la estructura de la base de datos e integrar las funcionalidades con información persistente.
 
 ---
 
-# 2. Arquitectura General
+# 2. Arquitectura general
 
 Raíces Alzate utiliza una arquitectura web basada en el modelo **cliente-servidor**, con separación entre la presentación, el procesamiento de solicitudes y el almacenamiento de información.
 
 ```text
-                       USUARIO
-                          │
-                          ▼
-                    NAVEGADOR WEB
-                          │
-                          ▼
-              PRESENTACIÓN E INTERFAZ
-                HTML5 · CSS · JavaScript
-                          │
-                          ▼
-                 ENTRADA AL SISTEMA
-                       index.php
-                          │
-                          ▼
-               CONTROLADORES Y RUTAS
-                   PHP nativo
-                          │
-                          ▼
-                LÓGICA DE APLICACIÓN
-             Validaciones y procesamiento
-                          │
-                          ▼
-                  ACCESO A DATOS
-                       PDO
-                          │
-                          ▼
-                    BASE DE DATOS
-                        MySQL
+                         USUARIO
+                            │
+                            ▼
+                      NAVEGADOR WEB
+                            │
+                            ▼
+                    CAPA DE PRESENTACIÓN
+                 HTML5 · CSS3 · JavaScript
+                            │
+                            ▼
+                 PUNTO DE ENTRADA Y RUTAS
+                         index.php
+                            │
+                            ▼
+                 CONTROLADORES Y VISTAS PHP
+                            │
+                            ▼
+                   LÓGICA DE APLICACIÓN
+             Validaciones, sesiones y procesos
+                            │
+                            ▼
+                    CAPA DE ACCESO A DATOS
+                           PDO
+                            │
+                            ▼
+                     BASE DE DATOS
+                          MySQL
 ```
 
-El navegador presenta las interfaces y permite la interacción del usuario. Las solicitudes que requieren procesamiento en el servidor son atendidas por PHP, que ejecuta las validaciones y operaciones correspondientes.
+El navegador presenta las interfaces y permite la interacción del usuario. Las solicitudes que requieren procesamiento en el servidor son atendidas por PHP.
 
-Cuando una funcionalidad necesita consultar o modificar información persistente, el backend utiliza la capa de acceso a datos para comunicarse con MySQL.
+Cuando una funcionalidad necesita consultar o modificar información persistente, el backend utiliza los mecanismos de acceso a datos para comunicarse con MySQL.
 
-La implementación debe mantener separadas las responsabilidades de cada parte, evitando concentrar toda la presentación, la lógica de negocio y el acceso a datos en un único archivo.
+La implementación debe mantener separadas las responsabilidades de cada capa, evitando concentrar toda la presentación, la lógica de negocio y el acceso a datos en un único archivo.
+
+El diagrama representa la arquitectura objetivo. No significa que todos los módulos ya se encuentren conectados entre sí ni que la persistencia esté implementada en todas las funcionalidades.
 
 ## 2.1. Enfoque arquitectónico
 
-La implementación se basa en los siguientes criterios:
+La implementación sigue estos criterios:
 
-* PHP nativo, sin depender de frameworks de aplicación externos.
-* Organización modular de las interfaces y los recursos.
-* Uso de `index.php` como punto de entrada y enrutamiento de la aplicación cuando corresponde.
-* Controladores independientes para las operaciones y las rutas que requieren procesamiento.
-* Vistas organizadas dentro de `pages/`.
-* Componentes compartidos para elementos de interfaz reutilizables.
-* Procesamiento de formularios mediante archivos específicos dentro de `auth/`.
-* Estilos organizados según su responsabilidad.
-* Separación entre presentación, procesamiento y persistencia.
-* Integración progresiva de las funcionalidades.
+* PHP nativo, sin frameworks de aplicación pesados.
+* HTML5 semántico para estructurar las interfaces.
+* CSS3 modular para la presentación visual.
+* JavaScript nativo para la interactividad del navegador.
+* Organización modular de vistas y recursos.
+* Uso de `index.php` como punto de entrada y enrutamiento para las rutas que gestiona.
+* Controladores PHP independientes para determinadas operaciones.
+* Vistas organizadas en `pages/`.
+* Componentes compartidos para elementos reutilizables.
+* Separación del procesamiento de formularios mediante archivos especializados cuando corresponde.
+* Organización de estilos según su responsabilidad.
+* Preparación de una capa de acceso a datos mediante PDO.
+* Integración progresiva con MySQL.
 * Uso de Git y GitHub para el control de versiones.
 
-La arquitectura se irá ajustando conforme se incorporen nuevos módulos, sin perder la separación de responsabilidades establecida.
+La arquitectura podrá evolucionar conforme se incorporen nuevos módulos, manteniendo la separación de responsabilidades.
 
 ---
 
-# 3. Tecnologías Utilizadas
+# 3. Tecnologías utilizadas
 
 ## 3.1. Frontend
 
-| Tecnología        | Responsabilidad                                                         |
-| ----------------- | ----------------------------------------------------------------------- |
-| HTML5             | Estructura semántica de las interfaces.                                 |
-| CSS3              | Presentación visual, distribución, componentes y adaptación responsive. |
-| JavaScript nativo | Interactividad, validación reactiva y comportamiento de componentes.    |
-| Inter             | Tipografía principal de las interfaces.                                 |
-| Figma             | Referencia del diseño visual y de los componentes.                      |
+| Tecnología        | Responsabilidad                                                     |
+| ----------------- | ------------------------------------------------------------------- |
+| HTML5             | Estructura semántica de las interfaces.                             |
+| CSS3              | Presentación visual, distribución, componentes y diseño responsive. |
+| JavaScript nativo | Interactividad y comportamiento de los componentes.                 |
+| Inter             | Tipografía principal de las interfaces.                             |
+| Figma             | Referencia visual del diseño y los componentes.                     |
 
-El frontend se desarrolla utilizando tecnologías nativas, sin incorporar frameworks externos para la construcción de las interfaces.
+El frontend se desarrolla con tecnologías nativas, sin depender de frameworks pesados para construir las interfaces.
 
-La implementación debe respetar los criterios visuales establecidos en Figma y mantener una presentación consistente entre los diferentes módulos.
+La implementación debe respetar los diseños aprobados en Figma y mantener una presentación consistente entre los módulos.
 
 ## 3.2. Backend
 
-| Tecnología                    | Responsabilidad                                                                    |
-| ----------------------------- | ---------------------------------------------------------------------------------- |
-| PHP nativo                    | Procesamiento de solicitudes y lógica de aplicación.                               |
-| PDO                           | Acceso a la base de datos mediante una interfaz de conexión de PHP.                |
-| Sesiones PHP                  | Mecanismo previsto para mantener el estado de autenticación.                       |
-| Funciones de seguridad de PHP | Validación de datos, generación de contraseñas hash y generación segura de tokens. |
+| Tecnología o mecanismo        | Responsabilidad                                            | Estado                                                         |
+| ----------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------- |
+| PHP nativo                    | Procesamiento de solicitudes y lógica de aplicación.       | En implementación.                                             |
+| Controladores PHP             | Gestión de determinadas rutas y operaciones.               | Implementación parcial.                                        |
+| Sesiones PHP                  | Mantenimiento del estado de sesión.                        | Gestión inicial y pruebas; integración pendiente de verificar. |
+| PDO                           | Acceso a la base de datos desde PHP.                       | Preparado para la integración; uso integral pendiente.         |
+| Funciones de seguridad de PHP | Validación, hashing de contraseñas y generación de tokens. | Debe verificarse por funcionalidad.                            |
 
-Los mecanismos de autenticación, autorización y gestión de sesiones deben implementarse y verificarse conforme se desarrollen los módulos correspondientes.
+Los mecanismos de autenticación, autorización y gestión de sesiones deben implementarse y comprobarse conforme se desarrollen los módulos.
 
-La utilización de una función o mecanismo de seguridad en una funcionalidad no implica que todos los controles de seguridad de la plataforma estén terminados.
+La presencia de una sesión de prueba no equivale a disponer de un sistema de autenticación completo.
 
 ## 3.3. Base de datos
 
-| Tecnología | Responsabilidad                               |
-| ---------- | --------------------------------------------- |
-| MySQL      | Almacenamiento persistente de la información. |
-| PDO        | Comunicación entre PHP y la base de datos.    |
-| SQL        | Consultas y operaciones de persistencia.      |
+| Tecnología | Responsabilidad                               | Estado                              |
+| ---------- | --------------------------------------------- | ----------------------------------- |
+| MySQL      | Almacenamiento persistente de la información. | Estructura definitiva pendiente.    |
+| PDO        | Comunicación entre PHP y MySQL.               | Integración por completar.          |
+| SQL        | Consultas y operaciones de persistencia.      | Pendiente de consolidar por módulo. |
 
-La conexión entre PHP y MySQL fue verificada durante la preparación de la implementación.
+La conexión entre PHP y MySQL fue probada durante la preparación de la implementación.
 
-La estructura definitiva de las tablas, las relaciones, las restricciones y las consultas debe documentarse conforme se definan e implementen los módulos de datos.
+Sin embargo, todavía deben definirse e implementarse el modelo entidad-relación, las tablas, las relaciones, las restricciones y las consultas necesarias para los módulos.
+
+**La conectividad comprobada no significa que la base de datos funcional esté terminada.**
 
 ## 3.4. Herramientas de desarrollo
 
 * Visual Studio Code para la edición del código.
 * Git para el control de versiones.
-* GitHub para el alojamiento del repositorio y la colaboración.
+* GitHub para el alojamiento del repositorio y la gestión de cambios.
 * Figma para el diseño UI/UX.
-* Herramientas de desarrollo y validación para comprobar el funcionamiento de las interfaces y los archivos PHP.
+* XAMPP para el entorno local de desarrollo con Apache, PHP y MySQL.
+* Antigravity y Gemini como herramientas de apoyo para la implementación y revisión del código.
+* Herramientas de navegador y terminal para realizar verificaciones técnicas.
 
 ---
 
-# 4. Arquitectura por Capas
+# 4. Arquitectura por capas
 
 ## 4.1. Capa de presentación
 
@@ -169,12 +188,13 @@ Está compuesta principalmente por HTML5, CSS3, JavaScript y las vistas PHP.
 Sus responsabilidades incluyen:
 
 * Representar las interfaces diseñadas en Figma.
-* Presentar formularios y sus campos.
+* Presentar formularios y controles.
 * Mostrar mensajes de validación y alertas.
 * Gestionar los estados visuales de los componentes.
-* Adaptar la interfaz a Desktop y Mobile.
-* Reutilizar elementos comunes entre las diferentes páginas.
+* Adaptar las interfaces a escritorio y dispositivos móviles.
+* Reutilizar elementos comunes.
 * Facilitar la navegación entre las secciones del sistema.
+* Proporcionar retroalimentación visual durante las operaciones.
 
 ### Sistema visual
 
@@ -193,18 +213,20 @@ Este sistema define:
 * Switch.
 * Tablas.
 * Estados de interacción.
-* Criterios responsive.
+* Criterios de diseño responsive.
 
-Las interfaces consideran principalmente dos referencias de diseño:
+Las principales referencias de diseño son:
 
 * **Desktop:** ancho de referencia de 1440 px.
 * **Mobile:** ancho de referencia de 390 px.
 
-Estas dimensiones corresponden a las referencias de diseño y no representan las únicas resoluciones compatibles. La implementación debe adaptarse también a los tamaños intermedios pertinentes.
+Estas dimensiones no representan las únicas resoluciones compatibles. La implementación debe adaptarse también a tamaños intermedios.
 
 ### Organización de estilos CSS
 
-Los estilos se distribuyen en archivos específicos para evitar concentrar todas las reglas en una única hoja de estilos.
+Los estilos se distribuyen en hojas de estilos según su responsabilidad.
+
+Entre los archivos identificados en los informes de implementación se encuentran:
 
 ```text
 assets/
@@ -213,82 +235,78 @@ assets/
 │   ├── fonts.css
 │   ├── header.css
 │   ├── footer.css
-│   └── auth.css
+│   ├── auth.css
+│   ├── portal.css
+│   ├── dashboard.css
+│   └── loader.css
 └── js/
-    └── auth.js
+    ├── auth.js
+    ├── main.js
+    └── loader.js
 ```
 
-Esta representación incluye los archivos identificados en los informes de implementación. La estructura definitiva puede incorporar hojas de estilos y scripts adicionales a medida que se desarrollen otros módulos.
+Esta representación reúne los archivos mencionados en los informes disponibles. La existencia y ubicación definitiva de cada archivo deben mantenerse alineadas con el repositorio.
 
-#### `main.css`
+### `main.css`
 
-Contiene los estilos generales del proyecto y los componentes visuales compartidos.
+Centraliza los estilos generales del proyecto y los componentes visuales compartidos.
 
-Entre sus responsabilidades se encuentran:
+Sus responsabilidades incluyen:
 
-* Reglas base y normalización de estilos.
+* Reglas base.
 * Colores generales.
-* Estilos comunes de enlaces.
-* Estilos de botones compartidos.
+* Estilos comunes de enlaces y botones.
 * Alertas y mensajes de estado.
 * Reglas generales de presentación.
 * Elementos visuales reutilizables.
 
-Las clases compartidas deben mantenerse centralizadas cuando su responsabilidad sea global, evitando duplicar reglas entre las hojas de estilos de cada módulo.
+Las reglas globales deben evitar interferir accidentalmente con los componentes específicos de otros módulos.
 
-#### `fonts.css`
+### `fonts.css`
 
-Centraliza la declaración y configuración de la tipografía Inter, utilizando los recursos tipográficos locales del proyecto.
+Centraliza la configuración de la tipografía Inter y la referencia a los recursos tipográficos locales, cuando corresponda.
 
-```text
-assets/fonts/
-```
-
-Los pesos considerados en la implementación son:
+Los pesos definidos por el sistema visual son:
 
 * 400 — Regular.
 * 500 — Medium.
 * 600 — Semibold.
 * 700 — Bold.
 
-#### `header.css`
+### `header.css`
 
-Contiene los estilos específicos de la cabecera.
+Contiene los estilos específicos de la cabecera pública.
 
-La referencia visual de la cabecera establece una altura de 72 px.
+La referencia visual establece una altura de 72 px.
 
-En Desktop contempla:
+Los ajustes reportados incluyen:
 
-* Identidad visual a la izquierda.
-* Navegación en la zona central.
-* Acciones de usuario a la derecha.
+* Alineación de la marca y la navegación.
+* Normalización de las dimensiones de la cabecera.
+* Fondo sólido.
+* Borde inferior.
+* Comportamiento sticky.
+* Ajustes responsive.
+* Correcciones de la distribución de acciones y botones.
 
-En Mobile contempla:
+El ancho máximo definitivo del contenedor debe mantenerse de acuerdo con el valor presente en el código consolidado. Los informes recibidos mencionan tanto 1200 px como 1400 px, por lo que este dato requiere verificación en el repositorio.
 
-* Identidad visual.
-* Botón de menú hamburguesa.
-* Navegación adaptada al espacio disponible.
-* Acciones de autenticación dentro del menú desplegable o lateral, según la implementación del componente.
+### `footer.css`
 
-El comportamiento responsive oculta las acciones de cabecera que no deben mostrarse directamente en la barra superior y permite acceder a ellas desde la navegación Mobile.
+Contiene los estilos del pie de página compartido.
 
-#### `footer.css`
+El diseño de referencia contempla:
 
-Contiene los estilos específicos del pie de página.
-
-La estructura visual establecida contempla:
-
-* Fondo `#212121`.
-* Distribución en tres columnas en Desktop.
-* Identidad de Raíces Alzate.
+* Fondo oscuro.
+* Identidad visual de Raíces Alzate.
 * Enlaces de navegación.
 * Información institucional.
 * Separador visual del bloque de copyright.
-* Adaptación a pantallas Mobile.
+* Adaptación a pantallas móviles.
 
-La estructura se mantiene como componente compartido para las páginas que requieren el pie de página institucional.
+La estructura visual aprobada se reutiliza en las páginas que requieren el pie de página institucional.
 
-#### `auth.css`
+### `auth.css`
 
 Contiene los estilos relacionados con las interfaces de autenticación.
 
@@ -299,27 +317,80 @@ Sus responsabilidades incluyen:
 * Campos de entrada.
 * Estados de validación.
 * Mensajes de error.
-* Botones de autenticación.
-* Espaciado y alineación de los elementos.
-* Adaptación responsive de las pantallas de autenticación.
+* Botones.
+* Espaciado y alineación.
+* Adaptación responsive.
 
-Las reglas deben mantener coherencia con los estilos globales y con los estados definidos en el Design System.
+La finalización visual de las pantallas de autenticación debe verificarse frente a Figma.
+
+### `portal.css`
+
+Contiene estilos relacionados con elementos compartidos del portal.
+
+Entre las correcciones reportadas se encuentra el aislamiento de una regla de ancho fijo para botones, que afectaba a elementos del Dashboard.
+
+Los estilos específicos deben aplicarse mediante selectores suficientemente acotados para evitar efectos secundarios en otros módulos.
+
+### `dashboard.css`
+
+Contiene estilos de la interfaz autenticada del Dashboard.
+
+Entre los comportamientos documentados se encuentran:
+
+* Distribución de la cabecera autenticada.
+* Barra superior responsive.
+* Menú lateral.
+* Sidebar colapsable en escritorio.
+* Sidebar adaptado a móviles.
+* Estados visuales de navegación.
+* Transiciones del menú.
+* Ajustes de botones y acciones.
+* Adaptación de las tarjetas y del contenido.
+
+La versión de escritorio contempla un sidebar de 240 px expandido y 76 px contraído. La implementación debe mantener este comportamiento sin comprometer la navegación ni la accesibilidad.
+
+### `loader.css`
+
+Contiene los estilos del indicador de carga.
+
+Los ajustes reportados incluyen:
+
+* Fondo blanco semitransparente.
+* Desenfoque del contenido de fondo.
+* Spinner institucional.
+* Uso de los colores de marca.
+* Presentación del logotipo.
+* Estados para ocultar el indicador y evitar que bloquee la interacción.
+
+El valor exacto de opacidad del fondo debe verificarse en la versión consolidada del archivo, porque los informes de implementación registran valores diferentes.
 
 ### JavaScript de autenticación
 
-El archivo `assets/js/auth.js` centraliza los comportamientos de los formularios de autenticación que se han implementado hasta el momento.
+El archivo `assets/js/auth.js` reúne comportamientos de los formularios de autenticación que se han desarrollado.
 
-Entre las funciones documentadas se encuentran:
+Los informes identifican funciones como:
 
 * Validación reactiva de campos.
-* Limpieza de errores cuando el usuario corrige una entrada.
+* Limpieza de errores.
 * Validación del formato del correo electrónico.
-* Presentación de mensajes de retroalimentación.
-* Prevención de envíos repetidos del formulario de inicio de sesión.
-* Inicialización de la validación del formulario de registro.
-* Gestión de estados de error en los campos.
+* Presentación de mensajes.
+* Prevención de envíos repetidos.
+* Inicialización de la validación del registro.
+* Gestión visual de errores.
 
-Las validaciones de JavaScript mejoran la experiencia de uso, pero no sustituyen las validaciones obligatorias que debe realizar el servidor.
+Estas funciones deben comprobarse en el código vigente antes de considerarlas terminadas.
+
+Las validaciones de JavaScript mejoran la experiencia de uso, pero no sustituyen las validaciones obligatorias del servidor.
+
+### JavaScript general y loader
+
+`assets/js/main.js` se utiliza como recurso JavaScript general del proyecto según la estructura reportada.
+
+`assets/js/loader.js` contiene lógica relacionada con el comportamiento del indicador de carga.
+
+Se reportaron ajustes para evitar que el loader permanezca visible indefinidamente y bloquee las interfaces.
+
+También se incorporaron mecanismos de ocultación asociados a la carga de la página y un tiempo de respaldo. La interacción entre el script externo y los scripts incluidos directamente en los archivos PHP debe mantenerse revisada para evitar duplicaciones o conflictos.
 
 ---
 
@@ -327,60 +398,89 @@ Las validaciones de JavaScript mejoran la experiencia de uso, pero no sustituyen
 
 La capa de enrutamiento determina qué interfaz o funcionalidad debe atender una solicitud.
 
-El archivo `index.php` actúa como punto de entrada y contiene rutas para acceder a determinadas vistas del sistema.
+`index.php` actúa como punto de entrada para las rutas que administra. También existen controladores PHP independientes en la raíz del proyecto.
 
-Entre las rutas documentadas se encuentran las relacionadas con la página principal y la recuperación de contraseña.
+Entre los archivos identificados se encuentran:
 
-La aplicación también dispone de controladores PHP independientes en la raíz del proyecto para algunas interfaces.
-
-Entre ellos se encuentran:
-
+* `index.php`
+* `inicio.php`
 * `login.php`
 * `registro.php`
 * `recuperar-password.php`
+* `recuperar-contrasena.php`
+* `dashboard.php`
+* `logout.php`
+* `dev-login.php`
 
-Estos archivos organizan el acceso a las interfaces correspondientes y permiten separar la entrada de una página de su contenido visual.
-
-La arquitectura no obliga a que todas las operaciones pasen por una única ruta: las rutas existentes deben mantenerse coherentes mientras se consolida la organización general de la aplicación.
+La lista corresponde a los archivos mencionados en los informes de implementación y debe mantenerse alineada con el repositorio.
 
 ### Responsabilidades de los controladores
 
-* Preparar los datos necesarios para presentar una vista.
+* Preparar los datos necesarios para una vista.
 * Determinar qué contenido debe mostrarse.
 * Coordinar el procesamiento de las solicitudes.
-* Invocar la lógica correspondiente cuando sea necesario.
 * Gestionar las respuestas y redirecciones.
-* Evitar concentrar la estructura visual completa dentro del controlador.
+* Iniciar o comprobar las sesiones cuando corresponda.
+* Aplicar controles de acceso a las rutas protegidas.
+* Delegar la presentación a las vistas.
+* Evitar concentrar toda la lógica visual y de negocio en un solo archivo.
 
-Los controladores deben mantenerse ligeros y delegar el contenido visual a las vistas y el procesamiento especializado a los archivos correspondientes.
+### Controlador del Dashboard
+
+`dashboard.php` corresponde a la entrada de la interfaz autenticada del Dashboard.
+
+Los informes indican que verifica la presencia de `$_SESSION['user']` para controlar el acceso.
+
+Esta protección debe mantenerse en el servidor. La disponibilidad de una sesión simulada para pruebas locales no debe interpretarse como autenticación real.
+
+### Cierre de sesión
+
+`logout.php` está destinado a gestionar el cierre de sesión.
+
+La implementación reportada contempla la limpieza de la sesión, la destrucción de sus datos y la redirección al inicio de sesión. Estos comportamientos deben verificarse en el código vigente.
+
+### Acceso local de pruebas
+
+`dev-login.php` es una utilidad local reportada para crear una sesión simulada y facilitar la revisión visual del Dashboard sin depender todavía de la autenticación conectada a MySQL.
+
+Este recurso debe utilizarse exclusivamente en el entorno de desarrollo y no debe permitir eludir la autenticación en una instalación de producción.
+
+### Rutas de recuperación de contraseña
+
+Se reportaron ajustes para permitir el acceso mediante diferentes nombres de ruta relacionados con la recuperación de contraseña.
+
+Los alias y sus redirecciones deben mantenerse coherentes para evitar errores de acceso y rutas relativas incorrectas.
 
 ---
 
 ## 4.3. Capa de vistas
 
-Las vistas se encuentran organizadas dentro del directorio `pages/`.
+Las vistas se organizan principalmente dentro del directorio `pages/`.
 
 Esta capa contiene el contenido de las interfaces y la estructura HTML generada mediante PHP.
 
-Entre las vistas implementadas se encuentran:
+Entre las vistas identificadas se encuentran:
 
 ```text
 pages/
+├── inicio.php
 ├── login.php
 ├── registro.php
-└── recuperar-password.php
+├── recuperar-password.php
+└── dashboard.php
 ```
 
-La vista de Inicio también forma parte de la organización del proyecto, aunque su nombre y ubicación definitivos deben mantenerse alineados con la estructura real del repositorio.
+Esta representación es orientativa y debe verificarse contra la estructura actual del repositorio. No se considera una lista exhaustiva de todos los archivos existentes.
 
 ### Responsabilidades de las vistas
 
 * Construir la estructura semántica de cada interfaz.
-* Presentar los campos y controles del usuario.
+* Presentar los campos y controles.
 * Incorporar los componentes compartidos.
 * Mostrar alertas y mensajes de retroalimentación.
-* Conservar la jerarquía visual definida en Figma.
-* Utilizar las hojas de estilos y scripts correspondientes.
+* Mantener la jerarquía visual definida en Figma.
+* Utilizar los estilos y scripts correspondientes.
+* Presentar los datos preparados por la lógica de aplicación.
 
 Las vistas no deben contener operaciones complejas de acceso a datos ni asumir que los valores enviados por el navegador son confiables.
 
@@ -388,68 +488,102 @@ Las vistas no deben contener operaciones complejas de acceso a datos ni asumir q
 
 ## 4.4. Componentes PHP compartidos
 
-El proyecto mantiene componentes reutilizables para evitar duplicaciones en la estructura de las páginas.
+El proyecto utiliza componentes reutilizables para evitar duplicaciones en la estructura de las páginas.
 
-La implementación documentada utiliza:
+Los archivos reportados incluyen:
 
 ```text
 includes/
 ├── header.php
-└── footer.php
+├── footer.php
+├── topbar.php
+├── sidebar.php
+└── loader.php
 ```
-
-Estos componentes centralizan elementos compartidos de la interfaz.
 
 ### `includes/header.php`
 
-Es responsable de incorporar la estructura compartida de la cabecera y los elementos iniciales del documento HTML.
+Centraliza la cabecera pública y los elementos iniciales del documento HTML según el contexto de cada página.
 
 Entre sus responsabilidades se encuentran:
 
-* Declaración inicial del documento.
 * Metadatos generales.
-* Inclusión de los estilos correspondientes.
-* Incorporación del favicon.
-* Presentación de la marca.
+* Inclusión de estilos.
+* Favicon.
+* Identidad visual.
 * Navegación principal.
 * Acciones de autenticación.
-* Adaptación de la navegación a dispositivos Mobile.
+* Adaptación responsive.
 
-También contempla la carga condicional de recursos específicos para las interfaces de autenticación cuando corresponde.
+Los informes registran ajustes de altura, alineación, ancho del contenedor y comportamiento sticky.
 
 ### `includes/footer.php`
 
-Es responsable de incorporar el pie de página compartido y los recursos JavaScript necesarios antes del cierre del documento.
+Centraliza el pie de página compartido y la carga de los recursos JavaScript necesarios antes del cierre del documento.
 
-La carga de scripts específicos depende de la interfaz que se esté presentando.
+La carga de scripts específicos depende de la interfaz que se presenta.
+
+### `includes/topbar.php`
+
+Contiene elementos de la barra superior de la interfaz autenticada.
+
+Los avances reportados incluyen:
+
+* Presentación del avatar.
+* Nombre del usuario.
+* Rol o información complementaria.
+* Distribución adaptada a móviles.
+* Botón de menú hamburguesa en pantallas pequeñas.
+
+El contenido personalizado depende de los datos de sesión disponibles.
+
+### `includes/sidebar.php`
+
+Contiene la navegación lateral del Dashboard.
+
+Los ajustes reportados incluyen:
+
+* Enlaces a las secciones autenticadas.
+* Retiro de un enlace redundante a Inicio.
+* Botón para contraer o expandir el menú.
+* Iconos y etiquetas.
+* Estado colapsado.
+* Adaptación a navegación móvil.
+* Indicadores accesibles para el control del menú.
+
+En escritorio, el sidebar contempla 240 px expandido y 76 px contraído.
+
+En móviles, se adapta a un menú lateral desplegable con un fondo de respaldo que permite distinguirlo del contenido principal.
+
+### `includes/loader.php`
+
+Contiene el indicador de carga compartido.
+
+Los ajustes reportados sustituyen el skeleton visual inicial por un indicador más sencillo, con fondo semitransparente, desenfoque, spinner y logotipo institucional.
+
+Se incorporaron mecanismos para ocultarlo al finalizar la carga o cuando se cumple un tiempo de respaldo. Debe comprobarse que el comportamiento no interfiera con las interfaces públicas ni con los formularios.
 
 ### Directorio `components/`
 
-La estructura original también contempla:
+La estructura del proyecto también contempla archivos reutilizables en `components/`.
 
-```text
-components/
-├── header.php
-└── footer.php
-```
+Los informes identifican componentes de cabecera y pie de página en este directorio, pero también señalan que `includes/header.php` e `includes/footer.php` participan en la construcción de las páginas.
 
-No obstante, los informes de implementación identifican `includes/header.php` e `includes/footer.php` como los componentes que actualmente participan en la construcción de las páginas.
+Por ello, la existencia de archivos con nombres equivalentes no implica automáticamente que ambos conjuntos sean utilizados simultáneamente.
 
-Por ello, la existencia de archivos con nombres equivalentes en `components/` no debe interpretarse automáticamente como una segunda implementación activa de los mismos componentes.
+La estructura debe revisarse para determinar qué archivos se mantienen activos y evitar implementaciones duplicadas.
 
-La estructura deberá revisarse para determinar si `components/` contiene implementaciones adicionales necesarias o si corresponde consolidar los componentes compartidos en una única ubicación.
-
-El objetivo es evitar duplicaciones y establecer una única fuente de mantenimiento para cada componente.
+El objetivo es establecer una fuente de mantenimiento clara para cada componente compartido.
 
 ---
 
 ## 4.5. Capa de lógica de aplicación
 
-La lógica de aplicación se desarrolla principalmente mediante PHP nativo.
+La lógica de aplicación se desarrolla mediante PHP nativo.
 
 Esta capa procesa las solicitudes, aplica las reglas correspondientes y coordina las operaciones que requieren interacción con la base de datos.
 
-Las funcionalidades previstas para esta capa incluyen:
+Las funcionalidades previstas incluyen:
 
 * Autenticación.
 * Registro de usuarios.
@@ -464,9 +598,11 @@ Las funcionalidades previstas para esta capa incluyen:
 * Procesamiento de formularios.
 * Persistencia de datos.
 
-### Organización del procesamiento de autenticación
+No todas estas funcionalidades se encuentran implementadas. Su incorporación se realizará progresivamente.
 
-Los informes de implementación identifican los siguientes archivos:
+### Procesamiento de autenticación
+
+Los informes identifican los siguientes archivos:
 
 ```text
 auth/
@@ -475,66 +611,64 @@ auth/
 └── recuperar-process.php
 ```
 
-Estos archivos se encargan del procesamiento de las operaciones relacionadas con autenticación y recuperación de contraseña.
+Su existencia y comportamiento actual deben comprobarse contra el repositorio antes de dar por terminada cada operación.
 
 #### `auth/login-process.php`
 
-Es el punto de procesamiento del formulario de inicio de sesión.
+Está destinado a procesar el formulario de inicio de sesión.
 
-Su responsabilidad corresponde a recibir y procesar la solicitud de autenticación. La verificación definitiva de credenciales, la creación de la sesión y la autorización de acceso deben comprobarse de acuerdo con la implementación efectiva del archivo.
+La autenticación real requiere verificar las credenciales contra información persistente, comprobar la contraseña mediante los mecanismos apropiados, establecer una sesión segura y aplicar los controles de acceso necesarios.
+
+Las sesiones simuladas utilizadas para maquetación no reemplazan este flujo.
 
 #### `auth/registro-process.php`
 
-Procesa el formulario de registro.
+Está destinado a procesar el formulario de registro.
 
-Los informes indican que incorpora validaciones del lado del servidor, comprobación de contraseñas coincidentes, verificación de correo electrónico único, utilización de `password_hash()` y operaciones mediante PDO.
+Los informes anteriores mencionan validaciones del servidor, comprobación de contraseñas coincidentes, verificación de correo único, utilización de `password_hash()` y operaciones mediante PDO.
 
-También se reporta el uso de control transaccional para las operaciones de base de datos correspondientes.
+Estos comportamientos deben verificarse en el código y en la base de datos antes de considerarlos parte de una funcionalidad completamente operativa.
 
-La definición definitiva de los campos de registro debe mantenerse alineada con la vista y con el modelo de datos implementado.
+La definición de los campos debe coincidir con los requerimientos y con el modelo de datos que se implemente.
 
 #### `auth/recuperar-process.php`
 
-Procesa las solicitudes de recuperación de contraseña.
+Está destinado a procesar las solicitudes de recuperación de contraseña.
 
-La implementación documentada contempla la validación del correo electrónico y la generación de tokens mediante `random_bytes(32)`.
+Los informes mencionan la validación del correo electrónico, la respuesta genérica para no revelar si una cuenta existe y la generación de tokens mediante `random_bytes(32)`.
 
-La respuesta se mantiene genérica para no revelar si una dirección de correo corresponde a una cuenta existente.
+El proceso completo también requiere verificar el almacenamiento seguro del token, su expiración, su utilización única, el envío de las instrucciones y el restablecimiento final de la contraseña.
 
-El envío real de mensajes electrónicos todavía depende de configurar e integrar un servicio de correo, por ejemplo mediante SMTP.
-
-La generación de un token, por sí sola, no significa que todo el proceso de recuperación se encuentre terminado. También deben verificarse su almacenamiento seguro, expiración, utilización única, validación y el proceso final de restablecimiento de contraseña.
+La generación de un token por sí sola no significa que la recuperación de contraseña esté terminada.
 
 ---
 
 ## 4.6. Capa de acceso a datos
 
-La capa de acceso a datos conecta la lógica de aplicación con la base de datos MySQL.
+La capa de acceso a datos conectará la lógica de aplicación con MySQL mediante PDO.
 
-El proyecto utiliza PDO como mecanismo de acceso desde PHP.
+Sus responsabilidades previstas incluyen:
 
-Sus responsabilidades incluyen:
-
-* Establecer conexiones con la base de datos.
+* Establecer conexiones.
 * Ejecutar consultas SQL.
 * Recuperar información.
-* Insertar nuevos registros.
-* Actualizar datos existentes.
-* Eliminar registros cuando la funcionalidad lo permita.
+* Insertar registros.
+* Actualizar datos.
+* Eliminar registros cuando corresponda.
 * Gestionar transacciones.
-* Tratar los errores de acceso a datos.
+* Tratar errores de acceso a datos.
 
-Las consultas que incorporan valores proporcionados por los usuarios deben utilizar sentencias preparadas cuando corresponda.
+Las consultas que incorporen datos proporcionados por usuarios deben utilizar sentencias preparadas cuando corresponda.
 
-La configuración de conexión debe mantenerse separada de las vistas y no debe exponer credenciales en el código público del repositorio.
+Las credenciales de conexión deben mantenerse fuera de los archivos públicos y no deben exponerse en mensajes de error.
 
-La organización definitiva de esta capa deberá documentarse cuando se consoliden los archivos de configuración, las funciones de acceso a datos y los modelos o módulos de persistencia.
+La conexión PHP–MySQL fue probada durante la preparación de la implementación. Sin embargo, la capa de persistencia todavía debe consolidarse e integrarse progresivamente con los módulos.
 
 ---
 
 ## 4.7. Capa de datos
 
-La base de datos MySQL está destinada a almacenar la información persistente de la plataforma.
+MySQL está destinado a almacenar la información persistente de Raíces Alzate.
 
 Las entidades previstas incluyen:
 
@@ -546,19 +680,19 @@ Las entidades previstas incluyen:
 * Roles y permisos.
 * Información complementaria de la plataforma.
 
-La conexión entre PHP y MySQL fue verificada satisfactoriamente durante la preparación de la implementación.
+La estructura definitiva deberá definirse mediante el modelo entidad-relación y el diseño de las tablas, considerando las relaciones, restricciones e índices necesarios.
 
-Sin embargo, la verificación de conectividad no implica que todas las tablas, relaciones y operaciones de persistencia estén terminadas.
+También deberán definirse las consultas y operaciones que cada módulo utilizará para crear, consultar, actualizar o eliminar información.
 
-La estructura definitiva deberá responder a los requerimientos funcionales de cada módulo y documentarse a medida que avance la integración.
+**Estado actual:** la conectividad ha sido probada, pero el modelo de datos y la integración completa con las funcionalidades continúan pendientes.
 
 ---
 
-# 5. Arquitectura del Diseño
+# 5. Arquitectura del diseño
 
 La arquitectura visual de Raíces Alzate se definió durante la Fase 3 — Diseño UI/UX.
 
-El diseño de las interfaces se considera completado y constituye la referencia visual para la implementación frontend.
+Esta fase se encuentra finalizada y sus resultados constituyen la referencia visual para la implementación frontend.
 
 ## 5.1. Design System
 
@@ -575,7 +709,7 @@ Incluye:
 * Componentes de selección.
 * Estados de interacción.
 * Criterios de accesibilidad visual.
-* Adaptación responsive.
+* Diseño responsive.
 
 ### Paleta principal
 
@@ -583,6 +717,7 @@ Incluye:
 | ---------------- | --------- |
 | Primary          | `#D32F2F` |
 | Primary Hover    | `#B71C1C` |
+| Primary Active   | `#8E0000` |
 | Secondary        | `#1565C0` |
 | Texto principal  | `#212121` |
 | Texto secundario | `#757575` |
@@ -592,21 +727,19 @@ Incluye:
 
 ### Tipografía
 
-La tipografía utilizada en las interfaces es **Inter**.
-
-Los pesos contemplados son 400, 500, 600 y 700, de acuerdo con la jerarquía y la función de cada elemento.
+La tipografía principal es **Inter**, con pesos 400, 500, 600 y 700.
 
 ### Sistema de espaciado
 
-La escala de espaciado se basa principalmente en:
+La escala principal de espaciado es:
 
 `4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px`
 
-La implementación debe conservar la consistencia entre los márgenes, el espaciado interno de los componentes y la separación entre secciones.
+La implementación debe conservar la consistencia entre márgenes, espaciado interno y separación entre secciones.
 
 ## 5.2. Components & Responsive
 
-La página `Components & Responsive` contiene los componentes reutilizables, sus estados y los criterios de adaptación a distintos tamaños de pantalla.
+La página `Components & Responsive` de Figma contiene los componentes reutilizables, sus estados y los criterios de adaptación a diferentes tamaños de pantalla.
 
 Los componentes definidos incluyen:
 
@@ -624,21 +757,19 @@ Los estados contemplados incluyen:
 * Selected.
 * Disabled.
 * Error.
-* On / Off en componentes que lo requieren.
+* On / Off, cuando corresponde.
 
-Los estados implementados en el código deben conservar los colores, los indicadores y el comportamiento definidos en el sistema visual.
+Los componentes deben conservar los indicadores visuales y el comportamiento definido en el sistema de diseño.
 
-Por ejemplo, los campos de entrada deben permitir distinguir entre el estado normal, el enfoque, el error y la deshabilitación. Los errores no deben comunicarse únicamente mediante un cambio de color cuando sea posible acompañarlos de un mensaje textual.
-
-La página de componentes se utiliza como referencia durante la construcción y calibración de las interfaces.
+Los errores no deben comunicarse únicamente mediante cambios de color cuando sea posible acompañarlos de un mensaje textual.
 
 ---
 
-# 6. Interfaces del Sistema
+# 6. Interfaces del sistema
 
-Como resultado de la etapa de diseño UI/UX se definieron 17 interfaces principales para Desktop y sus correspondientes diseños Mobile.
+Durante la etapa de diseño UI/UX se definieron 17 interfaces principales para Desktop y sus correspondientes adaptaciones Mobile, para un total de **34 diseños**.
 
-La implementación de las interfaces continúa de manera progresiva.
+La implementación de estas interfaces continúa de manera progresiva.
 
 ## 6.1. Interfaces Desktop
 
@@ -682,13 +813,13 @@ La implementación de las interfaces continúa de manera progresiva.
 
 Las interfaces Mobile deben mantener la jerarquía visual y la identidad de las versiones Desktop, adaptando la distribución, la navegación y los controles al espacio disponible.
 
-La existencia de un diseño Mobile no implica que su implementación se encuentre completada.
+La existencia de un diseño aprobado en Figma no significa que su implementación frontend esté terminada.
 
 ---
 
-# 7. Navegación del Sistema
+# 7. Navegación del sistema
 
-El flujo general de navegación se definió durante el diseño UI/UX.
+El flujo conceptual de navegación se definió durante el diseño UI/UX.
 
 ```text
 Inicio
@@ -699,15 +830,13 @@ Autenticación
   ▼
 Dashboard
   ├── Perfil
-  │     └── Egresados
-  │
+  ├── Egresados
   ├── Proyectos
-  │     └── Noticias
-  │
+  ├── Noticias
   └── Administración
 ```
 
-Este diagrama representa el flujo conceptual de navegación. Las rutas efectivamente disponibles dependen de la implementación de cada módulo.
+Este diagrama representa la navegación prevista. Las rutas efectivamente disponibles dependen de la implementación de cada módulo.
 
 ## 7.1. Flujo de proyectos
 
@@ -727,12 +856,14 @@ Noticias
   └── Editar noticia
 ```
 
-## 7.3. Flujo de perfil
+## 7.3. Flujo de perfil y egresados
 
 ```text
 Perfil
-  ├── Editar perfil
-  └── Egresados
+  └── Editar perfil
+
+Egresados
+  └── Consultar información autorizada
 ```
 
 ## 7.4. Flujo administrativo
@@ -752,11 +883,11 @@ La navegación deberá complementarse con controles de autenticación y autoriza
 
 ---
 
-# 8. Estructura del Proyecto
+# 8. Estructura del proyecto
 
 La estructura del repositorio se organiza por responsabilidades.
 
-La siguiente representación combina los archivos y directorios identificados en la estructura documentada con los archivos incorporados durante la implementación de autenticación. Debe entenderse como una estructura de referencia, no como una verificación exhaustiva del estado actual de cada archivo.
+La siguiente representación reúne archivos y directorios identificados en la documentación y en los informes de implementación. No constituye una verificación exhaustiva del repositorio ni implica que todos los módulos representados estén terminados.
 
 ```text
 raices-alzate/
@@ -769,9 +900,14 @@ raices-alzate/
 │   │   ├── fonts.css
 │   │   ├── header.css
 │   │   ├── footer.css
-│   │   └── auth.css
+│   │   ├── auth.css
+│   │   ├── portal.css
+│   │   ├── dashboard.css
+│   │   └── loader.css
 │   ├── js/
-│   │   └── auth.js
+│   │   ├── main.js
+│   │   ├── auth.js
+│   │   └── loader.js
 │   ├── img/
 │   ├── icons/
 │   ├── fonts/
@@ -786,66 +922,78 @@ raices-alzate/
 ├── docs/
 ├── includes/
 │   ├── header.php
-│   └── footer.php
+│   ├── footer.php
+│   ├── topbar.php
+│   ├── sidebar.php
+│   └── loader.php
 ├── pages/
+│   ├── inicio.php
 │   ├── login.php
 │   ├── registro.php
-│   └── recuperar-password.php
+│   ├── recuperar-password.php
+│   └── dashboard.php
 ├── uploads/
 ├── index.php
+├── inicio.php
 ├── login.php
 ├── registro.php
 ├── recuperar-password.php
+├── recuperar-contrasena.php
+├── dashboard.php
+├── logout.php
+├── dev-login.php
 ├── .gitignore
 └── README.md
 ```
 
-### Responsabilidad de los directorios
+Los archivos concretos deben mantenerse alineados con el repositorio vigente. Cuando se consoliden, eliminen o reubiquen archivos, esta representación deberá actualizarse.
 
-| Directorio o archivo     | Responsabilidad                                                                          |
-| ------------------------ | ---------------------------------------------------------------------------------------- |
-| `.github/`               | Configuraciones y recursos relacionados con GitHub.                                      |
-| `admin/`                 | Organización prevista para funcionalidades administrativas.                              |
-| `usuario/`               | Organización prevista para funcionalidades relacionadas con usuarios.                    |
-| `assets/css/`            | Hojas de estilos.                                                                        |
-| `assets/js/`             | Scripts JavaScript.                                                                      |
-| `assets/img/`            | Recursos gráficos.                                                                       |
-| `assets/icons/`          | Iconos y recursos gráficos pequeños.                                                     |
-| `assets/fonts/`          | Recursos tipográficos locales.                                                           |
-| `assets/videos/`         | Recursos audiovisuales.                                                                  |
-| `auth/`                  | Procesamiento de operaciones de autenticación.                                           |
-| `components/`            | Espacio previsto para componentes reutilizables, sujeto a consolidación con `includes/`. |
-| `config/`                | Configuración de la aplicación y sus servicios.                                          |
-| `database/`              | Recursos relacionados con la base de datos.                                              |
-| `docs/`                  | Documentación técnica y de seguimiento.                                                  |
-| `includes/`              | Componentes PHP compartidos.                                                             |
-| `pages/`                 | Vistas de las interfaces.                                                                |
-| `uploads/`               | Espacio destinado a archivos cargados por los usuarios, sujeto a controles de seguridad. |
-| `index.php`              | Punto de entrada y enrutamiento de las rutas que gestiona.                               |
-| `login.php`              | Entrada a la interfaz de inicio de sesión.                                               |
-| `registro.php`           | Entrada a la interfaz de registro.                                                       |
-| `recuperar-password.php` | Entrada a la interfaz de recuperación de contraseña.                                     |
+## 8.1. Responsabilidad de los directorios
 
-### Criterios de organización
+| Directorio o archivo | Responsabilidad                                                              |
+| -------------------- | ---------------------------------------------------------------------------- |
+| `.github/`           | Configuraciones y recursos relacionados con GitHub.                          |
+| `admin/`             | Espacio previsto para funcionalidades administrativas.                       |
+| `usuario/`           | Espacio previsto para funcionalidades de usuario.                            |
+| `assets/css/`        | Hojas de estilos.                                                            |
+| `assets/js/`         | Scripts JavaScript.                                                          |
+| `assets/img/`        | Recursos gráficos.                                                           |
+| `assets/icons/`      | Iconos y recursos gráficos pequeños.                                         |
+| `assets/fonts/`      | Recursos tipográficos locales.                                               |
+| `assets/videos/`     | Recursos audiovisuales.                                                      |
+| `auth/`              | Procesamiento de operaciones relacionadas con autenticación.                 |
+| `components/`        | Componentes reutilizables; pendiente consolidar su relación con `includes/`. |
+| `config/`            | Configuración de la aplicación y sus servicios.                              |
+| `database/`          | Recursos relacionados con la base de datos.                                  |
+| `docs/`              | Documentación técnica y seguimiento del proyecto.                            |
+| `includes/`          | Componentes PHP compartidos.                                                 |
+| `pages/`             | Vistas de las interfaces.                                                    |
+| `uploads/`           | Espacio destinado a archivos cargados, sujeto a controles de seguridad.      |
+| `index.php`          | Punto de entrada y enrutamiento de las rutas que gestiona.                   |
+| `dashboard.php`      | Entrada al Dashboard autenticado.                                            |
+| `logout.php`         | Controlador de cierre de sesión.                                             |
+| `dev-login.php`      | Utilidad local reportada para pruebas de sesión.                             |
+
+## 8.2. Criterios de organización
 
 * Mantener las vistas separadas de los controladores.
 * Centralizar los componentes compartidos.
-* Separar los estilos globales de los estilos específicos de cada módulo.
-* Evitar duplicar implementaciones de componentes.
+* Separar los estilos globales de los estilos específicos.
+* Evitar duplicar implementaciones.
 * Mantener las credenciales fuera de los archivos públicos.
-* No incorporar archivos estáticos redundantes en la raíz cuando exista una versión modular equivalente.
-* Incorporar los nuevos módulos respetando la organización existente.
+* Evitar archivos redundantes cuando exista una implementación modular equivalente.
+* Incorporar nuevos módulos respetando la organización existente.
 * Actualizar esta estructura cuando se consoliden o reubiquen archivos.
 
 ---
 
-# 9. Módulos del Sistema
+# 9. Módulos del sistema
 
 ## 9.1. Inicio
 
 Presenta la plataforma y comunica su propósito, sus beneficios y su propuesta para la comunidad de egresados.
 
-La interfaz diseñada contempla:
+La interfaz contempla:
 
 * Header.
 * Hero.
@@ -853,9 +1001,34 @@ La interfaz diseñada contempla:
 * Sección de beneficios.
 * Footer.
 
-La implementación inicial de Inicio fue desarrollada para Desktop y Mobile, estableciendo las bases de los componentes compartidos.
+**Estado:** interfaz implementada con adaptaciones Desktop y Mobile y ajustes visuales reportados.
 
-## 9.2. Autenticación
+## 9.2. Dashboard
+
+Constituye la interfaz principal del usuario autenticado.
+
+Los avances reportados incluyen:
+
+* Estructura general del Dashboard.
+* Tarjetas de resumen.
+* Sección de actividad reciente.
+* Próximas oportunidades.
+* Acciones rápidas.
+* Saludo personalizado a partir de los datos de sesión disponibles.
+* Topbar adaptada a dispositivos móviles.
+* Sidebar colapsable en escritorio.
+* Navegación lateral adaptada a móviles.
+* Persistencia local del estado colapsado del sidebar.
+* Correcciones de estilos y dimensiones de botones.
+* Ajustes del loader y de la navegación.
+
+**Estado:** interfaz maquetada e implementada visualmente con ajustes de navegación y comportamiento responsive.
+
+Las tarjetas y los elementos que dependen de información dinámica deben conectarse a MySQL. Los datos simulados no deben presentarse como información persistente real.
+
+La autenticación definitiva y los controles de acceso deben verificarse de manera independiente.
+
+## 9.3. Autenticación
 
 Agrupa las funcionalidades de acceso a la plataforma.
 
@@ -865,13 +1038,15 @@ Incluye:
 * Registro.
 * Recuperación de contraseña.
 
-Durante la implementación se desarrollaron las vistas, los estilos y parte del procesamiento asociado a estas funcionalidades.
+Los informes identifican vistas, archivos de procesamiento, validaciones y ajustes técnicos relacionados con estas operaciones.
 
-El funcionamiento completo de la autenticación debe evaluarse considerando tanto el procesamiento del servidor como la integración con la base de datos, la gestión de sesiones y los controles de autorización.
+**Estado:** existen avances de implementación, pero la maquetación, la autenticación real, la integración con MySQL y la recuperación completa de contraseña requieren completar y verificar el trabajo pendiente.
 
-## 9.3. Usuarios y perfil
+Las sesiones simuladas utilizadas para facilitar pruebas visuales no constituyen un sistema de autenticación real.
 
-Está destinado a la consulta y gestión de la información de los usuarios.
+## 9.4. Perfil
+
+Está destinado a la consulta y gestión de la información personal, académica y profesional del usuario.
 
 Entre sus responsabilidades previstas se encuentran:
 
@@ -880,17 +1055,19 @@ Entre sus responsabilidades previstas se encuentran:
 * Actualización de datos.
 * Gestión de información académica y profesional.
 
-La implementación de estas operaciones se realizará de acuerdo con los requerimientos y las interfaces correspondientes.
+**Estado:** diseño UI/UX finalizado en Figma; implementación pendiente.
 
-## 9.4. Egresados
+## 9.5. Egresados
 
 Permitirá consultar y visualizar información de los egresados que forman parte de la comunidad.
 
-El módulo deberá respetar los permisos correspondientes y limitar la exposición de información personal a los datos que sea apropiado mostrar.
+El módulo deberá respetar los permisos correspondientes y limitar la exposición de información personal.
 
-## 9.5. Proyectos
+**Estado:** diseño UI/UX finalizado en Figma; implementación pendiente.
 
-Permitirá consultar y gestionar los proyectos publicados por la comunidad.
+## 9.6. Proyectos
+
+Permitirá consultar y gestionar proyectos relacionados con la comunidad.
 
 Las interfaces contempladas incluyen:
 
@@ -899,7 +1076,9 @@ Las interfaces contempladas incluyen:
 * Detalle de proyecto.
 * Edición de proyecto.
 
-## 9.6. Noticias
+**Estado:** diseño UI/UX finalizado en Figma; implementación pendiente.
+
+## 9.7. Noticias
 
 Permitirá consultar y gestionar noticias relacionadas con la institución y la comunidad de egresados.
 
@@ -910,34 +1089,38 @@ Las interfaces contempladas incluyen:
 * Creación de noticias.
 * Edición de noticias.
 
-## 9.7. Administración
+**Estado:** diseño UI/UX finalizado en Figma; implementación pendiente.
+
+## 9.8. Administración
 
 Agrupará las funciones administrativas de la plataforma.
 
 Entre sus responsabilidades previstas se encuentran la gestión de egresados, proyectos, noticias y otros recursos del sistema.
 
-El acceso a este módulo deberá estar protegido mediante controles de autorización del lado del servidor. Ocultar enlaces o botones en la interfaz no es suficiente para impedir el acceso no autorizado.
+**Estado:** diseño UI/UX finalizado en Figma; implementación pendiente.
+
+El acceso a este módulo deberá estar protegido mediante controles de autorización del lado del servidor. Ocultar enlaces o botones en la interfaz no es suficiente para impedir accesos no autorizados.
 
 ---
 
-# 10. Flujos de Procesamiento
+# 10. Flujos de procesamiento
 
 ## 10.1. Flujo general de una solicitud
 
 El flujo previsto para las operaciones que requieren procesamiento en el servidor es:
 
 1. El usuario interactúa con una interfaz.
-2. El navegador envía una solicitud al servidor.
+2. El navegador envía una solicitud.
 3. La solicitud llega al controlador o al punto de procesamiento correspondiente.
 4. PHP valida los datos recibidos.
 5. Se ejecutan las reglas de negocio aplicables.
-6. Cuando es necesario, se consulta o modifica la base de datos.
+6. Cuando corresponde, se consulta o modifica la base de datos.
 7. El servidor construye una respuesta o realiza una redirección.
 8. La interfaz presenta el resultado al usuario.
 
-Las validaciones del navegador sirven como apoyo a la experiencia de uso, pero las reglas de seguridad y las validaciones obligatorias deben ejecutarse en el servidor.
+Las validaciones del navegador apoyan la experiencia de uso, pero las reglas de seguridad deben ejecutarse en el servidor.
 
-## 10.2. Flujo de inicio de sesión
+## 10.2. Flujo previsto de inicio de sesión
 
 ```text
 Formulario de inicio de sesión
@@ -946,7 +1129,7 @@ Formulario de inicio de sesión
 Validación inicial en el navegador
             │
             ▼
-auth/login-process.php
+Controlador de procesamiento
             │
             ▼
 Validación del lado del servidor
@@ -955,26 +1138,26 @@ Validación del lado del servidor
 Verificación de credenciales
             │
             ▼
-Gestión de la sesión
+Creación segura de la sesión
             │
             ▼
 Respuesta o redirección
 ```
 
-Este diagrama representa el flujo esperado de autenticación. Los pasos concretos deben verificarse en el código antes de considerar terminada la funcionalidad.
+Este diagrama representa el flujo esperado. Los pasos concretos deben verificarse en el código antes de considerar terminada la funcionalidad.
 
-La contraseña debe verificarse mediante el mecanismo de hashing correspondiente y nunca compararse como texto plano con una contraseña almacenada.
+La contraseña debe verificarse mediante los mecanismos apropiados y nunca compararse como texto plano con una contraseña almacenada.
 
-## 10.3. Flujo de registro
+## 10.3. Flujo previsto de registro
 
 ```text
 Formulario de registro
           │
           ▼
-Validación reactiva en JavaScript
+Validación en el navegador
           │
           ▼
-auth/registro-process.php
+Controlador de procesamiento
           │
           ▼
 Validación del servidor
@@ -992,11 +1175,11 @@ Persistencia mediante PDO
 Respuesta al usuario
 ```
 
-Los informes de implementación indican que el procesamiento de registro contempla validación del servidor, comprobación de contraseñas coincidentes, verificación de correo único y uso de `password_hash()`.
+Los informes anteriores mencionan validaciones del servidor, comprobación de contraseñas coincidentes, verificación de correo único y uso de `password_hash()`.
 
-Los campos definitivos deben corresponder a los definidos en la vista y en el modelo de datos.
+Estos pasos deben verificarse frente al código y el modelo de datos definitivo.
 
-## 10.4. Flujo de recuperación de contraseña
+## 10.4. Flujo previsto de recuperación de contraseña
 
 ```text
 Formulario de recuperación
@@ -1005,7 +1188,7 @@ Formulario de recuperación
 Validación del correo
             │
             ▼
-auth/recuperar-process.php
+Procesamiento de la solicitud
             │
             ▼
 Respuesta genérica
@@ -1026,30 +1209,30 @@ Validación del token
 Restablecimiento de contraseña
 ```
 
-Los informes documentan la validación del correo, la respuesta genérica y la generación de tokens.
+Los informes identifican avances en la validación del correo, las respuestas genéricas y la generación de tokens.
 
-El almacenamiento, la expiración, el envío de instrucciones y el restablecimiento final deben verificarse individualmente. El envío real de correos requiere completar la integración con un servicio de correo.
+El almacenamiento, la expiración, el envío de instrucciones y el restablecimiento final deben verificarse individualmente.
 
 ---
 
-# 11. Seguridad y Validación
+# 11. Seguridad y validación
 
-La seguridad constituye un criterio transversal de la arquitectura.
+La seguridad es un criterio transversal de la arquitectura.
 
-Las medidas deben implementarse en cada módulo y verificarse antes de considerar una funcionalidad lista para su utilización.
+Las medidas deben implementarse en cada módulo y verificarse antes de considerar una funcionalidad lista para su uso.
 
 ## 11.1. Validación de datos
 
 * Validar en el servidor los datos recibidos.
 * Comprobar los formatos requeridos.
-* Aplicar restricciones de longitud y contenido cuando corresponda.
+* Aplicar restricciones de longitud y contenido.
 * Validar las operaciones antes de acceder a la base de datos.
 * No confiar exclusivamente en JavaScript para aceptar o rechazar información.
 
 ## 11.2. Contraseñas
 
-* Utilizar funciones seguras de hashing de contraseñas, como `password_hash()`.
-* Verificar contraseñas con los mecanismos apropiados de PHP.
+* Utilizar funciones seguras de hashing, como `password_hash()`.
+* Verificar contraseñas mediante los mecanismos apropiados de PHP.
 * No almacenar contraseñas en texto plano.
 * Evitar incluir credenciales en mensajes de error o registros públicos.
 
@@ -1057,16 +1240,17 @@ Las medidas deben implementarse en cada módulo y verificarse antes de considera
 
 * Utilizar sentencias preparadas mediante PDO para consultas con datos variables.
 * Mantener separadas las credenciales de conexión.
-* Controlar los errores de base de datos sin exponer detalles internos al usuario.
+* Controlar los errores sin exponer detalles internos al usuario.
 * Utilizar transacciones cuando una operación requiera mantener la consistencia de varios cambios relacionados.
 
 ## 11.4. Autenticación y autorización
 
 * Verificar las credenciales en el servidor.
-* Gestionar de manera segura las sesiones.
+* Gestionar las sesiones de manera segura.
 * Comprobar los permisos antes de ejecutar operaciones protegidas.
 * Restringir las funciones administrativas a los usuarios autorizados.
 * No depender únicamente de los elementos visibles en la interfaz para controlar el acceso.
+* Mantener las herramientas de prueba local fuera del entorno de producción.
 
 ## 11.5. Recuperación de contraseña
 
@@ -1081,52 +1265,53 @@ Las medidas deben implementarse en cada módulo y verificarse antes de considera
 
 A medida que se completen los módulos, deberán verificarse también las medidas aplicables frente a solicitudes no autorizadas, ataques CSRF, manejo incorrecto de sesiones, exposición de información y carga de archivos inseguros.
 
-La presencia de algunas medidas de seguridad no implica que toda la aplicación haya sido auditada o que se encuentre preparada para producción.
+La presencia de algunas medidas de seguridad no implica que toda la aplicación haya sido auditada o esté preparada para producción.
 
 ---
 
-# 12. Recursos Institucionales
+# 12. Recursos institucionales
 
 La interfaz utiliza recursos gráficos de Raíces Alzate almacenados dentro del proyecto.
 
-El isotipo se incorpora en los componentes de marca, como la cabecera, el pie de página y el favicon.
+El logotipo se incorpora en componentes de marca, como la cabecera, el pie de página y el favicon, según corresponda.
 
-El favicon se declara en el documento HTML mediante una referencia al recurso almacenado localmente.
+Los informes de implementación también identifican el siguiente recurso para el loader:
 
-La ruta actualmente documentada es:
-
-```html
-<link rel="icon" type="image/x-icon" href="assets/icons/logo sin fondo raices alzate.ico">
+```text
+assets/icons/logo sin fondo raices alzate.ico
 ```
 
-La ruta relativa definitiva debe verificarse según la ubicación de la página que genera el documento y la forma en que se gestionan las rutas de los recursos.
+La ruta definitiva debe verificarse según la ubicación de la página y la forma en que se construyen las rutas de los recursos.
 
-Cuando corresponda, se recomienda centralizar la construcción de las rutas para evitar que los recursos dejen de cargarse al acceder a páginas ubicadas en distintas rutas.
+Cuando corresponda, se recomienda centralizar la construcción de las rutas para evitar errores al acceder a páginas ubicadas en distintos niveles o rutas.
 
 ---
 
-# 13. Pruebas y Verificación Técnica
+# 13. Pruebas y verificación técnica
 
 La implementación requiere verificaciones continuas para comprobar que las modificaciones no afecten las funcionalidades existentes.
 
-Los informes de implementación registran verificaciones de sintaxis PHP y respuestas HTTP satisfactorias para los archivos evaluados durante las sesiones correspondientes.
+Los informes de Antigravity y Gemini registran verificaciones de sintaxis PHP y respuestas HTTP satisfactorias para determinados archivos durante las jornadas de trabajo.
 
-Estas verificaciones constituyen evidencia de pruebas realizadas en ese momento, pero no sustituyen una prueba integral de todos los módulos.
+Estas verificaciones constituyen evidencia de pruebas realizadas en esos momentos, pero no sustituyen una prueba integral de todos los módulos.
 
 ## 13.1. Validaciones técnicas
 
 Las verificaciones aplicables incluyen:
 
 * Comprobación de sintaxis PHP.
-* Revisión de las rutas.
+* Revisión de rutas.
 * Comprobación de carga de CSS y JavaScript.
 * Verificación de recursos gráficos y tipográficos.
 * Pruebas de formularios.
-* Pruebas de validación en el navegador.
-* Pruebas de validación en el servidor.
+* Validaciones en el navegador.
+* Validaciones en el servidor.
 * Verificación de consultas y operaciones de base de datos.
 * Pruebas de navegación Desktop y Mobile.
-* Comprobación de regresiones en las interfaces previamente implementadas.
+* Comprobación de regresiones.
+* Pruebas de sesiones y cierre de sesión.
+* Comprobación de acceso a rutas protegidas.
+* Revisión del funcionamiento del loader.
 
 ## 13.2. Fidelidad visual
 
@@ -1134,7 +1319,7 @@ La implementación se calibra tomando como referencia las interfaces aprobadas e
 
 Las verificaciones visuales deben considerar:
 
-* Dimensiones y distribución de los componentes.
+* Dimensiones y distribución de componentes.
 * Tipografía y jerarquía visual.
 * Colores.
 * Espaciado.
@@ -1146,7 +1331,7 @@ Las diferencias entre el diseño y la implementación deben corregirse sin incor
 
 ---
 
-# 14. Flujo de Desarrollo del Proyecto
+# 14. Flujo de desarrollo del proyecto
 
 El desarrollo de Raíces Alzate se organiza de manera incremental.
 
@@ -1159,23 +1344,24 @@ Las etapas generales comprenden:
 5. Definición de flujos de información.
 6. Implementación frontend.
 7. Implementación backend.
-8. Integración con la base de datos.
-9. Pruebas funcionales y técnicas.
-10. Corrección de errores.
-11. Control de versiones.
-12. Actualización de la documentación.
+8. Diseño e implementación de la base de datos.
+9. Integración con MySQL.
+10. Pruebas funcionales y técnicas.
+11. Corrección de errores.
+12. Control de versiones.
+13. Actualización de la documentación.
 
 Las etapas iniciales de planificación, documentación base y diseño UI/UX se han desarrollado.
 
-La etapa actual corresponde a la implementación. En esta fase se han construido las primeras interfaces y se han incorporado partes del procesamiento de autenticación.
+La etapa actual corresponde a la implementación y el refinamiento de la interfaz. Se han trabajado Inicio, el Dashboard y componentes compartidos, además de ajustes técnicos en las rutas, las sesiones y el loader.
 
-El trabajo continuará por módulos, integrando progresivamente las vistas, la lógica de aplicación y las operaciones de persistencia.
+El trabajo continuará con la implementación de los módulos restantes y la consolidación de la autenticación y la base de datos.
 
-La documentación técnica deberá actualizarse conforme cambie la arquitectura o se incorporen funcionalidades.
+La documentación deberá actualizarse conforme cambie la arquitectura o se incorporen funcionalidades.
 
 ---
 
-# 15. Principios de Desarrollo
+# 15. Principios de desarrollo
 
 Durante la implementación se aplicarán los siguientes principios:
 
@@ -1199,11 +1385,11 @@ La incorporación de nuevas funcionalidades deberá respetar estos principios y 
 
 ---
 
-# 16. Estado Actual de la Arquitectura
+# 16. Estado actual de la arquitectura
 
 ## 16.1. Diseño UI/UX
 
-La Fase 3 — Diseño UI/UX se considera completada a finales de septiembre de 2026.
+La Fase 3 — Diseño UI/UX se encuentra finalizada.
 
 Los resultados incluyen:
 
@@ -1217,99 +1403,134 @@ Los resultados incluyen:
 * Página `Components & Responsive`.
 * Criterios de diseño responsive.
 * Flujo de navegación.
-* Definición de las interfaces Desktop.
-* Diseño de las adaptaciones Mobile.
+* 17 diseños Desktop.
+* 17 adaptaciones Mobile.
 
 El diseño aprobado constituye la referencia visual de la implementación.
 
-## 16.2. Implementación frontend
+## 16.2. Implementación de interfaces
 
-La implementación comenzó con la página de Inicio y los componentes compartidos.
+| Módulo         | Estado                                                                                    |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| Inicio         | Implementado visualmente; ajustes responsive y de componentes realizados.                 |
+| Dashboard      | Interfaz implementada visualmente; ajustes de navegación y comportamiento reportados.     |
+| Perfil         | Diseño finalizado; implementación pendiente.                                              |
+| Egresados      | Diseño finalizado; implementación pendiente.                                              |
+| Proyectos      | Diseño finalizado; implementación pendiente.                                              |
+| Noticias       | Diseño finalizado; implementación pendiente.                                              |
+| Administración | Diseño finalizado; implementación pendiente.                                              |
+| Autenticación  | Vistas y procesamiento con avances; falta completar y verificar la integración funcional. |
 
-Durante las jornadas de implementación se realizaron ajustes en:
+## 16.3. Componentes y navegación compartidos
 
-* Estructura HTML.
-* Cabecera.
-* Navegación Desktop y Mobile.
-* Menú Mobile.
-* Pie de página.
-* Recursos institucionales.
-* Favicon.
-* Tipografía local.
-* Organización de las hojas de estilos.
-* Botones compartidos.
-* Alertas globales.
-* Estados visuales de los campos y componentes.
+Los informes de implementación registran los siguientes avances:
 
-Los avances se incorporan de manera incremental para facilitar su revisión y evitar regresiones.
+* Normalización de la cabecera pública.
+* Comportamiento sticky de la cabecera.
+* Ajustes de estilos compartidos.
+* Corrección de dimensiones de botones.
+* Organización de la barra superior del Dashboard.
+* Sidebar colapsable en escritorio.
+* Navegación lateral adaptada a móviles.
+* Persistencia local del estado del sidebar.
+* Ajustes de accesibilidad de los controles de navegación.
+* Rediseño del loader.
+* Correcciones de rutas y de gestión de sesiones.
 
-## 16.3. Implementación de autenticación
+La existencia de estos avances no implica que todos los componentes estén definitivamente consolidados. Deben seguir verificándose conforme se incorporen nuevos módulos.
 
-Los informes de implementación identifican los siguientes avances:
+## 16.4. Autenticación y sesiones
 
-* Creación de `login.php` y `pages/login.php`.
-* Creación de `auth/login-process.php`.
-* Creación de `registro.php` y `pages/registro.php`.
-* Creación de `auth/registro-process.php`.
-* Creación de `recuperar-password.php` y `pages/recuperar-password.php`.
-* Creación de `auth/recuperar-process.php`.
-* Incorporación de estilos de autenticación en `assets/css/auth.css`.
-* Incorporación de validaciones y comportamientos en `assets/js/auth.js`.
-* Validaciones reactivas de campos.
-* Mensajes de retroalimentación.
-* Validación de correo electrónico.
-* Hash de contraseñas en el procesamiento de registro.
-* Generación de tokens para el proceso de recuperación.
-* Respuestas genéricas para evitar revelar si una cuenta existe.
-* Carga condicional de recursos según la interfaz.
+Los informes identifican avances en:
 
-Los informes también registran pruebas de sintaxis y respuestas HTTP satisfactorias durante las jornadas correspondientes.
+* Vistas de inicio de sesión.
+* Vista de registro.
+* Vista de recuperación de contraseña.
+* Controladores de acceso a determinadas interfaces.
+* Archivos de procesamiento de formularios.
+* Ajustes de inicialización de sesiones.
+* Correcciones relacionadas con el envío de cabeceras HTTP.
+* Utilidad local para crear una sesión simulada.
+* Controlador de cierre de sesión.
 
-Estos avances deben entenderse como implementación documentada de los módulos de autenticación, no como confirmación de que todas las operaciones de producción estén terminadas.
+La autenticación real debe comprobarse de extremo a extremo con la base de datos y las contraseñas almacenadas.
 
-## 16.4. Estado de la base de datos
+También deben verificarse las restricciones de acceso, la gestión segura de sesiones y el proceso completo de recuperación de contraseña.
 
-La conexión entre PHP y MySQL fue verificada durante la preparación del proyecto.
+## 16.5. Base de datos
 
-La integración debe continuar con la consolidación de los modelos de datos, las consultas y las operaciones requeridas por cada módulo.
+La conexión entre PHP y MySQL fue probada durante la preparación de la implementación.
 
-La arquitectura debe distinguir entre conectividad verificada y funcionalidades que ya realizan operaciones completas sobre datos persistentes.
+Continúan pendientes:
 
-## 16.5. Pendientes técnicos identificados
+* Definición del modelo entidad-relación.
+* Diseño definitivo de las tablas.
+* Establecimiento de claves primarias y foráneas.
+* Definición de restricciones e índices.
+* Consolidación de la configuración de conexión.
+* Implementación de consultas y operaciones de persistencia.
+* Integración de los módulos con datos reales.
+* Sustitución de los datos simulados del Dashboard.
+* Pruebas de integridad y consistencia de la información.
 
-Entre los aspectos que requieren continuidad o verificación se encuentran:
+## 16.6. Pendientes técnicos
 
-* Completar y verificar el flujo de autenticación.
-* Comprobar la gestión segura de sesiones.
-* Completar la recuperación de contraseña.
-* Configurar el servicio de correo para el envío real de instrucciones.
+Los principales pendientes identificados son:
+
+* Completar y verificar la autenticación real.
+* Terminar la maquetación y los ajustes de las interfaces de autenticación.
+* Completar el flujo de recuperación de contraseña.
+* Configurar el envío real de correos cuando corresponda.
 * Verificar el almacenamiento, la expiración y la utilización de tokens.
 * Consolidar la estructura de componentes compartidos.
-* Continuar la implementación de las interfaces diseñadas.
-* Integrar progresivamente los módulos con MySQL.
+* Implementar Perfil.
+* Implementar Egresados.
+* Implementar Proyectos.
+* Implementar Noticias.
+* Implementar el Panel administrativo.
+* Diseñar e implementar el modelo de datos.
+* Completar la integración con MySQL.
+* Reemplazar los datos simulados por consultas reales.
 * Implementar y comprobar los controles de autorización.
-* Ampliar las pruebas funcionales y de seguridad.
+* Ampliar las pruebas funcionales, visuales y de seguridad.
 * Mantener actualizados los documentos técnicos.
 
 ---
 
-# 17. Próxima Etapa
+# 17. Próxima etapa
 
 La implementación continuará con el desarrollo incremental de los módulos de la plataforma.
 
+La continuidad del proyecto deberá contemplar:
+
+1. Completar y verificar las pantallas de autenticación.
+2. Definir el modelo entidad-relación y las tablas de MySQL.
+3. Consolidar la conexión y la capa de acceso a datos mediante PDO.
+4. Implementar el módulo de Perfil.
+5. Implementar el módulo de Egresados.
+6. Implementar el módulo de Proyectos.
+7. Implementar el módulo de Noticias.
+8. Implementar el Panel administrativo.
+9. Integrar las funcionalidades con datos persistentes.
+10. Implementar y verificar los controles de autorización.
+11. Realizar pruebas funcionales, visuales y técnicas.
+12. Actualizar la documentación conforme se consoliden los avances.
+
+El orden de ejecución podrá ajustarse según las dependencias técnicas. En particular, el diseño de la base de datos debe coordinarse con los requerimientos de autenticación, usuarios, perfiles y los demás módulos.
+
 Cada módulo deberá incorporar progresivamente:
 
-1. La vista correspondiente al diseño aprobado.
-2. Los estilos y componentes reutilizables.
-3. Los comportamientos necesarios en JavaScript.
-4. El procesamiento requerido en PHP.
-5. La validación de los datos.
-6. La integración con la base de datos, cuando corresponda.
-7. Los controles de seguridad aplicables.
-8. Las pruebas funcionales y visuales.
-9. La actualización de la documentación.
+* La vista correspondiente al diseño aprobado.
+* Los estilos y componentes reutilizables.
+* Los comportamientos necesarios en JavaScript.
+* El procesamiento requerido en PHP.
+* La validación de los datos.
+* La integración con la base de datos cuando corresponda.
+* Los controles de seguridad aplicables.
+* Las pruebas funcionales y visuales.
+* La actualización de la documentación.
 
-Las interfaces y los módulos se considerarán terminados únicamente cuando se hayan verificado los criterios funcionales y técnicos correspondientes.
+Las interfaces y funcionalidades se considerarán terminadas únicamente cuando se hayan verificado sus criterios funcionales y técnicos.
 
 La documentación de arquitectura se mantendrá como referencia viva del proyecto, reflejando las decisiones y los cambios que realmente se incorporen al repositorio.
 

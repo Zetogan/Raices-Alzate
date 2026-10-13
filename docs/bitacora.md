@@ -6,16 +6,18 @@
 
 ## 📌 Información general
 
-| Campo                               | Detalle                                        |
-| ----------------------------------- | ---------------------------------------------- |
-| **Nombre del proyecto**             | Raíces Alzate                                  |
-| **Institución**                     | Institución Educativa Gilberto Alzate Avendaño |
-| **Desarrollador**                   | Santiago Emitola                               |
-| **Inicio del proyecto**             | 2025                                           |
-| **Estado actual**                   | En desarrollo                                  |
-| **Versión documental**              | v0.1.1                                         |
-| **Fase actual**                     | Fase 4 — Implementación                        |
-| **Última actualización registrada** | 9 de octubre de 2026                           |
+| Campo                               | Detalle                                            |
+| ----------------------------------- | -------------------------------------------------- |
+| **Nombre del proyecto**             | Raíces Alzate                                      |
+| **Institución**                     | Institución Educativa Gilberto Alzate Avendaño     |
+| **Desarrollador**                   | Santiago Emitola                                   |
+| **Inicio del proyecto**             | 2025                                               |
+| **Estado actual**                   | En desarrollo                                      |
+| **Versión documental**              | v0.1.1                                             |
+| **Fase actual**                     | Fase 4 — Implementación y refinamiento de interfaz |
+| **Última actualización registrada** | 13 de octubre de 2026                              |
+| **Rama de trabajo reportada**       | `dev-emitola`                                      |
+| **Entorno de desarrollo**           | XAMPP, Apache y PHP nativo                         |
 
 ---
 
@@ -26,6 +28,8 @@ Esta bitácora documenta la evolución de Raíces Alzate desde sus primeras etap
 Su propósito es mantener un registro organizado y verificable de las actividades realizadas, las decisiones tomadas, los componentes desarrollados, las modificaciones efectuadas y las tareas pendientes.
 
 La información registrada sirve como referencia para el seguimiento del proyecto, la actualización de la documentación técnica y la continuidad del desarrollo.
+
+Los avances procedentes de informes de herramientas de desarrollo se registran como actividades reportadas. Cuando una funcionalidad requiere pruebas adicionales o inspección directa del repositorio, se indica expresamente para no confundir su implementación con su validación definitiva.
 
 ---
 
@@ -112,11 +116,11 @@ Se establecieron las bases iniciales del sistema de diseño que serviría como r
 
 **Decisiones de diseño:**
 
-Se definieron las siguientes referencias cromáticas:
-
 | Elemento         | Color     |
 | ---------------- | --------- |
 | Primario         | `#D32F2F` |
+| Hover primario   | `#B71C1C` |
+| Active primario  | `#8E0000` |
 | Secundario       | `#1565C0` |
 | Texto principal  | `#212121` |
 | Texto secundario | `#757575` |
@@ -195,17 +199,17 @@ Durante estas sesiones se desarrollaron las principales interfaces de Raíces Al
 * Diseño de la pantalla de Inicio para escritorio.
 * Organización de la estructura visual del encabezado y el pie de página.
 * Diseño de las secciones de presentación y beneficios de la plataforma.
-* Diseño progresivo de las pantallas de autenticación y del área privada.
-* Elaboración de interfaces relacionadas con perfiles, proyectos, oportunidades, noticias y administración.
+* Diseño de las pantallas de autenticación y del área privada.
+* Elaboración de interfaces relacionadas con perfiles, egresados, proyectos, noticias y administración.
 * Revisión de la jerarquía visual, las dimensiones y la distribución de los elementos.
-* Adaptación de las principales estructuras para dispositivos móviles.
+* Adaptación de las interfaces para dispositivos móviles.
 * Revisión de la consistencia entre los componentes reutilizables y las diferentes pantallas.
 
 ### Pantalla de Inicio — Desktop
 
 Se consolidó la pantalla `01 - Inicio - Desktop`, con un ancho de referencia de 1440 px.
 
-La estructura incluyó:
+La estructura final incluye:
 
 * Encabezado de navegación.
 * Sección principal o Hero.
@@ -218,29 +222,45 @@ La estructura se ajustó para mantener una distribución clara y evitar desborda
 
 ### Consolidación de las pantallas Desktop
 
-El trabajo de diseño avanzó hasta la pantalla `17 - Editar noticia - Desktop`.
+El diseño avanzó hasta la pantalla `17 - Editar noticia - Desktop`.
 
-Se organizaron las interfaces de acuerdo con las necesidades de navegación y las funcionalidades previstas para la plataforma.
+El conjunto de interfaces definido comprende:
+
+1. Inicio.
+2. Autenticación.
+3. Dashboard.
+4. Perfil.
+5. Egresados.
+6. Proyectos.
+7. Noticias.
+8. Administración.
+9. Crear proyecto.
+10. Detalle de proyecto.
+11. Editar perfil.
+12. Recuperar contraseña.
+13. Registro.
+14. Editar proyecto.
+15. Crear noticia.
+16. Detalle de noticia.
+17. Editar noticia.
 
 ### Adaptación Mobile
 
-Se trabajó en la adaptación de las interfaces para dispositivos móviles, incluyendo:
+Se diseñaron las versiones móviles de las 17 pantallas, tomando como referencia un ancho de 390 px.
 
-* Inicio Mobile.
-* Autenticación Mobile.
-* Componentes y secciones del Dashboard Mobile, entre ellos Mi perfil, Mis proyectos y Oportunidades.
-
-El trabajo responsive se organizó como parte del proceso de adaptación de las interfaces, conservando la identidad visual del proyecto.
+Se trabajaron las adaptaciones de navegación, formularios, contenido y componentes del área privada, según las necesidades de cada pantalla.
 
 ### Resultado de la fase
 
-Al finalizar septiembre de 2026, se dio por terminada la etapa principal de diseño UI/UX y se estableció Figma como referencia visual para la implementación frontend.
+La etapa de diseño UI/UX se declaró finalizada a finales de septiembre de 2026.
 
-La adaptación responsive y la revisión de las interfaces móviles quedaron sujetas a validación durante el proceso de implementación, de acuerdo con el alcance efectivamente completado de cada pantalla.
+Se estableció Figma como referencia visual para la implementación frontend.
+
+**Estado:** fase cerrada. Las diferencias visuales que se encuentren durante la programación se gestionan como ajustes de implementación y control de calidad, no como reapertura de la fase de diseño.
 
 ---
 
-# 💻 Fase 4 — Implementación
+# 💻 Fase 4 — Implementación y refinamiento de interfaz
 
 ## Sesión 15 — Implementación de Inicio y estructura compartida
 
@@ -274,13 +294,13 @@ La adaptación responsive y la revisión de las interfaces móviles quedaron suj
 * Preparación de la estructura para escritorio y dispositivos móviles.
 * Organización del pie de página en tres columnas.
 
-Se tomó como referencia un ancho de escritorio de 1440 px y un ancho móvil de 390 px para las comprobaciones iniciales de la interfaz.
+Se tomaron como referencia un ancho de escritorio de 1440 px y un ancho móvil de 390 px para las comprobaciones iniciales de la interfaz.
 
 **Resultado:**
 
 Se estableció una base frontend reutilizable para continuar con la implementación de las demás pantallas.
 
-La conexión entre PHP y MySQL ya había sido probada previamente. Sin embargo, la definición e integración del esquema definitivo de la base de datos permaneció como una tarea pendiente.
+La conexión entre PHP y MySQL ya se había probado previamente. Sin embargo, esa prueba no acredita que el esquema definitivo de la base de datos esté diseñado e integrado en toda la plataforma.
 
 ## Sesión 16 — Calibración de botones
 
@@ -288,21 +308,21 @@ La conexión entre PHP y MySQL ya había sido probada previamente. Sin embargo, 
 
 **Objetivo:**
 
-Ajustar los botones globales para mantener la coherencia visual con el sistema de diseño de Figma.
+Ajustar los botones para mantener la coherencia visual con el sistema de diseño de Figma.
 
 **Actividades realizadas:**
 
 * Ajuste de dimensiones.
 * Normalización de la tipografía.
-* Definición de los estados de interacción.
+* Definición de estados de interacción.
 * Organización de clases reutilizables.
 
-**Especificaciones registradas:**
+**Especificaciones registradas para los botones generales:**
 
-| Clase                              |  Ancho |  Alto | Radio |
-| ---------------------------------- | -----: | ----: | ----: |
-| `.btn-primary` / `.hero-cta-btn`   | 123 px | 40 px |  8 px |
-| `.btn-sm` / `.header-register-btn` | 112 px | 40 px |  8 px |
+| Clase                              | Ancho de referencia |  Alto | Radio |
+| ---------------------------------- | ------------------: | ----: | ----: |
+| `.btn-primary` / `.hero-cta-btn`   |              123 px | 40 px |  8 px |
+| `.btn-sm` / `.header-register-btn` |              112 px | 40 px |  8 px |
 
 **Estilos definidos:**
 
@@ -313,13 +333,11 @@ Ajustar los botones globales para mantener la coherencia visual con el sistema d
 * Active: `#8E0000`.
 * Retroalimentación de interacción mediante una reducción de escala de `0.98`, según la implementación registrada.
 
-**Archivo principal:**
-
-`assets/css/main.css`.
+**Archivo principal:** `assets/css/main.css`.
 
 **Resultado:**
 
-Se consolidaron estilos compartidos para los botones, facilitando su reutilización en las diferentes pantallas.
+Se consolidaron estilos compartidos para los botones, facilitando su reutilización. Posteriormente se detectó que una regla global de ancho fijo podía afectar a botones de otras pantallas, lo que motivó ajustes de especificidad documentados en la sesión 28.
 
 ## Sesión 17 — Implementación de autenticación: inicio de sesión
 
@@ -329,7 +347,7 @@ Se consolidaron estilos compartidos para los botones, facilitando su reutilizaci
 
 Implementar la pantalla de inicio de sesión de acuerdo con el diseño definido en Figma.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
 * `login.php`.
 * `pages/login.php`.
@@ -357,19 +375,19 @@ También se realizaron ajustes en los archivos compartidos necesarios para carga
 * Ajustes de espaciado para dispositivos móviles.
 * Uso de Inter y de los colores definidos en el sistema de diseño.
 
-**Consideraciones técnicas:**
+**Consideraciones técnicas registradas:**
 
 * Validación de los datos recibidos.
 * Preparación del procesamiento mediante PHP.
-* Uso de PDO y consultas preparadas en las operaciones de base de datos correspondientes.
-* Prevención de envíos duplicados durante el procesamiento, según la implementación registrada.
+* Uso reportado de PDO y consultas preparadas en las operaciones correspondientes.
+* Prevención de envíos duplicados durante el procesamiento, según la implementación reportada.
 * Retroalimentación accesible mediante atributos ARIA.
 
 **Resultado:**
 
-Se implementó la estructura de inicio de sesión y se preparó su integración con el procesamiento de autenticación.
+Se desarrolló la estructura de inicio de sesión y se preparó su procesamiento.
 
-La comprobación de la autenticación real debe distinguirse de la validación visual del formulario y de las pruebas de procesamiento.
+La existencia de la vista y de un archivo de procesamiento no demuestra por sí sola que la autenticación real funcione de extremo a extremo. Es necesario verificar las credenciales, las consultas, las sesiones y los casos de error.
 
 ## Sesión 18 — Ajustes visuales de autenticación
 
@@ -385,9 +403,7 @@ Corregir la alineación de los elementos del encabezado de autenticación con re
 * Ajuste del encabezado para mantener la alineación a la izquierda.
 * Incorporación de reglas específicas para evitar conflictos con estilos heredados.
 
-**Archivo trabajado:**
-
-`assets/css/auth.css`.
+**Archivo trabajado:** `assets/css/auth.css`.
 
 **Resultado:**
 
@@ -428,7 +444,7 @@ Se registró el uso de atributos como `role="alert"` y `aria-live="polite"` para
 
 **Resultado:**
 
-Se estableció una base de alertas reutilizables para los formularios actuales y futuros de la plataforma.
+Se estableció una base de alertas reutilizables para los formularios actuales y futuros.
 
 ## Sesión 20 — Adaptación responsive del encabezado
 
@@ -452,7 +468,7 @@ Adaptar el encabezado de navegación para mantener una experiencia adecuada en d
 
 **Resultado:**
 
-Se preparó una navegación móvil más compacta, conservando el acceso a las opciones principales sin saturar el encabezado.
+Se preparó una navegación móvil más compacta, conservando el acceso a las opciones principales.
 
 ## Sesión 21 — Implementación del registro de usuarios
 
@@ -462,7 +478,7 @@ Se preparó una navegación móvil más compacta, conservando el acceso a las op
 
 Desarrollar la pantalla de registro y preparar el procesamiento de los datos enviados por los usuarios.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
 * `registro.php`.
 * `pages/registro.php`.
@@ -471,7 +487,7 @@ Desarrollar la pantalla de registro y preparar el procesamiento de los datos env
 * `assets/js/auth.js`.
 * `index.php`.
 
-Durante esta etapa también se eliminaron archivos estáticos redundantes relacionados con las versiones anteriores de las pantallas de autenticación.
+Durante esta etapa también se reportó la eliminación de archivos estáticos redundantes relacionados con versiones anteriores de las pantallas de autenticación.
 
 **Actividades realizadas:**
 
@@ -481,15 +497,15 @@ Durante esta etapa también se eliminaron archivos estáticos redundantes relaci
 * Preparación de las validaciones del formulario.
 * Implementación del procesamiento en PHP.
 * Preparación de la verificación de correo electrónico duplicado.
-* Uso de mecanismos de almacenamiento seguro de contraseñas.
+* Uso reportado de mecanismos de almacenamiento seguro de contraseñas.
 
 **Consideraciones técnicas registradas:**
 
 * Uso de `password_hash()` con `PASSWORD_DEFAULT`.
-* Uso de PDO y consultas preparadas.
+* Uso reportado de PDO y consultas preparadas.
 * Validación de los datos recibidos.
 * Control de correos electrónicos duplicados.
-* Uso de transacciones en el procesamiento correspondiente, según la implementación registrada.
+* Uso de transacciones en el procesamiento correspondiente, según el informe recibido.
 
 **Resultado:**
 
@@ -522,7 +538,7 @@ Unificar los estados visuales y el comportamiento de los campos y controles de s
 * Estado deshabilitado con tonos neutros.
 * Conservación de los colores definidos en el Design System.
 
-**Funciones auxiliares registradas:**
+**Funciones auxiliares reportadas:**
 
 * `setInputError()`.
 * `clearInputError()`.
@@ -546,7 +562,7 @@ Se unificaron los estados de interacción y validación para mejorar la consiste
 
 Desarrollar la pantalla de recuperación de contraseña y preparar el procesamiento de las solicitudes correspondientes.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
 * `recuperar-password.php`.
 * `pages/recuperar-password.php`.
@@ -572,7 +588,7 @@ Desarrollar la pantalla de recuperación de contraseña y preparar el procesamie
 * Validación del correo electrónico recibido.
 * Uso de una respuesta genérica para reducir el riesgo de enumeración de cuentas.
 * Preparación del mecanismo de recuperación mediante tokens.
-* Necesidad de verificar el almacenamiento, la expiración y la validación de los tokens en el backend antes de considerar completo el flujo.
+* Necesidad de verificar el almacenamiento, la expiración y la validación de los tokens en el backend.
 
 **Respuesta genérica registrada:**
 
@@ -580,11 +596,11 @@ Desarrollar la pantalla de recuperación de contraseña y preparar el procesamie
 
 **Estado del servicio de correo:**
 
-La configuración SMTP todavía está pendiente. Por lo tanto, la generación del token no debe confundirse con el envío efectivo de un correo ni con la finalización integral del proceso de restablecimiento de contraseña.
+La configuración SMTP permanece pendiente. La generación de un token no equivale al envío efectivo de un correo ni a la finalización integral del proceso de restablecimiento.
 
 **Resultado:**
 
-Se implementó la estructura de recuperación de contraseña y se preparó su procesamiento, quedando pendiente completar y verificar la integración con el servicio de correo y el flujo de restablecimiento.
+Se implementó la estructura de recuperación de contraseña y se preparó su procesamiento. Quedó pendiente completar y verificar la integración con el servicio de correo y el flujo de restablecimiento.
 
 ## Sesión 24 — Implementación de la pantalla de Proyectos
 
@@ -592,42 +608,44 @@ Se implementó la estructura de recuperación de contraseña y se preparó su pr
 
 **Objetivo:**
 
-Implementar con fidelidad visual y funcional la pantalla de Proyectos de la plataforma Raíces Alzate (v0.1.1), respetando estrictamente la arquitectura modular del repositorio y el sistema de diseño visual institucional.
+Implementar la pantalla de Proyectos de Raíces Alzate, respetando la arquitectura modular y el sistema de diseño institucional.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
-* `proyectos.php` (punto de entrada directo en la raíz).
-* `pages/proyectos.php` (vista modular con contenedor semántico).
-* `assets/css/portal.css` (hoja de estilos para el portal público y pantalla de proyectos).
-* `assets/img/proyectos-illustration.svg` (ilustración vectorial oficial con laptop, brote, bombilla e insignias de proyectos).
-* `assets/icons/logo sin fondo raices alzate.ico` (isotipo oficial reutilizado en cabecera y pie de página).
-* `index.php` (incorporación de la ruta `case 'proyectos':` en el Front Controller).
-* `includes/header.php` (incorporación condicional de `portal.css`).
-* `components/header.php` (enlace activo con indicador inferior rojo de 2 px y logo oficial en icons).
-* `components/footer.php` (pie de página minimalista con logo oficial y navegación principal de 4 enlaces).
-* `assets/css/header.css` (calibración del logo a 42 px e indicador activo).
-* `assets/css/footer.css` (fondo `#1E1E1E` y tipografía institucional `#B0BEC5`).
-* `assets/css/main.css` (incorporación de la clase `.btn-outline-secondary`).
-* `docs/bitacora.md` (registro de la sesión).
-* `docs/changelog.md` (registro en el historial de cambios).
+* `proyectos.php`.
+* `pages/proyectos.php`.
+* `assets/css/portal.css`.
+* `assets/img/proyectos-illustration.svg`.
+* `assets/icons/logo sin fondo raices alzate.ico`.
+* `index.php`.
+* `includes/header.php`.
+* `components/header.php`.
+* `components/footer.php`.
+* `assets/css/header.css`.
+* `assets/css/footer.css`.
+* `assets/css/main.css`.
+* `docs/bitacora.md`.
+* `docs/changelog.md`.
 
 **Actividades realizadas:**
 
-* Creación del controlador de vista directo `proyectos.php` en la raíz para despachar de forma modular el encabezado, la vista de contenido y el pie de página.
-* Construcción de la vista semántica en `pages/proyectos.php` estructurada en un layout de dos columnas balanceadas en Desktop (1440 px) y una sola columna apilada en Mobile (< 768 px).
-* Incorporación del título institucional «Proyectos» y el párrafo descriptivo de llamado a la comunidad.
-* Calibración del botón principal «Iniciar sesión» (`.btn-primary`, `.btn-proyectos-login`) con `display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; text-align: center; min-width: 140px; height: 44px; padding: 0 24px; line-height: normal;` para garantizar que el texto se presente centrado y en una sola línea horizontal sin particiones.
-* Configuración del botón secundario «Crear una cuenta» en estilo outline con borde y texto en azul institucional `#1565C0`.
-* Diseño y renderizado de la ilustración vectorial oficial en formato SVG (`assets/img/proyectos-illustration.svg`), armonizada exclusivamente con la paleta de colores oficial: laptop en tonos neutros y azules, brote y planta en crecimiento con acentos en rojo Alzate, bombilla de innovación y tarjetas flotantes de código, comunidad e impacto.
-* Unificación del recurso del logo en su ubicación oficial `assets/icons/logo sin fondo raices alzate.ico`, evitando duplicaciones en `assets/img/`.
-* Actualización del indicador visual de pestaña activa en el menú de navegación (`border-bottom: 2px solid #D32F2F;`).
-* Calibración del footer a `#1E1E1E` con la navegación principal aprobada (`Inicio`, `Proyectos`, `Egresados`, `Noticias`), eliminando el enlace a Contacto.
-* Reordenamiento responsive en Mobile (<= 768 px) mediante Flexbox, estructurando la secuencia visual vertical: 1. Título y descripción (`.proyectos-header-text`, `order: 1`), 2. Tarjeta de ilustración (`.proyectos-illustration-card`, `order: 2`), 3. Botones de acción (`.proyectos-actions`, `order: 3`).
-* Verificación de la adaptabilidad para pantallas móviles garantizando que no existan desbordamientos horizontales.
+* Creación del punto de entrada `proyectos.php` en la raíz para integrar encabezado, vista y pie de página.
+* Construcción de la vista semántica `pages/proyectos.php`.
+* Organización del contenido en dos columnas para escritorio y una columna para móvil.
+* Incorporación del título «Proyectos» y el texto de presentación.
+* Ajuste de los botones «Iniciar sesión» y «Crear una cuenta».
+* Creación de una ilustración SVG específica para la pantalla.
+* Reutilización del isotipo oficial del proyecto.
+* Incorporación de un indicador visual para la pestaña activa.
+* Ajuste del pie de página y sus enlaces de navegación.
+* Reordenamiento del contenido en dispositivos móviles.
+* Verificación reportada de la adaptación responsive.
 
 **Resultado:**
 
-Se implementó con éxito la pantalla de Proyectos cumpliendo todas las reglas de arquitectura modular y respetando la paleta estricta de colores del sistema de diseño institucional.
+Se reportó la implementación de la pantalla de Proyectos mediante una vista modular, un punto de entrada y estilos compartidos.
+
+La correspondencia visual definitiva con Figma y el funcionamiento integral de sus enlaces deben validarse durante el control de calidad.
 
 ## Sesión 25 — Implementación de la pantalla modular de Egresados
 
@@ -635,33 +653,33 @@ Se implementó con éxito la pantalla de Proyectos cumpliendo todas las reglas d
 
 **Objetivo:**
 
-Implementar de forma modular y con estricta fidelidad visual la pantalla de Egresados (`05 - Egresados - Desktop` y Mobile), respetando la arquitectura modular existente en `proyectos.php`, reutilizando los componentes globales sin alteración y aplicando la paleta institucional oficial.
+Implementar la pantalla de Egresados siguiendo la arquitectura modular establecida para el portal público.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
-* `egresados.php` (punto de entrada directo en la raíz).
-* `pages/egresados.php` (vista modular con contenedor semántico y layout accesible).
-* `assets/css/portal.css` (ampliación de estilos modulares para compartir selectores con Egresados).
-* `assets/img/egresados-illustration.svg` (ilustración vectorial oficial con birrete de graduación, diplomas, red comunitaria y brote institucional).
-* `index.php` (incorporación de la ruta `case 'egresados':` en el Front Controller).
-* `docs/bitacora.md` (registro de la sesión de trabajo).
-* `docs/changelog.md` (registro en el historial de cambios).
+* `egresados.php`.
+* `pages/egresados.php`.
+* `assets/css/portal.css`.
+* `assets/img/egresados-illustration.svg`.
+* `index.php`.
+* `docs/bitacora.md`.
+* `docs/changelog.md`.
 
 **Actividades realizadas:**
 
-* Creación del controlador de vista directo `egresados.php` en la raíz del proyecto para despachar modularmente `header.php`, `pages/egresados.php` y `footer.php`, asignando `$currentPage = 'egresados'` para la activación automática del menú institucional.
-* Construcción de la vista semántica en `pages/egresados.php` estructurada en un layout de dos columnas en escritorio (1440 px) y una sola columna en mobile (< 768 px).
-* Incorporación del título institucional «Egresados» y párrafo descriptivo de vinculación a la comunidad alzatista.
-* Inclusión de botones de acción institucionales «Iniciar sesión» (`#D32F2F`) y «Crear una cuenta» (outline `#1565C0`) con dimensionamiento de 44 px de altura, min-width 140 px y prevención de saltos de línea.
-* Creación de la ilustración vectorial oficial `assets/img/egresados-illustration.svg` alineada con la paleta de colores oficial (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`): birrete con borla roja, certificado enrollado con sello institucional, tarjetas flotantes de red comunitaria y brote de raíces.
-* Integración de la ruta `case 'egresados':` en el enrutador central `index.php`.
-* Verificación de la carga modular de `portal.css` mediante la directiva condicional existente en `includes/header.php`.
-* Aplicación de la secuencia vertical en Mobile (<= 768 px) mediante Flexbox: 1. Textos (`order: 1`), 2. Tarjeta de ilustración (`order: 2`), 3. Botones de acción (`order: 3`).
-* Validación de sintaxis PHP y verificación de salida HTML limpia sin errores.
+* Creación del punto de entrada `egresados.php`.
+* Construcción de la vista semántica `pages/egresados.php`.
+* Incorporación del título «Egresados» y el texto de vinculación con la comunidad.
+* Integración de los botones de inicio de sesión y registro.
+* Creación de una ilustración SVG relacionada con la graduación y la comunidad de egresados.
+* Integración de la ruta correspondiente en `index.php`.
+* Reutilización de los estilos compartidos de `portal.css`.
+* Aplicación de un diseño de dos columnas en escritorio y una distribución vertical en móvil.
+* Validación de sintaxis PHP y salida HTML, según el informe recibido.
 
 **Resultado:**
 
-Se implementó con éxito la pantalla de Egresados bajo la arquitectura modular estándar, sin alterar los archivos base de encabezado, pie de página ni duplicar recursos de imagen.
+Se reportó la implementación modular de Egresados, reutilizando la estructura y los recursos compartidos del portal público.
 
 ## Sesión 26 — Implementación de la pantalla modular de Noticias
 
@@ -669,81 +687,372 @@ Se implementó con éxito la pantalla de Egresados bajo la arquitectura modular 
 
 **Objetivo:**
 
-Implementar de forma modular y con estricta fidelidad visual la pantalla de Noticias (`07 - Noticias - Desktop` y Mobile), respetando la arquitectura modular ya consolidada en `proyectos.php` y `egresados.php`, reutilizando los componentes globales sin alteración y aplicando la paleta institucional oficial.
+Implementar la pantalla de Noticias, manteniendo la coherencia con las pantallas públicas de Proyectos y Egresados.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
-* `noticias.php` (punto de entrada directo en la raíz).
-* `pages/noticias.php` (vista modular con contenedor semántico y layout accesible).
-* `assets/css/portal.css` (ampliación de estilos modulares para compartir selectores con Noticias).
-* `assets/img/noticias-illustration.svg` (ilustración vectorial oficial con portal de noticias, megáfono de difusión, calendario de eventos y brote institucional).
-* `index.php` (incorporación de la ruta `case 'noticias':` en el Front Controller).
-* `docs/bitacora.md` (registro de la sesión de trabajo).
-* `docs/changelog.md` (registro en el historial de cambios).
+* `noticias.php`.
+* `pages/noticias.php`.
+* `assets/css/portal.css`.
+* `assets/img/noticias-illustration.svg`.
+* `index.php`.
+* `docs/bitacora.md`.
+* `docs/changelog.md`.
 
 **Actividades realizadas:**
 
-* Creación del controlador de vista directo `noticias.php` en la raíz del proyecto para despachar modularmente `header.php`, `pages/noticias.php` y `footer.php`, asignando `$currentPage = 'noticias'` para la activación automática de la pestaña en la navegación institucional.
-* Construcción de la vista semántica en `pages/noticias.php` estructurada en un layout de dos columnas en escritorio (1440 px) y una sola columna en mobile (< 768 px).
-* Incorporación del título institucional «Noticias» y párrafo descriptivo de novedades institucionales y eventos para la comunidad.
-* Inclusión de botones de acción institucionales «Iniciar sesión» (`#D32F2F`) y «Crear una cuenta» (outline `#1565C0`) con dimensionamiento de 44 px de altura, min-width 140 px y texto continuo en una sola línea.
-* Creación de la ilustración vectorial oficial `assets/img/noticias-illustration.svg` alineada estrictamente con la paleta de colores oficial: tablón digital con artículo destacado e insignia institucional, megáfono con ondas de difusión en rojo y azul, campana de notificaciones, tarjeta flotante de eventos con fecha 15 de octubre y brote de raíces alzatistas.
-* Integración de la ruta `case 'noticias':` en el enrutador central `index.php`.
-* Verificación de la carga modular de `portal.css` mediante la directiva condicional existente en `includes/header.php`.
-* Aplicación de la secuencia vertical en Mobile (<= 768 px) mediante Flexbox: 1. Textos (`order: 1`), 2. Tarjeta de ilustración (`order: 2`), 3. Botones de acción (`order: 3`).
-* Validación de sintaxis PHP y verificación de salida HTML limpia sin errores.
+* Creación del punto de entrada `noticias.php`.
+* Construcción de la vista semántica `pages/noticias.php`.
+* Incorporación del título «Noticias» y un texto introductorio.
+* Integración de los botones de inicio de sesión y registro.
+* Creación de una ilustración SVG relacionada con noticias y eventos.
+* Integración de la ruta de Noticias en `index.php`.
+* Aplicación de una estructura de dos columnas para escritorio y una columna para móvil.
+* Ajustes de orden visual responsive.
+* Validación de sintaxis PHP y salida HTML, según el informe recibido.
 
 **Resultado:**
 
-Se implementó con éxito la pantalla de Noticias bajo la arquitectura modular estándar, completando la tríada de pantallas informativas públicas (`Proyectos`, `Egresados`, `Noticias`) alineadas con Figma.
+Se reportó la implementación de Noticias bajo la arquitectura modular del portal público.
 
-## Sesión 27 — Implementación del Dashboard Desktop y Mobile (Fase 4 — v0.1.1)
+Con esta pantalla se documentó la implementación de la tríada pública de Proyectos, Egresados y Noticias. Su validación integral queda sujeta a pruebas de navegación, presentación y correspondencia con Figma.
+
+## Sesión 27 — Implementación inicial del Dashboard Desktop y Mobile
 
 **Fecha:** 10 de octubre de 2026
 
 **Objetivo:**
 
-Implementar con fidelidad exacta la pantalla de Dashboard (`03 - Dashboard - Desktop` y Mobile) para usuarios autenticados de Raíces Alzate, aplicando control estricto de sesiones, extracción dinámica de información de usuario, componentes modulares reutilizables y el sistema de diseño institucional.
+Desarrollar la interfaz privada del Dashboard para usuarios autenticados, incorporando componentes reutilizables y adaptación responsive.
 
-**Archivos creados o trabajados:**
+**Archivos reportados:**
 
-* `dashboard.php` (controlador de entrada directo en la raíz con verificación de sesión activa).
-* `logout.php` (controlador de cierre seguro de sesión).
-* `pages/dashboard.php` (vista modular privada con grid de 3 tarjetas y bloque inferior organizado).
-* `includes/sidebar.php` (componente reutilizable de barra lateral de 240px, navegación y marca).
-* `includes/topbar.php` (componente reutilizable de barra superior con datos dinámicos y avatar).
-* `assets/css/dashboard.css` (hoja de estilos modular para la interfaz privada).
-* `index.php` (incorporación de la ruta `case 'dashboard':` en el Front Controller).
-* `docs/bitacora.md` (registro de la sesión de trabajo).
-* `docs/changelog.md` (registro en el historial de cambios).
+* `dashboard.php`.
+* `logout.php`.
+* `pages/dashboard.php`.
+* `includes/sidebar.php`.
+* `includes/topbar.php`.
+* `includes/loader.php`.
+* `assets/css/dashboard.css`.
+* `assets/css/loader.css`.
+* `assets/js/loader.js`.
+* `index.php`.
+* `docs/bitacora.md`.
+* `docs/changelog.md`.
 
 **Actividades realizadas:**
 
-* Creación del controlador de entrada `dashboard.php` en la raíz con verificación estricta de sesión activa (`empty($_SESSION['user'])`), redirigiendo a `login.php` en caso de acceso no autorizado.
-* Implementación de la extracción dinámica de los datos del usuario en sesión (`nombre`, `rol`, inicial calculada en UTF-8), evitando nombres fijos en duro en el código.
-* Construcción del componente reutilizable `includes/sidebar.php` (240px, fondo `#FFFFFF`) con cabecera institucional en `#D32F2F`, elemento activo `Dashboard` y enlaces secundarios.
-* Creación de `includes/topbar.php` con título de vista, disparador accesible para menú móvil (`#dashboardMenuToggle`), nombre de usuario, rol y avatar circular institucional (`#D32F2F`).
-* Implementación de la vista `pages/dashboard.php`:
-  * Sección de bienvenida institucional con título y párrafo explicativo.
-  * Fila de 3 tarjetas de resumen (`Mi perfil`, `Mis proyectos`, `Oportunidades`) en grid de 3 columnas (desktop) y 1 columna (mobile), con enlaces `Ver... →` en azul institucional `#1565C0`.
-  * Bloque inferior a dos columnas en Desktop (~65% / ~35%):
-    - Columna izquierda: tarjeta de `Actividad reciente` con lista de eventos temporales y bloque de `Acciones rápidas` (`Actualizar mi perfil` en `#D32F2F` y `Publicar proyecto` en contorno `#1565C0`).
-    - Columna derecha: tarjeta de `Próximas oportunidades` categorizadas con insignias institucionales (Beca, Empleo, Capacitación).
-* Adaptación responsive para Mobile (< 768px):
-  * Barra lateral oculta off-canvas que se despliega como cajón lateral (drawer) con telón de fondo (`.sidebar-backdrop`).
-  * Reordenamiento vertical del bloque inferior mediante Flexbox: 1. Actividad reciente (`order: 1`), 2. Próximas oportunidades (`order: 2`), 3. Acciones rápidas con botones al 100% de ancho (`order: 3`).
-  * Exclusión del pie de página público en la vista del dashboard conforme al diseño de Figma.
-* Implementación de la barra lateral colapsable (Mini-Sidebar en Desktop):
-  * Toggle `#sidebarToggleBtn` con SVG animado (180deg).
-  * Ancho reducido de 76px con isotipo e iconos de 48px centrados y textos ocultos.
-  * Persistencia en `localStorage` (`sidebar_collapsed`) y prevención de FOUC al recargar.
-  * Compatibilidad intacta con el menú móvil.
-* Creación del controlador `logout.php` para cierre de sesión seguro con limpieza de cookies.
-* Validación sintáctica PHP con `php -l` (0 errores) y pruebas unitarias de redirección de seguridad y dinamismo de sesión.
+* Creación del controlador de entrada `dashboard.php`.
+* Incorporación de una comprobación de sesión mediante `$_SESSION['user']`.
+* Preparación de la redirección al inicio de sesión cuando no existe una sesión válida.
+* Extracción dinámica de datos de usuario, como nombre y rol, a partir de la sesión.
+* Construcción de una barra lateral con navegación del área privada.
+* Creación de una barra superior con título de vista, avatar y datos del usuario.
+* Desarrollo de una vista de Dashboard con tarjetas de resumen.
+* Incorporación de bloques de actividad reciente, oportunidades y acciones rápidas.
+* Organización de la vista para escritorio y dispositivos móviles.
+* Preparación de un menú lateral móvil tipo drawer con telón de fondo.
+* Exclusión del pie de página público en la vista privada, de acuerdo con el diseño de Figma.
+* Creación de un controlador de cierre de sesión en `logout.php`.
+
+**Contenido de la vista:**
+
+* Bienvenida institucional.
+* Tarjetas de Mi perfil, Mis proyectos y Oportunidades.
+* Actividad reciente.
+* Acciones rápidas.
+* Próximas oportunidades con categorías como beca, empleo y capacitación.
 
 **Resultado:**
 
-Se implementó el Dashboard Desktop y Mobile con plena fidelidad visual al frame de Figma `03 - Dashboard - Desktop`, garantizando seguridad en acceso de sesiones y dinamismo de datos.
+Se reportó una estructura inicial del Dashboard con controlador, vista, componentes compartidos y estilos responsive.
+
+Los datos de actividad y oportunidades deben tratarse como información de demostración mientras no se verifique su procedencia desde la base de datos.
+
+---
+
+## Sesión 28 — Estandarización del portal y mejoras del Dashboard
+
+**Periodo reportado:** 11 al 13 de octubre de 2026
+
+**Versión de trabajo:** v0.1.1
+**Rama reportada:** `dev-emitola`
+
+**Objetivo:**
+
+Refinar la interfaz pública y privada, mejorar el comportamiento responsive, corregir problemas de estilos y navegación, y resolver bloqueos relacionados con el loader y el inicio de sesión PHP.
+
+### 28.1. Estandarización del encabezado público
+
+**Archivos reportados:**
+
+* `includes/header.php`.
+* `components/header.php`.
+* `assets/css/header.css`.
+* `assets/css/portal.css`.
+
+**Actividades realizadas:**
+
+* Normalización de la altura del encabezado a 72 px.
+* Ajuste del fondo blanco y el borde inferior.
+* Organización del contenido dentro de un contenedor.
+* Ajuste del tamaño del logo y de la jerarquía tipográfica de la marca.
+* Revisión de las dimensiones del botón de acceso.
+* Incorporación del comportamiento sticky para mantener el encabezado visible durante el desplazamiento.
+* Aplicación de fondo sólido y sombra sutil.
+* Revisión de la navegación y de la presentación del encabezado en diferentes tamaños de pantalla.
+
+**Resultado:**
+
+Se reportó la estandarización del encabezado público y su comportamiento sticky.
+
+**Pendiente de verificación:** los informes recibidos presentan dos medidas distintas para el ancho máximo del contenedor: 1200 px y 1400 px. El valor definitivo deberá confirmarse en el CSS vigente y compararse con Figma antes de fijarlo como especificación oficial.
+
+### 28.2. Corrección de estilos de botones y reglas globales
+
+**Archivos reportados:**
+
+* `assets/css/portal.css`.
+* `assets/css/dashboard.css`.
+
+**Problema identificado:**
+
+Una regla global asociada a `.btn-primary` establecía un ancho fijo de 123 px y afectaba el dimensionamiento de botones utilizados en el Dashboard.
+
+**Corrección reportada:**
+
+Se aisló el estilo específico de las acciones del Dashboard mediante selectores más concretos, incluyendo `.dashboard-actions .btn-primary`.
+
+Las dimensiones registradas para el botón «Actualizar mi perfil» fueron:
+
+* Altura: 44 px.
+* Ancho mínimo: 180 px.
+* Ancho automático.
+* Padding horizontal: 24 px.
+* Texto sin salto de línea.
+* Tipografía Inter, peso 600 y tamaño aproximado de 0.95 rem.
+* Fondo primario `#D32F2F`.
+* Hover `#B71C1C`.
+
+**Resultado:**
+
+Se reportó una corrección de especificidad para evitar que los estilos generales de los botones alteraran las dimensiones de acciones específicas del Dashboard.
+
+### 28.3. Refinamiento de la barra lateral y navegación privada
+
+**Archivos reportados:**
+
+* `includes/sidebar.php`.
+* `pages/dashboard.php`.
+* `assets/css/dashboard.css`.
+
+**Actividades realizadas:**
+
+* Retiro del enlace redundante «Inicio» de la barra lateral autenticada.
+* Conservación de enlaces para Dashboard, Mi perfil, Proyectos, Oportunidades, Configuración y Cerrar sesión.
+* Incorporación del botón de colapso `#sidebarToggleBtn`.
+* Implementación de una versión compacta de la barra lateral para escritorio.
+* Organización del ancho expandido de 240 px y el ancho contraído de 76 px.
+* Ocultamiento de etiquetas de navegación en el estado contraído.
+* Centrado de los iconos y ajustes de sus áreas de interacción.
+* Incorporación de una transición para el cambio de estado.
+* Rotación del indicador visual del botón de colapso.
+* Incorporación de atributos de accesibilidad, como `aria-label` y `title` dinámicos.
+* Persistencia del estado mediante `localStorage`, utilizando la clave `sidebar_collapsed`.
+* Preparación de una clase aplicada antes de la representación de la interfaz para reducir el parpadeo visual al recargar.
+* Conservación del comportamiento del menú móvil independiente del colapso de escritorio.
+
+**Resultado:**
+
+Se reportó una barra lateral colapsable para escritorio y un menú lateral móvil tipo drawer.
+
+Su comportamiento final deberá comprobarse con navegación por teclado, diferentes anchos de pantalla y recargas de página.
+
+### 28.4. Refinamiento de la barra superior móvil
+
+**Archivos reportados:**
+
+* `includes/topbar.php`.
+* `assets/css/dashboard.css`.
+
+**Actividades realizadas:**
+
+* Reorganización de la información del usuario.
+* Ubicación del avatar, nombre y rol en el lado izquierdo.
+* Ubicación del botón hamburguesa en el lado derecho.
+* Uso del identificador `#dashboardMenuToggle` para el disparador móvil.
+* Revisión del comportamiento en pantallas de hasta 768 px.
+* Reducción de elementos redundantes para aprovechar el espacio disponible.
+
+**Resultado:**
+
+Se reportó una distribución más compacta de la barra superior en dispositivos móviles.
+
+### 28.5. Bienvenida personalizada del Dashboard
+
+**Archivos reportados:**
+
+* `pages/dashboard.php`.
+* `includes/topbar.php`.
+
+**Actividades realizadas:**
+
+* Preparación de un saludo basado en el nombre almacenado en `$_SESSION['user']['nombre']`.
+* Extracción del primer nombre para personalizar la bienvenida.
+* Incorporación de un texto introductorio para orientar al usuario dentro de la plataforma.
+* Preparación de un texto alternativo cuando no se dispone del nombre esperado en la sesión.
+
+**Lema registrado en el informe de desarrollo:**
+
+> Tus raíces siguen creciendo. Conecta con tu comunidad, descubre proyectos y encuentra nuevas oportunidades para construir tu futuro.
+
+**Resultado:**
+
+Se reportó la personalización de la bienvenida a partir de datos de sesión. La presencia de datos simulados en el entorno de desarrollo no debe confundirse con la carga de información de usuarios desde una base de datos.
+
+### 28.6. Rediseño y desbloqueo del Page Loader
+
+**Archivos reportados:**
+
+* `includes/loader.php`.
+* `assets/css/loader.css`.
+* `assets/js/loader.js`.
+* `pages/dashboard.php`.
+
+**Problemas identificados:**
+
+* El loader podía permanecer visible y bloquear la interacción.
+* La estructura inicial incluía un skeleton complejo que no resultaba apropiado para todas las pantallas.
+* Algunas páginas públicas de autenticación podían quedar cubiertas por la capa de carga.
+* Se reportó una etiqueta `</script>` faltante en `pages/dashboard.php`, lo que impedía ejecutar correctamente código posterior.
+
+**Actividades realizadas:**
+
+* Retiro del skeleton complejo y de los bloques grises que simulaban la interfaz.
+* Simplificación del loader mediante una capa blanca semitransparente.
+* Incorporación de desenfoque de fondo mediante `backdrop-filter`.
+* Conservación del spinner institucional con rojo `#D32F2F` y azul `#1565C0`.
+* Incorporación del logotipo oficial y el texto «Cargando…».
+* Ajustes a las clases utilizadas para ocultar el loader y evitar que intercepte clics.
+* Incorporación de mecanismos para ocultarlo al completar la carga o alcanzar el tiempo de seguridad.
+* Corrección reportada del cierre de la etiqueta de script en `pages/dashboard.php`.
+
+**Resultado:**
+
+Los informes indican que se corrigieron los bloqueos del loader y se simplificó su presentación.
+
+**Pendiente de verificación:** se reportaron mecanismos de ocultamiento tanto en un script insertado en `includes/loader.php` como en `assets/js/loader.js`. Debe revisarse si ambos mecanismos siguen activos y si pueden generar ejecuciones duplicadas. También debe confirmarse el tiempo de seguridad definitivo, reportado entre 600 y 700 ms.
+
+### 28.7. Corrección del inicio de sesión PHP y de los encabezados HTTP
+
+**Archivos reportados:**
+
+* `login.php`.
+* `registro.php`.
+* `recuperar-password.php`.
+* `recuperar-contrasena.php`.
+* `index.php`.
+* `pages/login.php`.
+* `pages/registro.php`.
+* `pages/recuperar-password.php`.
+
+**Problema identificado:**
+
+Se reportaron advertencias relacionadas con `session_start()` ejecutado después de haber enviado contenido HTML, situación que puede impedir el envío correcto de encabezados HTTP y redirecciones.
+
+**Correcciones reportadas:**
+
+* Centralización del inicio de sesión en los puntos de entrada, antes de producir salida HTML.
+* Incorporación de comprobaciones del estado de sesión.
+* Revisión de las llamadas a `session_start()` dentro de las vistas.
+* Corrección de la etiqueta de script faltante que afectaba la ejecución de código posterior.
+
+**Resultado:**
+
+Los informes indican que se corrigieron los problemas de inicialización de sesión y de envío de encabezados.
+
+La condición `!headers_sent()` no sustituye una arquitectura correcta de inicialización: el inicio de sesión debe realizarse antes de generar salida y de forma coherente en los puntos de entrada de la aplicación.
+
+### 28.8. Normalización de la ruta de recuperación de contraseña
+
+**Archivos reportados:**
+
+* `recuperar-contrasena.php`.
+* `recuperar-password.php`.
+* `index.php`.
+
+**Actividades realizadas:**
+
+* Incorporación de compatibilidad para la ruta `recuperar-contrasena.php`.
+* Revisión de las rutas alternativas `recuperar`, `recuperar-password` y `recuperar-contrasena` en el enrutador central.
+* Ajustes orientados a evitar errores de navegación entre páginas de autenticación.
+
+**Resultado:**
+
+Se reportó la incorporación de un alias para la recuperación de contraseña.
+
+**Pendiente de verificación:** un informe describe el alias como una redirección 301 y otro como un controlador que renderiza la vista correspondiente. Se debe inspeccionar el archivo actual y comprobar el comportamiento HTTP real antes de documentar una de estas alternativas como definitiva.
+
+### 28.9. Acceso de prueba y navegación durante el desarrollo
+
+**Archivo reportado:**
+
+* `dev-login.php`.
+
+**Actividades realizadas:**
+
+* Incorporación de una utilidad local para crear una sesión simulada durante las pruebas de interfaz.
+* Preparación de datos de prueba para facilitar la revisión del Dashboard sin depender temporalmente de una cuenta real.
+* Ajustes de rutas y navegación para el entorno local de XAMPP.
+* Revisión de rutas de recursos cuando el proyecto se ejecuta desde una subcarpeta.
+* Desactivación temporal de determinadas redirecciones de autenticación para facilitar la maquetación, según los informes recibidos.
+
+**Resultado:**
+
+Se reportó un mecanismo de acceso de prueba para trabajar en el Dashboard sin una integración completa con MySQL.
+
+**Advertencia de seguridad:** `dev-login.php` debe permanecer limitado al entorno local de desarrollo, sin acceso público en producción. También deben restaurarse y comprobarse las redirecciones de autenticación antes de considerar terminados los flujos de acceso y registro.
+
+La protección de `dashboard.php` debe conservarse incluso durante las pruebas.
+
+### 28.10. Verificaciones técnicas reportadas
+
+Según los informes de Antigravity y Gemini, se realizaron las siguientes comprobaciones:
+
+* Análisis sintáctico de archivos PHP mediante `php -l`.
+* Solicitudes HTTP con `curl` a determinadas páginas de autenticación y a Inicio.
+* Comprobación de respuestas HTTP 200 en las rutas indicadas.
+* Pruebas de navegación del Dashboard y de su comportamiento visual.
+* Revisión de las redirecciones y de la información obtenida desde la sesión.
+
+**Resultado registrado:**
+
+Los informes señalan que no se encontraron errores sintácticos PHP en los archivos comprobados y que las rutas probadas respondieron correctamente.
+
+Estas comprobaciones no sustituyen las pruebas funcionales integrales de autenticación, autorización, persistencia de datos, seguridad ni recuperación de contraseña.
+
+### 28.11. Documentación y control de versiones
+
+**Archivos documentales reportados:**
+
+* `docs/bitacora.md`.
+* `docs/changelog.md`.
+
+Se reportó la actualización de la bitácora y del historial de cambios para registrar los avances de la versión v0.1.1.
+
+También se informó de un commit y un `git push` en la rama `dev-emitola`.
+
+**Estado del control de versiones:**
+
+El informe de Gemini proporciona un mensaje de commit propuesto o reportado, pero no incluye un hash ni la salida de la terminal que permitan confirmar independientemente su existencia y contenido.
+
+Por ello, el commit y el push quedan registrados como operaciones reportadas, pendientes de confirmación mediante `git log`, `git status` y la revisión del repositorio remoto.
+
+**Resultado general de la sesión 28:**
+
+Se reportaron mejoras de interfaz en el encabezado público, el Dashboard, la barra lateral, la barra superior móvil, los botones y el loader. También se abordaron problemas de inicialización de sesiones PHP, rutas y navegación local.
+
+El alcance final de cada cambio debe confirmarse en el repositorio actual antes de cerrar su validación técnica.
 
 ---
 
@@ -751,98 +1060,126 @@ Se implementó el Dashboard Desktop y Mobile con plena fidelidad visual al frame
 
 ## Fases del proyecto
 
-| Fase   | Descripción                  | Estado                                     |
-| ------ | ---------------------------- | ------------------------------------------ |
-| Fase 1 | Planificación y organización | Completada según el registro del proyecto  |
-| Fase 2 | Documentación base           | Completada según el registro del proyecto  |
-| Fase 3 | Diseño UI/UX                 | Finalizada a finales de septiembre de 2026 |
-| Fase 4 | Implementación               | En desarrollo                              |
+| Fase   | Descripción                               | Estado                       |
+| ------ | ----------------------------------------- | ---------------------------- |
+| Fase 1 | Planificación y organización inicial      | Completada según el registro |
+| Fase 2 | Diseño del sistema visual y componentes   | Completada según el registro |
+| Fase 3 | Diseño UI/UX de las interfaces            | Finalizada                   |
+| Fase 4 | Implementación y refinamiento de interfaz | En desarrollo                |
 
-## Componentes implementados o desarrollados parcialmente
+## Estado de los componentes
 
-| Componente                            | Estado registrado                                                         |
-| ------------------------------------- | ------------------------------------------------------------------------- |
-| Estructura inicial del repositorio    | Consolidada                                                               |
-| Documentación base                    | Elaborada; requiere actualización continua                                |
-| Design System                         | Elaborado en Figma                                                        |
-| Componentes reutilizables de Figma    | Elaborados                                                                |
-| Diagrama de navegación                | Elaborado                                                                 |
-| Diseño de Inicio Desktop              | Finalizado en Figma                                                       |
-| Diseño de autenticación Desktop       | Diseñado en Figma                                                         |
-| Diseños de otras pantallas Desktop    | Desarrollados hasta `17 - Editar noticia - Desktop`                       |
-| Adaptación de interfaces Mobile       | Avanzada; requiere validación por pantalla                                |
-| Estructura frontend de Inicio         | Implementada inicialmente                                                 |
-| Encabezado y pie de página            | Implementados inicialmente                                                |
-| Estilos globales y tipografía         | Organizados                                                               |
-| Botones globales                      | Calibrados inicialmente                                                   |
-| Sistema de alertas                    | Implementado inicialmente                                                 |
-| Inicio de sesión                      | Estructura y procesamiento desarrollados; requieren pruebas integrales    |
-| Registro de usuarios                  | Estructura y procesamiento desarrollados; requieren verificación integral |
-| Recuperación de contraseña            | Estructura y generación de token desarrolladas; SMTP pendiente            |
-| Pantalla de Proyectos                 | Implementada; vista modular, controlador y estilos calibrados             |
-| Pantalla de Egresados                 | Implementada; vista modular, controlador y estilos calibrados             |
-| Pantalla de Noticias                  | Implementada; vista modular, controlador y estilos calibrados             |
-| Pantalla de Dashboard                 | Implementada; controlador, vista modular, sidebar, topbar y estilos       |
-| Esquema definitivo de base de datos   | Pendiente de definición y validación                                      |
-| Implementación de las demás pantallas | Pendiente de desarrollo progresivo                                        |
-| Pruebas integrales de la plataforma   | Pendientes de completar                                                   |
+| Componente                                       | Estado registrado                                                        |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| Estructura inicial del repositorio               | Consolidada                                                              |
+| Documentación base                               | Elaborada; requiere actualización continua                               |
+| Design System                                    | Elaborado en Figma                                                       |
+| Componentes reutilizables de Figma               | Elaborados                                                               |
+| Diagrama de navegación                           | Elaborado                                                                |
+| Diseño de Inicio Desktop y Mobile                | Finalizado en Figma                                                      |
+| Diseño de las 17 pantallas Desktop               | Finalizado en Figma                                                      |
+| Diseño de las 17 pantallas Mobile                | Finalizado en Figma                                                      |
+| Estructura frontend de Inicio                    | Implementada según los informes                                          |
+| Encabezado público                               | Implementado; ajustes y medidas finales por verificar                    |
+| Pie de página público                            | Implementado; validación visual pendiente                                |
+| Estilos globales y tipografía                    | Organizados                                                              |
+| Botones globales                                 | Implementados; reglas específicas ajustadas según los informes           |
+| Sistema de alertas                               | Reportado como implementado inicialmente                                 |
+| Inicio de sesión                                 | Vista y procesamiento reportados; autenticación integral por verificar   |
+| Registro de usuarios                             | Vista y procesamiento reportados; integración y validación por verificar |
+| Recuperación de contraseña                       | Vista y generación de token reportadas; SMTP y flujo completo pendientes |
+| Pantalla de Proyectos                            | Implementada según el informe; validación integral pendiente             |
+| Pantalla de Egresados                            | Implementada según el informe; validación integral pendiente             |
+| Pantalla de Noticias                             | Implementada según el informe; validación integral pendiente             |
+| Dashboard Desktop                                | Maquetado e integrado con componentes reportados                         |
+| Dashboard Mobile                                 | Maquetado con navegación responsive reportada                            |
+| Mini-sidebar de escritorio                       | Implementada según el informe; comportamiento por validar                |
+| Menú lateral móvil                               | Implementado según el informe; comportamiento por validar                |
+| Loader global                                    | Rediseñado; revisión de mecanismos de ocultamiento pendiente             |
+| Controlador de cierre de sesión                  | Reportado como implementado; pruebas de seguridad pendientes             |
+| Acceso de prueba `dev-login.php`                 | Reportado como implementado; debe limitarse al entorno local             |
+| Esquema definitivo de base de datos              | Pendiente de definición y validación                                     |
+| Integración dinámica completa con MySQL          | Pendiente                                                                |
+| Datos reales de actividad y oportunidades        | Pendientes de integración                                                |
+| Pantallas restantes de la plataforma             | Pendientes de implementación progresiva                                  |
+| Pruebas integrales de la plataforma              | Pendientes de completar                                                  |
+| Verificación final de Git y del commit reportado | Pendiente de confirmar                                                   |
 
-> **Nota:** Los estados de esta tabla describen el avance registrado en la bitácora. No sustituyen una verificación del código, las pruebas funcionales ni la comparación visual de cada pantalla con Figma.
+> **Nota:** Los estados de esta tabla reflejan los avances documentados y reportados. No sustituyen una inspección del código, pruebas funcionales ni la comparación visual de cada pantalla con Figma.
 
 ---
 
 # 🔜 Próximas actividades
 
-Las siguientes actividades deberán priorizarse de acuerdo con el estado real del repositorio y los requisitos del proyecto.
+## 1. Verificación del estado actual del repositorio
 
-## 1. Validación visual
+* Revisar `git status` para conocer los cambios pendientes.
+* Confirmar el historial mediante `git log`.
+* Comprobar si el commit reportado se encuentra en `dev-emitola` y si fue enviado al repositorio remoto.
+* Revisar las diferencias entre los archivos actuales y los cambios documentados.
+* Confirmar los nombres y ubicaciones definitivos de los archivos.
+* Resolver las discrepancias documentales antes de actualizar otros documentos.
 
-* Comparar las pantallas implementadas con sus referencias de Figma.
+## 2. Validación visual de las pantallas implementadas
+
+* Comparar Inicio, Proyectos, Egresados, Noticias y Dashboard con sus referencias de Figma.
 * Revisar dimensiones, espaciados, tipografía, colores y estados de interacción.
 * Comprobar la presentación en escritorio y dispositivos móviles.
-* Corregir diferencias visuales antes de continuar con la expansión de las interfaces.
+* Confirmar el ancho máximo definitivo del contenedor del encabezado.
+* Revisar el comportamiento sticky, el menú móvil y la mini-sidebar.
+* Corregir diferencias visuales antes de continuar con nuevas pantallas.
 
-## 2. Consolidación de la autenticación
+## 3. Consolidación de la autenticación
 
-* Verificar el inicio de sesión con cuentas válidas e inválidas.
+* Verificar el inicio de sesión con credenciales válidas e inválidas.
 * Comprobar el registro y la prevención de duplicados.
 * Revisar las validaciones del frontend y del backend.
 * Confirmar el manejo seguro de sesiones.
-* Revisar los permisos de acceso y los roles de usuario.
-* Completar la recuperación de contraseña, incluida la expiración y validación de tokens, y la integración SMTP.
+* Verificar los permisos de acceso y los roles de usuario.
+* Revisar la destrucción de sesión y las cookies durante el cierre de sesión.
+* Restaurar y comprobar las redirecciones de autenticación que se hayan desactivado temporalmente.
+* Confirmar que el acceso de prueba no pueda utilizarse en producción.
+* Completar la recuperación de contraseña, incluida la expiración y validación de tokens y la integración SMTP.
 * Probar los casos de error y los mensajes de retroalimentación.
 
-## 3. Base de datos
+## 4. Diseño e integración de la base de datos
 
-* Definir y documentar el esquema definitivo.
+* Definir y documentar el modelo entidad-relación.
 * Identificar las entidades, relaciones, claves primarias y claves foráneas.
+* Definir las tablas necesarias para usuarios, perfiles, proyectos, noticias y las demás funcionalidades previstas.
 * Verificar la correspondencia entre los formularios y las estructuras de almacenamiento.
 * Consolidar las operaciones de acceso a datos mediante PDO y consultas preparadas.
 * Revisar las restricciones de integridad y las transacciones necesarias.
+* Sustituir progresivamente los datos simulados por consultas reales a la base de datos.
 
-## 4. Implementación progresiva de las pantallas
+## 5. Implementación progresiva de las pantallas restantes
 
 * Continuar con las pantallas restantes siguiendo el orden de navegación establecido.
 * Reutilizar los componentes compartidos.
 * Mantener la separación entre presentación, procesamiento y acceso a datos.
 * Adaptar cada pantalla a los diseños de escritorio y móvil correspondientes.
+* Evitar duplicar encabezados, pies de página y estilos cuando ya existan componentes reutilizables.
 
-## 5. Pruebas y control de calidad
+## 6. Pruebas y control de calidad
 
-* Probar formularios y flujos principales.
+* Probar los formularios y los flujos principales.
 * Verificar el comportamiento responsive.
-* Revisar accesibilidad y navegación por teclado.
+* Revisar la accesibilidad y la navegación por teclado.
 * Comprobar rutas, enlaces, alertas y estados vacíos.
 * Detectar errores de integración.
+* Comprobar el funcionamiento del loader en las páginas públicas y privadas.
+* Revisar errores PHP y de consola del navegador.
 * Confirmar que los cambios no afecten funcionalidades previamente desarrolladas.
 
-## 6. Mantenimiento documental y Git
+## 7. Mantenimiento documental y Git
 
 * Actualizar la bitácora después de cada avance significativo.
 * Mantener sincronizados el README, el changelog, el roadmap y los manuales.
 * Documentar las decisiones técnicas relevantes.
 * Revisar las diferencias antes de realizar commits.
-* Utilizar mensajes de commit descriptivos y coherentes con el cambio realizado.
+* Utilizar mensajes de commit descriptivos y coherentes con los cambios realizados.
+* Registrar las pruebas realizadas y sus resultados.
+* Evitar documentar como completadas las actividades que todavía estén pendientes de validación.
 
 ---
 
@@ -850,24 +1187,34 @@ Las siguientes actividades deberán priorizarse de acuerdo con el estado real de
 
 1. **Fecha de inicio:** Raíces Alzate se encuentra en desarrollo desde 2025. Las fechas de julio, septiembre y octubre de 2026 corresponden a sesiones y etapas registradas posteriormente.
 
-2. **Diseño e implementación:** El cierre de la etapa principal de diseño UI/UX no implica que todas las pantallas estén implementadas en código. La implementación frontend comenzó formalmente en octubre de 2026.
+2. **Diseño e implementación:** La fase de diseño UI/UX está finalizada. Esto no significa que las 34 pantallas estén implementadas en código. La implementación frontend continúa de manera progresiva.
 
-3. **Figma como referencia:** Los diseños aprobados sirven como referencia para las dimensiones, la distribución, la tipografía, los colores y los estados de los componentes. Las diferencias encontradas durante la implementación deben revisarse y corregirse.
+3. **Figma como referencia:** Los diseños aprobados sirven como referencia para dimensiones, distribución, tipografía, colores y estados de los componentes. Las diferencias encontradas durante la programación deben revisarse y corregirse dentro del proceso de implementación y control de calidad.
 
-4. **Base de datos:** Se había verificado previamente la conexión entre PHP y MySQL. Esto no significa que el esquema definitivo de la plataforma se encuentre completamente diseñado e integrado.
+4. **Base de datos:** Se había probado previamente la conexión entre PHP y MySQL. Esto no significa que el esquema definitivo de la plataforma esté completamente diseñado e integrado.
 
-5. **Seguridad:** La existencia de formularios y scripts de procesamiento no garantiza por sí sola que los flujos de autenticación y recuperación estén terminados. Deben verificarse las validaciones del backend, el manejo de sesiones, los permisos y el tratamiento seguro de los tokens.
+5. **Autenticación:** La existencia de formularios y scripts de procesamiento no garantiza que los flujos de inicio de sesión, registro y cierre de sesión estén terminados. Deben verificarse las validaciones del backend, las sesiones, los permisos y el tratamiento seguro de los datos.
 
-6. **Recuperación de contraseña:** La generación de tokens está registrada como parte de la implementación. El envío de correos permanece pendiente mientras no se configure y pruebe el servicio SMTP.
+6. **Recuperación de contraseña:** La generación de tokens está registrada como parte de la implementación. El envío de correos permanece pendiente mientras no se configure y pruebe el servicio SMTP y se verifique el flujo integral de restablecimiento.
 
-7. **Seguimiento del proyecto:** Los avances futuros deben registrarse con fechas, archivos afectados, resultados comprobables, decisiones y tareas pendientes, evitando presentar como completadas las actividades que aún no se hayan verificado.
+7. **Datos simulados:** Los datos utilizados para facilitar la maquetación del Dashboard no deben considerarse información obtenida de la base de datos hasta verificar la integración correspondiente.
+
+8. **Acceso de prueba:** Las herramientas locales de simulación de sesión deben permanecer restringidas al entorno de desarrollo y no deben habilitar accesos de prueba en una instalación pública.
+
+9. **Loader y sesiones PHP:** Las correcciones de bloqueos, inicialización de sesiones y encabezados HTTP están reportadas, pero requieren pruebas funcionales para confirmar que los problemas no reaparezcan en otras rutas.
+
+10. **Control de versiones:** Las operaciones de commit y push mencionadas en informes externos deben confirmarse en Git antes de utilizarlas como evidencia definitiva del estado del repositorio.
+
+11. **Seguimiento del proyecto:** Los avances futuros deben registrarse con fechas, archivos afectados, resultados comprobables, decisiones y tareas pendientes, evitando presentar como completadas las actividades que aún no se hayan verificado.
 
 ---
 
-## ✅ Cierre
+# ✅ Cierre
 
-Esta bitácora consolida el recorrido documentado de Raíces Alzate desde la organización inicial del repositorio y la construcción del sistema de diseño hasta el comienzo de la implementación frontend.
+Esta bitácora consolida el recorrido documentado de Raíces Alzate desde la organización inicial del repositorio y la construcción del sistema de diseño hasta los avances de implementación reportados entre el 8 y el 13 de octubre de 2026.
 
 El proyecto continúa en desarrollo, con la etapa principal de diseño UI/UX finalizada y la implementación técnica en curso.
 
-La prioridad de las siguientes sesiones será validar lo implementado, completar los flujos de autenticación, consolidar la base de datos y avanzar progresivamente en las demás pantallas, manteniendo la coherencia con Figma y la documentación del proyecto.
+Los avances reportados comprenden la estructura del portal público, las pantallas de Proyectos, Egresados y Noticias, el Dashboard, sus componentes de navegación y diversas correcciones de interfaz, loader y sesiones PHP.
+
+La prioridad de las siguientes sesiones será verificar los cambios en el repositorio, validar las pantallas implementadas, consolidar los flujos de autenticación, definir e integrar el modelo de datos y avanzar progresivamente en las demás interfaces, manteniendo la coherencia con Figma y la documentación del proyecto.

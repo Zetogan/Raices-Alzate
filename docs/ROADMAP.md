@@ -12,7 +12,7 @@
 * **Estado:** 🟡 En desarrollo
 * **Fase actual:** Fase 4 — Implementación
 * **Inicio del proyecto:** 2025
-* **Última actualización:** 9 de octubre de 2026
+* **Última actualización:** 13 de octubre de 2026
 
 ---
 
@@ -62,15 +62,15 @@
 
 **Estado:** ✅ Documentación base completada.
 
-> Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una versión funcional que permita documentar adecuadamente la implementación, configuración y utilización de la plataforma.
+> Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una versión funcional que permita documentar adecuadamente la implementación, la configuración, el mantenimiento y la utilización de la plataforma.
 
-La documentación se seguirá actualizando durante las siguientes fases para reflejar los cambios reales del proyecto.
+La documentación seguirá actualizándose durante las siguientes fases para reflejar los cambios reales del proyecto.
 
 ---
 
 # Fase 3 — Diseño UI/UX
 
-La fase de diseño se completó a finales de septiembre de 2026. Las interfaces y los componentes definidos en Figma sirven como referencia para la implementación.
+La fase de diseño UI/UX se completó a finales de septiembre de 2026. Las interfaces y los componentes definidos en Figma constituyen la referencia visual y estructural para la implementación.
 
 ## 3.1. Design System
 
@@ -142,16 +142,31 @@ Se diseñaron y consolidaron las siguientes interfaces en Figma:
 
 ## 3.4. Adaptaciones Mobile
 
-Se trabajaron las siguientes adaptaciones para dispositivos móviles:
+Se diseñaron las versiones y adaptaciones Mobile correspondientes a las interfaces del proyecto:
 
 * [x] Inicio Mobile.
 * [x] Autenticación Mobile.
 * [x] Dashboard Mobile.
-* [x] Mi perfil.
-* [x] Mis proyectos.
-* [x] Oportunidades.
+* [x] Perfil Mobile.
+* [x] Egresados Mobile.
+* [x] Proyectos Mobile.
+* [x] Noticias Mobile.
+* [x] Administración Mobile.
+* [x] Crear proyecto Mobile.
+* [x] Detalle de proyecto Mobile.
+* [x] Editar perfil Mobile.
+* [x] Recuperar contraseña Mobile.
+* [x] Registro Mobile.
+* [x] Editar proyecto Mobile.
+* [x] Crear noticia Mobile.
+* [x] Detalle de noticia Mobile.
+* [x] Editar noticia Mobile.
 
-> Esta lista representa las adaptaciones trabajadas en Figma. No implica que todas las interfaces Mobile estén completamente diseñadas ni que ya se encuentren implementadas en código.
+**Total:** 17 adaptaciones Mobile.
+
+**Total general del diseño:** 34 pantallas entre Desktop y Mobile.
+
+> La finalización del diseño en Figma no implica que todas las pantallas estén implementadas en código ni que sus funcionalidades estén conectadas al backend.
 
 ## 3.5. Revisión y consolidación
 
@@ -173,6 +188,8 @@ La implementación es la fase actual del proyecto.
 
 El objetivo es trasladar progresivamente los diseños de Figma a una aplicación funcional, manteniendo una estructura modular y separando las responsabilidades de presentación, procesamiento y acceso a datos.
 
+Los avances se registran según el trabajo reportado durante el desarrollo. Las tareas que requieren pruebas, integración o validación adicional permanecerán pendientes hasta que se compruebe su funcionamiento.
+
 ## 4.1. Frontend
 
 ### Estructura y configuración
@@ -185,6 +202,7 @@ El objetivo es trasladar progresivamente los diseños de Figma a una aplicación
 * [x] Organizar los estilos mediante archivos CSS modulares.
 * [x] Integrar el isotipo del proyecto.
 * [x] Integrar el favicon.
+* [x] Establecer una estructura modular para cargar las páginas y los componentes compartidos.
 
 ### Interfaz de Inicio
 
@@ -198,6 +216,9 @@ El objetivo es trasladar progresivamente los diseños de Figma a una aplicación
 * [ ] Revisar visualmente Inicio Desktop frente a Figma.
 * [ ] Revisar visualmente Inicio Mobile frente a Figma.
 * [ ] Corregir las diferencias visuales identificadas.
+* [ ] Verificar el comportamiento de la interfaz en diferentes tamaños de pantalla.
+
+> La estructura inicial de Inicio se encuentra implementada. La revisión visual final frente a Figma y la validación responsive permanecen pendientes.
 
 ### Autenticación y formularios
 
@@ -221,7 +242,28 @@ El objetivo es trasladar progresivamente los diseños de Figma a una aplicación
 * [ ] Verificar la expiración, el almacenamiento y la validación de los tokens de recuperación.
 * [ ] Revisar las pantallas implementadas frente a sus diseños aprobados en Figma.
 
-> Los elementos marcados como completados corresponden a avances de estructura, interfaz o procesamiento reportados durante el desarrollo. No significan que todos los flujos de autenticación estén validados de extremo a extremo.
+> Los elementos marcados como completados corresponden a avances de estructura, interfaz o procesamiento reportados durante el desarrollo. No significan que todos los flujos de autenticación estén validados de extremo a extremo. Los mecanismos temporales de prueba no deben considerarse autenticación definitiva para producción.
+
+### Dashboard y navegación interna
+
+* [x] Desarrollar la estructura inicial de la interfaz Dashboard.
+* [x] Incorporar una barra lateral (*Sidebar*) para la navegación interna.
+* [x] Incorporar una barra superior (*Topbar*) para la interfaz interna.
+* [x] Organizar los enlaces principales del panel.
+* [x] Incorporar un control para contraer y expandir la barra lateral.
+* [x] Reportar el comportamiento de la barra lateral como menú móvil.
+* [x] Desarrollar la presentación inicial de tarjetas y secciones informativas del Dashboard.
+* [x] Incorporar una estructura inicial para las acciones rápidas.
+* [x] Implementar ajustes CSS específicos para el botón de actualización del perfil.
+* [x] Desarrollar una propuesta de indicador de carga compartido.
+* [ ] Verificar el funcionamiento del indicador de carga en todos los flujos.
+* [ ] Revisar el Dashboard frente al diseño aprobado en Figma.
+* [ ] Confirmar que los datos mostrados procedan de fuentes reales y no de contenido simulado.
+* [ ] Verificar la navegación y los permisos de cada opción.
+* [ ] Comprobar el comportamiento responsive del Dashboard.
+* [ ] Conectar las secciones del Dashboard con los módulos y datos correspondientes.
+
+> Estos puntos representan avances de interfaz reportados. La existencia de elementos visuales o enlaces de navegación no implica que todas las funciones del Dashboard estén terminadas ni conectadas a datos reales.
 
 ### Interfaces restantes
 
@@ -231,8 +273,12 @@ El objetivo es trasladar progresivamente los diseños de Figma a una aplicación
 * [ ] Adaptar progresivamente las interfaces a dispositivos móviles.
 * [ ] Verificar la consistencia visual entre las interfaces implementadas.
 * [ ] Integrar progresivamente las interfaces con el backend.
+* [ ] Revisar cada interfaz implementada frente a su referencia de Figma.
+* [ ] Verificar que las rutas y los enlaces correspondan a páginas existentes y funcionales.
 
 ### Estructura CSS reportada
+
+La organización de estilos ha avanzado mediante archivos CSS separados por responsabilidades. La siguiente estructura es una referencia de archivos reportados y debe mantenerse sincronizada con el repositorio real.
 
 ```text
 assets/css/
@@ -240,19 +286,30 @@ assets/css/
 ├── fonts.css
 ├── header.css
 ├── footer.css
-└── auth.css
+├── auth.css
+├── portal.css
+├── dashboard.css
+└── loader.css
 ```
+
+La existencia y utilización efectiva de cada archivo debe comprobarse al actualizar esta estructura.
 
 ### Archivos JavaScript reportados
 
 ```text
 assets/js/
-└── auth.js
+├── main.js
+├── auth.js
+└── loader.js
 ```
+
+Esta estructura es orientativa y debe verificarse frente a los archivos presentes en el repositorio.
 
 ### Componentes PHP reutilizables
 
-Se han reportado componentes compartidos para el encabezado y el pie de página. La ubicación definitiva de estos archivos deberá mantenerse sincronizada con la estructura real del repositorio.
+Se han reportado componentes compartidos para el encabezado, el pie de página, la navegación interna, la barra superior y el indicador de carga.
+
+La ubicación definitiva de estos archivos deberá mantenerse sincronizada con la estructura real del proyecto, evitando duplicar lógica o mantener implementaciones contradictorias.
 
 **Estado:** 🟡 En progreso.
 
@@ -260,7 +317,7 @@ Se han reportado componentes compartidos para el encabezado y el pie de página.
 
 ## 4.2. Backend
 
-Se han desarrollado estructuras iniciales de procesamiento para formularios de autenticación, registro y recuperación de contraseña. Los módulos restantes de negocio todavía requieren implementación.
+Se han desarrollado estructuras iniciales de procesamiento para formularios de autenticación, registro y recuperación de contraseña. Los módulos restantes de negocio todavía requieren implementación y validación.
 
 ### Configuración y estructura
 
@@ -272,6 +329,9 @@ Se han desarrollado estructuras iniciales de procesamiento para formularios de a
 * [ ] Verificar integralmente la autenticación mediante sesiones.
 * [ ] Completar las validaciones de seguridad del backend.
 * [ ] Verificar los procesos de autorización y control de acceso.
+* [ ] Revisar el manejo centralizado de sesiones antes de generar contenido HTML.
+* [ ] Revisar los posibles errores relacionados con encabezados HTTP y redirecciones.
+* [ ] Confirmar que las rutas funcionen tanto en el entorno local como en la estructura prevista para el despliegue.
 
 ### Módulos funcionales
 
@@ -286,6 +346,7 @@ Se han desarrollado estructuras iniciales de procesamiento para formularios de a
 * [ ] Integrar los módulos con la base de datos.
 * [ ] Integrar los procesos del backend con las interfaces.
 * [ ] Gestionar adecuadamente los errores y las respuestas del sistema.
+* [ ] Verificar que las acciones protegidas requieran una sesión válida y los permisos correspondientes.
 
 ### Recuperación de contraseña
 
@@ -298,6 +359,7 @@ Se han desarrollado estructuras iniciales de procesamiento para formularios de a
 * [ ] Implementar y probar la validación del token.
 * [ ] Implementar el proceso para establecer una nueva contraseña.
 * [ ] Configurar el envío de instrucciones mediante correo electrónico.
+* [ ] Validar que los tokens no puedan reutilizarse después de completar el proceso.
 * [ ] Validar el flujo completo de recuperación.
 
 > La generación inicial de tokens está reportada, pero todavía se debe verificar la implementación integral de su almacenamiento, expiración, validación y utilización. El envío de correos requiere configurar el servicio correspondiente.
@@ -327,10 +389,12 @@ La conexión entre PHP y MySQL se verificó correctamente. La estructura definit
 * [ ] Implementar las consultas necesarias.
 * [ ] Integrar las operaciones de base de datos con PHP.
 * [ ] Verificar la integridad y consistencia de los datos.
+* [ ] Probar las operaciones de creación, consulta, actualización y eliminación que correspondan.
+* [ ] Definir una estrategia de respaldo y recuperación de la información.
 
 **Estado:** ⏳ Pendiente de diseño e implementación.
 
-> La conexión PHP → MySQL está verificada, pero esto no significa que el modelo de datos definitivo ni todos los procesos de persistencia estén terminados.
+> La conexión PHP → MySQL está verificada, pero esto no significa que el modelo de datos definitivo, las tablas ni todos los procesos de persistencia estén terminados.
 
 ---
 
@@ -347,6 +411,7 @@ La integración se realizará progresivamente a medida que se completen las inte
 * [ ] Verificar la comunicación entre las diferentes capas.
 * [ ] Corregir los errores encontrados durante la integración.
 * [ ] Verificar los mensajes de respuesta y los estados de las interfaces.
+* [ ] Comprobar que los formularios procesen y persistan correctamente la información.
 * [ ] Consolidar la integración de los módulos funcionales.
 
 **Estado:** ⏳ Pendiente de integración funcional completa.
@@ -364,10 +429,14 @@ La seguridad se verificará durante el desarrollo y las pruebas de cada módulo.
 * [ ] Validar los datos recibidos en el servidor.
 * [ ] Revisar la protección frente a inyección SQL.
 * [ ] Revisar la protección frente a vulnerabilidades relacionadas con formularios y sesiones.
+* [ ] Evaluar la protección frente a ataques CSRF en las operaciones que modifiquen información.
 * [ ] Verificar el tratamiento de los errores.
 * [ ] Verificar la protección de los tokens de recuperación.
 * [ ] Evitar la exposición innecesaria de información sensible.
 * [ ] Validar el acceso a las funciones administrativas.
+* [ ] Revisar la configuración de cookies de sesión y su renovación cuando corresponda.
+* [ ] Verificar que las credenciales no estén expuestas en el repositorio.
+* [ ] Revisar la configuración de seguridad antes del despliegue.
 
 **Estado:** ⏳ Pendiente de validación integral.
 
@@ -375,7 +444,7 @@ La seguridad se verificará durante el desarrollo y las pruebas de cada módulo.
 
 # Fase 5 — Pruebas
 
-Esta fase comenzará cuando existan módulos funcionales que puedan verificarse de forma sistemática.
+Esta fase se desarrollará a medida que existan módulos funcionales que puedan verificarse de forma sistemática. Se pueden realizar comprobaciones preliminares durante la implementación, pero estas no sustituyen las pruebas integrales.
 
 * [ ] Realizar pruebas funcionales.
 * [ ] Realizar pruebas de integración.
@@ -394,7 +463,7 @@ Esta fase comenzará cuando existan módulos funcionales que puedan verificarse 
 * [ ] Realizar una revisión integral del sistema.
 * [ ] Documentar los resultados de las pruebas.
 
-**Estado:** ⏳ Pendiente.
+**Estado:** ⏳ Pendiente de ejecución integral.
 
 ---
 
@@ -423,17 +492,17 @@ Esta fase comprende la preparación, publicación y documentación final de la p
 
 # 📊 Resumen del progreso
 
-| Fase                         | Estado         |
-| ---------------------------- | -------------- |
-| Fase 0 — Preparación         | ✅ Completada   |
-| Fase 1 — Planificación       | ✅ Completada   |
-| Fase 2 — Documentación base  | ✅ Completada   |
-| Fase 3 — Diseño UI/UX        | ✅ Completada   |
-| Fase 4 — Implementación      | 🟡 En progreso |
-| Fase 5 — Pruebas             | ⏳ Pendiente    |
-| Fase 6 — Despliegue y cierre | ⏳ Pendiente    |
+| Fase                         | Estado                                |
+| ---------------------------- | ------------------------------------- |
+| Fase 0 — Preparación         | ✅ Completada                          |
+| Fase 1 — Planificación       | ✅ Completada                          |
+| Fase 2 — Documentación base  | ✅ Completada, con manuales pendientes |
+| Fase 3 — Diseño UI/UX        | ✅ Completada                          |
+| Fase 4 — Implementación      | 🟡 En progreso                        |
+| Fase 5 — Pruebas             | ⏳ Pendiente de ejecución integral     |
+| Fase 6 — Despliegue y cierre | ⏳ Pendiente                           |
 
-> La finalización de una fase no implica que todas las tareas futuras relacionadas con ella hayan desaparecido. La documentación, por ejemplo, seguirá actualizándose durante la implementación y el cierre.
+> La finalización de una fase no implica que todas las tareas futuras relacionadas con ella hayan desaparecido. La documentación, por ejemplo, seguirá actualizándose durante la implementación y el cierre. Asimismo, la finalización del diseño no significa que las pantallas ya estén implementadas.
 
 ---
 
@@ -447,12 +516,14 @@ Las actividades prioritarias son:
 2. Revisar la interfaz de Inicio en Mobile frente a Figma.
 3. Corregir las diferencias visuales y estructurales identificadas.
 4. Consolidar los componentes PHP reutilizables y los estilos compartidos.
-5. Verificar las pantallas y los procesos iniciales de autenticación, registro y recuperación de contraseña.
-6. Confirmar la estructura real de los archivos y mantener la documentación sincronizada con el repositorio.
-7. Continuar con la implementación progresiva de las interfaces restantes.
-8. Diseñar el modelo entidad-relación y definir la estructura de la base de datos.
-9. Integrar progresivamente las interfaces, los procesos PHP y las operaciones de base de datos.
-10. Preparar los módulos para sus respectivas pruebas funcionales y de seguridad.
+5. Revisar el Dashboard, su barra lateral, la barra superior y el comportamiento responsive.
+6. Verificar las pantallas y los procesos iniciales de autenticación, registro y recuperación de contraseña.
+7. Revisar el manejo de sesiones, las redirecciones y los mecanismos temporales de prueba.
+8. Confirmar la estructura real de los archivos y mantener la documentación sincronizada con el repositorio.
+9. Continuar con la implementación progresiva de las interfaces restantes.
+10. Diseñar el modelo entidad-relación y definir la estructura de la base de datos.
+11. Integrar progresivamente las interfaces, los procesos PHP y las operaciones de base de datos.
+12. Preparar los módulos para sus respectivas pruebas funcionales y de seguridad.
 
 Una vez consolidados los primeros módulos, se continuará con las siguientes interfaces y funcionalidades, manteniendo la arquitectura modular y los criterios de diseño definidos.
 
@@ -464,15 +535,15 @@ Raíces Alzate se desarrolla de manera progresiva, manteniendo la relación entr
 
 El proyecto comenzó en 2025. Las fechas registradas en las actualizaciones de 2026 corresponden al avance de sus distintas etapas.
 
-La fase de Diseño UI/UX se completó a finales de septiembre de 2026. Las interfaces diseñadas en Figma constituyen la referencia visual y estructural para la implementación.
+La fase de Diseño UI/UX se completó a finales de septiembre de 2026. Las 34 pantallas diseñadas —17 Desktop y 17 Mobile— constituyen la referencia visual y estructural para la implementación.
 
-La implementación frontend ya está iniciada. La interfaz de Inicio es la primera pantalla trasladada al código, y se han reportado avances adicionales en autenticación, registro y recuperación de contraseña.
+La implementación frontend ya está iniciada. La interfaz de Inicio fue la primera pantalla trasladada al código y se han reportado avances adicionales en autenticación, registro, recuperación de contraseña, navegación compartida y Dashboard.
 
-La arquitectura prevista se basa en **PHP, HTML, CSS y JavaScript vanilla**, sin incorporar frameworks frontend. Los estilos se organizan mediante archivos CSS modulares, y los elementos compartidos se desarrollan mediante componentes PHP reutilizables.
+La arquitectura prevista se basa en **PHP, HTML, CSS y JavaScript vanilla**, sin incorporar frameworks frontend. Los estilos se organizan mediante archivos CSS modulares y los elementos compartidos se desarrollan mediante componentes PHP reutilizables.
 
 La conexión entre PHP y MySQL fue verificada. Sin embargo, el modelo de datos definitivo, las tablas y las relaciones todavía deben diseñarse e implementarse.
 
-Los avances de autenticación y recuperación de contraseña deben verificarse mediante pruebas funcionales antes de considerarse terminados. En particular, la recuperación requiere comprobar el ciclo completo del token y configurar el servicio de envío de correos electrónicos.
+Los avances de autenticación y recuperación de contraseña deben verificarse mediante pruebas funcionales antes de considerarse terminados. En particular, la recuperación requiere comprobar el ciclo completo del token y configurar el servicio de envío de correos electrónicos. Los mecanismos de acceso utilizados exclusivamente para pruebas deben permanecer separados del flujo de autenticación definitivo.
 
 La documentación se actualizará conforme avance cada etapa, procurando que los requisitos, la arquitectura, el diseño y el código representen el mismo estado del proyecto.
 
@@ -482,13 +553,14 @@ Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una
 
 # 📜 Historial de cambios
 
-| Versión | Fecha      | Cambio                                                                                                                                                                                              |
-| ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.1.0  | 09/07/2026 | Registro inicial del Roadmap en la documentación del proyecto. El proyecto había comenzado en 2025.                                                                                                 |
-| v0.1.0  | 05/09/2026 | Actualización del Roadmap según los avances del Design System, Components & Responsive y las etapas de diseño UI/UX.                                                                                |
-| v0.1.1  | 07/10/2026 | Actualización general de las fases de planificación, documentación y diseño; consolidación de las interfaces Desktop y las adaptaciones Mobile trabajadas; transición a la Fase 4 — Implementación. |
-| v0.1.1  | 08/10/2026 | Actualización de los avances de Inicio Desktop y Mobile, los componentes reutilizables, los estilos CSS modulares, la navegación responsive, el isotipo, el favicon y la conexión PHP → MySQL.      |
-| v0.1.1  | 09/10/2026 | Consolidación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las tareas pendientes de validación, seguridad, integración y base de datos.      |
+| Versión | Fecha      | Cambio                                                                                                                                                                                                                                                                             |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v0.1.0  | 09/07/2026 | Registro inicial del Roadmap en la documentación del proyecto. El proyecto había comenzado en 2025.                                                                                                                                                                                |
+| v0.1.0  | 05/09/2026 | Actualización del Roadmap según los avances del Design System, Components & Responsive y las etapas de diseño UI/UX.                                                                                                                                                               |
+| v0.1.1  | 07/10/2026 | Actualización general de las fases de planificación, documentación y diseño; consolidación de las interfaces Desktop y las adaptaciones Mobile trabajadas; transición a la Fase 4 — Implementación.                                                                                |
+| v0.1.1  | 08/10/2026 | Actualización de los avances de Inicio Desktop y Mobile, los componentes reutilizables, los estilos CSS modulares, la navegación responsive, el isotipo, el favicon y la conexión PHP → MySQL.                                                                                     |
+| v0.1.1  | 09/10/2026 | Consolidación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las tareas pendientes de validación, seguridad, integración y base de datos.                                                                                     |
+| v0.1.1  | 13/10/2026 | Actualización del estado de implementación; incorporación de avances reportados en Dashboard, navegación interna, barra lateral, barra superior e indicador de carga; consolidación del diseño UI/UX de 34 pantallas y revisión de las prioridades de implementación y validación. |
 
 ---
 
@@ -498,4 +570,4 @@ Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una
 * **Estado:** 🟡 En desarrollo
 * **Fase actual:** Fase 4 — Implementación
 * **Inicio del proyecto:** 2025
-* **Última actualización:** 9 de octubre de 2026
+* **Última actualización:** 13 de octubre de 2026

@@ -14,13 +14,15 @@ La plataforma también permitirá compartir proyectos desarrollados por egresado
 
 El proyecto se encuentra en desarrollo desde 2025. Su construcción se organiza por fases, desde la planificación y documentación inicial hasta el diseño UI/UX, la implementación, las pruebas y el despliegue.
 
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**. La fase de diseño UI/UX está finalizada y sus diseños constituyen la referencia visual para el desarrollo de las interfaces.
+
 ---
 
 ## 🎯 2. Objetivo general
 
 Desarrollar una plataforma web que permita gestionar la información de los egresados, fortalecer la comunicación entre la institución y sus exalumnos y generar oportunidades de desarrollo académico, profesional y colaborativo para toda la comunidad Alzate.
 
-### Objetivos específicos
+### 2.1. Objetivos específicos
 
 * Centralizar la información académica, profesional y de contacto de los egresados.
 * Facilitar el registro, la autenticación y la administración de usuarios.
@@ -31,29 +33,46 @@ Desarrollar una plataforma web que permita gestionar la información de los egre
 * Promover el networking, la colaboración y las oportunidades de desarrollo.
 * Construir una interfaz accesible, intuitiva y adaptable a diferentes dispositivos.
 * Mantener una arquitectura modular que facilite el mantenimiento y la evolución del sistema.
+* Aplicar buenas prácticas de programación, protección de datos y seguridad durante la implementación.
 
 ---
 
 ## ✨ 3. Características principales
 
-Las funcionalidades previstas para la plataforma incluyen:
+Las funcionalidades y características previstas para la plataforma incluyen:
 
-* Gestión de información de egresados.
-* Registro y actualización de perfiles.
-* Autenticación de usuarios.
+### 3.1. Funcionalidades de usuario
+
+* Registro de usuarios.
+* Inicio y cierre de sesión.
 * Recuperación de contraseña.
-* Administración de usuarios y roles.
-* Consulta de información institucional.
+* Consulta y actualización de perfiles.
+* Consulta de información de egresados.
 * Publicación y consulta de proyectos.
+* Consulta de noticias e información institucional.
+* Acceso a las secciones habilitadas según el rol del usuario.
+
+### 3.2. Funcionalidades administrativas
+
+* Administración de usuarios.
+* Gestión de roles y permisos.
+* Gestión de información de egresados.
+* Gestión de proyectos.
 * Gestión y publicación de noticias.
-* Panel de administración.
+* Acceso a un panel administrativo.
+* Control de las operaciones permitidas para cada tipo de usuario.
+
+### 3.3. Características técnicas y visuales
+
 * Componentes de interfaz reutilizables.
 * Design System desarrollado en Figma.
 * Estados de interacción para los componentes.
 * Diseño responsive.
 * Interfaces Desktop y Mobile.
 * Arquitectura modular.
+* Separación de responsabilidades entre presentación, procesamiento y configuración.
 * Documentación técnica organizada.
+* Control de versiones mediante Git y GitHub.
 * Desarrollo basado en buenas prácticas de programación y seguridad.
 
 Estas características representan el alcance funcional previsto. Su disponibilidad definitiva dependerá de la implementación, integración y validación de cada módulo.
@@ -76,7 +95,7 @@ Estas características representan el alcance funcional previsto. Su disponibili
 | Visual Studio Code       | Entorno de edición y desarrollo.                    |
 | XAMPP                    | Entorno de desarrollo local.                        |
 
-### Criterios tecnológicos
+### 4.1. Criterios tecnológicos
 
 * Utilizar PHP nativo con una organización modular.
 * Emplear HTML5 semántico.
@@ -85,6 +104,10 @@ Estas características representan el alcance funcional previsto. Su disponibili
 * Gestionar la base de datos MySQL mediante PDO y consultas preparadas.
 * Evitar la incorporación de frameworks frontend que no formen parte del alcance tecnológico definido.
 * Mantener una estructura clara que facilite el mantenimiento y la integración de nuevos módulos.
+* Separar la configuración del sistema de las vistas y los componentes de presentación.
+* Validar los datos tanto en el cliente como en el servidor cuando corresponda.
+* Evitar la exposición de credenciales, información sensible y detalles internos de los errores.
+* Mantener la compatibilidad con el entorno local y comprobar las versiones de las tecnologías antes del despliegue.
 
 ---
 
@@ -117,7 +140,9 @@ raices-alzate/
 └── index.php
 ```
 
-Esta estructura es una referencia de organización del proyecto. La presencia, ubicación y responsabilidad definitiva de cada archivo o directorio deben corresponder al estado real del repositorio.
+Esta estructura es una referencia de organización. La presencia, ubicación y responsabilidad definitiva de cada archivo o directorio deben corresponder al estado real del repositorio.
+
+Durante la implementación, los componentes compartidos, las vistas, los estilos, los scripts y los archivos de configuración se organizan progresivamente para favorecer la separación de responsabilidades.
 
 La organización modular busca facilitar:
 
@@ -127,6 +152,10 @@ La organización modular busca facilitar:
 * La incorporación progresiva de funcionalidades.
 * La integración entre las interfaces, la lógica del servidor y la base de datos.
 * El trabajo colaborativo y el control de versiones.
+* La identificación y corrección de errores.
+* La evolución del sistema sin duplicar innecesariamente código.
+
+La estructura definitiva deberá documentarse en la arquitectura técnica cuando se hayan consolidado las ubicaciones y responsabilidades de los archivos.
 
 ---
 
@@ -149,7 +178,9 @@ La documentación oficial se organiza principalmente dentro de la carpeta `docs/
 | `CHANGELOG.md`              | Historial de cambios del proyecto.                  |
 | `ROADMAP.md`                | Hoja de ruta y evolución del proyecto.              |
 
-Los manuales técnico y de usuario se completarán progresivamente, a medida que las funcionalidades estén implementadas y verificadas. Su contenido deberá describir el comportamiento real de la aplicación y no únicamente las funcionalidades previstas.
+Los manuales técnico y de usuario se completarán progresivamente, a medida que las funcionalidades estén implementadas y verificadas.
+
+Su contenido deberá describir el comportamiento real de la aplicación y no únicamente las funcionalidades previstas.
 
 La documentación debe mantenerse actualizada durante todo el ciclo de desarrollo para garantizar la trazabilidad de las decisiones, los avances y los cambios realizados.
 
@@ -158,45 +189,57 @@ La documentación debe mantenerse actualizada durante todo el ciclo de desarroll
 ## 🚧 7. Estado actual del proyecto
 
 **Versión documental:** `v0.1.1`
+
 **Estado general:** 🟡 En desarrollo
+
 **Fase actual:** Fase 4 — Implementación
+
 **Inicio del proyecto:** 2025
-**Última actualización de esta planificación:** 9 de octubre de 2026
+
+**Última actualización de esta planificación:** 13 de octubre de 2026
 
 ### 7.1. Diseño UI/UX
 
-La Fase 3 — Diseño UI/UX se considera finalizada desde finales de septiembre de 2026.
+La Fase 3 — Diseño UI/UX se encuentra finalizada desde finales de septiembre de 2026.
 
 Durante esta etapa se definieron la identidad visual, el sistema de diseño, los componentes reutilizables, el flujo de información, la estructura de navegación y las principales interfaces de la plataforma.
 
-El diseño en Figma constituye la referencia visual para la implementación frontend.
+El trabajo de diseño contempla **34 pantallas en Figma: 17 versiones Desktop y 17 adaptaciones Mobile**.
+
+El diseño en Figma constituye la referencia visual para la implementación frontend. Las diferencias que se detecten durante el desarrollo deberán corregirse mediante revisiones y validaciones frente a los diseños aprobados.
 
 ### 7.2. Implementación frontend
 
 La implementación frontend comenzó en octubre de 2026. Los primeros trabajos se centraron en la página de Inicio y en la estructura compartida de la aplicación.
 
-Posteriormente se avanzó en las interfaces de autenticación, registro y recuperación de contraseña.
+Posteriormente, se avanzó en las interfaces de autenticación, registro y recuperación de contraseña, así como en elementos de navegación y en la estructura inicial del Dashboard.
 
-Entre los trabajos realizados o reportados se encuentran:
+Entre los avances reportados se encuentran:
 
-* Estructura inicial de las interfaces mediante PHP y HTML.
-* Componentes compartidos para el encabezado y el pie de página.
-* Navegación responsive y menú móvil.
-* Incorporación de elementos de identidad visual y favicon.
+* Implementación inicial de la página de Inicio.
+* Creación e integración de componentes compartidos para el encabezado y el pie de página.
 * Organización modular de los estilos CSS.
-* Implementación de la interfaz Inicio.
+* Incorporación de la navegación responsive y del menú móvil.
+* Adaptación inicial de Inicio para dispositivos móviles.
 * Desarrollo inicial de las interfaces de inicio de sesión, registro y recuperación de contraseña.
-* Validaciones de formularios en el cliente y en el servidor, según el módulo.
-* Incorporación de estados visuales para campos y mensajes de retroalimentación.
-* Organización de archivos JavaScript para la interactividad.
+* Ajustes en la navegación y en las rutas de acceso a las vistas.
+* Desarrollo inicial de la estructura visual del Dashboard.
+* Organización de la barra lateral y de la barra superior del panel.
+* Incorporación de estados visuales para campos, formularios y mensajes de retroalimentación.
+* Trabajo inicial en elementos de carga y retroalimentación de la interfaz.
+* Ajustes relacionados con el funcionamiento de las sesiones y el acceso a las vistas durante las pruebas.
 
-Los módulos de autenticación deben someterse a pruebas integrales para verificar su funcionamiento, seguridad, integración con la base de datos y correspondencia con los diseños aprobados.
+Estos avances no significan que todas las interfaces estén finalizadas ni que los flujos estén listos para producción. Es necesario completar la revisión visual, la adaptación responsive, la integración funcional y las pruebas correspondientes.
 
 ### 7.3. Backend
 
 Se han iniciado tareas de procesamiento de formularios y autenticación mediante PHP.
 
-La implementación del backend deberá continuar con la gestión de sesiones, los permisos, los perfiles, los egresados, los proyectos, las noticias y las funcionalidades administrativas.
+También se han reportado ajustes en el manejo de sesiones, la navegación entre vistas y el acceso al Dashboard durante el desarrollo.
+
+La implementación del backend deberá continuar con la consolidación de la autenticación, los permisos, los perfiles, los egresados, los proyectos, las noticias y las funcionalidades administrativas.
+
+Los mecanismos auxiliares de acceso utilizados para probar las interfaces deben permanecer restringidos al entorno de desarrollo y no deben habilitarse como mecanismos de acceso en producción.
 
 ### 7.4. Base de datos
 
@@ -205,6 +248,16 @@ La conexión entre PHP y MySQL se ha reportado como verificada en el entorno de 
 Sin embargo, la estructura definitiva de la base de datos, sus relaciones y la integración completa de las operaciones de cada módulo deben documentarse y validarse durante la implementación.
 
 La verificación de conectividad no implica que todas las tablas, relaciones y operaciones CRUD estén terminadas.
+
+La siguiente etapa de trabajo deberá definir el modelo de datos, establecer las relaciones entre entidades y conectar progresivamente los módulos de la aplicación con las operaciones correspondientes de la base de datos.
+
+### 7.5. Integración y pruebas
+
+Se han reportado comprobaciones iniciales de sintaxis PHP y respuestas HTTP de algunas rutas durante el desarrollo.
+
+Estas comprobaciones constituyen verificaciones preliminares, pero no sustituyen las pruebas funcionales, de integración, de seguridad, de accesibilidad y de comportamiento responsive.
+
+La validación integral deberá comprobar que los formularios, las sesiones, los permisos, las consultas a la base de datos y las interfaces funcionen de manera coherente.
 
 ---
 
@@ -223,6 +276,8 @@ Se definieron los fundamentos visuales de la plataforma:
 * Estados de interacción de los componentes.
 * Criterios generales de consistencia visual.
 
+La implementación deberá conservar la coherencia con el sistema visual aprobado en Figma.
+
 ### 8.2. Components & Responsive
 
 Se trabajaron los siguientes componentes:
@@ -239,36 +294,60 @@ Se trabajaron los siguientes componentes:
 * Estados de error.
 * Criterios de adaptación responsive.
 
+Estos componentes sirven como referencia para mantener la consistencia de las interfaces y reducir las diferencias visuales entre los módulos.
+
 ### 8.3. Flujo de información y navegación
 
 Se definieron el flujo general de información, la estructura de navegación y las relaciones principales entre las pantallas de la plataforma.
 
-### 8.4. Interfaces
+La estructura contempla los accesos a Inicio, Autenticación, Dashboard, Perfil, Egresados, Proyectos, Noticias y Administración, además de las pantallas destinadas a crear, consultar y editar contenidos.
 
-Se desarrollaron las principales interfaces Desktop en Figma, hasta la pantalla `17 - Editar noticia - Desktop`.
+La navegación implementada deberá respetar los permisos y las condiciones de acceso correspondientes a cada módulo.
 
-También se trabajaron las adaptaciones Mobile de Inicio y Autenticación, además de avances en Dashboard Mobile, incluidos los apartados Mi perfil, Mis proyectos y Oportunidades.
+### 8.4. Interfaces diseñadas
+
+Se completó el diseño de las siguientes 17 interfaces Desktop:
+
+1. Inicio.
+2. Autenticación.
+3. Dashboard.
+4. Perfil.
+5. Egresados.
+6. Proyectos.
+7. Noticias.
+8. Administración.
+9. Crear proyecto.
+10. Detalle de proyecto.
+11. Editar perfil.
+12. Recuperar contraseña.
+13. Registro.
+14. Editar proyecto.
+15. Crear noticia.
+16. Detalle de noticia.
+17. Editar noticia.
+
+También se diseñaron las 17 adaptaciones Mobile correspondientes.
 
 **Estado de la fase:** Finalizada.
 
-**Nota:** El cierre del diseño UI/UX no significa que todas las adaptaciones responsive estén implementadas o que todas las pantallas hayan sido verificadas en código. Esa validación corresponde a la fase de implementación.
+**Nota:** El cierre del diseño UI/UX no significa que todas las adaptaciones responsive estén implementadas ni que todas las pantallas hayan sido verificadas en código. Esa validación corresponde a la fase de implementación.
 
 ---
 
 ## 📊 9. Estado general de las etapas
 
-| Etapa                    | Estado                                                      |
-| ------------------------ | ----------------------------------------------------------- |
-| Preparación del proyecto | 🟩 Completada                                               |
-| Planificación            | 🟩 Completada                                               |
-| Documentación base       | 🟩 Completada                                               |
-| Diseño UI/UX             | 🟩 Completado                                               |
-| Desarrollo frontend      | 🟨 En progreso                                              |
-| Desarrollo backend       | 🟨 En desarrollo inicial                                    |
-| Base de datos            | 🟨 Conectividad verificada; estructura definitiva pendiente |
-| Integración de módulos   | ⬜ Pendiente de completar                                    |
-| Pruebas integrales       | ⬜ Pendientes                                                |
-| Despliegue               | ⬜ Pendiente                                                 |
+| Etapa                    | Estado                                                                  |
+| ------------------------ | ----------------------------------------------------------------------- |
+| Preparación del proyecto | 🟩 Completada                                                           |
+| Planificación inicial    | 🟩 Completada                                                           |
+| Documentación base       | 🟩 Completada, con actualización continua                               |
+| Diseño UI/UX             | 🟩 Completado                                                           |
+| Desarrollo frontend      | 🟨 En progreso                                                          |
+| Desarrollo backend       | 🟨 En desarrollo inicial                                                |
+| Base de datos            | 🟨 Conectividad reportada como verificada; esquema definitivo pendiente |
+| Integración de módulos   | ⬜ Pendiente de completar                                                |
+| Pruebas integrales       | ⬜ Pendientes de ejecución integral                                      |
+| Despliegue               | ⬜ Pendiente                                                             |
 
 > Los estados representan el avance general de las etapas. Deben actualizarse conforme se implementen y verifiquen las funcionalidades. No equivalen a porcentajes exactos de avance.
 
@@ -336,7 +415,7 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 
 **Objetivo:** establecer la estructura visual, los componentes y las interfaces que servirán como referencia para la implementación.
 
-### Design System
+### 3.1. Design System
 
 * Definir la identidad visual.
 * Establecer la paleta de colores.
@@ -345,7 +424,7 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 * Diseñar los botones.
 * Definir los estados de los componentes.
 
-### Components & Responsive
+### 3.2. Components & Responsive
 
 * Diseñar inputs.
 * Diseñar checkbox.
@@ -355,16 +434,16 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 * Definir estados de interacción.
 * Establecer criterios responsive.
 
-### Estructura y flujo
+### 3.3. Estructura y flujo
 
 * Definir el flujo de información.
 * Diseñar la estructura de navegación.
 * Establecer los recorridos principales de los usuarios.
 
-### Interfaces
+### 3.4. Interfaces
 
 * Diseñar las principales interfaces Desktop.
-* Trabajar las adaptaciones Mobile.
+* Diseñar las adaptaciones Mobile.
 * Consolidar visualmente las pantallas.
 * Revisar la coherencia general del sistema de diseño.
 
@@ -378,37 +457,62 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 
 ### 4.1. Frontend
 
-#### Inicio y estructura compartida
+#### 4.1.1. Inicio y estructura compartida
 
 * [x] Implementación inicial de la estructura de Inicio.
-* [x] Implementación del encabezado compartido.
-* [x] Implementación del pie de página compartido.
+* [x] Implementación inicial del encabezado compartido.
+* [x] Implementación inicial del pie de página compartido.
 * [x] Organización inicial de los estilos CSS.
 * [x] Incorporación de la navegación responsive.
-* [x] Implementación del menú móvil.
+* [x] Implementación inicial del menú móvil.
 * [x] Incorporación de elementos de identidad visual.
 * [x] Adaptación inicial de Inicio Mobile.
 * [ ] Revisión visual completa de Inicio frente a Figma.
 * [ ] Verificación final de accesibilidad y comportamiento responsive.
+* [ ] Validación de enlaces y navegación.
+* [ ] Pruebas en distintos tamaños de pantalla.
 
-#### Autenticación, registro y recuperación
+#### 4.1.2. Dashboard y navegación interna
+
+* [x] Desarrollo inicial de la estructura visual del Dashboard.
+* [x] Organización inicial de la barra lateral.
+* [x] Incorporación de la barra superior del panel.
+* [x] Trabajo inicial en el comportamiento de expansión y contracción de la barra lateral.
+* [x] Ajustes iniciales de navegación para pantallas pequeñas.
+* [x] Ajustes visuales de elementos de acción del Dashboard.
+* [ ] Verificar todos los enlaces y destinos de navegación.
+* [ ] Completar la integración funcional de las secciones del panel.
+* [ ] Validar la persistencia de las preferencias de navegación.
+* [ ] Completar la adaptación responsive.
+* [ ] Comparar el Dashboard implementado con Figma.
+* [ ] Verificar los permisos de acceso a cada sección.
+* [ ] Sustituir los datos simulados por datos reales cuando corresponda.
+
+Las casillas marcadas indican avances reportados durante el desarrollo inicial. No significan que el Dashboard esté terminado ni que todas sus funciones estén integradas.
+
+#### 4.1.3. Autenticación, registro y recuperación
 
 * [x] Desarrollo inicial de la interfaz de inicio de sesión.
 * [x] Desarrollo inicial de la interfaz de registro.
 * [x] Desarrollo inicial de la interfaz de recuperación de contraseña.
 * [x] Incorporación de validaciones y estados visuales reportados.
+* [x] Ajustes iniciales de las rutas de acceso a las vistas.
 * [ ] Verificar el funcionamiento integral de los tres flujos.
 * [ ] Comprobar la integración con la base de datos.
 * [ ] Verificar el manejo de sesiones y las respuestas del servidor.
-* [ ] Validar los casos de error y los criterios de seguridad.
+* [ ] Validar los casos de error.
+* [ ] Verificar los controles de seguridad.
 * [ ] Completar las adaptaciones responsive.
 * [ ] Comparar las interfaces implementadas con los diseños de Figma.
+* [ ] Comprobar el cierre de sesión y la protección de las rutas privadas.
+* [ ] Verificar que los mecanismos de prueba no estén disponibles en producción.
 
-> Las casillas marcadas indican avances de implementación reportados. No implican que los flujos estén completamente probados o listos para producción.
+> Las casillas marcadas indican avances de implementación reportados. Los flujos de autenticación, registro y recuperación no deben considerarse terminados hasta que sus operaciones se integren y se validen de extremo a extremo.
 
-#### Interfaces restantes
+#### 4.1.4. Interfaces restantes
 
-* [ ] Dashboard.
+Las siguientes pantallas forman parte del diseño aprobado y deberán implementarse e integrarse progresivamente:
+
 * [ ] Perfil.
 * [ ] Egresados.
 * [ ] Proyectos.
@@ -422,7 +526,9 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 * [ ] Detalle de noticia.
 * [ ] Editar noticia.
 
-#### Responsive
+La implementación de estas interfaces deberá contemplar sus respectivos estados, formularios, permisos, datos y comportamientos responsive.
+
+#### 4.1.5. Responsive
 
 * [ ] Completar las adaptaciones Mobile pendientes.
 * [ ] Validar la navegación responsive.
@@ -430,6 +536,9 @@ Los manuales técnico y de usuario se completarán conforme existan funcionalida
 * [ ] Comparar las interfaces implementadas con los diseños aprobados.
 * [ ] Comprobar la usabilidad en dispositivos móviles.
 * [ ] Corregir desbordamientos y problemas de distribución.
+* [ ] Verificar la legibilidad de textos y controles.
+* [ ] Comprobar la interacción con formularios, menús y componentes.
+* [ ] Validar los estados de foco y la navegación mediante teclado.
 
 ### 4.2. Backend
 
@@ -438,7 +547,7 @@ Actividades previstas:
 * [ ] Consolidar la estructura de procesamiento del servidor.
 * [ ] Implementar y verificar la autenticación.
 * [ ] Implementar la gestión de sesiones.
-* [ ] Definir los roles y permisos.
+* [ ] Definir y aplicar los roles y permisos.
 * [ ] Completar la gestión de usuarios.
 * [ ] Implementar la gestión de perfiles.
 * [ ] Implementar la gestión de egresados.
@@ -447,6 +556,9 @@ Actividades previstas:
 * [ ] Desarrollar las funcionalidades administrativas.
 * [ ] Validar los datos recibidos desde los formularios.
 * [ ] Aplicar controles de seguridad en las operaciones del servidor.
+* [ ] Implementar respuestas de error coherentes.
+* [ ] Comprobar que las rutas privadas exijan autenticación y autorización.
+* [ ] Evitar que datos simulados se confundan con información persistida.
 
 El avance inicial de los procesos de autenticación no significa que el backend completo se encuentre terminado.
 
@@ -464,6 +576,9 @@ Actividades previstas:
 * [ ] Implementar operaciones CRUD.
 * [ ] Validar consultas y transacciones.
 * [ ] Verificar el tratamiento de errores de conexión y operaciones.
+* [ ] Comprobar la persistencia y consistencia de los datos.
+* [ ] Documentar el esquema definitivo.
+* [ ] Preparar un procedimiento controlado para inicializar la base de datos.
 
 **Estado conocido:** la conexión entre PHP y MySQL se ha reportado como verificada. El diseño definitivo del esquema y la integración completa de los módulos continúan pendientes.
 
@@ -479,8 +594,13 @@ Actividades previstas:
 * [ ] Revisar los mensajes de error para evitar la exposición de información sensible.
 * [ ] Completar el flujo de recuperación de contraseña.
 * [ ] Verificar la generación, el almacenamiento y la expiración de los tokens de recuperación.
+* [ ] Garantizar que los tokens de recuperación sean de un solo uso.
 * [ ] Configurar el envío de correos cuando se habilite el servicio SMTP.
 * [ ] Revisar la configuración del entorno antes del despliegue.
+* [ ] Proteger las credenciales de conexión y demás datos sensibles.
+* [ ] Deshabilitar los mecanismos auxiliares de acceso utilizados durante las pruebas.
+* [ ] Revisar la protección de las operaciones que modifican información.
+* [ ] Comprobar el manejo de errores sin revelar detalles internos.
 
 ### 4.5. Integración
 
@@ -492,6 +612,9 @@ Actividades previstas:
 * [ ] Integrar progresivamente los módulos.
 * [ ] Comprobar el tratamiento de errores.
 * [ ] Validar la persistencia de los datos.
+* [ ] Comprobar las rutas y los enlaces entre pantallas.
+* [ ] Verificar que los datos mostrados correspondan a la información almacenada.
+* [ ] Revisar la integración entre componentes compartidos y vistas.
 
 **Criterio de cierre de la fase:** los módulos previstos deberán estar implementados, integrados y preparados para las pruebas funcionales, de seguridad y de usabilidad.
 
@@ -517,9 +640,14 @@ Actividades:
 * [ ] Comprobar la integración entre módulos.
 * [ ] Comparar las interfaces con los diseños de Figma.
 * [ ] Ejecutar pruebas de regresión.
-* [ ] Documentar los resultados.
+* [ ] Verificar el manejo de errores.
+* [ ] Comprobar el comportamiento en distintos navegadores.
+* [ ] Documentar los resultados y los errores encontrados.
+* [ ] Repetir las pruebas después de corregir errores relevantes.
 
 **Estado:** Pendiente de ejecución integral.
+
+Las comprobaciones preliminares realizadas durante la implementación no sustituyen esta fase.
 
 ---
 
@@ -540,7 +668,9 @@ Actividades:
 * [ ] Elaborar el Manual de Usuario.
 * [ ] Actualizar la documentación.
 * [ ] Revisar los requisitos de seguridad.
+* [ ] Comprobar que no existan mecanismos de prueba habilitados en producción.
 * [ ] Preparar la versión estable del proyecto.
+* [ ] Documentar el procedimiento de mantenimiento y actualización.
 
 **Estado:** Pendiente.
 
@@ -552,11 +682,13 @@ Actividades:
 
 Para preparar el entorno local se recomienda contar con:
 
-* PHP 8.0 o superior, sujeto a compatibilidad con las dependencias del proyecto.
-* MySQL 8.0 o compatible.
-* Un servidor local compatible con PHP, como XAMPP, Laragon o WAMP.
+* PHP 8.0 o superior, sujeto a compatibilidad con la configuración real del proyecto.
+* MySQL 8.0 o una versión compatible.
+* Un servidor local compatible con PHP, como XAMPP.
 * Git.
 * Visual Studio Code u otro editor compatible.
+* Un navegador web actualizado.
+* Acceso al repositorio de GitHub.
 
 Las versiones definitivas deberán verificarse frente a la configuración real del proyecto antes de su despliegue.
 
@@ -581,8 +713,12 @@ cd Raices-Alzate
 5. Configurar las variables de entorno o los parámetros locales que requiera la aplicación.
 6. Iniciar el servidor local y el servicio de base de datos.
 7. Abrir la aplicación desde el navegador utilizando la ruta correspondiente.
+8. Comprobar que las rutas, los recursos CSS y los scripts JavaScript se carguen correctamente.
+9. Revisar los mensajes de error del servidor y del navegador durante las primeras pruebas.
 
 > Los pasos específicos de creación e importación de la base de datos deberán completarse cuando el esquema definitivo esté documentado. No se deben inventar nombres de bases de datos, tablas ni credenciales.
+
+> Las instrucciones definitivas de instalación deberán contrastarse con la configuración real del repositorio y con el entorno de desarrollo utilizado por el equipo.
 
 ---
 
@@ -590,7 +726,9 @@ cd Raices-Alzate
 
 Raíces Alzate se encuentra en desarrollo y todavía no cuenta con una versión final de producción.
 
-Los módulos de Inicio, autenticación, registro y recuperación de contraseña tienen avances iniciales de implementación. Su funcionamiento integral debe comprobarse antes de considerar que la plataforma está lista para un uso general.
+Los módulos de Inicio, autenticación, registro y recuperación de contraseña tienen avances iniciales de implementación. También se ha trabajado en la estructura visual del Dashboard y en elementos compartidos de navegación.
+
+Su funcionamiento integral debe comprobarse antes de considerar que la plataforma está lista para un uso general.
 
 Las funcionalidades previstas incluyen:
 
@@ -615,17 +753,21 @@ La documentación de uso se ampliará cuando cada módulo disponga de un comport
 
 Los próximos objetivos corresponden a continuar con la Fase 4 — Implementación.
 
-### Frontend
+### 13.1. Frontend
 
 * Revisar la correspondencia visual de Inicio con Figma.
 * Verificar los flujos iniciales de autenticación, registro y recuperación.
-* Completar las pantallas pendientes.
+* Continuar la implementación de las pantallas diseñadas.
+* Consolidar la estructura visual del Dashboard.
 * Implementar los componentes definidos en el Design System.
 * Completar las adaptaciones responsive.
 * Incorporar la interactividad necesaria mediante JavaScript.
 * Mantener la coherencia visual entre las diferentes interfaces.
+* Verificar los enlaces y las rutas de navegación.
+* Revisar los estados de carga, error y retroalimentación.
+* Comprobar la accesibilidad de los elementos interactivos.
 
-### Backend
+### 13.2. Backend
 
 * Verificar y consolidar los procesos iniciales de autenticación.
 * Completar la gestión de sesiones.
@@ -633,8 +775,11 @@ Los próximos objetivos corresponden a continuar con la Fase 4 — Implementaci�
 * Desarrollar las funcionalidades principales.
 * Validar los procesos de registro y recuperación de contraseña.
 * Aplicar y comprobar las medidas de seguridad necesarias.
+* Verificar que las rutas privadas estén protegidas.
+* Integrar progresivamente las operaciones con la base de datos.
+* Eliminar o restringir los mecanismos auxiliares utilizados exclusivamente durante las pruebas.
 
-### Base de datos
+### 13.3. Base de datos
 
 * Definir el esquema definitivo.
 * Crear las tablas necesarias.
@@ -642,14 +787,18 @@ Los próximos objetivos corresponden a continuar con la Fase 4 — Implementaci�
 * Implementar operaciones CRUD.
 * Integrar la base de datos con los módulos PHP.
 * Probar las consultas y el manejo de errores.
+* Documentar el modelo de datos.
+* Verificar la persistencia de la información.
 
-### Integración y pruebas
+### 13.4. Integración y pruebas
 
 * Verificar los flujos completos desde la interfaz hasta la base de datos.
 * Validar las respuestas de los formularios.
 * Comprobar los permisos y la gestión de sesiones.
 * Ejecutar pruebas funcionales y responsive.
+* Comparar las interfaces implementadas con los diseños aprobados.
 * Corregir errores y documentar los resultados.
+* Actualizar la planificación y la bitácora según los avances verificados.
 
 ---
 
@@ -657,12 +806,14 @@ Los próximos objetivos corresponden a continuar con la Fase 4 — Implementaci�
 
 Proyecto desarrollado por estudiantes de la Institución Educativa Gilberto Alzate Avendaño.
 
-### Integrantes
+### 14.1. Integrantes
 
 * Emanuel Cadavid.
 * Harold Montoya.
 * Santiago Delgado Martínez.
 * Santiago Sánchez Emitola.
+
+**Responsable de la documentación del proyecto:** Santiago Emitola.
 
 ---
 
@@ -680,6 +831,9 @@ En futuras versiones se documentará una guía de contribución que incluya:
 * Procedimiento para reportar errores.
 * Procedimiento para proponer nuevas funcionalidades.
 * Revisión y validación de cambios.
+* Buenas prácticas para el manejo de ramas y solicitudes de integración.
+
+Los cambios deberán revisarse antes de incorporarse a la rama principal, de acuerdo con el flujo de trabajo establecido por el equipo.
 
 ---
 
@@ -690,6 +844,8 @@ La licencia del proyecto deberá corresponder al archivo de licencia oficial inc
 Si el proyecto se distribuye bajo la licencia MIT, el archivo `LICENSE` deberá estar presente y contener los términos correspondientes.
 
 Antes de publicar o distribuir el proyecto, se debe verificar que la licencia declarada en este documento coincida con la licencia real del repositorio.
+
+Mientras no se haya confirmado la licencia definitiva, no debe afirmarse que el proyecto se distribuye bajo una licencia específica.
 
 ---
 

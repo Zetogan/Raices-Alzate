@@ -6,10 +6,15 @@
  * Versión: 0.1.1
  */
 
-// Carga de configuración global (sin conexión a base de datos en esta etapa)
+// 1. Iniciar sesión de forma segura antes de emitir cualquier cabecera o HTML
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
+}
+
+// 2. Carga de configuración global (sin conexión a base de datos en esta etapa)
 require_once __DIR__ . '/config/config.php';
 
-// Enrutamiento básico por parámetro
+// 3. Enrutamiento básico por parámetro
 $page = $_GET['page'] ?? 'inicio';
 
 switch ($page) {
@@ -26,6 +31,7 @@ switch ($page) {
         break;
     case 'recuperar':
     case 'recuperar-password':
+    case 'recuperar-contrasena':
         $pageTitle = 'Recuperar contraseña | ' . APP_NAME;
         $currentPage = 'recuperar';
         $viewFile = __DIR__ . '/pages/recuperar-password.php';

@@ -8,15 +8,16 @@
 
 ## 1. Información general
 
-| Campo                | Información                                    |
-| -------------------- | ---------------------------------------------- |
-| Proyecto             | Raíces Alzate                                  |
-| Institución          | Institución Educativa Gilberto Alzate Avendaño |
-| Versión documental   | v0.1.1                                         |
-| Estado               | 🟡 En desarrollo                               |
-| Fase actual          | Fase 4 — Implementación                        |
-| Inicio del proyecto  | 2025                                           |
-| Última actualización | 9 de octubre de 2026                           |
+| Campo                           | Información                                    |
+| ------------------------------- | ---------------------------------------------- |
+| Proyecto                        | Raíces Alzate                                  |
+| Institución                     | Institución Educativa Gilberto Alzate Avendaño |
+| Versión documental              | `v0.1.1`                                       |
+| Estado                          | 🟡 En desarrollo                               |
+| Fase actual                     | Fase 4 — Implementación                        |
+| Inicio del proyecto             | 2025                                           |
+| Última actualización            | 13 de octubre de 2026                          |
+| Responsable de la documentación | Santiago Emitola                               |
 
 ---
 
@@ -24,15 +25,15 @@
 
 Este documento reúne los requisitos funcionales y no funcionales que definen el comportamiento, las características y las condiciones de funcionamiento de la plataforma Raíces Alzate.
 
-Los requisitos establecidos sirven como referencia durante las etapas de diseño, desarrollo, integración y pruebas, permitiendo mantener una relación clara entre las necesidades del proyecto y las funcionalidades que se deben implementar.
+Los requisitos sirven como referencia durante las etapas de implementación, integración y pruebas. Su propósito es mantener una relación clara entre las necesidades del proyecto, las funcionalidades previstas y los criterios que permitirán comprobar su correcto funcionamiento.
 
-Las fases de planificación y documentación base se encuentran consolidadas. La fase de diseño UI/UX finalizó a finales de septiembre de 2026, con la definición del sistema de diseño, los componentes reutilizables, los criterios responsive, la estructura de navegación y las principales interfaces Desktop.
+El proyecto se encuentra en desarrollo desde 2025. Las fases de preparación, planificación y documentación base se encuentran completadas, mientras que la fase de diseño UI/UX finalizó a finales de septiembre de 2026.
 
-También se trabajaron adaptaciones Mobile para las pantallas principales.
+Durante el diseño se definieron la identidad visual, el Design System, los componentes reutilizables, los criterios responsive, la estructura de navegación y las interfaces de referencia en Figma.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**. El desarrollo frontend comenzó con la interfaz Inicio y posteriormente avanzó hacia los módulos de autenticación, registro y recuperación de contraseña.
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**, iniciada en octubre de 2026. Los trabajos de desarrollo han comenzado con la página de Inicio, la estructura compartida de la aplicación y las interfaces iniciales de autenticación, registro y recuperación de contraseña. También se han reportado avances en la estructura del dashboard y en otros elementos compartidos de la interfaz.
 
-Este documento distingue entre los requisitos definidos, las funcionalidades con avances de implementación reportados y aquellas que todavía requieren desarrollo, integración o validación.
+Este documento distingue entre los requisitos definidos, los avances de implementación reportados y las funcionalidades que todavía requieren integración, pruebas o validación. Las funcionalidades no deberán considerarse finalizadas únicamente por disponer de una interfaz visual o de una implementación inicial.
 
 ---
 
@@ -53,19 +54,21 @@ La plataforma deberá:
 * RF-01.07: Mantener una estructura visual coherente con el diseño aprobado en Figma.
 * RF-01.08: Adaptar la navegación y los contenidos a diferentes tamaños de pantalla.
 * RF-01.09: Incorporar los elementos de identidad visual establecidos para el proyecto.
+* RF-01.10: Mantener una estructura de encabezado y pie de página coherente con las demás páginas públicas.
 
 ### Estado de implementación
 
 * 🟢 Estructura inicial del frontend implementada.
-* 🟢 Encabezado y pie de página compartidos implementados.
+* 🟢 Encabezado y pie de página compartidos incorporados.
 * 🟢 Navegación responsive y menú móvil implementados.
 * 🟢 Isotipo y favicon incorporados.
-* 🟢 Versión Desktop desarrollada tomando como referencia el diseño de 1440 px.
+* 🟢 Interfaz Desktop desarrollada tomando como referencia el diseño de 1440 px.
 * 🟢 Adaptación inicial Mobile desarrollada tomando como referencia el diseño de 390 px.
-* 🟡 Revisión visual final frente a Figma pendiente.
-* 🟡 Validación completa en diferentes dispositivos pendiente.
+* 🟡 Revisión visual completa frente a Figma pendiente.
+* 🟡 Validación completa en diferentes tamaños de pantalla pendiente.
+* 🟡 Revisión final de accesibilidad y comportamiento de los elementos interactivos pendiente.
 
-> El estado indicado refleja los avances de implementación reportados. La aceptación definitiva requiere verificar la interfaz en ejecución.
+> Los estados reflejan los avances de implementación reportados. La aceptación definitiva requiere comprobar la interfaz en ejecución y contrastarla con los criterios de diseño aprobados.
 
 ---
 
@@ -80,11 +83,12 @@ La plataforma deberá:
 * RF-02.05: Solicitar la confirmación de la contraseña cuando corresponda al formulario definido.
 * RF-02.06: Validar los campos obligatorios.
 * RF-02.07: Verificar que el correo electrónico no esté registrado previamente.
-* RF-02.08: Validar la información tanto en el cliente como en el servidor, según corresponda.
+* RF-02.08: Validar la información en el cliente y en el servidor, según corresponda.
 * RF-02.09: Almacenar las contraseñas mediante mecanismos de hash seguros.
 * RF-02.10: Mostrar mensajes de retroalimentación cuando el registro sea aceptado o se produzca un error.
 * RF-02.11: Asociar el tipo de usuario correspondiente cuando el sistema lo requiera.
 * RF-02.12: Evitar la creación de cuentas con información inválida o duplicada.
+* RF-02.13: Impedir que usuarios no autorizados asignen privilegios elevados durante el registro.
 
 ### Estado de implementación
 
@@ -92,10 +96,11 @@ La plataforma deberá:
 * 🟢 Procesamiento inicial del formulario reportado.
 * 🟢 Validaciones y comprobación de correo duplicado reportadas.
 * 🟢 Uso de `password_hash()` reportado para el tratamiento de contraseñas.
-* 🟡 Integración y comportamiento completo por verificar.
+* 🟡 Integración completa con la base de datos por verificar.
+* 🟡 Comprobación de las reglas de registro y los tipos de usuario pendiente.
 * 🟡 Pruebas funcionales y de seguridad pendientes.
 
-> Los campos definitivos del registro deberán coincidir con el formulario implementado y con las decisiones funcionales del proyecto. No se debe asumir que los campos condicionales o los tipos de usuario están completamente integrados sin verificar el código.
+> Los campos definitivos del registro deberán coincidir con el formulario implementado y con las decisiones funcionales del proyecto. No se debe asumir que todas las validaciones, restricciones y reglas de asignación de roles están completamente integradas sin verificar el código.
 
 ---
 
@@ -105,22 +110,29 @@ La plataforma deberá:
 
 * RF-03.01: Permitir el inicio de sesión mediante las credenciales registradas.
 * RF-03.02: Validar las credenciales en el servidor.
-* RF-03.03: Rechazar credenciales incorrectas.
+* RF-03.03: Rechazar las credenciales incorrectas.
 * RF-03.04: Permitir el cierre de sesión.
 * RF-03.05: Mantener la sesión activa mientras se cumplan las condiciones de seguridad definidas.
 * RF-03.06: Restringir las funcionalidades privadas a los usuarios autenticados.
 * RF-03.07: Proporcionar mensajes de retroalimentación adecuados.
 * RF-03.08: Evitar que los mensajes de error revelen información sensible.
 * RF-03.09: Controlar el acceso a las páginas protegidas.
+* RF-03.10: Verificar los permisos del usuario antes de ejecutar operaciones restringidas.
+* RF-03.11: Impedir que una sesión finalizada permita continuar accediendo a funcionalidades privadas.
 
 ### Estado de implementación
 
 * 🟢 Interfaz inicial de inicio de sesión implementada.
 * 🟢 Procesamiento inicial de credenciales reportado.
 * 🟢 Validaciones y mensajes de retroalimentación incorporados según los avances reportados.
+* 🟢 Funcionalidad de cierre de sesión reportada.
 * 🟡 Verificación integral de autenticación pendiente.
-* 🟡 Gestión completa de sesiones y acceso a páginas protegidas por validar.
+* 🟡 Integración definitiva con las credenciales almacenadas en MySQL por verificar.
+* 🟡 Gestión completa y segura de sesiones pendiente de validación.
+* 🟡 Protección de todas las rutas privadas por verificar.
 * 🟡 Pruebas de seguridad pendientes.
+
+> El cierre de sesión y las simulaciones de acceso utilizadas durante el desarrollo no demuestran por sí solos que la autenticación definitiva esté terminada. Las rutas privadas deberán comprobar los permisos en el servidor y no depender únicamente de la navegación o de la visibilidad de los elementos de interfaz.
 
 ---
 
@@ -139,6 +151,7 @@ La plataforma deberá:
 * RF-04.09: Mostrar una respuesta genérica que no permita determinar si una cuenta existe.
 * RF-04.10: Informar al usuario sobre los pasos disponibles para completar la recuperación.
 * RF-04.11: Invalidar los mecanismos de recuperación cuando corresponda después de completar el proceso.
+* RF-04.12: Evitar que los tokens de recuperación queden expuestos en registros, mensajes de error o ubicaciones no protegidas.
 
 ### Estado de implementación
 
@@ -146,13 +159,15 @@ La plataforma deberá:
 * 🟢 Validación del correo en el cliente reportada.
 * 🟢 Procesamiento inicial de recuperación reportado.
 * 🟢 Generación de un token aleatorio mediante `random_bytes(32)` reportada.
-* 🟢 Respuesta genérica para reducir la enumeración de cuentas incorporada según los informes.
-* 🟡 Almacenamiento, expiración y validación integral de los tokens por verificar.
+* 🟢 Incorporación de una respuesta genérica para reducir la enumeración de cuentas reportada.
+* 🟡 Almacenamiento seguro de los tokens por verificar.
+* 🟡 Expiración y validación integral de los tokens pendientes de comprobar.
 * 🟡 Flujo completo para establecer una nueva contraseña por verificar.
-* 🟡 Envío de correos mediante SMTP pendiente de configuración.
+* 🟡 Invalidación de los tokens después de su uso pendiente de verificar.
+* 🟡 Envío de correos mediante SMTP pendiente de configuración y pruebas.
 * 🟡 Pruebas integrales de recuperación pendientes.
 
-> La generación de un token no demuestra por sí sola que el flujo de recuperación esté completo. Se deberá comprobar su almacenamiento, vigencia, validación, uso único y relación con el cambio de contraseña. Mientras no exista un servicio de correo configurado y probado, no se deberá afirmar que las instrucciones se envían efectivamente al usuario.
+> La generación de un token no demuestra por sí sola que el flujo de recuperación esté completo. Se deberá comprobar su almacenamiento, vigencia, validación, uso único y relación con el cambio de contraseña. Mientras no exista un servicio de correo configurado y probado, no se deberá afirmar que las instrucciones de recuperación se envían efectivamente al usuario.
 
 ---
 
@@ -169,10 +184,11 @@ La plataforma deberá:
 * RF-05.07: Restringir la modificación del perfil a su propietario o a los usuarios autorizados.
 * RF-05.08: Validar los datos antes de almacenarlos.
 * RF-05.09: Controlar los archivos cargados como fotografías de perfil, si se habilita esta función.
+* RF-05.10: Evitar que un usuario modifique información privada de otros usuarios sin autorización.
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional integral.
+🟡 Se han reportado avances de estructura visual en el dashboard y en apartados relacionados con el perfil. La implementación funcional integral de consulta, edición y persistencia de los datos del perfil permanece pendiente de verificación.
 
 ---
 
@@ -188,10 +204,11 @@ La plataforma deberá:
 * RF-06.06: Mantener actualizada la información académica y profesional.
 * RF-06.07: Restringir la consulta de información según los permisos y las reglas de privacidad.
 * RF-06.08: Facilitar el seguimiento institucional de la comunidad de egresados.
+* RF-06.09: Evitar la exposición de datos personales que no deban ser públicos.
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación.
+⏳ Pendiente de implementación funcional e integración con la base de datos.
 
 ---
 
@@ -209,10 +226,11 @@ La plataforma deberá:
 * RF-07.08: Validar los datos del proyecto antes de almacenarlos.
 * RF-07.09: Controlar la publicación y modificación de proyectos.
 * RF-07.10: Gestionar las imágenes y otros archivos asociados, cuando corresponda.
+* RF-07.11: Evitar que usuarios sin autorización modifiquen o eliminen proyectos mediante solicitudes directas.
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional.
+⏳ Pendiente de implementación funcional integral.
 
 ---
 
@@ -229,10 +247,11 @@ La plataforma deberá:
 * RF-08.07: Validar el contenido antes de publicarlo.
 * RF-08.08: Gestionar los datos y recursos asociados a las publicaciones.
 * RF-08.09: Restringir la publicación y modificación a los usuarios autorizados.
+* RF-08.10: Evitar la publicación de contenido mediante solicitudes no autorizadas.
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional.
+⏳ Pendiente de implementación funcional integral.
 
 ---
 
@@ -247,13 +266,14 @@ La plataforma deberá:
 * RF-09.05: Gestionar noticias.
 * RF-09.06: Administrar los permisos que correspondan al rol autorizado.
 * RF-09.07: Controlar las operaciones administrativas.
-* RF-09.08: Mostrar información administrativa disponible.
+* RF-09.08: Mostrar la información administrativa disponible.
 * RF-09.09: Validar las operaciones antes de ejecutarlas.
 * RF-09.10: Impedir que usuarios sin permisos ejecuten operaciones administrativas mediante solicitudes directas.
+* RF-09.11: Registrar las operaciones administrativas relevantes cuando las necesidades del sistema lo requieran.
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional.
+⏳ Pendiente de implementación funcional integral.
 
 ---
 
@@ -264,12 +284,13 @@ Los requisitos no funcionales establecen las condiciones de calidad, seguridad, 
 ## 4.1. RNF-01 — Rendimiento
 
 * RNF-01.01: La plataforma deberá cargar de manera eficiente.
-* RNF-01.02: Las imágenes deberán optimizarse para reducir tiempos de carga.
+* RNF-01.02: Las imágenes deberán optimizarse para reducir los tiempos de carga.
 * RNF-01.03: Se deberán evitar recursos innecesarios.
 * RNF-01.04: Las consultas a la base de datos deberán diseñarse de manera eficiente.
 * RNF-01.05: El código deberá evitar operaciones innecesarias que afecten el rendimiento.
 * RNF-01.06: Los recursos frontend deberán mantenerse organizados para facilitar su mantenimiento y optimización.
 * RNF-01.07: Las operaciones del servidor deberán manejar los errores sin provocar interrupciones evitables.
+* RNF-01.08: Los recursos de terceros, cuando existan, deberán incorporarse únicamente si aportan valor al funcionamiento de la plataforma.
 
 Los objetivos cuantitativos de rendimiento deberán definirse y comprobarse durante las pruebas, una vez que existan módulos funcionales.
 
@@ -291,12 +312,16 @@ Los objetivos cuantitativos de rendimiento deberán definirse y comprobarse dura
 * RNF-02.12: Se deberán validar los permisos en el servidor, sin depender únicamente de la visibilidad de botones o elementos de interfaz.
 * RNF-02.13: Los archivos cargados deberán validarse de acuerdo con su tipo, tamaño y uso permitido.
 * RNF-02.14: La configuración de producción deberá evitar la exposición de errores internos.
+* RNF-02.15: Se deberán revisar las solicitudes que modifican datos para aplicar las protecciones pertinentes, incluido el control de solicitudes entre sitios cuando corresponda.
+* RNF-02.16: Las herramientas de acceso simulado o de desarrollo deberán quedar deshabilitadas o excluidas del entorno de producción.
+* RNF-02.17: La aplicación deberá regenerar el identificador de sesión después de una autenticación satisfactoria cuando corresponda.
+* RNF-02.18: El cierre de sesión deberá invalidar la sesión del lado del servidor y eliminar las cookies de sesión aplicables.
 
 ---
 
 ## 4.3. RNF-03 — Compatibilidad
 
-La plataforma deberá funcionar correctamente en las versiones compatibles de los principales navegadores web, incluyendo:
+La plataforma deberá funcionar correctamente en versiones compatibles de los principales navegadores web, incluyendo:
 
 * Google Chrome.
 * Microsoft Edge.
@@ -323,6 +348,7 @@ Las versiones concretas de los navegadores y los dispositivos de prueba se defin
 * RNF-04.11: Las interfaces implementadas deberán corresponder a los diseños aprobados en Figma.
 * RNF-04.12: Los formularios deberán ofrecer instrucciones y mensajes de validación comprensibles.
 * RNF-04.13: Los controles deberán mantener una presentación legible en diferentes tamaños de pantalla.
+* RNF-04.14: Los elementos compartidos deberán conservar un comportamiento coherente entre las páginas que los utilicen.
 
 ---
 
@@ -335,6 +361,8 @@ Las versiones concretas de los navegadores y los dispositivos de prueba se defin
 * RNF-05.05: Se deberán mantener contrastes adecuados entre texto y fondo.
 * RNF-05.06: Las imágenes informativas deberán contar con alternativas textuales apropiadas.
 * RNF-05.07: Los mensajes de validación deberán poder ser identificados por tecnologías de asistencia cuando corresponda.
+* RNF-05.08: Los elementos interactivos deberán mostrar estados de foco identificables.
+* RNF-05.09: Los controles móviles deberán tener un tamaño y una separación que faciliten su utilización.
 
 ---
 
@@ -350,10 +378,12 @@ Las versiones concretas de los navegadores y los dispositivos de prueba se defin
 * RNF-06.08: Los estilos deberán organizarse por responsabilidades.
 * RNF-06.09: Los elementos compartidos de la interfaz deberán implementarse mediante componentes PHP reutilizables cuando corresponda.
 * RNF-06.10: Se deberá mantener una separación razonable entre presentación, lógica del servidor y acceso a datos.
+* RNF-06.11: Los nombres de archivos, funciones y componentes deberán seguir convenciones consistentes.
+* RNF-06.12: Los cambios deberán probarse antes de integrarse a la rama principal del repositorio.
 
 ### Organización de los estilos CSS
 
-La estructura modular reportada para el frontend contempla:
+La estructura de referencia para los estilos compartidos del frontend contempla:
 
 ```text
 assets/css/
@@ -363,20 +393,22 @@ assets/css/
 └── footer.css
 ```
 
-Responsabilidades:
+Responsabilidades previstas:
 
 * `main.css`: estilos generales, estructura base, elementos compartidos y reglas globales.
 * `fonts.css`: configuración tipográfica.
 * `header.css`: estilos del encabezado y la navegación.
 * `footer.css`: estilos del pie de página.
 
-La estructura deberá actualizarse si se incorporan nuevos archivos o se modifica la organización real del proyecto.
+Durante la implementación se han reportado otros archivos de estilos para páginas y componentes específicos, como los relacionados con el dashboard y el loader.
+
+La estructura definitiva deberá mantenerse sincronizada con el repositorio real. Este esquema no implica que todos los estilos de la aplicación estén limitados a esos cuatro archivos.
 
 ### Componentes PHP compartidos
 
-La implementación reportada contempla componentes reutilizables para el encabezado y el pie de página.
+La implementación reportada contempla componentes reutilizables para el encabezado, el pie de página y otras partes de la interfaz.
 
-La ubicación y los mecanismos de inclusión deberán mantenerse coherentes con la arquitectura real del repositorio, evitando duplicar estructuras compartidas entre las páginas.
+La ubicación y los mecanismos de inclusión deberán mantenerse coherentes con la arquitectura real del repositorio, evitando duplicar estructuras compartidas entre páginas.
 
 ---
 
@@ -388,6 +420,8 @@ La ubicación y los mecanismos de inclusión deberán mantenerse coherentes con 
 * RNF-07.04: Las operaciones relacionadas deberán mantener la consistencia de la información.
 * RNF-07.05: Los errores durante las operaciones de base de datos deberán manejarse de manera controlada.
 * RNF-07.06: Los datos personales deberán tratarse de acuerdo con los permisos y las reglas de privacidad del proyecto.
+* RNF-07.07: Las operaciones que requieran atomicidad deberán utilizar transacciones cuando corresponda.
+* RNF-07.08: Se deberá comprobar la persistencia de los datos mediante pruebas de lectura y escritura.
 
 ---
 
@@ -397,16 +431,17 @@ La interfaz deberá basarse en el sistema de diseño establecido durante la fase
 
 El sistema contempla:
 
+* Identidad visual.
 * Paleta de colores.
 * Tipografía.
 * Sistema de espaciado.
+* Jerarquía tipográfica.
 * Componentes reutilizables.
 * Estados de interacción.
 * Criterios responsive.
-* Jerarquía visual.
 * Estructura visual consistente.
 
-### 5.1. Componentes definidos
+## 5.1. Componentes definidos
 
 * Botones.
 * Inputs.
@@ -415,7 +450,9 @@ El sistema contempla:
 * Switch.
 * Tablas.
 
-### 5.2. Estados de los componentes
+La incorporación de nuevos componentes deberá mantener la coherencia con el Design System y responder a las necesidades de las interfaces.
+
+## 5.2. Estados de los componentes
 
 Según la función de cada componente, se deberán contemplar los siguientes estados:
 
@@ -430,7 +467,7 @@ Según la función de cada componente, se deberán contemplar los siguientes est
 
 No todos los estados se aplican a todos los componentes. Su implementación deberá respetar el comportamiento definido en el Design System.
 
-### 5.3. Paleta de colores
+## 5.3. Paleta de colores
 
 | Token o función              | Valor     |
 | ---------------------------- | --------- |
@@ -443,13 +480,17 @@ No todos los estados se aplican a todos los componentes. Su implementación debe
 | Borde                        | `#E0E0E0` |
 | Texto auxiliar y placeholder | `#9E9E9E` |
 
-### 5.4. Sistema de espaciado
+Los colores deberán utilizarse de manera coherente y revisarse en cuanto a contraste y legibilidad.
+
+## 5.4. Sistema de espaciado
 
 Los valores definidos para el sistema de espaciado son:
 
 `4px`, `8px`, `12px`, `16px`, `24px`, `32px`, `48px` y `64px`.
 
-### 5.5. Tipografía
+Estos valores sirven como referencia para mantener la consistencia entre márgenes, rellenos, separaciones y distribución de los elementos.
+
+## 5.5. Tipografía
 
 La tipografía de interfaz establecida es **Inter**.
 
@@ -469,15 +510,16 @@ Se deberá considerar:
 * Tablets.
 * Computadores de escritorio.
 * Reorganización de los elementos según el espacio disponible.
-* Legibilidad de textos.
+* Legibilidad de los textos.
 * Tamaño y accesibilidad de botones y controles.
-* Visualización correcta de componentes.
+* Visualización correcta de los componentes.
 * Navegación funcional en diferentes resoluciones.
 * Adaptación de las interfaces según el dispositivo.
 * Prevención de desbordamientos horizontales.
 * Conservación de la jerarquía visual.
+* Adaptación de los elementos compartidos y de las páginas internas.
 
-### Referencias de diseño
+## Referencias de diseño
 
 Durante la implementación se utilizan como referencias iniciales:
 
@@ -488,9 +530,9 @@ Durante la implementación se utilizan como referencias iniciales:
 
 Estos valores son referencias de diseño y no límites exclusivos de funcionamiento.
 
-Durante la fase UI/UX se definieron interfaces Desktop y se trabajaron adaptaciones Mobile para las pantallas principales.
+Durante la fase UI/UX se definieron interfaces Desktop y se trabajaron adaptaciones Mobile para las pantallas de la plataforma. La implementación responsive comenzó con Inicio y se han reportado avances en la navegación y en componentes internos del dashboard.
 
-La implementación responsive comenzó con Inicio, incluyendo la adaptación de la navegación mediante el menú móvil. Las demás interfaces deberán implementarse y verificarse progresivamente.
+Las demás interfaces deberán implementarse y verificarse progresivamente en diferentes resoluciones.
 
 ---
 
@@ -506,20 +548,22 @@ El proceso contempló:
 4. Definición de estados de interacción.
 5. Establecimiento de criterios responsive.
 6. Definición del flujo de información.
-7. Definición de recorridos principales de los usuarios.
+7. Definición de los recorridos principales de los usuarios.
 8. Diseño de la estructura de navegación.
-9. Diseño de interfaces Desktop.
-10. Trabajo de adaptaciones Mobile.
+9. Diseño de las interfaces Desktop.
+10. Desarrollo de las adaptaciones Mobile.
 11. Revisión y consolidación visual de las interfaces.
 12. Preparación de las pantallas como referencia para la implementación.
 
-La fase de diseño UI/UX se considera finalizada. Sus resultados sirven como referencia para la implementación y validación visual.
+La fase de diseño UI/UX se considera finalizada desde finales de septiembre de 2026. Sus resultados sirven como referencia para la implementación y la validación visual.
+
+El cierre de esta fase no significa que las interfaces estén implementadas ni que su correspondencia visual con el código ya haya sido verificada.
 
 ---
 
 # 8. Interfaces diseñadas
 
-Durante la fase UI/UX se consolidaron las siguientes interfaces Desktop:
+Durante la fase UI/UX se consolidaron 17 interfaces Desktop en Figma:
 
 1. Inicio.
 2. Autenticación.
@@ -539,16 +583,11 @@ Durante la fase UI/UX se consolidaron las siguientes interfaces Desktop:
 16. Detalle de noticia.
 17. Editar noticia.
 
-También se trabajaron las siguientes interfaces y adaptaciones Mobile:
+También se diseñaron sus correspondientes adaptaciones Mobile, para un total de **34 pantallas de referencia: 17 Desktop y 17 Mobile**.
 
-* Inicio Mobile.
-* Autenticación Mobile.
-* Dashboard Mobile.
-* Mi perfil.
-* Mis proyectos.
-* Oportunidades.
+Las adaptaciones Mobile contemplan la reorganización de los elementos para pantallas pequeñas. Entre los apartados trabajados se encuentran Inicio, Autenticación y las vistas internas relacionadas con Dashboard, Mi perfil, Mis proyectos y Oportunidades.
 
-El trabajo responsive Mobile no debe considerarse completamente finalizado hasta que se implementen y validen las adaptaciones correspondientes.
+La implementación y validación de las 34 pantallas se realizará progresivamente durante la Fase 4.
 
 Las interfaces de Figma constituyen la referencia visual para la implementación frontend.
 
@@ -571,7 +610,7 @@ Las interfaces de Figma constituyen la referencia visual para la implementación
 * [x] Estructura de navegación.
 * [x] Flujo general de información.
 * [x] Interfaces principales Desktop.
-* [x] Adaptaciones Mobile trabajadas.
+* [x] Adaptaciones Mobile diseñadas.
 
 ## 9.2. Diseño UI/UX
 
@@ -581,12 +620,13 @@ Las interfaces de Figma constituyen la referencia visual para la implementación
 * [x] Tipografía.
 * [x] Sistema de espaciado.
 * [x] Componentes reutilizables.
-* [x] Estados de componentes.
+* [x] Estados de los componentes.
 * [x] Página Components & Responsive.
 * [x] Criterios responsive.
 * [x] Estructura de navegación.
 * [x] Definición de las interfaces principales.
 * [x] Consolidación visual del diseño.
+* [x] Preparación de las pantallas como referencia para la implementación.
 
 **Estado:** fase finalizada a finales de septiembre de 2026.
 
@@ -600,41 +640,44 @@ Las interfaces de Figma constituyen la referencia visual para la implementación
 * [x] Menú móvil.
 * [x] Integración del isotipo.
 * [x] Integración del favicon.
-* [x] Organización modular de estilos.
-* [x] Configuración tipográfica mediante `fonts.css`.
+* [x] Organización modular inicial de los estilos CSS.
+* [x] Configuración tipográfica mediante `fonts.css`, según los avances reportados.
 * [x] Interfaz inicial de inicio de sesión.
 * [x] Interfaz inicial de registro.
 * [x] Interfaz inicial de recuperación de contraseña.
-* [x] Validaciones y estados de formulario reportados.
+* [x] Avances de estructura visual del dashboard reportados.
 * [x] Conectividad entre PHP y MySQL verificada previamente.
 
-> Las casillas indican avances reportados. La validación integral de los módulos y su correspondencia con los criterios de aceptación continúan pendientes.
+> Las casillas indican avances reportados. No significan que cada módulo esté completamente terminado, integrado, probado o listo para producción.
 
-## 9.4. En implementación
+## 9.4. En implementación o validación
 
-* [ ] Revisión visual definitiva de Inicio.
+* [ ] Revisión visual definitiva de Inicio frente a Figma.
 * [ ] Validación integral de autenticación.
-* [ ] Validación integral de registro.
+* [ ] Validación integral del registro.
 * [ ] Validación integral de recuperación de contraseña.
+* [ ] Verificación de la gestión de sesiones.
+* [ ] Verificación de las rutas protegidas y los permisos.
 * [ ] Completar la implementación de las interfaces restantes.
+* [ ] Completar las funcionalidades del dashboard.
 * [ ] Completar el backend.
-* [ ] Implementar la gestión de sesiones.
-* [ ] Implementar roles y permisos.
 * [ ] Definir e implementar el esquema definitivo de la base de datos.
 * [ ] Integrar los módulos con la base de datos.
 * [ ] Completar las adaptaciones responsive.
-* [ ] Completar la integración de los módulos.
+* [ ] Completar la integración entre módulos.
+* [ ] Verificar la seguridad de las operaciones del servidor.
 
 ## 9.5. Pendiente
 
-* [ ] Pruebas funcionales.
+* [ ] Pruebas funcionales integrales.
 * [ ] Pruebas de integración.
 * [ ] Pruebas de seguridad.
 * [ ] Pruebas de compatibilidad.
 * [ ] Validación integral de requisitos.
-* [ ] Corrección de errores.
+* [ ] Corrección de errores detectados.
 * [ ] Pruebas de regresión.
 * [ ] Validación final de la experiencia de usuario.
+* [ ] Validación completa de persistencia de datos.
 * [ ] Despliegue de la plataforma.
 
 ---
@@ -644,7 +687,7 @@ Las interfaces de Figma constituyen la referencia visual para la implementación
 La plataforma deberá cumplir los siguientes criterios antes de considerarse funcionalmente validada:
 
 * Las funcionalidades implementadas deberán responder correctamente a las acciones del usuario.
-* Los usuarios deberán poder autenticarse de forma segura.
+* Los usuarios deberán poder autenticarse mediante un proceso seguro y verificable.
 * La información deberá validarse antes de almacenarse.
 * Los permisos deberán controlar el acceso a las funcionalidades correspondientes.
 * Las interfaces deberán adaptarse a los tamaños de pantalla contemplados.
@@ -661,6 +704,12 @@ La plataforma deberá cumplir los siguientes criterios antes de considerarse fun
 * Las adaptaciones responsive deberán conservar la funcionalidad y la jerarquía visual.
 * Los errores deberán manejarse sin exponer información sensible.
 * Los resultados de las pruebas deberán registrarse para facilitar la corrección de problemas.
+* Las operaciones que modifican información deberán verificar la autorización del usuario en el servidor.
+* Los datos que deban persistir deberán conservarse correctamente después de completar las operaciones correspondientes.
+* Las funcionalidades de autenticación y recuperación deberán comprobarse mediante pruebas de extremo a extremo.
+* Los mecanismos auxiliares de desarrollo no deberán permitir eludir la autenticación en producción.
+
+El cumplimiento de estos criterios deberá comprobarse mediante pruebas y revisión del código. La existencia de una interfaz visual no constituye evidencia suficiente de que la funcionalidad asociada esté terminada.
 
 ---
 
@@ -696,13 +745,15 @@ La plataforma deberá cumplir los siguientes criterios antes de considerarse fun
 * Apache.
 * Visual Studio Code.
 
+Las tecnologías anteriores corresponden al alcance tecnológico definido para el proyecto. Las versiones concretas y la configuración final deberán verificarse frente al entorno real de desarrollo y despliegue.
+
 ---
 
 # 12. Estado actual del proyecto
 
 Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
 
-El proyecto comenzó en 2025. La fase de diseño UI/UX finalizó a finales de septiembre de 2026, y la implementación frontend comenzó en octubre del mismo año.
+El proyecto comenzó en 2025. La fase de diseño UI/UX finalizó a finales de septiembre de 2026, y la implementación comenzó en octubre del mismo año.
 
 Los avances reportados incluyen:
 
@@ -712,15 +763,16 @@ Los avances reportados incluyen:
 * Navegación responsive y menú móvil.
 * Incorporación del isotipo y favicon.
 * Organización modular de los estilos CSS.
-* Interfaz inicial de inicio de sesión.
-* Interfaz inicial de registro.
-* Interfaz inicial de recuperación de contraseña.
-* Validaciones y estados visuales de formularios.
+* Interfaces iniciales de inicio de sesión, registro y recuperación de contraseña.
+* Validaciones y estados visuales de formularios reportados.
+* Avances en la estructura visual del dashboard y sus elementos compartidos.
 * Conectividad entre PHP y MySQL verificada previamente.
 
-Los módulos de autenticación, registro y recuperación requieren validación integral. En particular, debe verificarse el flujo completo de recuperación de contraseña, incluido el tratamiento de tokens y el envío de correos cuando se configure SMTP.
+Los módulos de autenticación, registro y recuperación requieren validación integral. En particular, debe verificarse el flujo completo de recuperación de contraseña, incluido el almacenamiento y la expiración de tokens, la validación de su uso y el envío de correos cuando se configure SMTP.
 
-La estructura definitiva de tablas y relaciones de la base de datos todavía debe definirse e implementarse.
+También se deberá comprobar que las sesiones, las rutas privadas y los permisos funcionen correctamente. Las herramientas utilizadas para simular accesos durante el desarrollo deberán permanecer restringidas al entorno de pruebas.
+
+La estructura definitiva de tablas y relaciones de la base de datos todavía debe definirse, implementarse e integrarse con los módulos correspondientes.
 
 El desarrollo continuará con la validación de los módulos iniciales, la implementación progresiva de las interfaces restantes y la integración del frontend, el backend y la base de datos.
 
@@ -728,25 +780,28 @@ El desarrollo continuará con la validación de los módulos iniciales, la imple
 
 # 13. Historial de cambios
 
-| Versión | Fecha      | Descripción                                                                                                                                                                                              |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v0.1.0  | 09/07/2026 | Creación inicial de los requisitos del proyecto.                                                                                                                                                         |
-| v0.1.0  | 05/09/2026 | Actualización de requisitos funcionales y no funcionales; incorporación de criterios UI/UX, componentes, estados y diseño responsive.                                                                    |
-| v0.1.1  | 07/10/2026 | Consolidación de la fase UI/UX, actualización del estado del proyecto y preparación de los requisitos para la implementación.                                                                            |
-| v0.1.1  | 08/10/2026 | Actualización de los avances iniciales de Inicio, estructura CSS, componentes compartidos, navegación responsive e integración con MySQL reportada.                                                      |
-| v0.1.1  | 09/10/2026 | Actualización de los requisitos y del estado de los módulos de inicio de sesión, registro y recuperación de contraseña; incorporación de criterios para validar los flujos de autenticación y seguridad. |
+| Versión | Fecha      | Descripción                                                                                                                                                                                                                            |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v0.1.0  | 09/07/2026 | Creación inicial de los requisitos del proyecto.                                                                                                                                                                                       |
+| v0.1.0  | 05/09/2026 | Actualización de requisitos funcionales y no funcionales; incorporación de criterios UI/UX, componentes, estados y diseño responsive.                                                                                                  |
+| v0.1.1  | 07/10/2026 | Consolidación de la fase UI/UX, actualización del estado del proyecto y preparación de los requisitos para la implementación.                                                                                                          |
+| v0.1.1  | 08/10/2026 | Actualización de los avances iniciales de Inicio, estructura CSS, componentes compartidos, navegación responsive e integración con MySQL reportada.                                                                                    |
+| v0.1.1  | 09/10/2026 | Actualización de los requisitos y del estado de los módulos de inicio de sesión, registro y recuperación de contraseña.                                                                                                                |
+| v0.1.1  | 13/10/2026 | Actualización del estado de implementación, avances reportados en componentes compartidos y dashboard, criterios de validación, requisitos de seguridad y distinción entre funcionalidades implementadas y pendientes de verificación. |
 
 ---
 
 # 14. Control del documento
 
-| Campo                | Información             |
-| -------------------- | ----------------------- |
-| Documento            | `docs/03_Requisitos.md` |
-| Versión documental   | v0.1.1                  |
-| Estado               | 🟡 En desarrollo        |
-| Fase actual          | Fase 4 — Implementación |
-| Última actualización | 9 de octubre de 2026    |
+| Campo                           | Información             |
+| ------------------------------- | ----------------------- |
+| Documento                       | `docs/03_Requisitos.md` |
+| Versión documental              | `v0.1.1`                |
+| Estado                          | 🟡 En desarrollo        |
+| Fase actual                     | Fase 4 — Implementación |
+| Inicio del proyecto             | 2025                    |
+| Última actualización            | 13 de octubre de 2026   |
+| Responsable de la documentación | Santiago Emitola        |
 
 ---
 
