@@ -1,0 +1,1366 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Directorio de Egresados
+ * Pantalla de referencia: 05 - Egresados - Desktop (1440 × 900 px) y adaptación Mobile (390 px)
+ * Paleta Oficial:
+ *   - Primario Institucional: #D32F2F (Rojo Alzate) | Hover: #B71C1C
+ *   - Secundario Institucional: #1565C0 (Azul Alzate) | Hover: #0D47A1
+ *   - Verificación / Éxito: #2E7D32 | Fondo: #E8F5E9
+ *   - Superficies: #FFFFFF (Tarjetas, modales) | #F5F5F5 (Fondo general)
+ *   - Bordes y divisores: #E0E0E0
+ *   - Tipografía: #212121 (Títulos) | #757575 (Subtítulos) | #9E9E9E (Auxiliar)
+ */
+
+/* ==========================================================================
+   1. CONTENEDOR PRINCIPAL Y BREADCRUMB
+   ========================================================================== */
+.egresados-content-wrapper {
+    padding: 28px 32px 56px;
+    flex: 1 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.egresados-breadcrumb-nav {
+    margin-bottom: 20px;
+}
+
+.egresados-breadcrumb-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #757575);
+}
+
+.egresados-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.egresados-breadcrumb-link {
+    color: var(--color-text-secondary, #757575);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    font-weight: 500;
+}
+
+.egresados-breadcrumb-link:hover {
+    color: var(--color-primary, #D32F2F);
+    text-decoration: underline;
+}
+
+.egresados-breadcrumb-sep {
+    color: var(--color-border, #BDBDBD);
+    user-select: none;
+}
+
+.egresados-breadcrumb-current {
+    color: var(--color-text-main, #212121);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   2. CABECERA HERO DEL DIRECTORIO DE EGRESADOS
+   ========================================================================== */
+.egresados-hero-header {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.egresados-header-text {
+    flex: 1 1 500px;
+    min-width: 0;
+}
+
+.egresados-title {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.egresados-title-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: rgba(211, 47, 47, 0.08);
+    color: var(--color-primary, #D32F2F);
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(211, 47, 47, 0.2);
+}
+
+.egresados-subtitle {
+    font-size: 0.965rem;
+    line-height: 1.55;
+    color: var(--color-text-secondary, #757575);
+    margin: 0;
+}
+
+.egresados-hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--color-bg-light, #F5F5F5);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-main, #212121);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.hero-stat-badge svg {
+    color: var(--color-primary, #D32F2F);
+    flex-shrink: 0;
+}
+
+.hero-stat-badge-blue svg {
+    color: var(--color-secondary, #1565C0);
+}
+
+/* ==========================================================================
+   3. BARRA DE BÚSQUEDA Y FILTROS EN TIEMPO REAL
+   ========================================================================== */
+.egresados-filter-card {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+}
+
+.filter-controls-row {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1.2fr 1.1fr auto;
+    gap: 14px;
+    align-items: center;
+}
+
+/* Buscador por texto */
+.filter-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.filter-search-icon {
+    position: absolute;
+    left: 14px;
+    color: #9E9E9E;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.filter-search-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px 0 42px;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    font-size: 0.925rem;
+    font-family: inherit;
+    color: var(--color-text-main, #212121);
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.filter-search-input:focus {
+    outline: none;
+    border-color: var(--color-primary, #D32F2F);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
+
+/* Selectores desplegables */
+.filter-select-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.filter-select {
+    width: 100%;
+    height: 44px;
+    padding: 0 32px 0 12px;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    font-size: 0.885rem;
+    font-family: inherit;
+    color: var(--color-text-main, #212121);
+    background-color: #FFFFFF;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary, #D32F2F);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
+
+.filter-select-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Botón de reset de filtros */
+.btn-filter-reset {
+    height: 44px;
+    padding: 0 16px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    color: var(--color-text-secondary, #757575);
+    font-size: 0.885rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-filter-reset:hover {
+    background-color: var(--color-bg-light, #F5F5F5);
+    border-color: #BDBDBD;
+    color: var(--color-primary, #D32F2F);
+}
+
+/* Barra inferior del filtro (resumen y chips) */
+.filter-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #EEEEEE;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #757575);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.results-counter-text strong {
+    color: var(--color-text-main, #212121);
+    font-weight: 700;
+}
+
+.active-filter-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(21, 101, 192, 0.08);
+    color: var(--color-secondary, #1565C0);
+    padding: 3px 10px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.filter-chip-remove {
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   4. PESTAÑAS DE VISTA RÁPIDA / CATEGORÍAS
+   ========================================================================== */
+.egresados-tabs-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    padding-bottom: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.egresados-tab-btn {
+    background: transparent;
+    border: none;
+    padding: 10px 18px;
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--color-text-secondary, #757575);
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.egresados-tab-btn:hover {
+    background-color: rgba(211, 47, 47, 0.06);
+    color: var(--color-primary, #D32F2F);
+}
+
+.egresados-tab-btn.active {
+    background-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+}
+
+.tab-badge {
+    background-color: rgba(0, 0, 0, 0.08);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.egresados-tab-btn.active .tab-badge {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   5. GRID DE TARJETAS DE EGRESADOS
+   ========================================================================== */
+.egresados-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.egresado-card {
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.egresado-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: #BDBDBD;
+}
+
+/* Banner superior decorativo */
+.card-top-banner {
+    height: 64px;
+    background: linear-gradient(135deg, #B71C1C 0%, #D32F2F 60%, #1565C0 100%);
+    position: relative;
+    padding: 10px 14px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.card-top-banner-blue {
+    background: linear-gradient(135deg, #0D47A1 0%, #1565C0 60%, #00897B 100%);
+}
+
+.card-promo-badge {
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(4px);
+    color: var(--color-primary, #D32F2F);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-promo-badge-blue {
+    color: var(--color-secondary, #1565C0);
+}
+
+/* Avatar solapado */
+.card-avatar-wrap {
+    margin-top: -36px;
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.egresado-avatar {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    user-select: none;
+    text-transform: uppercase;
+}
+
+.egresado-avatar-blue {
+    background-color: var(--color-secondary, #1565C0);
+}
+
+.egresado-avatar-teal {
+    background-color: #00796B;
+}
+
+.egresado-avatar-amber {
+    background-color: #E65100;
+}
+
+.card-badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    font-size: 0.725rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+/* Cuerpo de la tarjeta */
+.card-body-content {
+    padding: 14px 20px 18px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+
+.card-emphasis {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-secondary, #1565C0);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.card-occupation {
+    font-size: 0.875rem;
+    color: #424242;
+    margin: 0 0 6px 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-occupation svg {
+    color: #757575;
+    flex-shrink: 0;
+}
+
+.card-location {
+    font-size: 0.8rem;
+    color: #757575;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.card-location svg {
+    color: var(--color-primary, #D32F2F);
+    flex-shrink: 0;
+}
+
+/* Tags de habilidades */
+.card-skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.card-skill-pill {
+    font-size: 0.725rem;
+    font-weight: 600;
+    background-color: var(--color-bg-light, #F5F5F5);
+    color: #555555;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid #EAEAEA;
+}
+
+/* Pie de la tarjeta con botones de acción */
+.card-footer-actions {
+    padding: 14px 20px;
+    background-color: #FAFAFA;
+    border-top: 1px solid var(--color-border, #E0E0E0);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-card-profile {
+    flex: 1 1 50%;
+    height: 38px;
+    background-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;
+}
+
+.btn-card-profile:hover {
+    background-color: var(--color-primary-hover, #B71C1C);
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.btn-card-connect {
+    flex: 1 1 50%;
+    height: 38px;
+    background-color: #FFFFFF;
+    color: var(--color-text-main, #212121);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-card-connect:hover {
+    background-color: var(--color-bg-light, #F5F5F5);
+    border-color: #BDBDBD;
+    color: var(--color-primary, #D32F2F);
+}
+
+.btn-card-connect.connected {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    border-color: #A5D6A7;
+}
+
+/* ==========================================================================
+   6. ESTADO VACÍO (SIN RESULTADOS)
+   ========================================================================== */
+.egresados-empty-state {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px dashed var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    margin-bottom: 36px;
+}
+
+.egresados-empty-state.is-visible {
+    display: block;
+}
+
+.empty-state-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: rgba(211, 47, 47, 0.08);
+    color: var(--color-primary, #D32F2F);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.empty-state-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 6px 0;
+}
+
+.empty-state-desc {
+    font-size: 0.925rem;
+    color: var(--color-text-secondary, #757575);
+    max-width: 480px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   7. PAGINACIÓN ACCESIBLE
+   ========================================================================== */
+.egresados-pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background-color: var(--color-white, #FFFFFF);
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.pagination-info-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #757575);
+}
+
+.pagination-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-page-item {
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    color: var(--color-text-main, #212121);
+    font-size: 0.885rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-page-item:hover:not(:disabled) {
+    background-color: var(--color-bg-light, #F5F5F5);
+    border-color: #BDBDBD;
+    color: var(--color-primary, #D32F2F);
+}
+
+.btn-page-item.active {
+    background-color: var(--color-primary, #D32F2F);
+    border-color: var(--color-primary, #D32F2F);
+    color: #FFFFFF;
+}
+
+.btn-page-item:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   REGLA DEFENSIVA: Eliminación completa de etiquetas 'Verificado'
+   ========================================================================== */
+.badge-verificado,
+[class*="verificado"],
+.card-badge-status[title*="verificado" i] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   BLOQUEO TOTAL DEL SCROLL EXTERNO (SCROLL LOCK)
+   ========================================================================== */
+body.modal-open {
+    overflow: hidden !important;
+    height: 100vh !important;
+    touch-action: none;
+}
+
+/* ==========================================================================
+   8. MODAL ACCESIBLE DE DETALLE DE EGRESADO
+   ========================================================================== */
+.egresado-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.egresado-modal-overlay.is-active {
+    display: flex;
+    opacity: 1;
+}
+
+.egresado-modal-window,
+.modal-egresado-card {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    transform: scale(0.96);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.egresado-modal-overlay.is-active .egresado-modal-window,
+.egresado-modal-overlay.is-active .modal-egresado-card {
+    transform: scale(1);
+}
+
+/* Cabecera Fija del Modal (Sticky Header) */
+.modal-fixed-header {
+    flex-shrink: 0 !important;
+    z-index: 5 !important;
+    background-color: #FFFFFF !important;
+    position: relative !important;
+    border-bottom: 1px solid var(--color-border, #E0E0E0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.modal-banner,
+.egresado-modal-cover {
+    height: 80px !important;
+    background: linear-gradient(135deg, #B71C1C 0%, #D32F2F 60%, #1565C0 100%);
+    position: relative;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+.egresado-modal-close-btn {
+    background-color: rgba(0, 0, 0, 0.35);
+    border: none;
+    color: #FFFFFF;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.egresado-modal-close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.65);
+    transform: scale(1.05);
+}
+
+.modal-profile-header,
+.egresado-modal-avatar-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important;
+    gap: 16px !important;
+    padding: 0 24px 14px 24px !important;
+    margin-top: -34px !important;
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
+}
+
+.modal-avatar,
+.egresado-modal-avatar {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 50% !important;
+    background-color: var(--color-primary, #D32F2F) !important;
+    color: #FFFFFF !important;
+    font-size: 1.65rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 3.5px solid #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+    user-select: none !important;
+    text-transform: uppercase !important;
+    flex-shrink: 0 !important;
+}
+
+.modal-identity {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    padding-top: 34px !important; /* Ubica el texto inmediatamente debajo del banner, 100% sobre fondo blanco */
+    padding-bottom: 4px !important;
+}
+
+.modal-nombre,
+.modal-egresado-name {
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.3px !important;
+    margin: 0 0 4px 0 !important;
+    word-break: break-word !important;
+}
+
+.modal-titulo-academico,
+.modal-egresado-emphasis {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1565C0 !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+}
+
+/* Contenedor scrolleable con scroll vertical exclusivo */
+.modal-body-scrollable,
+.egresado-modal-body,
+.modal-body {
+    padding: 16px 24px !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    flex-grow: 1 !important;
+    flex-shrink: 1 !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-info-block {
+    margin-bottom: 18px;
+}
+
+.modal-info-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #757575;
+    margin: 0 0 8px 0;
+}
+
+.modal-info-text {
+    font-size: 0.925rem;
+    line-height: 1.55;
+    color: #333333;
+    margin: 0;
+}
+
+.modal-details-grid,
+.modal-quick-info {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    background-color: var(--color-bg-light, #F5F5F5) !important;
+    padding: 12px 16px !important;
+    border-radius: 10px !important;
+    margin-bottom: 16px !important;
+}
+
+.modal-detail-item {
+    font-size: 0.85rem;
+}
+
+.modal-detail-label {
+    display: block;
+    color: #757575;
+    margin-bottom: 3px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.modal-detail-val {
+    font-weight: 600;
+    color: #212121;
+    word-break: break-word;
+}
+
+.modal-links-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.modal-link-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 8px;
+    color: var(--color-text-main, #212121);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.modal-link-chip:hover {
+    border-color: var(--color-primary, #D32F2F);
+    color: var(--color-primary, #D32F2F);
+}
+
+.egresado-modal-footer,
+.modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 12px !important;
+    padding: 16px 28px !important;
+    border-top: 1px solid var(--color-border, #E0E0E0);
+    background-color: #FAFAFA;
+    flex-shrink: 0 !important;
+}
+
+/* Botón "Conectar con egresado" estructurado en una sola línea */
+#btnModalConectar,
+.btn-modal-conectar,
+.btn-modal-connect {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important; /* Impide que el texto se rompa en varias líneas */
+    width: auto !important;
+    max-width: none !important;
+    height: 40px !important;
+    gap: 8px !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    border: none !important;
+    background-color: #D32F2F !important;
+    color: #FFFFFF !important;
+    transition: background-color 0.2s ease, transform 0.1s ease !important;
+}
+
+#btnModalConectar:hover,
+.btn-modal-conectar:hover,
+.btn-modal-connect:hover {
+    background-color: #B71C1C !important;
+    color: #FFFFFF !important;
+}
+
+#btnModalConectar svg,
+.btn-modal-conectar svg,
+.btn-modal-connect svg {
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+#btnCerrarModalFooter,
+.btn-modal-cancel {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+    height: 40px !important;
+    padding: 10px 20px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    line-height: 1 !important;
+    border: 1.5px solid var(--color-secondary, #1565C0) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease !important;
+}
+
+#btnCerrarModalFooter:hover,
+.btn-modal-cancel:hover {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    color: var(--color-secondary, #1565C0) !important;
+    border-color: var(--color-secondary, #1565C0) !important;
+}
+
+/* ==========================================================================
+   9. TOAST NOTIFICATION FLOTANTE
+   ========================================================================== */
+.egresado-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #212121;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1200;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.egresado-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.egresado-toast-icon {
+    color: #4CAF50;
+    display: flex;
+    align-items: center;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE BREAKPOINTS (DESKTOP <= 1024px, MOBILE <= 768px, <= 480px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .filter-controls-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filter-search-box {
+        grid-column: 1 / -1;
+    }
+
+    .btn-filter-reset {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    .egresados-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .egresados-content-wrapper {
+        padding: 16px 16px 40px;
+    }
+
+    /* 1. Cabecera Hero en móvil sin huecos gigantes */
+    .egresados-hero-header {
+        padding: 24px 16px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+        margin-bottom: 16px !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: unset !important;
+    }
+
+    .egresados-header-text {
+        flex: 0 0 auto !important; /* Elimina flex-basis: 500px que forzaba 500px de altura en columna */
+        width: 100% !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: unset !important;
+        margin: 0 !important;
+    }
+
+    .egresados-title {
+        font-size: 1.45rem !important;
+        margin: 0 0 8px 0 !important;
+    }
+
+    .egresados-subtitle {
+        font-size: 0.9375rem !important;
+        line-height: 1.5 !important;
+        margin: 0 !important;
+    }
+
+    .egresados-hero-stats {
+        width: 100% !important;
+        gap: 12px !important;
+        margin: 0 !important;
+    }
+
+    .hero-stat-badge {
+        flex: 1 1 calc(50% - 6px) !important;
+        justify-content: center !important;
+        padding: 9px 12px !important;
+        font-size: 0.8125rem !important;
+    }
+
+    .egresados-filter-card {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .filter-controls-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .egresados-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .egresados-pagination-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .modal-details-grid,
+    .modal-quick-info {
+        grid-template-columns: 1fr;
+    }
+
+    .egresado-modal-window,
+    .modal-egresado-card {
+        max-height: 94vh;
+    }
+
+    .egresado-modal-avatar-row,
+    .modal-profile-header,
+    .egresado-modal-body,
+    .modal-body,
+    .egresado-modal-footer,
+    .modal-footer {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+
+/* ==========================================================================
+   11. ADAPTACIONES MÓVILES ESPECÍFICAS (<= 600px y 390px)
+   ========================================================================== */
+@media (max-width: 600px) {
+    .egresados-hero-header {
+        padding: 24px 16px !important;
+        gap: 16px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .egresados-header-text {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: unset !important;
+    }
+
+    .hero-stat-badge {
+        flex: 1 1 100% !important;
+    }
+
+    /* Modal Responsive en Móvil (<= 600px y 390px) */
+    .egresado-modal-overlay {
+        padding: 12px !important;
+    }
+
+    .egresado-modal-window,
+    .modal-egresado-card {
+        width: 100% !important;
+        max-height: 94vh !important;
+        border-radius: 14px !important;
+    }
+
+    .modal-fixed-header {
+        border-top-left-radius: 14px !important;
+        border-top-right-radius: 14px !important;
+    }
+
+    .egresado-modal-cover {
+        height: 80px !important;
+        padding: 10px 14px !important;
+    }
+
+    .modal-banner,
+    .egresado-modal-cover {
+        height: 70px !important;
+        padding: 10px 14px !important;
+    }
+
+    .modal-profile-header,
+    .egresado-modal-avatar-row {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: flex-end !important;
+        gap: 12px !important;
+        margin-top: -34px !important;
+        padding: 0 16px 12px 16px !important;
+    }
+
+    .modal-avatar,
+    .egresado-modal-avatar {
+        width: 68px !important;
+        height: 68px !important;
+        font-size: 1.6rem !important;
+        border-width: 3.5px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .modal-identity {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+        padding-top: 26px !important;
+        padding-bottom: 4px !important;
+    }
+
+    .modal-nombre,
+    .modal-egresado-name {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #212121 !important;
+        line-height: 1.25 !important;
+        letter-spacing: -0.2px !important;
+        margin: 0 0 3px 0 !important;
+        word-break: break-word !important;
+    }
+
+    .modal-titulo-academico,
+    .modal-egresado-emphasis {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #1565C0 !important;
+        margin: 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Contenedor scrolleable con scroll vertical exclusivo en móvil */
+    .modal-body-scrollable,
+    .egresado-modal-body,
+    .modal-body {
+        padding: 14px 16px !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain !important;
+        flex: 1 1 auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Caja gris de información rápida a una sola columna fluida */
+    .modal-details-grid,
+    .modal-quick-info {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        padding: 12px 14px !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Footer del modal y botones en columna invertida (Conectar arriba, Cerrar abajo) */
+    .egresado-modal-footer,
+    .modal-footer {
+        flex-direction: column-reverse !important;
+        gap: 10px !important;
+        padding: 14px 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        flex-shrink: 0 !important;
+        border-bottom-left-radius: 14px !important;
+        border-bottom-right-radius: 14px !important;
+    }
+
+    .btn-modal-cancel,
+    .btn-modal-connect,
+    #btnCerrarModalFooter,
+    #btnModalConectar,
+    .btn-modal-conectar,
+    .egresado-modal-footer .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        white-space: nowrap !important; /* Texto estrictamente en un solo renglón centrado */
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        box-sizing: border-box !important;
+    }
+}

@@ -242,7 +242,7 @@ img {
    ESTADOS HOVER Y FOCUS (Feedback interactivo restaurado)
    ========================================================================== */
 
-.btn:hover,
+.btn:not(.btn-outline-secondary):hover,
 .btn-primary:hover,
 .hero-cta-btn:hover,
 .btn-sm:hover,
@@ -252,7 +252,7 @@ img {
     text-decoration: none !important;
 }
 
-.btn:active,
+.btn:not(.btn-outline-secondary):active,
 .btn-primary:active,
 .btn-sm:active,
 .header-register-btn:active {

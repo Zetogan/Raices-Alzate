@@ -18,6 +18,64 @@ El formato de este documento está inspirado en las convenciones de **Keep a Cha
 
 ## 📅 13 de octubre de 2026
 
+### 🚀 Implementación de la pantalla de Proyectos (`proyectos.php` / `06 - Proyectos`)
+
+#### Agregado
+
+* Actualización del controlador autenticado `proyectos.php` en la raíz del proyecto con protección estricta de sesión (`$_SESSION['user']` / `$_SESSION['usuario']`), consulta preparada mediante PDO de los primeros 6 proyectos publicados, conteo total y redirección segura a `login.php`.
+* Creación de la vista completa y modular `pages/proyectos.php` conforme a la especificación Figma `06 - Proyectos - Desktop` y su correspondiente adaptación responsive.
+* Creación de la hoja de estilos modular `assets/css/proyectos.css` con estricto uso de la paleta institucional (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`, `#FFFFFF`), escala de espaciado estándar (8, 16, 24, 32 px), grid simétrico de 3 columnas para Desktop, adaptación a 2 columnas para Tablet (≤1024px) y 1 columna fluida para Mobile (≤600px).
+* Tarjetas de proyecto con proporción rectangular 16:9, placeholder SVG neutro institucional (`#ECECEC` y `#BDBDBD`) sin deformación visual, títulos en negrita enlazados a `detalle-proyecto.php?id={id}`, descripción breve con elipsis CSS en máximo 2 líneas y autoría al pie con formato «Por [Nombre del autor]» (12px, `#757575`).
+* Creación del script JavaScript modular `assets/js/proyectos.js` para la paginación asíncrona mediante `fetch()`, control de estado de carga visual en el botón con spinner animado, desactivación y mensaje amigable de finalización de registros.
+* Creación del endpoint AJAX `ajax/cargar_mas_proyectos.php` con validación de sesión activa, sanitización de parámetros `offset` y `limite`, consulta preparada PDO y respuesta JSON estándar.
+* Creación del script de base de datos `database/proyectos.sql` con la definición de la tabla `proyectos` y el sembrado inicial de los 6 proyectos visibles de Figma más 3 registros de prueba para carga asíncrona.
+* Implementación de la vista de detalle individual `detalle-proyecto.php` para resolver de forma funcional y completa la navegación desde las tarjetas.
+
+#### Cambiado
+
+* Actualización de `includes/sidebar.php` para marcar el ítem **Proyectos** como activo (`.active` con fondo `#D32F2F` y texto `#FFFFFF`) y `aria-current="page"` cuando `$currentPage === 'proyectos'`.
+* Actualización del enrutador central `index.php` para redirigir `case 'proyectos':` al controlador autenticado `proyectos.php`.
+* Robustecimiento de `config/database.php` para capturar excepciones PDO sin terminar la ejecución abruptamente (`die()`), permitiendo a las vistas renderizar estados de error amigables.
+
+### 🎓 Implementación de la pantalla de Directorio de Egresados (`egresados.php` / `05 - Egresados`)
+
+#### Agregado
+
+* Actualización del controlador autenticado `egresados.php` en la raíz del proyecto con protección estricta de sesión (`$_SESSION['user']` / `$_SESSION['usuario']`) y redirección a `login.php`.
+* Creación de la vista completa y responsive `pages/egresados.php` correspondiente a la especificación Figma `05 - Egresados - Desktop` y adaptación Mobile.
+* Creación de la hoja de estilos modular `assets/css/egresados.css` con la paleta oficial (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`).
+* Incorporación de la cabecera institucional (Hero Header) con resumen numérico (+1,250 egresados registrados, 42 promociones y red institucional activa).
+* Implementación de la barra de búsqueda y filtros en tiempo real: campo de búsqueda con icono SVG, selectores desplegables por promoción, énfasis técnico/académico y ciudad de residencia, botón de reinicio y chips activos de filtros.
+* Barra de navegación por pestañas de vista rápida: «Todos los egresados», «Mi promoción (2021)», «Destacados» y «Conectados».
+* Catálogo de tarjetas de egresados con banner institucional, avatar circular con iniciales, badge oficial de verificación, titulación alzatista, cargo actual, empresa, ubicación, chips de habilidades y botones de acción («Ver perfil» y «Conectar»).
+* Estado vacío interactivo (`#emptyStateEgresados`) con ilustración y botón para restablecer filtros cuando no hay coincidencias.
+* Paginación accesible institucional.
+* Modal dialog accesible de detalle del egresado (`#modalDetalleEgresado`) con portada, avatar, trayectoria alzatista, habilidades, enlaces a LinkedIn/correo y botón para establecer conexión.
+* Notificación flotante (Toast) interactiva para retroalimentación de solicitudes de contacto.
+* Enrutamiento de `case 'egresados':` en `index.php` con redirección a `egresados.php`.
+
+#### Cambiado
+
+* Actualización de `includes/sidebar.php` para marcar el ítem **Egresados** con `.active` (`#D32F2F`) y `aria-current="page"` cuando `$currentPage === 'egresados'`.
+
+### 👤 Implementación de la pantalla de Perfil del Egresado (`perfil.php` / `04 - Perfil`)
+
+#### Agregado
+
+* Creación del controlador autenticado `perfil.php` en la raíz del proyecto con protección estricta de sesión (`$_SESSION['user']` / `$_SESSION['usuario']`) y redirección a `login.php`.
+* Creación de la vista completa y responsive `pages/perfil.php` conforme a la especificación Figma `04 - Perfil - Desktop` y variante Mobile.
+* Creación de la hoja de estilos modular `assets/css/perfil.css` con variables y paleta institucional (`#D32F2F`, `#1565C0`, `#212121`, `#757575`, `#E0E0E0`, `#F5F5F5`).
+* Integración del componente de portada (Hero Card) con degradado institucional, avatar de gran formato (108 px / 92 px), badge de verificación oficial, titulación del egresado y botones de acción («Editar perfil» y «Compartir»).
+* Implementación de la fila de métricas de impacto: proyectos publicados, promoción de egreso, egresados conectados y barra de completitud de perfil (95%).
+* Organización del contenido en dos columnas para escritorio y flujo continuo apilado en móvil: información de contacto, redes profesionales, visibilidad en el directorio institucional, biografía («Sobre mí»), línea de tiempo académica, trayectoria laboral, habilidades técnicas/blandas y proyectos vinculados en Raíces Alzate.
+* Incorporación de modal accesible de edición de perfil (`#modalEditarPerfil`) con navegación por pestañas (datos personales, académico/laboral y redes), actualización en tiempo real del DOM y notificación flotante (Toast).
+* Enrutamiento de `case 'perfil':` en `index.php`.
+
+#### Cambiado
+
+* Actualización de `includes/sidebar.php` para marcar el ítem **Perfil** con `.active` (`#D32F2F`) y `aria-current="page"` cuando `$currentPage === 'perfil'`.
+* Actualización de `includes/topbar.php` para admitir título dinámico mediante la variable `$topbarTitle`, mostrando «Mi perfil» en la vista de perfil y «Dashboard» por defecto.
+
 ### 🧭 Refinamiento del portal y navegación compartida
 
 #### Agregado

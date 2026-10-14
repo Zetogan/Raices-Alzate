@@ -37,15 +37,11 @@ switch ($page) {
         $viewFile = __DIR__ . '/pages/recuperar-password.php';
         break;
     case 'proyectos':
-        $pageTitle = 'Proyectos | ' . APP_NAME;
-        $currentPage = 'proyectos';
-        $viewFile = __DIR__ . '/pages/proyectos.php';
-        break;
+        header('Location: proyectos.php');
+        exit;
     case 'egresados':
-        $pageTitle = 'Egresados | ' . APP_NAME;
-        $currentPage = 'egresados';
-        $viewFile = __DIR__ . '/pages/egresados.php';
-        break;
+        header('Location: egresados.php');
+        exit;
     case 'noticias':
         $pageTitle = 'Noticias | ' . APP_NAME;
         $currentPage = 'noticias';
@@ -53,6 +49,9 @@ switch ($page) {
         break;
     case 'dashboard':
         header('Location: dashboard.php');
+        exit;
+    case 'perfil':
+        header('Location: perfil.php');
         exit;
     case 'inicio':
     default:

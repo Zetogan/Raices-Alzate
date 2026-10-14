@@ -513,8 +513,8 @@ Las casillas marcadas indican avances reportados durante el desarrollo inicial. 
 
 Las siguientes pantallas forman parte del diseño aprobado y deberán implementarse e integrarse progresivamente:
 
-* [ ] Perfil.
-* [ ] Egresados.
+* [x] Perfil.
+* [x] Egresados.
 * [ ] Proyectos.
 * [ ] Noticias.
 * [ ] Administración.

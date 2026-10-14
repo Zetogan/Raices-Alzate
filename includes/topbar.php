@@ -16,6 +16,7 @@ if (!defined('APP_NAME')) {
 $userName = $userName ?? 'Usuario';
 $userRole = $userRole ?? 'Egresado';
 $userInitial = $userInitial ?? 'U';
+$topbarTitle = $titulo_seccion ?? $topbarTitle ?? 'Mi perfil';
 ?>
 <header class="dashboard-topbar topbar-container" id="dashboardTopbar">
     <!-- Izquierda (en desktop) / Contenedor del botón hamburguesa y título -->
@@ -25,7 +26,7 @@ $userInitial = $userInitial ?? 'U';
             <span class="hamburger-bar"></span>
             <span class="hamburger-bar"></span>
         </button>
-        <h1 class="topbar-title">Dashboard</h1>
+        <h1 class="topbar-title"><?php echo htmlspecialchars($topbarTitle); ?></h1>
     </div>
 
     <!-- Derecha (en desktop) / Bloque de identidad del usuario (en mobile pasa a la izquierda) -->

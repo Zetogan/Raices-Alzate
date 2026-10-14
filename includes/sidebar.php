@@ -13,7 +13,7 @@ if (!defined('APP_NAME')) {
     exit('Acceso directo no permitido.');
 }
 
-$currentPage = $currentPage ?? 'dashboard';
+$currentPage = $currentPage ?? $seccion_activa ?? 'dashboard';
 $userRole = $userRole ?? 'Egresado';
 $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) === 'admin');
 ?>
@@ -55,7 +55,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Perfil -->
             <li class="sidebar-nav-item">
-                <a href="perfil.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'perfil') ? 'active' : ''; ?>" title="Perfil">
+                <a href="perfil.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'perfil') ? 'active' : ''; ?>" title="Perfil" aria-current="<?php echo ($currentPage === 'perfil') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
@@ -66,7 +66,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Egresados -->
             <li class="sidebar-nav-item">
-                <a href="egresados.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'egresados') ? 'active' : ''; ?>" title="Egresados">
+                <a href="egresados.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'egresados') ? 'active' : ''; ?>" title="Egresados" aria-current="<?php echo ($currentPage === 'egresados') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
@@ -79,7 +79,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Proyectos -->
             <li class="sidebar-nav-item">
-                <a href="proyectos.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'proyectos') ? 'active' : ''; ?>" title="Proyectos">
+                <a href="proyectos.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'proyectos') ? 'active' : ''; ?>" title="Proyectos" aria-current="<?php echo ($currentPage === 'proyectos') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
