@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cargo = card.getAttribute('data-cargo')?.toLowerCase() || '';
             const empresa = card.getAttribute('data-empresa')?.toLowerCase() || '';
             const destacado = card.getAttribute('data-destacado') === 'true';
-            const isConnected = card.querySelector('.btn-card-connect')?.classList.contains('connected');
+            const isConnected = card.querySelector('.btn-card-connect')?.classList.contains('connected') || !!card.querySelector('.btn-card-message');
 
             // 1. Filtro de Categoría rápida (Tabs)
             let matchCategory = true;
@@ -252,169 +252,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // 5. BOTÓN CONECTAR / SOLICITUD DE CONTACTO EN TARJETAS
+    // 5. FUNCIÓN Y MANEJADOR GLOBAL CONECTAR EGRESADO
     // =========================================================================
-    const btnConectarList = document.querySelectorAll('.btn-conectar-egresado');
-    let conectadosCount = 1;
+    window.conectarEgresado = function (btn) {
+        if (!btn) return;
+        const card = btn.closest('.egresado-card');
+        const egresadoName = card?.getAttribute('data-name') || btn.getAttribute('data-name') || 'el egresado';
 
-    btnConectarList.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const egresadoName = btn.getAttribute('data-name') || 'egresado';
-
-            if (btn.classList.contains('connected')) {
-                btn.classList.remove('connected');
-                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg> Conectar`;
-                conectadosCount = Math.max(0, conectadosCount - 1);
-                mostrarToast(`Has cancelado la conexión con ${egresadoName}.`);
-            } else {
-                btn.classList.add('connected');
-                btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Conectado`;
-                conectadosCount++;
-                mostrarToast(`¡Solicitud enviada a ${egresadoName}! Ya están en contacto.`);
-            }
-
-            const badgeConectados = document.getElementById('badgeConectados');
-            if (badgeConectados) badgeConectados.textContent = conectadosCount;
-        });
-    });
-
-    // =========================================================================
-    // 6. MODAL ACCESIBLE DE DETALLE DE EGRESADO (VER PERFIL)
-    // =========================================================================
-    const modalDetalle = document.getElementById('modalDetalleEgresado');
-    const btnCerrarModal = document.getElementById('btnCerrarModalEgresado');
-    const btnCerrarFooter = document.getElementById('btnCerrarModalFooter');
-    const btnVerPerfilList = document.querySelectorAll('.btn-ver-perfil');
-    const btnModalConectar = document.getElementById('btnModalConectar');
-
-    let currentModalEgresado = '';
-
-    const abrirDetalle = (card) => {
-        if (!modalDetalle || !card) return;
-
-        const name = card.getAttribute('data-name') || 'Egresado';
-        const promo = card.getAttribute('data-promo') || '2021';
-        const enfasis = card.querySelector('.card-emphasis')?.textContent || 'Bachiller Alzatista';
-        const cargo = card.getAttribute('data-cargo') || 'Profesional';
-        const empresa = card.getAttribute('data-empresa') || 'Institucional';
-        const ciudad = card.querySelector('.card-location')?.textContent.trim() || 'Medellín, Colombia';
-        const avatarInitial = name.charAt(0).toUpperCase();
-
-        currentModalEgresado = name;
-
-        const elName = document.getElementById('modalEgresadoName');
-        const elEmphasis = document.getElementById('modalEgresadoEmphasis');
-        const elPromo = document.getElementById('modalEgresadoPromo');
-        const elCiudad = document.getElementById('modalEgresadoCiudad');
-        const elCargo = document.getElementById('modalEgresadoCargo');
-        const elEmpresa = document.getElementById('modalEgresadoEmpresa');
-        const elAvatar = document.getElementById('modalEgresadoAvatar');
-
-        if (elName) elName.textContent = name;
-        if (elEmphasis) elEmphasis.textContent = enfasis;
-        if (elPromo) elPromo.textContent = `Promoción ${promo}`;
-        if (elCiudad) elCiudad.textContent = ciudad;
-        if (elCargo) elCargo.textContent = cargo;
-        if (elEmpresa) elEmpresa.textContent = empresa;
-        if (elAvatar) elAvatar.textContent = avatarInitial;
-
-        // Actualizar estado del botón en el modal según estado de conexión de la tarjeta
-        const cardConnectBtn = card.querySelector('.btn-card-connect');
-        const isConnected = cardConnectBtn && cardConnectBtn.classList.contains('connected');
-
-        if (btnModalConectar) {
-            if (isConnected) {
-                btnModalConectar.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Conectado</span>`;
-                btnModalConectar.classList.add('btn-outline-secondary');
-                btnModalConectar.classList.remove('btn-primary');
-            } else {
-                btnModalConectar.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg> <span>Conectar con egresado</span>`;
-                btnModalConectar.classList.add('btn-primary');
-                btnModalConectar.classList.remove('btn-outline-secondary');
-            }
+        if (btn.classList.contains('connected')) {
+            btn.classList.remove('connected');
+            btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7.5" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+            <span>Conectar</span>`;
+            mostrarToast(`Has cancelado la conexión con ${egresadoName}.`);
+        } else {
+            btn.classList.add('connected');
+            btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Conectado</span>`;
+            mostrarToast(`¡Solicitud enviada a ${egresadoName}! Ya están en contacto.`);
         }
 
-        modalDetalle.classList.add('is-active');
-        document.body.classList.add('modal-open');
-        document.body.style.overflow = 'hidden';
+        const badgeConectados = document.getElementById('badgeConectados');
+        if (badgeConectados) {
+            const totalConectados = document.querySelectorAll('.egresado-card .btn-card-message, .egresado-card .btn-card-connect.connected').length;
+            badgeConectados.textContent = totalConectados;
+        }
+
+        if (currentCategory === 'conectados') {
+            aplicarFiltros();
+        }
     };
 
-    const cerrarDetalle = () => {
-        if (!modalDetalle) return;
-        modalDetalle.classList.remove('is-active');
-        document.body.classList.remove('modal-open');
-        document.body.style.overflow = '';
-    };
-
-    btnVerPerfilList.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = btn.closest('.egresado-card');
-            abrirDetalle(card);
-        });
-    });
-
-    if (btnCerrarModal) btnCerrarModal.addEventListener('click', cerrarDetalle);
-    if (btnCerrarFooter) btnCerrarFooter.addEventListener('click', cerrarDetalle);
-
-    if (modalDetalle) {
-        modalDetalle.addEventListener('click', (e) => {
-            if (e.target === modalDetalle) cerrarDetalle();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalDetalle.classList.contains('is-active')) {
-                cerrarDetalle();
-            }
-        });
-    }
-
-    if (btnModalConectar) {
-        btnModalConectar.addEventListener('click', () => {
-            // Alternar estado de conexión
-            const isCurrentlyConnected = btnModalConectar.classList.contains('btn-outline-secondary');
-            
-            if (isCurrentlyConnected) {
-                btnModalConectar.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg> <span>Conectar con egresado</span>`;
-                btnModalConectar.classList.add('btn-primary');
-                btnModalConectar.classList.remove('btn-outline-secondary');
-                
-                // Actualizar tarjeta correspondiente
-                cards.forEach(card => {
-                    if (card.getAttribute('data-name') === currentModalEgresado) {
-                        const btn = card.querySelector('.btn-card-connect');
-                        if (btn && btn.classList.contains('connected')) {
-                            btn.classList.remove('connected');
-                            btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg> Conectar`;
-                            conectadosCount = Math.max(0, conectadosCount - 1);
-                        }
-                    }
-                });
-                mostrarToast(`Has cancelado la conexión con ${currentModalEgresado}.`);
-            } else {
-                btnModalConectar.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Conectado</span>`;
-                btnModalConectar.classList.add('btn-outline-secondary');
-                btnModalConectar.classList.remove('btn-primary');
-
-                // Actualizar tarjeta correspondiente
-                cards.forEach(card => {
-                    if (card.getAttribute('data-name') === currentModalEgresado) {
-                        const btn = card.querySelector('.btn-card-connect');
-                        if (btn && !btn.classList.contains('connected')) {
-                            btn.classList.add('connected');
-                            btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Conectado`;
-                            conectadosCount++;
-                        }
-                    }
-                });
-                mostrarToast(`¡Conexión establecida con ${currentModalEgresado}!`);
-            }
-
-            const badgeConectados = document.getElementById('badgeConectados');
-            if (badgeConectados) badgeConectados.textContent = conectadosCount;
-
-            setTimeout(cerrarDetalle, 400);
-        });
+    // Sincronización inicial del badge de conectados en la pestaña
+    const badgeConectadosEl = document.getElementById('badgeConectados');
+    if (badgeConectadosEl) {
+        const totalInitConectados = document.querySelectorAll('.egresado-card .btn-card-message, .egresado-card .btn-card-connect.connected').length;
+        if (totalInitConectados > 0) {
+            badgeConectadosEl.textContent = totalInitConectados;
+        }
     }
 });
+

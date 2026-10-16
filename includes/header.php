@@ -17,6 +17,10 @@ if (!function_exists('assetCssUrl')) {
         return 'assets/css/' . $filename . '?v=' . APP_VERSION . '&amp;t=' . $time;
     }
 }
+
+// Detección de entorno privado del dashboard para evitar FOUC y saltos de layout
+$isDashboardView = !empty($seccion_activa) || (isset($currentPage) && in_array($currentPage, ['dashboard', 'perfil', 'editar-perfil']));
+$activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa) . '-page' : (!empty($currentPage) ? htmlspecialchars($currentPage) . '-page' : '');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,6 +33,15 @@ if (!function_exists('assetCssUrl')) {
     <link rel="icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
     <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
     
+    <!-- Script Anti-FOUC para transiciones suaves si el sidebar está contraído -->
+    <script>
+        try {
+            if (localStorage.getItem('sidebar_collapsed') === 'true' && window.innerWidth > 768) {
+                document.documentElement.classList.add('sidebar-is-collapsed');
+            }
+        } catch(e) {}
+    </script>
+
     <!-- Tipografía Inter: Preconexión Google Fonts (fallback y soporte de red) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +62,7 @@ if (!function_exists('assetCssUrl')) {
     <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
     <link rel="stylesheet" href="<?php echo assetCssUrl('auth.css'); ?>">
     <?php endif; ?>
-    <?php if (isset($currentPage) && in_array($currentPage, ['proyectos', 'portal', 'egresados', 'noticias'])): ?>
+    <?php if (isset($currentPage) && in_array($currentPage, ['proyectos', 'portal', 'egresados', 'noticias']) && !$isDashboardView): ?>
     <link rel="stylesheet" href="<?php echo assetCssUrl('portal.css'); ?>">
     <?php endif; ?>
     <?php if (!empty($extraCss)): ?>
@@ -58,9 +71,11 @@ if (!function_exists('assetCssUrl')) {
         <?php endforeach; ?>
     <?php endif; ?>
 </head>
-<body>
+<body<?php echo $isDashboardView ? ' class="dashboard-body-page ' . $activeSectionClass . '"' : ''; ?>>
     <!-- Componente de precarga global (Page Loader con Skeleton y Spinner) -->
     <?php include __DIR__ . '/loader.php'; ?>
 
-    <!-- Navbar / Header unificado, sticky e inmutable (72px fijos, fondo sólido #FFFFFF, z-index 1000) -->
-    <?php include __DIR__ . '/../components/header.php'; ?>
+    <!-- Navbar / Header unificado del portal público (solo se muestra cuando NO es vista de dashboard) -->
+    <?php if (!$isDashboardView): ?>
+        <?php include __DIR__ . '/../components/header.php'; ?>
+    <?php endif; ?>

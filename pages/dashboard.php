@@ -128,7 +128,7 @@ if (!function_exists('dashboardAssetCssUrl')) {
                             </p>
                         </div>
                         <div class="summary-card-footer">
-                            <a href="proyectos.php" class="dashboard-action-link" id="linkVerProyectos">
+                            <a href="proyectos.php?view=panel" class="dashboard-action-link" id="linkVerProyectos">
                                 Ver proyectos <span class="arrow-symbol" aria-hidden="true">&rarr;</span>
                             </a>
                         </div>
@@ -149,7 +149,7 @@ if (!function_exists('dashboardAssetCssUrl')) {
                             </p>
                         </div>
                         <div class="summary-card-footer">
-                            <a href="#oportunidadesSection" class="dashboard-action-link" id="linkVerOportunidades">
+                            <a href="oportunidades.php" class="dashboard-action-link" id="linkVerOportunidades">
                                 Ver oportunidades <span class="arrow-symbol" aria-hidden="true">&rarr;</span>
                             </a>
                         </div>
@@ -206,10 +206,10 @@ if (!function_exists('dashboardAssetCssUrl')) {
                         <section class="dashboard-block-section quick-actions-section" aria-labelledby="quickActionsTitle">
                             <h3 class="dashboard-section-title" id="quickActionsTitle">Acciones rápidas</h3>
                             <div class="quick-actions-buttons-group dashboard-actions">
-                                <a href="perfil.php" class="btn btn-primary btn-quick-primary btn-actualizar-perfil" id="btnQuickActualizarPerfil">
-                                    Actualizar mi perfil
+                                <a href="editar-perfil.php" class="btn btn-primary btn-quick-primary btn-actualizar-perfil" id="btnQuickActualizarPerfil">
+                                    Actualizar perfil
                                 </a>
-                                <a href="proyectos.php" class="btn btn-outline-secondary btn-quick-outline btn-publicar-proyecto" id="btnQuickPublicarProyecto">
+                                <a href="crear-proyecto.php" class="btn btn-outline-secondary btn-quick-outline btn-publicar-proyecto" id="btnQuickPublicarProyecto">
                                     Publicar proyecto
                                 </a>
                             </div>
@@ -264,102 +264,7 @@ if (!function_exists('dashboardAssetCssUrl')) {
     </div>
 
     <!-- Script de interacción del Dashboard (Sidebar colapsable desktop + Drawer móvil) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.getElementById('dashboardSidebar');
-            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
-            const menuToggle = document.getElementById('dashboardMenuToggle');
-            const backdrop = document.getElementById('sidebarBackdrop');
-
-            // --- 1. LÓGICA DE SIDEBAR COLAPSABLE / MINI-SIDEBAR (DESKTOP) ---
-            if (sidebar && sidebarToggleBtn) {
-                const updateToggleState = (collapsed) => {
-                    if (collapsed) {
-                        sidebarToggleBtn.setAttribute('aria-label', 'Expandir barra lateral');
-                        sidebarToggleBtn.setAttribute('title', 'Expandir menú');
-                    } else {
-                        sidebarToggleBtn.setAttribute('aria-label', 'Contraer barra lateral');
-                        sidebarToggleBtn.setAttribute('title', 'Contraer menú');
-                    }
-                };
-
-                // Inicializar estado persistido desde localStorage (solo en pantallas de escritorio)
-                try {
-                    const savedCollapsed = localStorage.getItem('sidebar_collapsed');
-                    if (savedCollapsed === 'true' && window.innerWidth > 768) {
-                        sidebar.classList.add('is-collapsed', 'collapsed');
-                        document.documentElement.classList.add('sidebar-is-collapsed');
-                        updateToggleState(true);
-                    } else if (savedCollapsed === 'false') {
-                        sidebar.classList.remove('is-collapsed', 'collapsed');
-                        document.documentElement.classList.remove('sidebar-is-collapsed');
-                        updateToggleState(false);
-                    } else if (document.documentElement.classList.contains('sidebar-is-collapsed')) {
-                        sidebar.classList.add('is-collapsed', 'collapsed');
-                        updateToggleState(true);
-                    }
-                } catch (err) {
-                    console.warn('Acceso a localStorage no disponible:', err);
-                }
-
-                // Evento click del botón toggle
-                sidebarToggleBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    const isCurrentlyCollapsed = sidebar.classList.contains('is-collapsed');
-                    const nextCollapsed = !isCurrentlyCollapsed;
-
-                    sidebar.classList.toggle('is-collapsed', nextCollapsed);
-                    sidebar.classList.toggle('collapsed', nextCollapsed);
-                    document.documentElement.classList.toggle('sidebar-is-collapsed', nextCollapsed);
-
-                    try {
-                        localStorage.setItem('sidebar_collapsed', nextCollapsed ? 'true' : 'false');
-                    } catch (err) {
-                        console.warn('No se pudo guardar la preferencia en localStorage:', err);
-                    }
-
-                    updateToggleState(nextCollapsed);
-                });
-            }
-
-            // --- 2. LÓGICA DE MENÚ DRAWER (MÓVIL <= 768px) ---
-            if (menuToggle && sidebar && backdrop) {
-                const toggleMobileSidebar = (open) => {
-                    const isOpen = open !== undefined ? open : !sidebar.classList.contains('is-open');
-                    sidebar.classList.toggle('is-open', isOpen);
-                    backdrop.classList.toggle('is-visible', isOpen);
-                    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                    document.body.classList.toggle('sidebar-drawer-active', isOpen);
-                };
-
-                menuToggle.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleMobileSidebar();
-                });
-
-                backdrop.addEventListener('click', () => {
-                    toggleMobileSidebar(false);
-                });
-
-                // Cerrar menú con la tecla Escape
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
-                        toggleMobileSidebar(false);
-                        menuToggle.focus();
-                    }
-                });
-
-                // Cerrar drawer móvil si la pantalla se redimensiona a escritorio
-                window.addEventListener('resize', () => {
-                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
-                        toggleMobileSidebar(false);
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="assets/js/dashboard.js"></script>
 
     <!-- Script global del Page Loader (desvanecimiento y desmontaje) -->
     <script src="assets/js/loader.js?v=<?php echo APP_VERSION; ?>"></script>

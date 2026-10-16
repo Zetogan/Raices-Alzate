@@ -244,4 +244,38 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.addEventListener('click', () => toggleDrawer());
         backdrop.addEventListener('click', () => toggleDrawer(false));
     }
+
+    // =========================================================================
+    // 5. NAVEGACIÓN Y ACCESIBILIDAD EN TARJETAS DE PROYECTOS ("Mis proyectos")
+    // =========================================================================
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.profile-project-card');
+        if (!card) return;
+
+        // Si el clic fue en el botón de edición o dentro de él, detener
+        if (e.target.closest('.btn-editar-proyecto') || e.target.closest('.btn-editar-card')) {
+            return;
+        }
+
+        // Si el clic fue en el enlace explícito de consultar proyecto, permitir acción nativa
+        if (e.target.closest('.project-card-link')) {
+            return;
+        }
+
+        // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle-proyecto.php
+        const href = card.getAttribute('data-href') || 'detalle-proyecto.php';
+        if (href) {
+            window.location.href = href;
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const activeCard = document.activeElement;
+            if (activeCard && activeCard.classList.contains('profile-project-card')) {
+                const href = activeCard.getAttribute('data-href') || 'detalle-proyecto.php';
+                window.location.href = href;
+            }
+        }
+    });
 });

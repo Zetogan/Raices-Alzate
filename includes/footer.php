@@ -7,8 +7,12 @@
 if (!defined('APP_NAME')) {
     exit('Acceso directo no permitido.');
 }
+
+$isDashboardView = !empty($seccion_activa) || (isset($currentPage) && in_array($currentPage, ['dashboard', 'perfil', 'editar-perfil']));
 ?>
-    <?php include __DIR__ . '/../components/footer.php'; ?>
+    <?php if (!$isDashboardView): ?>
+        <?php include __DIR__ . '/../components/footer.php'; ?>
+    <?php endif; ?>
 
     <!-- Script principal de interacción -->
     <script src="assets/js/main.js?v=<?php echo APP_VERSION; ?>"></script>

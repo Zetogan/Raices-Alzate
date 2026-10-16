@@ -89,22 +89,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const noticiasGrid = document.getElementById('noticiasGrid');
     const statusContainer = document.getElementById('noticiasStatusContainer');
 
-    if (!btnVerMas || !noticiasGrid) return;
+    if (!noticiasGrid) return;
+
+    // Delegación de clic accesible en todas las tarjetas de noticias
+    noticiasGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.noticia-card, .news-card, .card-noticia');
+        if (!card) return;
+
+        const href = card.getAttribute('href') || card.getAttribute('data-href');
+        if (href && card.tagName.toLowerCase() !== 'a') {
+            window.location.href = href;
+        }
+    });
+
+    // Accesibilidad por teclado: Enter sobre la tarjeta seleccionada
+    noticiasGrid.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const card = e.target.closest('.noticia-card, .news-card, .card-noticia');
+            if (card && document.activeElement === card) {
+                const href = card.getAttribute('href') || card.getAttribute('data-href');
+                if (href && card.tagName.toLowerCase() !== 'a') {
+                    e.preventDefault();
+                    window.location.href = href;
+                }
+            }
+        }
+    });
+
+    if (!btnVerMas) return;
 
     // Colección estática de noticias adicionales de la comunidad alzatista
     const noticiasAdicionales = [
         {
+            id: 7,
             titulo: 'Jornada de actualización profesional',
+            categoria: 'Académico',
             descripcion: 'Talleres y conferencias para fortalecer las competencias de nuestros egresados en el sector productivo.',
             fecha: '5 de agosto de 2026'
         },
         {
+            id: 8,
             titulo: 'Convocatoria para proyectos de innovación',
+            categoria: 'Innovación',
             descripcion: 'Postula tus iniciativas para recibir acompañamiento y visibilidad en los canales institucionales.',
             fecha: '28 de julio de 2026'
         },
         {
+            id: 9,
             titulo: 'Reconocimiento a egresados destacados',
+            categoria: 'Comunidad',
             descripcion: 'Celebramos las trayectorias de exalumnos que generan impacto positivo en la región y el país.',
             fecha: '18 de julio de 2026'
         }
@@ -114,24 +147,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let isProcessing = false;
 
     /**
-     * Renderiza una tarjeta de noticia estática idéntica a las 6 iniciales
+     * Renderiza una tarjeta de noticia estática idéntica a las 6 iniciales como enlace global
      */
     const crearTarjetaEstatica = (item) => {
-        const article = document.createElement('article');
-        article.className = 'noticia-card';
+        const link = document.createElement('a');
+        link.className = 'noticia-card news-card card-noticia';
+        link.href = `detalle-noticia.php?id=${item.id}`;
+        link.setAttribute('data-href', `detalle-noticia.php?id=${item.id}`);
+        link.setAttribute('aria-label', `Ver detalle de ${item.titulo}`);
 
-        article.innerHTML = `
+        link.innerHTML = `
             <div class="noticia-cover-wrapper">
                 <div class="noticia-cover-placeholder"></div>
             </div>
             <div class="noticia-info">
-                <h2 class="noticia-title">${item.titulo}</h2>
+                <span class="noticia-categoria-badge">${item.categoria}</span>
+                <h2 class="noticia-title news-card-title">${item.titulo}</h2>
                 <p class="noticia-description">${item.descripcion}</p>
                 <div class="noticia-date">${item.fecha}</div>
             </div>
         `;
 
-        return article;
+        return link;
     };
 
     /**

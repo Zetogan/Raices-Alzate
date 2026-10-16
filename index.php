@@ -42,16 +42,28 @@ switch ($page) {
     case 'egresados':
         header('Location: egresados.php');
         exit;
+    case 'detalle-egresado':
+        header('Location: detalle-egresado.php');
+        exit;
     case 'noticias':
-        $pageTitle = 'Noticias | ' . APP_NAME;
-        $currentPage = 'noticias';
-        $viewFile = __DIR__ . '/pages/noticias.php';
-        break;
+        header('Location: noticias.php');
+        exit;
+    case 'oportunidades':
+        header('Location: oportunidades.php');
+        exit;
+    case 'mensajes':
+        header('Location: mensajes.php');
+        exit;
     case 'dashboard':
         header('Location: dashboard.php');
         exit;
     case 'perfil':
         header('Location: perfil.php');
+        exit;
+    case 'pqr':
+    case 'pqrs':
+    case 'soporte':
+        header('Location: pqr.php');
         exit;
     case 'inicio':
     default:

@@ -1,0 +1,411 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Módulo Detalle de Oportunidad
+ * Especificación de Diseño: Replicación de la arquitectura visual de Detalle de Noticia
+ * Paleta Oficial:
+ *   - Primario Institucional: #D32F2F (Rojo Alzate)
+ *   - Acciones Secundarias / Outline: #1565C0 (Azul Institucional)
+ *   - Hover Secundario: rgba(21, 101, 192, 0.08) / #E3F2FD (NUNCA rojo)
+ *   - Títulos Principales: #212121
+ *   - Textos Secundarios: #757575
+ *   - Fondo de Contenedor: #FFFFFF (Tarjeta blanca)
+ *   - Fondo General: #F5F5F5
+ *   - Bordes y Separadores: #E0E0E0
+ *   - Portada Neutra: #D9D9D9
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. AISLAMIENTO Y AJUSTES DE ESTRUCTURA GLOBAL
+   ========================================================================== */
+body.detalle-oportunidad-page {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #212121;
+    overflow-x: hidden;
+}
+
+/* Ocultar encabezado y pie de página del portal público en la vista privada del panel */
+body.detalle-oportunidad-page .portal-header,
+body.detalle-oportunidad-page .site-header,
+body.detalle-oportunidad-page .main-navbar,
+body.detalle-oportunidad-page .site-footer,
+body.detalle-oportunidad-page .portal-footer,
+body.detalle-oportunidad-page footer.footer {
+    display: none !important;
+}
+
+/* Estructura del Layout y Main Wrapper unificados */
+.layout-wrapper,
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: #F5F5F5;
+}
+
+.main-wrapper,
+.dashboard-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #F5F5F5;
+}
+
+/* Contenedor principal de contenido: fluye debajo de la Topbar de forma limpia */
+.content-area,
+.detalle-oportunidad-content-wrapper {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 32px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex: 1 0 auto;
+    background-color: #F5F5F5;
+}
+
+.detalle-oportunidad-container {
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. ENLACE DE RETORNO SUPERIOR ("← VOLVER A OPORTUNIDADES")
+   ========================================================================== */
+.detalle-oportunidad-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1565C0;
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+    padding: 6px 10px;
+    margin-left: -10px;
+    border-radius: 6px;
+}
+
+.btn-back-link:hover {
+    color: #0D47A1;
+    background-color: rgba(21, 101, 192, 0.06);
+    transform: translateX(-2px);
+    text-decoration: none;
+}
+
+.btn-back-link:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. TARJETA CONTENEDORA BLANCA (#FFFFFF, borde #E0E0E0, radio 16px, pad 40px)
+   ========================================================================== */
+.detalle-oportunidad-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3.1 Encabezado del Detalle */
+.detalle-oportunidad-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.detalle-oportunidad-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.detalle-oportunidad-titulo {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.detalle-oportunidad-entidad-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.detalle-oportunidad-empresa {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1565C0;
+}
+
+.detalle-oportunidad-fecha {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #757575;
+}
+
+/* 3.2 Portada/Banner Panorámico */
+.detalle-oportunidad-banner {
+    width: 100%;
+    height: 300px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.detalle-oportunidad-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detalle-oportunidad-banner-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #757575;
+    background-color: #E8E8E8;
+}
+
+.detalle-oportunidad-banner-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.6;
+}
+
+/* 3.3 Cuerpo y Texto del Contenido */
+.detalle-oportunidad-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 36px;
+    width: 100%;
+}
+
+.detalle-oportunidad-subtitulo {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.detalle-oportunidad-parrafo {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #424242;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.detalle-oportunidad-requisitos-box {
+    background-color: #FAFAFA;
+    border: 1px solid #EEEEEE;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 10px;
+}
+
+.detalle-oportunidad-requisitos-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 10px 0;
+}
+
+.detalle-oportunidad-requisitos-list {
+    margin: 0;
+    padding-left: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #424242;
+    line-height: 1.6;
+}
+
+.detalle-oportunidad-requisitos-list li {
+    margin-bottom: 6px;
+}
+
+/* 3.4 Ficha de Metadatos (Grid de 3 Columnas Simétricas) */
+.detalle-oportunidad-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px 24px;
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    margin-bottom: 36px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.detalle-oportunidad-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detalle-oportunidad-meta-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.detalle-oportunidad-meta-valor {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #212121;
+}
+
+/* 3.5 Acciones al Pie (Botón Volver a Oportunidades: Outline Azul #1565C0) */
+.detalle-oportunidad-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+.btn-volver-oportunidades {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1565C0;
+    background-color: transparent;
+    border: 1.5px solid #1565C0;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    box-sizing: border-box;
+}
+
+.btn-volver-oportunidades:hover {
+    background-color: rgba(21, 101, 192, 0.08);
+    color: #0D47A1;
+    border-color: #0D47A1;
+    text-decoration: none;
+}
+
+.btn-volver-oportunidades:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
+}
+
+.btn-volver-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+    transition: transform 0.2s ease;
+}
+
+.btn-volver-oportunidades:hover .btn-volver-icon {
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   4. ADAPTACIÓN RESPONSIVE (TABLETS Y MÓVILES)
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+    .detalle-oportunidad-content-wrapper {
+        padding: 24px 20px;
+    }
+
+    .detalle-oportunidad-card {
+        padding: 28px;
+    }
+
+    .detalle-oportunidad-banner {
+        height: 240px;
+        margin-bottom: 24px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .detalle-oportunidad-content-wrapper {
+        padding: 16px 12px;
+    }
+
+    .detalle-oportunidad-card {
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .detalle-oportunidad-titulo {
+        font-size: 22px !important;
+    }
+
+    .detalle-oportunidad-banner {
+        height: 190px;
+        margin-bottom: 20px;
+    }
+
+    .detalle-oportunidad-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .btn-volver-oportunidades {
+        width: 100%;
+    }
+}

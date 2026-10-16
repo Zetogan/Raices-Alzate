@@ -1,0 +1,501 @@
+@import url('dashboard.css');
+
+/**
+ * Raíces Alzate - Hoja de Estilos: PQRS y Reporte de Errores (pqr.css)
+ * Arquitectura: Frontend Puro para Usuario / Cliente
+ * Formulario limpio, centrado, sin tablas ni paneles administrativos
+ * Paleta Institucional Oficial:
+ *   - Primario: #D32F2F (Rojo Alzate) | Hover: #B71C1C
+ *   - Secundario / Acentos: #1565C0 (Azul Alzate) | Hover: #0D47A1
+ *   - Textos: #212121 (Primario) | #757575 (Secundario / Placeholder)
+ *   - Bordes: #E0E0E0 | Focus: #1565C0
+ *   - Superficies: #FFFFFF (Tarjeta) | #F5F5F5 (Fondo general) | #FAFAFA (Dropzone)
+ * Botonera Estándar: Altura 44px, Radio 8px, Font-weight 600
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. CONTENEDORES Y ESTRUCTURA DE PÁGINA (PÚBLICO Y PRIVADO)
+   ========================================================================== */
+
+/* Layout para panel privado con Sidebar y Topbar */
+.layout-wrapper,
+.dashboard-layout {
+    display: flex !important;
+    min-height: 100vh !important;
+    width: 100% !important;
+    position: relative;
+    background-color: #F5F5F5;
+}
+
+.main-wrapper,
+.dashboard-main-area {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    background-color: #F5F5F5;
+}
+
+/* Visibilidad reforzada del ícono de PQRS y soporte en Sidebar */
+.dashboard-sidebar .sidebar-nav-link.active,
+.dashboard-sidebar .nav-item.active {
+    background-color: #D32F2F !important;
+    color: #FFFFFF !important;
+}
+
+.dashboard-sidebar .sidebar-nav-link.active svg,
+.dashboard-sidebar .sidebar-nav-link.active .sidebar-nav-icon,
+.dashboard-sidebar .sidebar-nav-link.active .nav-icon,
+.dashboard-sidebar .nav-item.active svg,
+.dashboard-sidebar .nav-item.active .sidebar-nav-icon,
+.dashboard-sidebar .nav-item.active .nav-icon {
+    stroke: #FFFFFF !important;
+    color: #FFFFFF !important;
+    fill: none !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Envoltura para portal público */
+.public-page-wrapper {
+    background-color: #F5F5F5;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+}
+
+.public-content-container {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+/* Área de contenido general */
+.pqr-content-area {
+    padding: 36px 32px 64px;
+    box-sizing: border-box;
+    width: 100%;
+    flex: 1 1 auto;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #212121;
+}
+
+/* Contenedor central estricto: max-width 720px */
+.pqr-form-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ==========================================================================
+   2. CABECERA DEL FORMULARIO
+   ========================================================================== */
+.pqr-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.pqr-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    background-color: #EBF3FA;
+    color: #1565C0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.pqr-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.pqr-subtitle {
+    font-size: 0.95rem;
+    color: #757575;
+    line-height: 1.55;
+    margin: 0 auto;
+    max-width: 580px;
+}
+
+/* ==========================================================================
+   3. TARJETA CENTRAL BLANCA
+   ========================================================================== */
+.pqr-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 36px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   4. ELEMENTOS DEL FORMULARIO Y GRILLA
+   ========================================================================== */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #212121;
+    display: flex;
+    align-items: center;
+}
+
+.form-group .req {
+    color: #D32F2F;
+    font-weight: 700;
+    margin-left: 3px;
+}
+
+.form-group .opcional {
+    color: #757575;
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-left: 6px;
+}
+
+/* Entradas estándar de 44px de alto */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.925rem;
+    color: #212121;
+    background-color: #FFFFFF;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input,
+.form-select {
+    height: 44px;
+    padding: 0 14px;
+}
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 38px;
+    cursor: pointer;
+}
+
+.form-textarea {
+    min-height: 120px;
+    padding: 12px 14px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #1565C0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.12);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #9E9E9E;
+}
+
+/* ==========================================================================
+   5. DROPZONE / ADJUNTAR IMAGEN
+   ========================================================================== */
+.dropzone-box {
+    border: 2px dashed #D6D6D6;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.dropzone-box:hover,
+.dropzone-box.dragover {
+    border-color: #1565C0;
+    background-color: rgba(21, 101, 192, 0.04);
+}
+
+.dropzone-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.dropzone-empty svg {
+    margin-bottom: 2px;
+}
+
+.dropzone-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #212121;
+}
+
+.dropzone-sub {
+    font-size: 0.8rem;
+    color: #757575;
+}
+
+/* Vista previa de archivo adjunto */
+.dropzone-has-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+#previewImg {
+    max-height: 72px;
+    max-width: 100px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.file-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #212121;
+    word-break: break-all;
+    max-width: 320px;
+    text-align: left;
+}
+
+.btn-remove-img {
+    background: none;
+    border: none;
+    color: #D32F2F;
+    font-size: 0.825rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    transition: color 0.15s ease;
+}
+
+.btn-remove-img:hover {
+    color: #B71C1C;
+}
+
+/* ==========================================================================
+   6. BOTONERA ESTÁNDAR (44px de alto, 8px de radio)
+   ========================================================================== */
+.pqr-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid #EEEEEE;
+}
+
+.btn-pqr-submit {
+    height: 44px;
+    padding: 0 26px;
+    background-color: #D32F2F !important;
+    border: 1.5px solid #D32F2F !important;
+    border-radius: 8px;
+    color: #FFFFFF !important;
+    font-family: inherit;
+    font-size: 0.925rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-pqr-submit:hover {
+    background-color: #B71C1C !important;
+    border-color: #B71C1C !important;
+    transform: translateY(-1px);
+}
+
+.btn-pqr-submit:active {
+    transform: translateY(0);
+}
+
+.btn-pqr-cancel {
+    height: 44px;
+    padding: 0 20px;
+    background-color: transparent;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 8px;
+    color: #757575;
+    font-family: inherit;
+    font-size: 0.925rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-pqr-cancel:hover {
+    background-color: #EEEEEE;
+    color: #212121;
+    border-color: #BDBDBD;
+}
+
+/* ==========================================================================
+   7. TOAST FLOTANTE INFERIOR DERECHO
+   ========================================================================== */
+.toast-bottom-right {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.toast-bottom-right.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.toast-box {
+    background-color: #212121;
+    color: #FFFFFF;
+    padding: 14px 22px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+    font-size: 0.925rem;
+    font-weight: 500;
+}
+
+.toast-badge-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.toast-msg {
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE / ADAPTACIÓN MÓVIL
+   ========================================================================== */
+@media (max-width: 768px) {
+    .pqr-content-area {
+        padding: 24px 16px 48px;
+    }
+
+    .pqr-card {
+        padding: 24px 20px;
+    }
+
+    .pqr-title {
+        font-size: 1.5rem;
+    }
+
+    .pqr-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .pqr-actions {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .btn-pqr-submit,
+    .btn-pqr-cancel {
+        width: 100%;
+    }
+
+    .dropzone-has-file {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .file-details {
+        align-items: center;
+    }
+
+    .file-name {
+        text-align: center;
+    }
+
+    .toast-bottom-right {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .toast-box {
+        justify-content: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

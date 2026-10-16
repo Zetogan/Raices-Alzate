@@ -1,0 +1,431 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Módulo de Oportunidades
+ * Especificación de Diseño: Replicación de la arquitectura visual de Noticias
+ * Paleta Oficial del Sistema:
+ *   - Primario Activo: #D32F2F (Rojo Alzate)
+ *   - Acentos y Acciones: #1565C0 (Azul Institucional)
+ *   - Textos Principales: #212121
+ *   - Textos Secundarios: #757575
+ *   - Superficies y Fondo: #FFFFFF (Tarjetas) | #F5F5F5 (Fondo General)
+ *   - Bordes y Separadores: #E0E0E0
+ *   - Portadas Neutras: #D9D9D9
+ * Escala de Espaciado: 8px, 16px, 24px, 32px
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. AISLAMIENTO Y AJUSTES DE ESTRUCTURA GLOBAL
+   ========================================================================== */
+body.oportunidades-page {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #212121;
+}
+
+/* Ocultar encabezado y pie de página del portal público en la vista privada del panel */
+body.oportunidades-page .portal-header,
+body.oportunidades-page .site-header,
+body.oportunidades-page .main-navbar,
+body.oportunidades-page .site-footer,
+body.oportunidades-page .portal-footer,
+body.oportunidades-page footer.footer {
+    display: none !important;
+}
+
+/* Estructura del Layout y Main Wrapper unificados */
+.layout-wrapper,
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: #F5F5F5;
+}
+
+.main-wrapper,
+.dashboard-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #F5F5F5;
+}
+
+/* Contenedor principal de contenido: fluye ordenadamente debajo de la Topbar */
+.content-area,
+.oportunidades-content-wrapper {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 32px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex: 1 0 auto;
+}
+
+/* ==========================================================================
+   2. ENCABEZADO DE SECCIÓN SEPARADO (COLUMNA VERTICAL IDÉNTICA A NOTICIAS)
+   ========================================================================== */
+.section-header,
+.oportunidades-header-block,
+header.section-header,
+header.oportunidades-header-block {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    margin-top: 0 !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    z-index: auto !important;
+}
+
+.section-header .section-title,
+.oportunidades-header-title,
+.section-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    margin: 0 !important;
+    display: block !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.015em !important;
+}
+
+.section-header .section-subtitle,
+.oportunidades-header-subtitle,
+.section-subtitle {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #757575 !important;
+    margin: 0 !important;
+    display: block !important;
+    line-height: 1.5 !important;
+}
+
+/* ==========================================================================
+   3. TARJETA CONTENEDORA BLANCA (#FFFFFF, borde #E0E0E0, radio 16px, pad 32px)
+   ========================================================================== */
+.oportunidades-card-container {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 32px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   4. CUADRÍCULA DE OPORTUNIDADES (GRID DE 3 COLUMNAS EN DESKTOP)
+   ========================================================================== */
+.oportunidades-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* ==========================================================================
+   5. TARJETA DE OPORTUNIDAD INDIVIDUAL (CONTENEDOR CLICKEABLE)
+   ========================================================================== */
+.oportunidad-card,
+.opportunity-card,
+.news-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #FFFFFF !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    cursor: pointer !important;
+    position: relative !important;
+    border: 1px solid #EAEAEA !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease !important;
+}
+
+.oportunidad-card:hover,
+.opportunity-card:hover,
+.news-card:hover {
+    border-color: #BDBDBD !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.oportunidad-card:focus-visible {
+    outline: 2px solid #1565C0 !important;
+    outline-offset: 2px !important;
+}
+
+.oportunidad-card * {
+    text-decoration: none !important;
+}
+
+/* 5.1 Portada superior con proporción 16:9 y fondo gris neutro #D9D9D9 */
+.oportunidad-cover-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #D9D9D9;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.oportunidad-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #D9D9D9;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9E9E9E;
+}
+
+.oportunidad-cover-placeholder svg {
+    width: 36px;
+    height: 36px;
+    opacity: 0.65;
+}
+
+/* 5.2 Contenido de información de la tarjeta */
+.oportunidad-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/* Badges y etiquetas */
+.oportunidad-badges-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.oportunidad-categoria-badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-secondary, #1565C0);
+    background-color: rgba(21, 101, 192, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+    line-height: 1.2;
+}
+
+.oportunidad-modalidad-badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #424242;
+    background-color: #EEEEEE;
+    padding: 3px 8px;
+    border-radius: 4px;
+    line-height: 1.2;
+}
+
+/* Título de la oportunidad */
+.oportunidad-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.01em !important;
+    text-decoration: none !important;
+}
+
+.oportunidad-card:hover .oportunidad-title,
+.opportunity-card:hover .opportunity-title,
+.opportunity-card:hover a,
+.oportunidad-card:hover a,
+.news-card:hover .opportunity-title,
+.news-card:hover a {
+    color: #212121 !important;
+    text-decoration: none !important;
+}
+
+/* Empresa o entidad ofertante */
+.oportunidad-empresa {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #616161;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Descripción breve (truncada a 2 líneas con line-clamp estándar) */
+.oportunidad-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #757575;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+    max-height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Fecha y ubicación al pie */
+.oportunidad-footer-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #757575;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #F0F0F0;
+    line-height: 1.4;
+}
+
+.oportunidad-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.oportunidad-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ==========================================================================
+   6. BOTÓN INFERIOR: "VER MÁS OPORTUNIDADES" (OUTLINE AZUL #1565C0)
+   ========================================================================== */
+.oportunidades-actions-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+    padding-top: 8px;
+    gap: 12px;
+}
+
+.btn-ver-mas-oportunidades {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1565C0;
+    background-color: transparent;
+    border: 1.5px solid #1565C0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.btn-ver-mas-oportunidades:hover:not(:disabled) {
+    background-color: rgba(21, 101, 192, 0.08);
+    color: #0D47A1;
+    border-color: #0D47A1;
+}
+
+.btn-ver-mas-oportunidades:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
+}
+
+.btn-ver-mas-oportunidades:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    border-color: #E0E0E0;
+}
+
+/* ==========================================================================
+   7. ADAPTACIÓN RESPONSIVE (TABLETS Y MÓVILES)
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+    .oportunidades-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+
+    .oportunidades-content-wrapper {
+        padding: 24px 20px;
+    }
+
+    .oportunidades-card-container {
+        padding: 24px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .oportunidades-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .oportunidades-content-wrapper {
+        padding: 16px 12px;
+    }
+
+    .oportunidades-card-container {
+        padding: 16px 12px;
+        border-radius: 12px;
+    }
+
+    .section-header .section-title,
+    .oportunidades-header-title {
+        font-size: 20px !important;
+    }
+
+    .btn-ver-mas-oportunidades {
+        width: 100%;
+        max-width: 320px;
+    }
+}

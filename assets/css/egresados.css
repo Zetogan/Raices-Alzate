@@ -558,7 +558,8 @@
 }
 
 /* Pie de la tarjeta con botones de acción */
-.card-footer-actions {
+.card-footer-actions,
+.egresado-card-actions {
     padding: 14px 20px;
     background-color: #FAFAFA;
     border-top: 1px solid var(--color-border, #E0E0E0);
@@ -567,59 +568,210 @@
     gap: 10px;
 }
 
-.btn-card-profile {
-    flex: 1 1 50%;
-    height: 38px;
-    background-color: var(--color-primary, #D32F2F);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: background-color 0.15s ease, box-shadow 0.15s ease;
-    text-decoration: none;
+/* 1. Botón "Ver perfil" (Rojo institucional fijo) */
+.egresado-card .btn-card-ver,
+.egresado-card .btn-ver-perfil,
+.egresado-card .btn-card-profile,
+.egresado-card .btn-primary,
+.btn-card-ver,
+.btn-card-profile,
+.btn-ver-perfil {
+  background-color: #D32F2F !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid #D32F2F !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  padding: 0 16px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease !important;
+  flex: 1 1 50%;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
 }
 
-.btn-card-profile:hover {
-    background-color: var(--color-primary-hover, #B71C1C);
-    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
-    color: #FFFFFF;
-    text-decoration: none;
+.egresado-card .btn-card-ver:hover,
+.egresado-card .btn-ver-perfil:hover,
+.egresado-card .btn-card-profile:hover,
+.egresado-card .btn-primary:hover,
+.btn-card-ver:hover,
+.btn-card-profile:hover,
+.btn-ver-perfil:hover {
+  background-color: #B71C1C !important;
+  border-color: #B71C1C !important;
+  color: #FFFFFF !important;
+  text-decoration: none !important;
 }
 
-.btn-card-connect {
-    flex: 1 1 50%;
-    height: 38px;
-    background-color: #FFFFFF;
-    color: var(--color-text-main, #212121);
-    border: 1px solid var(--color-border, #E0E0E0);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    gap: 6px;
-    cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+/* 2. Botones de acción derecha (.btn-card-action) */
+.egresado-card .btn-card-action,
+.btn-card-action {
+  height: 40px !important;
+  padding: 0 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  flex: 1 1 50%;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
-.btn-card-connect:hover {
-    background-color: var(--color-bg-light, #F5F5F5);
-    border-color: #BDBDBD;
-    color: var(--color-primary, #D32F2F);
+/* 2.1 Botón "Conectar" (Outline azul institucional #1565C0) */
+.egresado-card .btn-card-connect,
+.egresado-card .btn-conectar,
+.egresado-card .btn-conectar-egresado,
+.egresado-card .btn-outline-connect,
+.egresado-card .btn-outline-secondary,
+.btn-card-connect,
+.btn-conectar-egresado {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: 1.5px solid #1565C0 !important; /* Borde azul institucional */
+  border-radius: 8px !important;
+  color: #1565C0 !important;             /* Texto azul */
+  height: 40px !important;
+  padding: 0 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  flex: 1 1 50%;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
 
-.btn-card-connect.connected {
-    background-color: #E8F5E9;
-    color: #2E7D32;
-    border-color: #A5D6A7;
+/* Ícono SVG de Conectar en azul */
+.egresado-card .btn-card-connect svg,
+.egresado-card .btn-conectar svg,
+.egresado-card .btn-conectar-egresado svg,
+.egresado-card .btn-outline-connect svg,
+.btn-card-connect svg,
+.btn-conectar-egresado svg {
+  stroke: #1565C0 !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex-shrink: 0 !important;
+  transition: stroke 0.2s ease !important;
+}
+
+/* Estado Hover: Fondo azul suave y borde azul intenso */
+.egresado-card .btn-card-connect:hover,
+.egresado-card .btn-conectar:hover,
+.egresado-card .btn-conectar-egresado:hover,
+.egresado-card .btn-outline-connect:hover,
+.egresado-card .btn-outline-secondary:hover,
+.btn-card-connect:hover,
+.btn-conectar-egresado:hover {
+  background-color: rgba(21, 101, 192, 0.08) !important; /* Tinte azul tenue */
+  border-color: #0D47A1 !important;                      /* Azul más oscuro */
+  color: #0D47A1 !important;
+  text-decoration: none !important;
+}
+
+.egresado-card .btn-card-connect:hover svg,
+.egresado-card .btn-conectar:hover svg,
+.egresado-card .btn-conectar-egresado:hover svg,
+.egresado-card .btn-outline-connect:hover svg,
+.btn-card-connect:hover svg,
+.btn-conectar-egresado:hover svg {
+  stroke: #0D47A1 !important;
+}
+
+/* Estado Activo / Clic */
+.egresado-card .btn-card-connect:active,
+.egresado-card .btn-conectar:active,
+.egresado-card .btn-conectar-egresado:active,
+.egresado-card .btn-outline-connect:active,
+.btn-card-connect:active,
+.btn-conectar-egresado:active {
+  background-color: rgba(21, 101, 192, 0.15) !important;
+}
+
+/* 2.2 Botón "Enviar mensaje" (Si ya está conectado) */
+.egresado-card .btn-card-message,
+.btn-card-message {
+  background-color: #EBF3FA !important;
+  border: 1.5px solid #1565C0 !important;
+  border-radius: 8px !important;
+  color: #1565C0 !important;
+  height: 40px !important;
+  padding: 0 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  flex: 1 1 50%;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+.egresado-card .btn-card-message svg,
+.btn-card-message svg {
+  stroke: #1565C0 !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex-shrink: 0 !important;
+  transition: stroke 0.2s ease !important;
+}
+
+.egresado-card .btn-card-message:hover,
+.btn-card-message:hover {
+  background-color: #1565C0 !important;
+  border-color: #0D47A1 !important;
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+}
+
+.egresado-card .btn-card-message:hover svg,
+.btn-card-message:hover svg {
+  stroke: #FFFFFF !important;
+}
+
+/* 2.3 Estado Conectado (al hacer clic en Conectar) */
+.egresado-card .btn-card-connect.connected,
+.egresado-card .btn-conectar.connected,
+.egresado-card .btn-conectar-egresado.connected,
+.btn-card-connect.connected,
+.btn-conectar-egresado.connected {
+  background-color: #E8F5E9 !important;
+  color: #2E7D32 !important;
+  border-color: #A5D6A7 !important;
+}
+
+.egresado-card .btn-card-connect.connected svg,
+.egresado-card .btn-conectar.connected svg,
+.egresado-card .btn-conectar-egresado.connected svg,
+.btn-card-connect.connected svg,
+.btn-conectar-egresado.connected svg {
+  stroke: #2E7D32 !important;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 /* ==========================================================================

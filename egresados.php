@@ -2,49 +2,104 @@
 /**
  * Raíces Alzate - Plataforma de Egresados
  * Institución Educativa Gilberto Alzate Avendaño
- * Controlador de Entrada: Pantalla de Egresados (Panel Privado)
- * Especificación Figma: 05 - Egresados - Desktop (y adaptación Mobile)
+ * Controlador: Pantalla de Egresados
  * Versión: 0.1.1
  */
 
-ob_start();
-
-if (file_exists(__DIR__ . '/config/config.php')) {
-    require_once __DIR__ . '/config/config.php';
-}
-
-if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 
-// Validación de sesión activa (con valores por defecto para previsualización en desarrollo)
-if (empty($_SESSION['user']) && empty($_SESSION['usuario'])) {
-    $_SESSION['user'] = [
-        'nombre' => 'Santiago Emitola',
-        'rol'    => 'Egresado',
-        'email'  => 'santiago@ejemplo.com'
-    ];
+require_once __DIR__ . '/config/config.php';
+
+$currentPage = 'egresados';
+$pageTitle = 'Egresados | ' . (defined('APP_NAME') ? APP_NAME : 'Raíces Alzate');
+
+// Si NO hay sesión activa o es visita pública, cargar la vista pública institucional
+$hasActiveSession = (!empty($_SESSION['user']) || !empty($_SESSION['usuario']));
+$isPanelView = (isset($_GET['view']) && $_GET['view'] === 'panel')
+    || (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'detalle-egresado') !== false);
+
+if (!$hasActiveSession || !$isPanelView) {
+    require_once __DIR__ . '/includes/header.php';
+    require_once __DIR__ . '/pages/egresados-public.php';
+    require_once __DIR__ . '/includes/footer.php';
+    exit;
 }
 
-// Extracción dinámica y segura de los datos de sesión del usuario
-$user = !empty($_SESSION['user']) && is_array($_SESSION['user']) 
-    ? $_SESSION['user'] 
-    : (!empty($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : []);
+// Arreglo estático institucional de egresados y estado de conexión
+$egresados = [
+    [
+        'id' => 1,
+        'nombre' => 'Valentina Ríos Gómez',
+        'inicial' => 'V',
+        'carrera' => 'Técnico en Sistemas e Informática',
+        'cargo' => 'Ingeniera de Software en Mercado Libre',
+        'ubicacion' => 'Medellín, Colombia',
+        'promocion' => '2021',
+        'habilidades' => ['PHP', 'React', 'MySQL'],
+        'conectado' => true // Conectada -> Enviar mensaje
+    ],
+    [
+        'id' => 2,
+        'nombre' => 'Carlos Andrés Morales',
+        'inicial' => 'C',
+        'carrera' => 'Técnico en Gestión Comercial y Contable',
+        'cargo' => 'Coordinador Financiero en Bancolombia',
+        'ubicacion' => 'Medellín, Colombia',
+        'promocion' => '2020',
+        'habilidades' => ['Finanzas', 'Excel Avanzado', 'Liderazgo'],
+        'conectado' => false // No conectado -> Botón Conectar
+    ],
+    [
+        'id' => 3,
+        'nombre' => 'Camila Zuluaga Henao',
+        'inicial' => 'C',
+        'carrera' => 'Bachillerato Académico',
+        'cargo' => 'Diseñadora de Producto UI/UX en Globant',
+        'ubicacion' => 'Medellín, Colombia',
+        'promocion' => '2021',
+        'habilidades' => ['Figma', 'Design Systems', 'UX Research'],
+        'conectado' => true // Conectada -> Enviar mensaje
+    ],
+    [
+        'id' => 4,
+        'nombre' => 'Mateo Henao Castro',
+        'inicial' => 'M',
+        'carrera' => 'Técnico en Sistemas e Informática',
+        'cargo' => 'Líder Técnico Cloud en Ruta N',
+        'ubicacion' => 'Medellín, Colombia',
+        'promocion' => '2019',
+        'habilidades' => ['AWS', 'DevOps', 'Docker'],
+        'conectado' => true // Conectado -> Enviar mensaje
+    ],
+    [
+        'id' => 5,
+        'nombre' => 'Laura Restrepo Silva',
+        'inicial' => 'L',
+        'carrera' => 'Bachillerato Académico con Honores',
+        'cargo' => 'Médica Interna - Univ. de Antioquia',
+        'ubicacion' => 'Medellín, Colombia',
+        'promocion' => '2022',
+        'habilidades' => ['Investigación', 'Salud Pública'],
+        'conectado' => false // No conectado -> Botón Conectar
+    ],
+    [
+        'id' => 6,
+        'nombre' => 'Alejandro Quintero',
+        'inicial' => 'A',
+        'carrera' => 'Técnico en Gestión Comercial',
+        'cargo' => 'Especialista Marketing en Cementos Argos',
+        'ubicacion' => 'Bogotá, Colombia',
+        'promocion' => '2021',
+        'habilidades' => ['Marketing B2B', 'Ventas'],
+        'conectado' => true // Conectado -> Enviar mensaje
+    ]
+];
 
-$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Santiago Emitola');
-$userRole = trim($user['rol'] ?? $user['role'] ?? $_SESSION['rol'] ?? 'Egresado');
-$userEmail = trim($user['email'] ?? 'santiago@ejemplo.com');
+// Si hay sesión autenticada o se solicita el panel privado:
+$seccion_activa = 'egresados';
+$titulo_seccion = 'Egresados';
+$titulo_pagina = 'Directorio de Egresados — ' . (defined('APP_NAME') ? APP_NAME : 'Raíces Alzate');
+require_once __DIR__ . '/pages/egresados-panel.php';
 
-// Obtener inicial para el avatar de forma segura y compatible con UTF-8
-$userInitial = !empty($userName) 
-    ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
-    : 'U';
-
-$pageTitle = 'Egresados | ' . (defined('APP_NAME') ? APP_NAME : 'Raíces Alzate');
-$topbarTitle = 'Egresados';
-$currentPage = 'egresados';
-
-// Carga de la vista privada del directorio de egresados
-require_once __DIR__ . '/pages/egresados.php';
-
-ob_end_flush();

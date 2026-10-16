@@ -17,13 +17,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Validación de sesión activa (con valores por defecto para previsualización en desarrollo)
-if (empty($_SESSION['user']) && empty($_SESSION['usuario'])) {
-    $_SESSION['user'] = [
-        'nombre' => 'Santiago Emitola',
-        'rol'    => 'Egresado Alzatista',
-        'email'  => 'santiago@ejemplo.com'
-    ];
+// Verificar si no hay sesión activa (tanto por $_SESSION['user'] como $_SESSION['usuario'])
+if (empty($_SESSION['user']) && empty($_SESSION['usuario']) && empty($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit;
 }
 
 // Extracción dinámica y segura de los datos de sesión del usuario

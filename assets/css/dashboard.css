@@ -27,7 +27,8 @@ body.sidebar-drawer-active {
     overflow: hidden;
 }
 
-.dashboard-layout {
+.dashboard-layout,
+.layout-wrapper {
     display: flex;
     min-height: 100vh;
     width: 100%;
@@ -233,18 +234,29 @@ body.sidebar-drawer-active {
     text-decoration: none;
 }
 
-/* Elemento activo en Sidebar: fondo #D32F2F y texto blanco */
+/* Elemento activo en Sidebar: fondo #D32F2F y texto/icono blanco */
 .nav-item.active,
 .sidebar-nav-link.active {
-    background-color: var(--color-primary, #D32F2F);
-    color: #FFFFFF;
+    background-color: var(--color-primary, #D32F2F) !important;
+    color: #FFFFFF !important;
     font-weight: 600;
+}
+
+.sidebar-nav-link.active .sidebar-nav-icon,
+.sidebar-nav-link.active .nav-icon,
+.sidebar-nav-link.active svg,
+.nav-item.active .sidebar-nav-icon,
+.nav-item.active .nav-icon,
+.nav-item.active svg {
+    color: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+    fill: none !important;
 }
 
 .nav-item.active:hover,
 .sidebar-nav-link.active:hover {
-    background-color: var(--color-primary-hover, #B71C1C);
-    color: #FFFFFF;
+    background-color: var(--color-primary-hover, #B71C1C) !important;
+    color: #FFFFFF !important;
 }
 
 /* 2.3 Pie de la Barra Lateral: Cerrar Sesión */
@@ -386,7 +398,8 @@ body.sidebar-drawer-active {
 /* ==========================================================================
    3. ÁREA PRINCIPAL Y BARRA SUPERIOR (TOPBAR)
    ========================================================================== */
-.dashboard-main-area {
+.dashboard-main-area,
+.main-wrapper {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;

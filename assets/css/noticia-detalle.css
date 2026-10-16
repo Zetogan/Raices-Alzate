@@ -1,0 +1,453 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Módulo Detalle de Noticia
+ * Especificación Figma: Detalle de noticia - Desktop (y adaptación Mobile 390px)
+ * Paleta Oficial:
+ *   - Primario Institucional: #D32F2F (Rojo Alzate)
+ *   - Acciones Secundarias / Outline: #1565C0 (Azul Institucional)
+ *   - Hover Secundario: rgba(21, 101, 192, 0.08) / #E3F2FD (NUNCA rojo)
+ *   - Títulos Principales: #212121
+ *   - Textos Secundarios: #757575
+ *   - Fondo de Contenedor: #FFFFFF (Tarjeta blanca)
+ *   - Fondo General: #F5F5F5
+ *   - Bordes y Separadores: #E0E0E0
+ *   - Portada Neutra: #D9D9D9
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. AISLAMIENTO Y AJUSTES DE ESTRUCTURA GLOBAL
+   ========================================================================== */
+body.detalle-noticia-page {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #212121;
+    overflow-x: hidden;
+}
+
+/* Ocultar encabezado y pie de página del portal público en la vista privada del panel */
+body.detalle-noticia-page .portal-header,
+body.detalle-noticia-page .site-header,
+body.detalle-noticia-page .main-navbar,
+body.detalle-noticia-page .site-footer,
+body.detalle-noticia-page .portal-footer,
+body.detalle-noticia-page footer.footer {
+    display: none !important;
+}
+
+/* Estructura del Layout y Main Wrapper unificados */
+.layout-wrapper,
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: #F5F5F5;
+}
+
+.main-wrapper,
+.dashboard-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #F5F5F5;
+}
+
+/* Contenedor principal de contenido (.content-area): fluye debajo de la Topbar de forma limpia */
+.content-area,
+.detalle-noticia-content-wrapper {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 32px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex: 1 0 auto;
+    background-color: #F5F5F5;
+}
+
+.detalle-noticia-container {
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. ENLACE DE RETORNO SUPERIOR ("← VOLVER A NOTICIAS")
+   ========================================================================== */
+.detalle-noticia-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1565C0;
+    text-decoration: none;
+    padding: 6px 12px;
+    margin-left: -12px;
+    border-radius: 6px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    cursor: pointer;
+    line-height: 1.4;
+    box-sizing: border-box;
+}
+
+.btn-back-link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-back-link:hover {
+    color: #0D47A1;
+    background-color: rgba(21, 101, 192, 0.08);
+    text-decoration: none;
+}
+
+.btn-back-link:hover svg {
+    transform: translateX(-3px);
+}
+
+.btn-back-link:active {
+    color: #002171;
+    background-color: rgba(21, 101, 192, 0.14);
+}
+
+.btn-back-link:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. TARJETA CONTENEDORA PRINCIPAL (BLANCA, BORDE #E0E0E0, RADIO 16px, PADDING 36px-40px)
+   ========================================================================== */
+.detalle-noticia-card,
+.news-card-container {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 36px 40px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    width: 100%;
+}
+
+/* ==========================================================================
+   4. ENCABEZADO DE LA NOTICIA (TÍTULO 22px 700 + FECHA 13px #757575)
+   ========================================================================== */
+.detalle-noticia-header,
+header.detalle-noticia-header {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+    z-index: auto !important;
+}
+
+.detalle-noticia-titulo {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+}
+
+.detalle-noticia-fecha {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #757575;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   4. PORTADA / BANNER PANORÁMICO (RADIO 10px, FONDO #D9D9D9, ALTURA 280-340px)
+   ========================================================================== */
+.detalle-noticia-banner {
+    width: 100%;
+    height: 320px;
+    min-height: 280px;
+    max-height: 340px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.detalle-noticia-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detalle-noticia-banner-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #9E9E9E;
+    user-select: none;
+}
+
+.detalle-noticia-banner-icon {
+    width: 48px;
+    height: 48px;
+    stroke: #9E9E9E;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   5. SECCIÓN DE CONTENIDO ("Sobre esta noticia" + Párrafo descriptivo)
+   ========================================================================== */
+.detalle-noticia-body {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 32px;
+}
+
+.detalle-noticia-subtitulo {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+}
+
+.detalle-noticia-parrafo {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #757575;
+    margin: 0 0 32px 0;
+    max-width: 800px;
+}
+
+/* ==========================================================================
+   6. FICHA DE DATOS (GRID DE 3 COLUMNAS SIMÉTRICAS)
+   ========================================================================== */
+.detalle-noticia-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #E0E0E0;
+    margin-bottom: 36px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.detalle-noticia-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detalle-noticia-meta-label {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: none;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.detalle-noticia-meta-valor {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #212121;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ==========================================================================
+   7. BOTÓN INFERIOR: "VOLVER A NOTICIAS" (OUTLINE AZUL #1565C0, HOVER AZUL TENUE)
+   ========================================================================== */
+.detalle-noticia-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-top: 8px;
+}
+
+.btn-volver-noticias {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #1565C0 !important;
+    border: 1px solid #1565C0 !important;
+    padding: 10px 22px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
+    line-height: 1.4 !important;
+}
+
+/* Regla estricta: en hover NUNCA debe ponerse rojo */
+.btn-volver-noticias:hover,
+.btn-volver-noticias:focus {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    background: rgba(21, 101, 192, 0.08) !important;
+    color: #1565C0 !important;
+    border-color: #1565C0 !important;
+    text-decoration: none !important;
+    box-shadow: 0 1px 4px rgba(21, 101, 192, 0.12) !important;
+    outline: none !important;
+}
+
+.btn-volver-noticias:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    background: rgba(21, 101, 192, 0.16) !important;
+    color: #0D47A1 !important;
+    border-color: #0D47A1 !important;
+}
+
+.btn-volver-noticias .btn-volver-icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.btn-volver-noticias:hover .btn-volver-icon {
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   8. ADAPTACIÓN RESPONSIVE (TABLET 768px Y MOBILE 390px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .content-area,
+    .detalle-noticia-content-wrapper {
+        padding: 20px 16px;
+    }
+
+    .detalle-noticia-card {
+        padding: 24px 20px;
+        border-radius: 14px;
+    }
+
+    .detalle-noticia-titulo {
+        font-size: 20px;
+    }
+
+    .detalle-noticia-banner {
+        height: 220px;
+        min-height: 200px;
+        margin-bottom: 22px;
+    }
+
+    .detalle-noticia-meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-bottom: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-area,
+    .detalle-noticia-content-wrapper {
+        padding: 16px 12px;
+    }
+
+    .detalle-noticia-card {
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .detalle-noticia-titulo {
+        font-size: 18px;
+        line-height: 1.35;
+    }
+
+    .detalle-noticia-fecha {
+        font-size: 12px;
+        margin-bottom: 18px;
+    }
+
+    .detalle-noticia-banner {
+        height: 190px;
+        min-height: 180px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .detalle-noticia-subtitulo {
+        font-size: 15px;
+    }
+
+    .detalle-noticia-parrafo {
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin-bottom: 24px;
+    }
+
+    .detalle-noticia-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding-top: 18px;
+        margin-bottom: 24px;
+    }
+
+    .detalle-noticia-actions {
+        width: 100%;
+    }
+
+    .btn-volver-noticias {
+        width: 100%;
+        text-align: center;
+        padding: 11px 18px !important;
+    }
+}

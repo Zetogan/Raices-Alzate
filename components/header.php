@@ -33,12 +33,15 @@ $currentPage = $currentPage ?? 'inicio';
                 <li class="nav-item">
                     <a href="noticias.php" class="nav-link <?php echo ($currentPage === 'noticias') ? 'active' : ''; ?>">Noticias</a>
                 </li>
+                <li class="nav-item">
+                    <a href="pqr.php" class="nav-link <?php echo ($currentPage === 'pqr') ? 'active' : ''; ?>">PQRS y Soporte</a>
+                </li>
             </ul>
 
-            <!-- Acciones trasladadas dentro del drawer para mobile -->
+            <!-- Acciones de autenticación dentro del drawer para mobile -->
             <div class="mobile-drawer-actions">
-                <a href="login.php" class="btn-login-drawer">Iniciar sesión</a>
-                <a href="registro.php" class="btn btn-primary btn-block">Registrarse</a>
+                <a href="login.php" class="btn-drawer-login">Iniciar sesión</a>
+                <a href="registro.php" class="btn btn-primary btn-drawer-register">Registrarse</a>
             </div>
         </nav>
 

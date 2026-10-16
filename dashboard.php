@@ -12,8 +12,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 1. Control estricto de acceso: Redirección inmediata si no hay sesión activa
-if (empty($_SESSION['user']) || !is_array($_SESSION['user'])) {
+// Verificar si no hay sesión activa (tanto por $_SESSION['user'] como $_SESSION['usuario'])
+if (empty($_SESSION['user']) && empty($_SESSION['usuario']) && empty($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit;
 }
@@ -22,8 +22,10 @@ if (empty($_SESSION['user']) || !is_array($_SESSION['user'])) {
 require_once __DIR__ . '/config/config.php';
 
 // 3. Extracción dinámica de datos del usuario autenticado (sin nombres fijos en duro)
-$user = $_SESSION['user'];
-$userName = trim($user['nombre'] ?? $user['name'] ?? 'Usuario');
+$user = !empty($_SESSION['user']) && is_array($_SESSION['user']) 
+    ? $_SESSION['user'] 
+    : (!empty($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : []);
+$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Usuario');
 $userRole = trim($user['rol'] ?? $user['role'] ?? 'Egresado');
 $userEmail = trim($user['email'] ?? '');
 

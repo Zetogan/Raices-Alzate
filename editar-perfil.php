@@ -16,6 +16,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Verificar si no hay sesión activa (tanto por $_SESSION['user'] como $_SESSION['usuario'])
+if (empty($_SESSION['user']) && empty($_SESSION['usuario']) && empty($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 // 1. Variables obligatorias para includes globales según directiva
 $seccion_activa = 'perfil';
 $titulo_seccion = 'Editar perfil';

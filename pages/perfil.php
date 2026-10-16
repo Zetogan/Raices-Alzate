@@ -639,7 +639,7 @@ $topbarTitle = 'Mi perfil';
                                     </span>
                                     <h2 class="profile-card-title">Mis proyectos en Raíces Alzate</h2>
                                 </div>
-                                <a href="proyectos.php" class="profile-card-action-btn" title="Ver catálogo completo de proyectos">
+                                <a href="proyectos.php?view=panel" class="profile-card-action-btn" title="Ver catálogo completo de proyectos">
                                     Ver todos &rarr;
                                 </a>
                             </header>
@@ -647,43 +647,63 @@ $topbarTitle = 'Mi perfil';
                                 <div class="profile-projects-grid">
                                     
                                     <!-- Proyecto 1 -->
-                                    <div class="profile-project-card">
-                                        <div>
+                                    <div class="profile-project-card" data-href="detalle-proyecto.php" role="link" tabindex="0" aria-label="Ver detalle del proyecto Semillero de Robótica Alzatista">
+                                        <div class="project-card-content">
                                             <div class="project-card-header">
                                                 <span class="project-tag project-tag-tech">Tecnología</span>
-                                                <span class="project-role-badge">Co-creador</span>
                                             </div>
-                                            <h3 class="project-card-title">Semillero de Robótica Alzatista</h3>
+                                            <h3 class="project-card-title">
+                                                <a href="detalle-proyecto.php" class="project-title-link">Semillero de Robótica Alzatista</a>
+                                            </h3>
                                             <p class="project-card-desc">
                                                 Iniciativa orientada a fomentar el pensamiento computacional y la robótica educativa en los grados 9°, 10° y 11°.
                                             </p>
                                         </div>
-                                        <a href="proyectos.php" class="project-card-link">
-                                            Consultar proyecto &rarr;
-                                        </a>
+                                        <div class="project-card-footer">
+                                            <a href="detalle-proyecto.php" class="project-card-link" onclick="event.stopPropagation();">
+                                                Consultar proyecto &rarr;
+                                            </a>
+                                            <a href="editar-proyecto.php" class="btn-editar-proyecto" title="Editar proyecto" onclick="event.stopPropagation();">
+                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                                <span>Editar</span>
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <!-- Proyecto 2 -->
-                                    <div class="profile-project-card">
-                                        <div>
+                                    <div class="profile-project-card" data-href="detalle-proyecto.php" role="link" tabindex="0" aria-label="Ver detalle del proyecto Red de Mentorías para Bachilleres">
+                                        <div class="project-card-content">
                                             <div class="project-card-header">
                                                 <span class="project-tag project-tag-community">Comunidad</span>
-                                                <span class="project-role-badge">Líder</span>
                                             </div>
-                                            <h3 class="project-card-title">Red de Mentorías para Bachilleres</h3>
+                                            <h3 class="project-card-title">
+                                                <a href="detalle-proyecto.php" class="project-title-link">Red de Mentorías para Bachilleres</a>
+                                            </h3>
                                             <p class="project-card-desc">
                                                 Programa de acompañamiento vocacional liderado por egresados profesionales para orientar a próximos graduandos.
                                             </p>
                                         </div>
-                                        <a href="proyectos.php" class="project-card-link">
-                                            Consultar proyecto &rarr;
-                                        </a>
+                                        <div class="project-card-footer">
+                                            <a href="detalle-proyecto.php" class="project-card-link" onclick="event.stopPropagation();">
+                                                Consultar proyecto &rarr;
+                                            </a>
+                                            <a href="editar-proyecto.php" class="btn-editar-proyecto" title="Editar proyecto" onclick="event.stopPropagation();">
+                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                                <span>Editar</span>
+                                            </a>
+                                        </div>
                                     </div>
 
                                 </div>
 
                                 <div class="profile-projects-footer">
-                                    <a href="proyectos.php" class="btn-publicar-proyecto btn-outline-secondary" id="btnPublicarNuevoProyecto">
+                                    <a href="crear-proyecto.php" class="btn-publicar-proyecto btn-outline-secondary" id="btnPublicarNuevoProyecto">
                                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
                                             <line x1="12" y1="5" x2="12" y2="19"></line>
                                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -950,6 +970,39 @@ $topbarTitle = 'Mi perfil';
                         : 'Tu perfil ahora está oculto en el directorio público.');
                 });
             }
+
+            // --- 6.1 INTERACTIVIDAD EN TARJETAS DE PROYECTOS ("Mis proyectos en Raíces Alzate") ---
+            document.addEventListener('click', (e) => {
+                const card = e.target.closest('.profile-project-card');
+                if (!card) return;
+
+                // Si el clic fue en el botón de edición o dentro de él, detener
+                if (e.target.closest('.btn-editar-proyecto') || e.target.closest('.btn-editar-card')) {
+                    return;
+                }
+
+                // Si el clic fue en el enlace explícito de consultar proyecto, permitir acción nativa
+                if (e.target.closest('.project-card-link')) {
+                    return;
+                }
+
+                // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle-proyecto.php
+                const href = card.getAttribute('data-href') || 'detalle-proyecto.php';
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+
+            // Accesibilidad mediante teclado en tarjetas (Enter para navegar a detalle)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const activeCard = document.activeElement;
+                    if (activeCard && activeCard.classList.contains('profile-project-card')) {
+                        const href = activeCard.getAttribute('data-href') || 'detalle-proyecto.php';
+                        window.location.href = href;
+                    }
+                }
+            });
 
             // --- 7. MODAL DE EDICIÓN DE PERFIL ---
             const modal = document.getElementById('modalEditarPerfil');
