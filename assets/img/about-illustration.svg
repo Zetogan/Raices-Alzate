@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 340" width="100%" height="100%" fill="none" role="img" aria-labelledby="aboutTitle aboutDesc">
+  <title id="aboutTitle">¿Qué es Raíces Alzate?</title>
+  <desc id="aboutDesc">Plataforma digital interactiva de la comunidad de egresados de la I.E. Gilberto Alzate Avendaño.</desc>
+
+  <defs>
+    <filter id="aboutShadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.07" />
+    </filter>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#9A0007" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1565C0" />
+      <stop offset="100%" stop-color="#003C8F" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F5F5F5" />
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo sutil con halo geométrico -->
+  <circle cx="290" cy="170" r="145" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1.2" stroke-dasharray="5 7" />
+  <circle cx="290" cy="170" r="110" fill="#FFFFFF" />
+
+  <!-- Sombra base elíptica -->
+  <ellipse cx="290" cy="315" rx="190" ry="12" fill="#212121" fill-opacity="0.05" />
+
+  <!-- Pantalla / Dispositivo Central: Plataforma Raíces Alzate -->
+  <g filter="url(#aboutShadow)">
+    <rect x="140" y="55" width="300" height="215" rx="16" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+    <!-- Barra superior de ventana -->
+    <path d="M 140 71 Q 140 55, 156 55 L 424 55 Q 440 55, 440 71 L 440 85 L 140 85 Z" fill="#F5F5F5" />
+    <!-- Botones de ventana mac/browser -->
+    <circle cx="160" cy="70" r="4" fill="#FF5252" />
+    <circle cx="172" cy="70" r="4" fill="#FFD740" />
+    <circle cx="184" cy="70" r="4" fill="#69F0AE" />
+    <rect x="220" y="64" width="140" height="12" rx="6" fill="#E0E0E0" />
+
+    <!-- Barra lateral y contenido de la plataforma -->
+    <rect x="152" y="95" width="55" height="160" rx="8" fill="#F5F5F5" />
+    <circle cx="179" cy="115" r="12" fill="url(#redGrad)" />
+    <!-- Silueta logo -->
+    <path d="M 175 117 L 179 108 L 183 117 Z" fill="#FFFFFF" />
+    <rect x="160" y="138" width="38" height="6" rx="3" fill="#D32F2F" />
+    <rect x="160" y="152" width="38" height="6" rx="3" fill="#E0E0E0" />
+    <rect x="160" y="166" width="38" height="6" rx="3" fill="#E0E0E0" />
+    <rect x="160" y="180" width="38" height="6" rx="3" fill="#E0E0E0" />
+
+    <!-- Dashboard Central -->
+    <rect x="220" y="98" width="205" height="42" rx="8" fill="#E3F2FD" stroke="#BBDEFB" stroke-width="1" />
+    <circle cx="238" cy="119" r="12" fill="url(#blueGrad)" />
+    <!-- Icono egresado -->
+    <circle cx="238" cy="116" r="4" fill="#FFFFFF" />
+    <path d="M 232 125 C 232 121, 244 121, 244 125" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" fill="none" />
+    <rect x="258" y="110" width="90" height="8" rx="4" fill="#1565C0" />
+    <rect x="258" y="122" width="60" height="6" rx="3" fill="#90CAF9" />
+
+    <!-- Grid de tarjetas internas (Proyectos y Comunidad) -->
+    <rect x="220" y="150" width="98" height="95" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <rect x="228" y="158" width="82" height="40" rx="6" fill="#FFEBEE" />
+    <circle cx="269" cy="178" r="10" fill="#D32F2F" />
+    <path d="M 264 178 L 268 182 L 274 174" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <rect x="228" y="206" width="65" height="6" rx="3" fill="#212121" />
+    <rect x="228" y="218" width="45" height="5" rx="2.5" fill="#757575" />
+
+    <rect x="327" y="150" width="98" height="95" rx="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" />
+    <rect x="335" y="158" width="82" height="40" rx="6" fill="#E8F5E9" />
+    <circle cx="376" cy="178" r="10" fill="#2E7D32" />
+    <path d="M 376 172 V 184 M 370 178 H 382" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" fill="none" />
+    <rect x="335" y="206" width="65" height="6" rx="3" fill="#212121" />
+    <rect x="335" y="218" width="45" height="5" rx="2.5" fill="#757575" />
+  </g>
+
+  <!-- Burbuja Flotante de Conexión (Izquierda) -->
+  <g transform="translate(60, 110)" filter="url(#aboutShadow)">
+    <circle cx="35" cy="35" r="30" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.2" />
+    <circle cx="35" cy="35" r="22" fill="#FFEBEE" />
+    <path d="M 28 32 C 28 27, 42 27, 42 32 C 42 36, 36 38, 35 41" stroke="#D32F2F" stroke-width="2" stroke-linecap="round" fill="none" />
+    <circle cx="35" cy="45" r="1.5" fill="#D32F2F" />
+  </g>
+
+  <!-- Burbuja Flotante de Crecimiento (Derecha) -->
+  <g transform="translate(455, 140)" filter="url(#aboutShadow)">
+    <circle cx="35" cy="35" r="30" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.2" />
+    <circle cx="35" cy="35" r="22" fill="#E3F2FD" />
+    <path d="M 27 42 L 35 26 L 43 42 Z" fill="#1565C0" />
+    <circle cx="35" cy="30" r="2.5" fill="#FFFFFF" />
+  </g>
+</svg>

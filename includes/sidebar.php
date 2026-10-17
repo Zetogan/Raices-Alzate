@@ -13,15 +13,16 @@ if (!defined('APP_NAME')) {
     exit('Acceso directo no permitido.');
 }
 
-$currentPage = $currentPage ?? 'dashboard';
-$userRole = $userRole ?? 'Egresado';
-$isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) === 'admin');
+require_once __DIR__ . '/auth.php';
+
+$seccion_activa = $seccion_activa ?? $currentPage ?? '';
+$isAdmin = function_exists('hasRole') ? hasRole('administrador') : (strtolower($userRole ?? '') === 'administrador');
 ?>
 <aside class="dashboard-sidebar" id="dashboardSidebar" aria-label="Menú principal del panel">
     <!-- 1. Cabecera del Sidebar: Marca Institucional y Botón Toggle -->
     <div class="sidebar-header">
         <div class="sidebar-brand">
-            <a href="dashboard.php" class="sidebar-brand-link" aria-label="<?php echo htmlspecialchars(APP_NAME); ?>" title="<?php echo htmlspecialchars(APP_NAME); ?>">
+            <a href="index.php?page=dashboard" class="sidebar-brand-link" aria-label="<?php echo htmlspecialchars(APP_NAME); ?>" title="<?php echo htmlspecialchars(APP_NAME); ?>">
                 <img src="assets/icons/logo sin fondo raices alzate.ico" alt="Logo Raíces Alzate" class="sidebar-brand-logo" width="32" height="32">
                 <div class="sidebar-brand-text">
                     <span class="brand-title sidebar-brand-title"><?php echo htmlspecialchars(APP_NAME); ?></span>
@@ -40,9 +41,9 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
     <!-- 2. Navegación del Sidebar -->
     <nav class="sidebar-nav" aria-label="Navegación del panel">
         <ul class="sidebar-menu sidebar-nav-list">
-            <!-- Dashboard (Elemento Activo por defecto) -->
+            <!-- Dashboard -->
             <li class="sidebar-nav-item">
-                <a href="dashboard.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'dashboard') ? 'active' : ''; ?>" title="Dashboard" aria-current="<?php echo ($currentPage === 'dashboard') ? 'page' : 'false'; ?>">
+                <a href="index.php?page=dashboard" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'dashboard') ? 'active' : ''; ?>" title="Dashboard" aria-current="<?php echo (($seccion_activa ?? '') === 'dashboard') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="3" y="3" width="7" height="7"></rect>
                         <rect x="14" y="3" width="7" height="7"></rect>
@@ -55,7 +56,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Perfil -->
             <li class="sidebar-nav-item">
-                <a href="perfil.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'perfil') ? 'active' : ''; ?>" title="Perfil">
+                <a href="index.php?page=perfil" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'perfil') ? 'active' : ''; ?>" title="Perfil" aria-current="<?php echo (($seccion_activa ?? '') === 'perfil') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
@@ -66,7 +67,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Egresados -->
             <li class="sidebar-nav-item">
-                <a href="egresados.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'egresados') ? 'active' : ''; ?>" title="Egresados">
+                <a href="index.php?page=egresados&view=panel" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'egresados') ? 'active' : ''; ?>" title="Egresados" aria-current="<?php echo (($seccion_activa ?? '') === 'egresados') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
@@ -79,7 +80,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Proyectos -->
             <li class="sidebar-nav-item">
-                <a href="proyectos.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'proyectos') ? 'active' : ''; ?>" title="Proyectos">
+                <a href="index.php?page=proyectos&view=panel" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'proyectos') ? 'active' : ''; ?>" title="Proyectos" aria-current="<?php echo (($seccion_activa ?? '') === 'proyectos') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -88,9 +89,20 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
                 </a>
             </li>
 
+            <!-- Oportunidades -->
+            <li class="sidebar-nav-item">
+                <a href="index.php?page=oportunidades" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'oportunidades') ? 'active' : ''; ?>" title="Oportunidades" aria-current="<?php echo (($seccion_activa ?? '') === 'oportunidades') ? 'page' : 'false'; ?>">
+                    <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span class="nav-label sidebar-nav-label">Oportunidades</span>
+                </a>
+            </li>
+
             <!-- Noticias -->
             <li class="sidebar-nav-item">
-                <a href="noticias.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'noticias') ? 'active' : ''; ?>" title="Noticias">
+                <a href="index.php?page=noticias&view=panel" class="nav-item sidebar-nav-link <?php echo (($seccion_activa ?? '') === 'noticias') ? 'active' : ''; ?>" title="Noticias" aria-current="<?php echo (($seccion_activa ?? '') === 'noticias') ? 'page' : 'false'; ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"></path>
                     </svg>
@@ -98,13 +110,25 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
                 </a>
             </li>
 
-            <!-- Administración (Opcional según rol) -->
-            <?php if ($isAdmin): ?>
+            <!-- Mensajes -->
             <li class="sidebar-nav-item">
-                <a href="admin.php" class="nav-item sidebar-nav-link <?php echo ($currentPage === 'admin') ? 'active' : ''; ?>" title="Administración">
+                <a href="index.php?page=mensajes" class="nav-item sidebar-nav-link <?= (($seccion_activa ?? '') === 'mensajes') ? 'active' : '' ?>" title="Mensajes" aria-current="<?= (($seccion_activa ?? '') === 'mensajes') ? 'page' : 'false' ?>">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="nav-label sidebar-nav-label">Mensajes</span>
+                </a>
+            </li>
+
+            <?php if ($isAdmin): ?>
+            <!-- Administración -->
+            <li class="sidebar-nav-item">
+                <a href="index.php?page=administracion" class="nav-item sidebar-nav-link <?= in_array(($seccion_activa ?? ''), ['administracion', 'admin']) ? 'active' : '' ?>" title="Administración" aria-current="<?= in_array(($seccion_activa ?? ''), ['administracion', 'admin']) ? 'page' : 'false' ?>">
+                    <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
                     </svg>
                     <span class="nav-label sidebar-nav-label">Administración</span>
                 </a>
@@ -113,7 +137,7 @@ $isAdmin = (strtolower($userRole) === 'administrador' || strtolower($userRole) =
 
             <!-- Cerrar sesión -->
             <li class="sidebar-nav-item sidebar-footer-item">
-                <a href="logout.php" class="nav-item nav-logout sidebar-logout-link" id="btnLogout" title="Cerrar sesión" aria-label="Cerrar sesión">
+                <a href="index.php?page=logout" class="nav-item nav-logout sidebar-logout-link" id="btnLogout" title="Cerrar sesión" aria-label="Cerrar sesión">
                     <svg class="nav-icon sidebar-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>

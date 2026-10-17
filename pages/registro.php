@@ -1,22 +1,33 @@
 <?php
 /**
- * Vista: Pantalla de Registro de Usuarios
- * Especificación Figma: 02 - Registro / Crear cuenta (Desktop / Mobile)
- * Plataforma: Raíces Alzate - IE Gilberto Alzate Avendaño
- * Versión: 0.1.1
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Pantalla: Registro de Usuarios
+ * Versión: 0.2.1
  */
-
-if (!defined('APP_NAME')) {
-    exit('Acceso directo no permitido.');
-}
 
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/csrf.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+// Redirección si ya cuenta con sesión activa
+if (isAuthenticated()) {
+    header('Location: ' . url('index.php?page=dashboard'));
+    exit;
+}
+
+$pageTitle = 'Crear una cuenta | ' . APP_NAME;
+$currentPage = 'registro';
+
 $serverError = $_SESSION['auth_error'] ?? null;
 $serverNotice = $_SESSION['auth_notice'] ?? null;
 unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
+
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <main class="auth-page">
     <div class="auth-card">
@@ -30,6 +41,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
         <!-- 2. Bloque de Formulario -->
         <section class="auth-content">
             <form action="auth/registro-process.php" method="POST" class="auth-form" id="registroForm" novalidate>
+                <?php if (function_exists('csrfField')): echo csrfField(); endif; ?>
                 <!-- Alerta de feedback del servidor si existe -->
                 <div class="alert <?php echo $serverError ? 'alert-error' : ($serverNotice ? 'alert-success' : 'alert-error'); ?>" id="formFeedback" role="alert" aria-live="polite" style="<?php echo ($serverError || $serverNotice) ? 'display: flex;' : 'display: none;'; ?>">
                     <span class="alert-icon" id="formFeedbackIcon" aria-hidden="true">
@@ -74,7 +86,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
                     <span class="field-error-message" id="error_email" role="alert" aria-live="polite"></span>
                 </div>
 
-                <!-- Campo 3: Selector de Rol (Tipo de usuario) -->
+                <!-- Campo 3: Selector de Rol (Tipo de usuario: Estudiante / Egresado) -->
                 <div class="form-group">
                     <span class="form-label" id="label_tipo_usuario">Tipo de usuario</span>
                     <div class="radio-group" role="radiogroup" aria-labelledby="label_tipo_usuario">
@@ -148,8 +160,11 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
         <!-- 3. Pie de Tarjeta -->
         <footer class="auth-footer">
             <p class="auth-footer-text">
-                ¿Ya tienes una cuenta? <a href="login.php" class="auth-link-secondary auth-link-bold">Iniciar sesión</a>
+                ¿Ya tienes una cuenta? <a href="index.php?page=login" class="auth-link-secondary auth-link-bold">Iniciar sesión</a>
             </p>
         </footer>
     </div>
 </main>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+?>

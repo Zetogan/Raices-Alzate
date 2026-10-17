@@ -194,12 +194,16 @@ img {
 }
 
 /* Botón "Conocer más" (Hero CTA) — Conserva dimensiones y restaura font-size previo */
-.btn-primary,
 .hero-cta-btn {
     width: 123px;
     height: 40px;
     border-radius: 8px;
     font-size: 15px; /* Restaurado a su proporción visual previa */
+    background-color: #D32F2F;
+    color: #FFFFFF !important;
+}
+
+.btn-primary {
     background-color: #D32F2F;
     color: #FFFFFF !important;
 }
@@ -242,7 +246,7 @@ img {
    ESTADOS HOVER Y FOCUS (Feedback interactivo restaurado)
    ========================================================================== */
 
-.btn:hover,
+.btn:not(.btn-outline-secondary):hover,
 .btn-primary:hover,
 .hero-cta-btn:hover,
 .btn-sm:hover,
@@ -252,7 +256,7 @@ img {
     text-decoration: none !important;
 }
 
-.btn:active,
+.btn:not(.btn-outline-secondary):active,
 .btn-primary:active,
 .btn-sm:active,
 .header-register-btn:active {
@@ -552,3 +556,118 @@ img {
         gap: var(--space-16);
     }
 }
+
+/* ==========================================================================
+   9. SECCIÓN Y BANNER DE ATENCIÓN AL CIUDADANO Y PQRS
+   ========================================================================== */
+.soporte-section {
+    background-color: var(--color-bg-light, #F5F5F5);
+    padding: 0 0 64px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.soporte-banner-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border, #E0E0E0);
+    border-radius: 16px;
+    padding: 36px 44px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    box-sizing: border-box;
+}
+
+.soporte-text-content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.soporte-badge {
+    background-color: #EBF3FA;
+    color: #1565C0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.soporte-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.soporte-desc {
+    color: #757575;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 680px;
+}
+
+.soporte-action {
+    flex-shrink: 0;
+}
+
+.btn-pqrs-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    height: 44px !important;
+    padding: 0 26px !important;
+    border-radius: 8px !important;
+    background-color: #D32F2F !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid #D32F2F !important;
+    font-family: inherit !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    min-width: max-content !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 14px rgba(211, 47, 47, 0.22) !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease !important;
+}
+
+.btn-pqrs-cta:hover {
+    background-color: #B71C1C !important;
+    border-color: #B71C1C !important;
+    color: #FFFFFF !important;
+    transform: translateY(-1px) !important;
+}
+
+.btn-pqrs-cta:active {
+    transform: translateY(0) !important;
+}
+
+@media (max-width: 900px) {
+    .soporte-banner-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 24px;
+        gap: 20px;
+    }
+
+    .soporte-action {
+        width: 100%;
+    }
+
+    .btn-pqrs-cta {
+        width: 100% !important;
+    }
+}
+

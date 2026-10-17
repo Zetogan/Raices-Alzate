@@ -1,0 +1,346 @@
+/**
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Módulo de Egresados (pages/egresados.php)
+ * Lógica Vanilla JS: Navegación, Filtros en tiempo real, Conexiones y Modal de Detalle
+ * Versión: 0.1.1
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // =========================================================================
+    // 1. LÓGICA DE SIDEBAR COLAPSABLE (ESCRITORIO)
+    // =========================================================================
+    const sidebar = document.getElementById('dashboardSidebar');
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const menuToggle = document.getElementById('dashboardMenuToggle');
+    const backdrop = document.getElementById('sidebarBackdrop');
+
+    if (sidebarToggleBtn && sidebar) {
+        const updateToggleState = (isCollapsed) => {
+            sidebarToggleBtn.setAttribute('aria-label', isCollapsed ? 'Expandir barra lateral' : 'Contraer barra lateral');
+            sidebarToggleBtn.setAttribute('title', isCollapsed ? 'Expandir menú' : 'Contraer menú');
+        };
+
+        try {
+            const savedCollapsed = localStorage.getItem('sidebar_collapsed') === 'true';
+            if (savedCollapsed && window.innerWidth > 768) {
+                sidebar.classList.add('is-collapsed', 'collapsed');
+                document.documentElement.classList.add('sidebar-is-collapsed');
+                updateToggleState(true);
+            }
+        } catch (err) {}
+
+        sidebarToggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isCurrentlyCollapsed = sidebar.classList.contains('is-collapsed');
+            const nextCollapsed = !isCurrentlyCollapsed;
+
+            sidebar.classList.toggle('is-collapsed', nextCollapsed);
+            sidebar.classList.toggle('collapsed', nextCollapsed);
+            document.documentElement.classList.toggle('sidebar-is-collapsed', nextCollapsed);
+
+            try {
+                localStorage.setItem('sidebar_collapsed', nextCollapsed ? 'true' : 'false');
+            } catch (err) {}
+
+            updateToggleState(nextCollapsed);
+        });
+    }
+
+    // =========================================================================
+    // 2. LÓGICA DE MENÚ DRAWER (MÓVIL <= 768px)
+    // =========================================================================
+    if (menuToggle && sidebar && backdrop) {
+        const toggleMobileSidebar = (open) => {
+            const isOpen = open !== undefined ? open : !sidebar.classList.contains('is-open');
+            sidebar.classList.toggle('is-open', isOpen);
+            backdrop.classList.toggle('is-visible', isOpen);
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            document.body.classList.toggle('sidebar-drawer-active', isOpen);
+        };
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileSidebar();
+        });
+
+        backdrop.addEventListener('click', () => {
+            toggleMobileSidebar(false);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                toggleMobileSidebar(false);
+                menuToggle.focus();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                toggleMobileSidebar(false);
+            }
+        });
+    }
+
+    // =========================================================================
+    // 3. TOAST NOTIFICATION HELPER
+    // =========================================================================
+    const toast = document.getElementById('toastNotificacionEgresados');
+    const toastMsg = document.getElementById('toastMensajeEgresados');
+    let toastTimer = null;
+
+    const mostrarToast = (mensaje) => {
+        if (!toast || !toastMsg) return;
+        toastMsg.textContent = mensaje;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3500);
+    };
+
+    // =========================================================================
+    // 4. BÚSQUEDA Y FILTRADO EN TIEMPO REAL
+    // =========================================================================
+    const searchInput = document.getElementById('inputBuscarEgresado');
+    const selectPromo = document.getElementById('selectPromocion');
+    const selectEnfasis = document.getElementById('selectEnfasis');
+    const selectCiudad = document.getElementById('selectCiudad');
+    const btnReset = document.getElementById('btnResetFiltros');
+    const btnResetVacios = document.getElementById('btnRestablecerVacios');
+    const cards = Array.from(document.querySelectorAll('.egresado-card'));
+    const counterEl = document.getElementById('contadorResultados');
+    const emptyState = document.getElementById('emptyStateEgresados');
+    const chipsContainer = document.getElementById('contenedorChipsFiltros');
+    const tabBtns = document.querySelectorAll('.egresados-tab-btn');
+
+    let currentCategory = 'todos';
+
+    const aplicarFiltros = () => {
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const promoVal = selectPromo ? selectPromo.value : '';
+        const enfasisVal = selectEnfasis ? selectEnfasis.value : '';
+        const ciudadVal = selectCiudad ? selectCiudad.value : '';
+
+        let visibles = 0;
+
+        cards.forEach(card => {
+            const name = card.getAttribute('data-name')?.toLowerCase() || '';
+            const promo = card.getAttribute('data-promo') || '';
+            const enfasis = card.getAttribute('data-enfasis') || '';
+            const ciudad = card.getAttribute('data-ciudad') || '';
+            const cargo = card.getAttribute('data-cargo')?.toLowerCase() || '';
+            const empresa = card.getAttribute('data-empresa')?.toLowerCase() || '';
+            const destacado = card.getAttribute('data-destacado') === 'true';
+            const isConnected = card.getAttribute('data-conectado') === 'true' || card.querySelector('.btn-card-connect')?.classList.contains('connected') || !!card.querySelector('.btn-card-message');
+
+            // 1. Filtro de Categoría rápida (Tabs)
+            let matchCategory = true;
+            if (currentCategory === 'mi_promocion') {
+                const activeTab = document.querySelector('.egresados-tab-btn[data-category="mi_promocion"]');
+                const targetPromo = activeTab ? activeTab.getAttribute('data-promo') : '';
+                matchCategory = (promo === targetPromo);
+            } else if (currentCategory === 'destacados') {
+                matchCategory = destacado;
+            } else if (currentCategory === 'conectados') {
+                matchCategory = isConnected;
+            }
+
+            // 2. Filtro de Texto
+            let matchText = true;
+            if (query) {
+                matchText = name.includes(query) || cargo.includes(query) || empresa.includes(query) || card.textContent.toLowerCase().includes(query);
+            }
+
+            // 3. Filtros Dropdowns
+            let matchPromo = !promoVal || (promo === promoVal);
+            let matchEnfasis = !enfasisVal || (enfasis === enfasisVal);
+            let matchCiudad = !ciudadVal || (ciudad === ciudadVal);
+
+            if (matchCategory && matchText && matchPromo && matchEnfasis && matchCiudad) {
+                card.style.display = 'flex';
+                visibles++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Actualizar contador
+        if (counterEl) counterEl.textContent = visibles;
+
+        // Estado vacío
+        if (emptyState) {
+            if (visibles === 0) {
+                emptyState.classList.add('is-visible');
+            } else {
+                emptyState.classList.remove('is-visible');
+            }
+        }
+
+        // Renderizar chips activos
+        actualizarChips(query, promoVal, enfasisVal, ciudadVal);
+    };
+
+    const actualizarChips = (query, promo, enfasis, ciudad) => {
+        if (!chipsContainer) return;
+        chipsContainer.innerHTML = '';
+
+        if (query) {
+            crearChip(`Búsqueda: "${query}"`, () => {
+                if (searchInput) searchInput.value = '';
+                aplicarFiltros();
+            });
+        }
+        if (promo) {
+            crearChip(`Promoción ${promo}`, () => {
+                if (selectPromo) selectPromo.value = '';
+                aplicarFiltros();
+            });
+        }
+        if (enfasis && selectEnfasis) {
+            const texto = selectEnfasis.options[selectEnfasis.selectedIndex].text;
+            crearChip(texto, () => {
+                selectEnfasis.value = '';
+                aplicarFiltros();
+            });
+        }
+        if (ciudad && selectCiudad) {
+            const texto = selectCiudad.options[selectCiudad.selectedIndex].text;
+            crearChip(texto, () => {
+                selectCiudad.value = '';
+                aplicarFiltros();
+            });
+        }
+    };
+
+    const crearChip = (texto, onRemove) => {
+        const chip = document.createElement('span');
+        chip.className = 'filter-chip';
+        chip.innerHTML = `${texto} <button type="button" class="filter-chip-remove" aria-label="Eliminar filtro">&times;</button>`;
+        chip.querySelector('.filter-chip-remove').addEventListener('click', onRemove);
+        chipsContainer.appendChild(chip);
+    };
+
+    const resetearFiltros = () => {
+        if (searchInput) searchInput.value = '';
+        if (selectPromo) selectPromo.value = '';
+        if (selectEnfasis) selectEnfasis.value = '';
+        if (selectCiudad) selectCiudad.value = '';
+        currentCategory = 'todos';
+        tabBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-category') === 'todos');
+        });
+        aplicarFiltros();
+        mostrarToast('Filtros restablecidos.');
+    };
+
+    if (searchInput) searchInput.addEventListener('input', aplicarFiltros);
+    if (selectPromo) selectPromo.addEventListener('change', aplicarFiltros);
+    if (selectEnfasis) selectEnfasis.addEventListener('change', aplicarFiltros);
+    if (selectCiudad) selectCiudad.addEventListener('change', aplicarFiltros);
+    if (btnReset) btnReset.addEventListener('click', resetearFiltros);
+    if (btnResetVacios) btnResetVacios.addEventListener('click', resetearFiltros);
+
+    // Tabs rápidas
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.getAttribute('data-category');
+            aplicarFiltros();
+        });
+    });
+
+    // =========================================================================
+    // 5. FUNCIÓN Y MANEJADOR GLOBAL CONECTAR EGRESADO (CONECTADO A MYSQL)
+    // =========================================================================
+    window.conectarEgresado = async function (btn, targetId) {
+        if (!btn || btn.disabled) return;
+        const card = btn.closest('.egresado-card');
+        const egresadoName = card?.getAttribute('data-name') || btn.getAttribute('data-name') || 'el egresado';
+        const id = targetId || btn.getAttribute('data-id') || card?.getAttribute('data-id');
+        const csrfToken = document.getElementById('csrfTokenEgresados')?.value || '';
+
+        if (!id) {
+            mostrarToast('ID de egresado no disponible.');
+            return;
+        }
+
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span>Enviando...</span>`;
+
+        try {
+            const formData = new URLSearchParams();
+            formData.append('target_id', id);
+            formData.append('csrf_token', csrfToken);
+
+            const resp = await fetch('api/conectar-egresado.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: formData.toString()
+            });
+
+            const data = await resp.json();
+
+            if (!resp.ok || !data.success) {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                mostrarToast(data.error || 'Error al conectar con el egresado.');
+                return;
+            }
+
+            if (data.estado === 'pendiente') {
+                btn.className = 'btn-card-action btn-card-pending';
+                btn.disabled = true;
+                btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Solicitud enviada</span>`;
+                mostrarToast(data.mensaje || `¡Solicitud de conexión enviada a ${egresadoName}!`);
+            } else if (data.estado === 'aceptada') {
+                btn.outerHTML = `<a href="index.php?page=mensajes" class="btn-card-action btn-card-message" title="Enviar mensaje">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Enviar mensaje</span>
+                </a>`;
+                if (card) {
+                    card.setAttribute('data-conectado', 'true');
+                }
+                mostrarToast(data.mensaje || `¡Ahora estás conectado con ${egresadoName}!`);
+            }
+
+            const badgeConectados = document.getElementById('badgeConectados');
+            if (badgeConectados) {
+                const totalConectados = document.querySelectorAll('.egresado-card[data-conectado="true"], .egresado-card .btn-card-message').length;
+                badgeConectados.textContent = totalConectados;
+            }
+
+            if (currentCategory === 'conectados') {
+                aplicarFiltros();
+            }
+
+        } catch (err) {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+            mostrarToast('Error de red al procesar la solicitud.');
+        }
+    };
+
+    // Sincronización inicial del badge de conectados en la pestaña
+    const badgeConectadosEl = document.getElementById('badgeConectados');
+    if (badgeConectadosEl) {
+        const totalInitConectados = document.querySelectorAll('.egresado-card[data-conectado="true"], .egresado-card .btn-card-message').length;
+        if (totalInitConectados > 0) {
+            badgeConectadosEl.textContent = totalInitConectados;
+        }
+    }
+});
+

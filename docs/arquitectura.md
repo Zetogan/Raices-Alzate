@@ -410,7 +410,6 @@ Entre los archivos identificados se encuentran:
 * `recuperar-contrasena.php`
 * `dashboard.php`
 * `logout.php`
-* `dev-login.php`
 
 La lista corresponde a los archivos mencionados en los informes de implementación y debe mantenerse alineada con el repositorio.
 
@@ -429,21 +428,19 @@ La lista corresponde a los archivos mencionados en los informes de implementaci�
 
 `dashboard.php` corresponde a la entrada de la interfaz autenticada del Dashboard.
 
-Los informes indican que verifica la presencia de `$_SESSION['user']` para controlar el acceso.
+Los informes indican que verifica la presencia de sesión activa autenticada para controlar el acceso.
 
-Esta protección debe mantenerse en el servidor. La disponibilidad de una sesión simulada para pruebas locales no debe interpretarse como autenticación real.
+Esta protección se mantiene estrictamente en el servidor validando la identidad contra la base de datos MySQL con contraseñas hasheadas.
 
 ### Cierre de sesión
 
-`logout.php` está destinado a gestionar el cierre de sesión.
+`logout.php` está destinado a gestionar el cierre de sesión seguro.
 
-La implementación reportada contempla la limpieza de la sesión, la destrucción de sus datos y la redirección al inicio de sesión. Estos comportamientos deben verificarse en el código vigente.
+La implementación contempla la limpieza de la sesión, la destrucción de sus datos, la invalidación de cookies y la redirección al inicio de sesión.
 
-### Acceso local de pruebas
+### Autenticación segura y eliminación de sesiones simuladas
 
-`dev-login.php` es una utilidad local reportada para crear una sesión simulada y facilitar la revisión visual del Dashboard sin depender todavía de la autenticación conectada a MySQL.
-
-Este recurso debe utilizarse exclusivamente en el entorno de desarrollo y no debe permitir eludir la autenticación en una instalación de producción.
+El archivo auxiliar `dev-login.php` fue completamente eliminado del proyecto para garantizar la máxima seguridad de la base de datos. Ningún usuario puede eludir los mecanismos formales de autenticación: el acceso requiere credenciales verificadas contra la base de datos MySQL mediante `password_verify()` y tokens CSRF.
 
 ### Rutas de recuperación de contraseña
 
@@ -941,7 +938,6 @@ raices-alzate/
 ├── recuperar-contrasena.php
 ├── dashboard.php
 ├── logout.php
-├── dev-login.php
 ├── .gitignore
 └── README.md
 ```
@@ -953,26 +949,23 @@ Los archivos concretos deben mantenerse alineados con el repositorio vigente. Cu
 | Directorio o archivo | Responsabilidad                                                              |
 | -------------------- | ---------------------------------------------------------------------------- |
 | `.github/`           | Configuraciones y recursos relacionados con GitHub.                          |
-| `admin/`             | Espacio previsto para funcionalidades administrativas.                       |
-| `usuario/`           | Espacio previsto para funcionalidades de usuario.                            |
-| `assets/css/`        | Hojas de estilos.                                                            |
-| `assets/js/`         | Scripts JavaScript.                                                          |
+| `api/`               | Endpoints REST JSON seguros para mensajería y red de egresados.              |
+| `assets/css/`        | Hojas de estilos y fuentes locales.                                          |
+| `assets/js/`         | Scripts JavaScript modulares.                                                |
 | `assets/img/`        | Recursos gráficos.                                                           |
 | `assets/icons/`      | Iconos y recursos gráficos pequeños.                                         |
-| `assets/fonts/`      | Recursos tipográficos locales.                                               |
+| `assets/fonts/`      | Recursos tipográficos locales (Inter).                                        |
 | `assets/videos/`     | Recursos audiovisuales.                                                      |
-| `auth/`              | Procesamiento de operaciones relacionadas con autenticación.                 |
-| `components/`        | Componentes reutilizables; pendiente consolidar su relación con `includes/`. |
-| `config/`            | Configuración de la aplicación y sus servicios.                              |
-| `database/`          | Recursos relacionados con la base de datos.                                  |
+| `auth/`              | Procesamiento backend de autenticación, registro y recuperación segura.       |
+| `components/`        | Componentes visuales reutilizables (header, footer).                         |
+| `config/`            | Configuración de la aplicación, constantes y singleton PDO.                   |
+| `database/`          | Esquema DDL con 11 tablas relacionales y script de migración/setup.          |
 | `docs/`              | Documentación técnica y seguimiento del proyecto.                            |
-| `includes/`          | Componentes PHP compartidos.                                                 |
-| `pages/`             | Vistas de las interfaces.                                                    |
+| `includes/`          | Helpers comunes, layout compartido, auth y CSRF.                             |
+| `pages/`             | Vistas de las interfaces dentro del Front Controller.                        |
 | `uploads/`           | Espacio destinado a archivos cargados, sujeto a controles de seguridad.      |
-| `index.php`          | Punto de entrada y enrutamiento de las rutas que gestiona.                   |
-| `dashboard.php`      | Entrada al Dashboard autenticado.                                            |
-| `logout.php`         | Controlador de cierre de sesión.                                             |
-| `dev-login.php`      | Utilidad local reportada para pruebas de sesión.                             |
+| `index.php`          | Front Controller único en la raíz para todo el enrutamiento.                 |
+| `README.md`          | Documentación principal del repositorio en la raíz.                          |
 
 ## 8.2. Criterios de organización
 

@@ -1,20 +1,33 @@
 <?php
 /**
- * Vista: Pantalla de Autenticación / Inicio de Sesión
- * Especificación Figma: 02 - Autenticación (Desktop / Mobile)
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Pantalla: Inicio de Sesión / Autenticación
+ * Versión: 0.2.1
  */
-
-if (!defined('APP_NAME')) {
-    exit('Acceso directo no permitido.');
-}
 
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/csrf.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+// Redirección si ya cuenta con sesión activa
+if (isAuthenticated()) {
+    header('Location: ' . url('index.php?page=dashboard'));
+    exit;
+}
+
+$pageTitle = 'Iniciar sesión | ' . APP_NAME;
+$currentPage = 'login';
+
 $serverError = $_SESSION['auth_error'] ?? null;
 $serverNotice = $_SESSION['auth_notice'] ?? null;
 unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
+
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <main class="auth-page">
     <div class="auth-card">
@@ -29,6 +42,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
             <h2 class="auth-section-title">Iniciar sesión</h2>
 
             <form action="auth/login-process.php" method="POST" class="auth-form" id="loginForm" novalidate>
+                <?php if (function_exists('csrfField')): echo csrfField(); endif; ?>
                 <div class="alert <?php echo $serverError ? 'alert-error' : ($serverNotice ? 'alert-success' : 'alert-error'); ?>" id="formFeedback" role="alert" aria-live="polite" style="<?php echo ($serverError || $serverNotice) ? 'display: flex;' : 'display: none;'; ?>">
                     <span class="alert-icon" id="formFeedbackIcon" aria-hidden="true">
                         <?php if ($serverNotice): ?>
@@ -67,7 +81,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
                 </div>
 
                 <div class="auth-actions-recovery">
-                    <a href="recuperar-password.php" class="auth-link-secondary">¿Olvidaste tu contraseña?</a>
+                    <a href="index.php?page=recuperar-password" class="auth-link-secondary">¿Olvidaste tu contraseña?</a>
                 </div>
 
                 <div class="form-submit">
@@ -81,8 +95,11 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
         <!-- Pie de Tarjeta -->
         <footer class="auth-footer">
             <p class="auth-footer-text">
-                ¿No tienes una cuenta? <a href="registro.php" class="auth-link-secondary auth-link-bold">Registrarse</a>
+                ¿No tienes una cuenta? <a href="index.php?page=registro" class="auth-link-secondary auth-link-bold">Registrarse</a>
             </p>
         </footer>
     </div>
 </main>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+?>

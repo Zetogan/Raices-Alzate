@@ -10,7 +10,8 @@
 /* Header sticky persistente */
 .portal-header,
 .main-navbar,
-header {
+header.site-header,
+header.portal-header {
     position: sticky;
     top: 0;
     left: 0;
@@ -151,7 +152,7 @@ header {
 }
 
 .mobile-drawer-actions {
-    display: none;
+    display: none !important;
 }
 
 /* ==========================================================================
@@ -216,6 +217,25 @@ header {
     text-align: center;
     justify-content: center;
     box-sizing: border-box;
+}
+
+.btn-primary.btn-sm.header-dashboard-btn,
+.header-dashboard-btn {
+    width: auto !important;
+    min-width: 112px !important;
+    padding: 0 16px !important;
+    text-decoration: none !important;
+}
+
+.header-logout-link {
+    color: var(--color-text-secondary, #757575) !important;
+    font-weight: 500 !important;
+}
+
+.header-logout-link:hover,
+.header-logout-link:focus {
+    color: var(--color-primary, #D32F2F) !important;
+    text-decoration: none !important;
 }
 
 /* ==========================================================================
@@ -339,9 +359,9 @@ header {
         box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between; /* Distribuye menú arriba y botones abajo */
         align-items: stretch;
-        padding: 80px var(--space-24, 24px) var(--space-32, 32px) var(--space-24, 24px);
+        padding: 80px 24px 32px 24px;
         box-sizing: border-box;
         transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1050;
@@ -373,44 +393,145 @@ header {
         padding: var(--space-8, 8px) 0;
     }
 
-    /* Acciones trasladadas dentro del drawer (Iniciar sesión y Registrarse a ancho completo) */
+    /* Contenedor inferior del drawer móvil */
     .mobile-drawer-actions {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-12, 12px);
-        margin-top: auto;
-        padding-top: var(--space-24, 24px);
-        border-top: 1px solid var(--color-border, #E0E0E0);
-        width: 100%;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 20px 0 0 0 !important;
+      margin-top: auto !important;
+      border-top: 1px solid #E0E0E0 !important;
+      overflow: visible !important;
     }
 
-    .btn-login-drawer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 40px;
-        border-radius: 8px;
-        font-family: var(--font-family-base, 'Inter', sans-serif);
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--color-secondary, #1565C0);
-        background-color: var(--color-secondary-light, #E3F2FD);
-        border: 1px solid transparent;
-        text-decoration: none !important;
-        box-sizing: border-box;
-        transition: background-color var(--transition-fast, 0.15s ease),
-                    color var(--transition-fast, 0.15s ease);
+    /* ==========================================================================
+       BOTÓN INICIAR SESIÓN (DRAWER MÓVIL) - 100% ESTÁTICO E INMÓVIL
+       ========================================================================== */
+    .mobile-drawer-actions a.btn-drawer-login,
+    .mobile-drawer-actions a.btn-login,
+    .mobile-drawer-actions a:first-child {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      width: 100% !important;
+      height: 44px !important;
+      min-height: 44px !important;
+      max-height: 44px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      
+      /* Borde sólido fijo de 1.5px (no debe cambiar de grosor en hover) */
+      border: 1.5px solid #1565C0 !important;
+      border-radius: 8px !important;
+      box-sizing: border-box !important;
+      
+      background-color: transparent !important;
+      background: transparent !important;
+      color: #1565C0 !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      line-height: 44px !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      
+      /* INMOVILIDAD TOTAL: Anular cualquier desplazamiento */
+      transform: none !important;
+      box-shadow: none !important;
+      outline: none !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
     }
 
-    .btn-login-drawer:hover,
-    .btn-login-drawer:focus {
-        background-color: var(--color-secondary, #1565C0);
-        color: var(--color-white, #FFFFFF) !important;
+    /* Anular cualquier pseudo-elemento que tape el borde o genere parpadeos */
+    .mobile-drawer-actions a.btn-drawer-login::before,
+    .mobile-drawer-actions a.btn-drawer-login::after,
+    .mobile-drawer-actions a.btn-login::before,
+    .mobile-drawer-actions a.btn-login::after,
+    .mobile-drawer-actions a:first-child::before,
+    .mobile-drawer-actions a:first-child::after {
+      display: none !important;
+      content: none !important;
     }
 
-    .mobile-drawer-actions .btn {
-        width: 100% !important;
-        height: 40px !important;
+    /* Estado Hover: PROHIBIDO cambiar border-width, padding, height o transform */
+    .mobile-drawer-actions a.btn-drawer-login:hover,
+    .mobile-drawer-actions a.btn-login:hover,
+    .mobile-drawer-actions a:first-child:hover {
+      height: 44px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: 1.5px solid #0D47A1 !important; /* Mismo grosor de 1.5px */
+      background-color: rgba(21, 101, 192, 0.08) !important;
+      color: #0D47A1 !important;
+      transform: none !important; /* Cero desplazamiento hacia abajo */
+      box-shadow: none !important;
+      text-decoration: none !important;
+    }
+
+    /* Estado Activo / Clic */
+    .mobile-drawer-actions a.btn-drawer-login:active,
+    .mobile-drawer-actions a.btn-login:active,
+    .mobile-drawer-actions a:first-child:active {
+      height: 44px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: 1.5px solid #0D47A1 !important;
+      transform: none !important;
+      background-color: rgba(21, 101, 192, 0.15) !important;
+      color: #0D47A1 !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
+    }
+
+    /* 2. Botón REGISTRARSE (Fondo rojo institucional simétrico) */
+    .mobile-drawer-actions a.btn-drawer-register,
+    .mobile-drawer-actions a.btn-primary,
+    .mobile-drawer-actions a:last-child {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      width: 100% !important;
+      height: 44px !important;
+      min-height: 44px !important;
+      max-height: 44px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background-color: #D32F2F !important;
+      border: 1.5px solid #D32F2F !important;
+      border-radius: 8px !important;
+      color: #FFFFFF !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      line-height: 1 !important;
+      text-decoration: none !important;
+      box-sizing: border-box !important;
+      cursor: pointer !important;
+      box-shadow: none !important;
+      outline: none !important;
+      transform: none !important;
+      transition: background-color 0.2s ease, border-color 0.2s ease !important;
+    }
+
+    .mobile-drawer-actions a.btn-drawer-register:hover,
+    .mobile-drawer-actions a.btn-primary:hover,
+    .mobile-drawer-actions a:last-child:hover {
+      background-color: #B71C1C !important;
+      border-color: #B71C1C !important;
+      color: #FFFFFF !important;
+      transform: none !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
+    }
+
+    .mobile-drawer-actions a.btn-drawer-register:active,
+    .mobile-drawer-actions a.btn-primary:active,
+    .mobile-drawer-actions a:last-child:active {
+      background-color: #9A0007 !important;
+      transform: none !important;
     }
 }

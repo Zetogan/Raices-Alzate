@@ -18,7 +18,8 @@
 /* Header sticky persistente */
 .portal-header,
 .main-navbar,
-header {
+header.site-header,
+header.portal-header {
   position: sticky;
   top: 0;
   left: 0;

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" width="100%" height="100%" fill="none" role="img" aria-labelledby="heroTitle heroDesc">
+  <title id="heroTitle">Ilustración Hero Raíces Alzate - Comunidad y Futuro</title>
+  <desc id="heroDesc">Estudiantes y egresados de la IE Gilberto Alzate Avendaño conectados con birrete de grado, diplomas y crecimiento profesional.</desc>
+
+  <defs>
+    <filter id="heroShadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="glow"/>
+      <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+    </filter>
+    
+    <!-- Gradientes institucionales -->
+    <linearGradient id="heroRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E53935"/>
+      <stop offset="100%" stop-color="#B71C1C"/>
+    </linearGradient>
+    <linearGradient id="heroBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E88E5"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+    <linearGradient id="bgCircleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#F5F5F5" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFA000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo Geométrico Institucional -->
+  <circle cx="340" cy="220" r="180" fill="url(#bgCircleGrad)" stroke="#E0E0E0" stroke-width="1.5" />
+  <circle cx="340" cy="220" r="205" stroke="#D32F2F" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="6 8" />
+  <circle cx="340" cy="220" r="150" stroke="#1565C0" stroke-width="1" stroke-opacity="0.2" />
+
+  <!-- Sombra base elíptica -->
+  <ellipse cx="340" cy="405" rx="230" ry="16" fill="#212121" fill-opacity="0.06" />
+  <ellipse cx="340" cy="405" rx="170" ry="10" fill="#212121" fill-opacity="0.08" />
+
+  <!-- Líneas de Conexión de Red (Generaciones Conectadas) -->
+  <path d="M160 160 Q 250 120, 340 180 T 520 170" stroke="#D32F2F" stroke-width="2.5" stroke-dasharray="4 6" stroke-opacity="0.4" fill="none" />
+  <path d="M190 280 Q 300 320, 410 270 T 500 290" stroke="#1565C0" stroke-width="2" stroke-dasharray="3 5" stroke-opacity="0.35" fill="none" />
+  
+  <!-- Nodos de Red Flotantes -->
+  <g class="network-nodes">
+    <circle cx="160" cy="160" r="8" fill="#D32F2F" />
+    <circle cx="160" cy="160" r="14" stroke="#D32F2F" stroke-width="1.5" stroke-opacity="0.3" fill="none" />
+    
+    <circle cx="520" cy="170" r="9" fill="#1565C0" />
+    <circle cx="520" cy="170" r="16" stroke="#1565C0" stroke-width="1.5" stroke-opacity="0.3" fill="none" />
+    
+    <circle cx="480" cy="110" r="6" fill="#FFA000" />
+    <circle cx="210" cy="110" r="6" fill="#2E7D32" />
+  </g>
+
+  <!-- Tarjeta Central Flotante: Comunidad Egresados Alzatistas -->
+  <g filter="url(#heroShadow)">
+    <rect x="220" y="110" width="240" height="250" rx="20" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.5" />
+    <!-- Cabecera de la tarjeta con acento rojo -->
+    <path d="M 220 130 Q 220 110, 240 110 L 440 110 Q 460 110, 460 130 L 460 165 L 220 165 Z" fill="url(#heroRedGrad)" />
+    
+    <!-- Birrete de Graduación Vectorial en Tarjeta -->
+    <path d="M 340 125 L 390 142 L 340 158 L 290 142 Z" fill="#FFFFFF" />
+    <polygon points="320,152 320,165 360,165 360,152 340,158" fill="#F5F5F5" />
+    <path d="M 378 147 L 396 160 L 396 172" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <circle cx="396" cy="174" r="3" fill="#FFA000" />
+
+    <!-- Avatar central 1 (Egresado) -->
+    <circle cx="340" cy="210" r="28" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="2" />
+    <path d="M 326 205 Q 340 192, 354 205 Z" fill="#212121" />
+    <circle cx="340" cy="204" r="10" fill="#FFA726" />
+    <path d="M 320 236 Q 340 220, 360 236 Z" fill="url(#heroBlueGrad)" />
+
+    <!-- Datos simulados institucionales -->
+    <rect x="260" y="255" width="160" height="10" rx="5" fill="#EEEEEE" />
+    <rect x="280" y="275" width="120" height="8" rx="4" fill="#F5F5F5" />
+
+    <!-- Badge de Verificado Institucional -->
+    <g transform="translate(305, 305)">
+      <rect x="0" y="0" width="70" height="24" rx="12" fill="#E8F5E9" stroke="#C8E6C9" stroke-width="1" />
+      <circle cx="14" cy="12" r="6" fill="#2E7D32" />
+      <path d="M 11 12 L 13 14 L 17 10" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <text x="26" y="16" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#2E7D32">Alzatista</text>
+    </g>
+  </g>
+
+  <!-- Tarjeta Izquierda Flotante: Conexión y Mentoría -->
+  <g filter="url(#heroShadow)">
+    <rect x="110" y="180" width="150" height="120" rx="16" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.2" />
+    <circle cx="145" cy="215" r="18" fill="#E3F2FD" />
+    <!-- Ícono usuarios conectar -->
+    <path d="M 140 212 A 4 4 0 1 0 148 212 A 4 4 0 1 0 140 212" fill="#1565C0" />
+    <path d="M 134 226 C 134 220, 154 220, 154 226" stroke="#1565C0" stroke-width="2" stroke-linecap="round" fill="none" />
+    <text x="172" y="214" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#212121">Red Activa</text>
+    <text x="172" y="228" font-family="system-ui, sans-serif" font-size="10" font-weight="500" fill="#757575">Compañeros</text>
+    <rect x="130" y="250" width="110" height="6" rx="3" fill="#BBDEFB" />
+    <rect x="130" y="264" width="75" height="6" rx="3" fill="#E3F2FD" />
+  </g>
+
+  <!-- Tarjeta Derecha Flotante: Oportunidades y Proyectos -->
+  <g filter="url(#heroShadow)">
+    <rect x="420" y="200" width="160" height="125" rx="16" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1.2" />
+    <circle cx="455" cy="235" r="18" fill="#FFEBEE" />
+    <!-- Ícono Maletín / Cohete -->
+    <rect x="447" y="230" width="16" height="12" rx="2" fill="#D32F2F" />
+    <path d="M 451 230 L 451 227 Q 451 225, 455 225 L 455 225 Q 459 225, 459 227 L 459 230" stroke="#D32F2F" stroke-width="1.5" fill="none" />
+    <text x="482" y="234" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#212121">Oportunidades</text>
+    <text x="482" y="248" font-family="system-ui, sans-serif" font-size="10" font-weight="500" fill="#D32F2F">Convocatorias</text>
+    <rect x="440" y="270" width="120" height="6" rx="3" fill="#FFCDD2" />
+    <rect x="440" y="284" width="85" height="6" rx="3" fill="#FFEBEE" />
+  </g>
+
+  <!-- Diploma / Certificado con Lazo Dorado (Abajo) -->
+  <g transform="translate(290, 340)" filter="url(#heroShadow)">
+    <rect x="0" y="0" width="100" height="32" rx="8" fill="#FFF8E1" stroke="#FFE082" stroke-width="1.2" />
+    <circle cx="18" cy="16" r="8" fill="url(#goldGrad)" />
+    <polygon points="18,12 20,16 24,16 21,18 22,22 18,19 14,22 15,18 12,16 16,16" fill="#FFFFFF" />
+    <text x="34" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#C57F00">IE GAA</text>
+  </g>
+</svg>

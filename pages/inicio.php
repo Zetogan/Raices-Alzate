@@ -1,16 +1,22 @@
 <?php
 /**
- * Vista: Pantalla de Inicio (01 - Inicio - Desktop)
- * Especificación Figma: 1440 × 1472 px
- * Secciones:
- *  1. Hero: 500px (Fondo: #F5F5F5)
- *  2. ¿Qué es Raíces Alzate?: 320px (Fondo: #FFFFFF)
- *  3. ¿Por qué usar Raíces Alzate?: 360px (Fondo: #F5F5F5)
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Pantalla: Inicio (01 - Inicio - Desktop)
+ * Versión: 0.2.1
  */
 
-if (!defined('APP_NAME')) {
-    exit('Acceso directo no permitido.');
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
 }
+
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+$pageTitle = APP_NAME . ' | IE Gilberto Alzate Avendaño';
+$currentPage = 'inicio';
+
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <main class="main-content">
     <!-- ====================================================================
@@ -26,7 +32,9 @@ if (!defined('APP_NAME')) {
                 </div>
             </div>
             <div class="hero-visual" aria-hidden="true">
-                <div class="visual-card hero-placeholder" role="img" aria-label="Espacio visual reservado para ilustración del Hero"></div>
+                <div class="visual-card hero-illustration-card">
+                    <img src="assets/img/hero-illustration.svg" alt="Comunidad de egresados alzatistas conectando generaciones" class="hero-illustration-img" width="560" height="380" loading="eager" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                </div>
             </div>
         </div>
     </section>
@@ -44,7 +52,9 @@ if (!defined('APP_NAME')) {
                 </p>
             </div>
             <div class="que-es-visual" aria-hidden="true">
-                <div class="visual-card que-es-placeholder" role="img" aria-label="Espacio visual reservado para recurso gráfico"></div>
+                <div class="visual-card que-es-illustration-card">
+                    <img src="assets/img/about-illustration.svg" alt="Plataforma institucional Raíces Alzate" class="que-es-illustration-img" width="520" height="300" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                </div>
             </div>
         </div>
     </section>
@@ -77,4 +87,35 @@ if (!defined('APP_NAME')) {
             </div>
         </div>
     </section>
+
+    <!-- ====================================================================
+         5. SECCIÓN ATENCIÓN AL CIUDADANO, PQRS Y SOPORTE TÉCNICO
+         ==================================================================== -->
+    <section class="soporte-section" id="soporte-pqrs">
+        <div class="container">
+            <div class="soporte-banner-card">
+                <div class="soporte-text-content">
+                    <span class="soporte-badge">Canal Institucional Oficial</span>
+                    <h2 class="soporte-title">¿Tienes dudas, sugerencias o detectaste un error?</h2>
+                    <p class="soporte-desc">
+                        La I.E. Gilberto Alzate Avendaño dispone de un canal ágil y transparente para radicar peticiones, quejas, reclamos, reconocimientos o notificar incidencias técnicas en la plataforma con radicado oficial de seguimiento.
+                    </p>
+                </div>
+                <div class="soporte-action">
+                    <a href="index.php?page=pqr" class="btn-pqrs-cta">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span>Radicar PQRS o Reporte</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+?>
+

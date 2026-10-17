@@ -1,0 +1,736 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Módulo Detalle de Proyecto (detalle-proyecto.css)
+ * Especificación Figma: 10 - Detalle de proyecto - Desktop (y adaptación Mobile 390px)
+ * Paleta Oficial:
+ *   - Primario Institucional: #D32F2F (Hover: #B71C1C, Active: #8E0000)
+ *   - Secundario / Acentos / Enlaces: #1565C0 (Hover: #0D47A1)
+ *   - Éxito / Estado Publicado: #2E7D32 (Fondo: #E8F5E9)
+ *   - Textos Principales: #212121
+ *   - Textos Secundarios: #757575
+ *   - Fondo General: #F5F5F5
+ *   - Fondo de Tarjeta: #FFFFFF
+ *   - Superficie Neutra / Recursos: #F8F9FA
+ *   - Bordes y Separadores: #E0E0E0
+ *   - Placeholders e Iconos neutros: #9E9E9E / #BDBDBD / #ECECEC
+ *   - Tipografía: Inter
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. AISLAMIENTO Y AJUSTES DE ESTRUCTURA GLOBAL
+   ========================================================================== */
+body.detalle-proyecto-page {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #212121;
+}
+
+/* Ocultar encabezado y pie de página del portal público en la vista privada del panel */
+body.detalle-proyecto-page .portal-header,
+body.detalle-proyecto-page .site-header,
+body.detalle-proyecto-page .main-navbar,
+body.detalle-proyecto-page .site-footer,
+body.detalle-proyecto-page .portal-footer,
+body.detalle-proyecto-page footer.footer {
+    display: none !important;
+}
+
+/* Contenedor principal de contenido (.content-area): fluye debajo de Topbar sin solapamiento */
+.content-area,
+.detalle-proyecto-content-wrapper {
+    position: static !important;
+    padding: 32px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    flex: 1 0 auto !important;
+    background-color: #F5F5F5 !important;
+}
+
+.detalle-proyecto-container {
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    position: static !important;
+}
+
+/* ==========================================================================
+   2. BARRA DE NAVEGACIÓN SUPERIOR (RETORNO Y ACCIONES DE CABECERA)
+   ========================================================================== */
+.detalle-top-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Enlace Volver a proyectos */
+.btn-volver-proyectos {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1565C0;
+    text-decoration: none;
+    padding: 6px 12px;
+    margin-left: -12px;
+    border-radius: 6px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-volver-proyectos .volver-icon {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.btn-volver-proyectos:hover {
+    color: #0D47A1;
+    background-color: rgba(21, 101, 192, 0.06);
+    text-decoration: none;
+}
+
+.btn-volver-proyectos:hover .volver-icon {
+    transform: translateX(-4px);
+}
+
+.btn-volver-proyectos:active {
+    color: #002171;
+    background-color: rgba(21, 101, 192, 0.12);
+}
+
+.detalle-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Botón Editar en barra superior */
+.btn-editar-proyecto {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 8px 18px !important;
+    background-color: transparent !important;
+    border: 1.5px solid #1565C0 !important;
+    border-radius: 8px !important;
+    color: #1565C0 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+.btn-editar-proyecto:hover {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    border-color: #0D47A1 !important;
+    color: #0D47A1 !important;
+    text-decoration: none !important;
+}
+
+.btn-editar-proyecto:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    color: #002171 !important;
+}
+
+/* ==========================================================================
+   3. TARJETA CONTENEDORA PRINCIPAL (Figma: Tarjeta blanca #FFFFFF, radio 16px)
+   ========================================================================== */
+.detalle-proyecto-card {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E0E0E0 !important;
+    border-radius: 16px !important;
+    padding: 36px 40px !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+    width: 100% !important;
+    position: static !important;
+}
+
+/* ==========================================================================
+   4. PORTADA PANORÁMICA DEL PROYECTO (PROPORCIÓN 16:9)
+   ========================================================================== */
+.detalle-cover-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 440px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #ECECEC;
+    border: 1px solid #E0E0E0;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.detalle-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detalle-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ECECEC;
+}
+
+.detalle-placeholder-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   5. ENCABEZADO INTERIOR DE LA TARJETA
+   Anulación estricta de header.css o cualquier estilo invasivo global
+   ========================================================================== */
+.detalle-card-header,
+header.detalle-card-header,
+.detalle-proyecto-card header {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin-bottom: 20px !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Grupo de Insignias / Badges */
+.detalle-badges-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.badge-categoria {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background-color: #E3F2FD;
+    color: #1565C0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+}
+
+.badge-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.badge-publicado {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #2E7D32;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Título principal del proyecto */
+.detalle-proyecto-title {
+    display: block !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    line-height: 1.3 !important;
+    margin: 0 0 12px 0 !important;
+    letter-spacing: -0.3px !important;
+    word-break: break-word;
+}
+
+/* Fila de metadatos (Autor y Fecha) */
+.detalle-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #757575;
+    line-height: 1.4;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.meta-icon {
+    color: #757575;
+    flex-shrink: 0;
+}
+
+.meta-item strong {
+    color: #212121;
+    font-weight: 600;
+}
+
+.meta-separator {
+    color: #BDBDBD;
+    font-size: 14px;
+    user-select: none;
+}
+
+/* Divisor de contenido sutil */
+.detalle-content-divider {
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    margin: 28px 0;
+    width: 100%;
+}
+
+/* ==========================================================================
+   6. BLOQUE DE DESCRIPCIÓN Y CUERPO
+   ========================================================================== */
+.detalle-body-block {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 28px;
+}
+
+.detalle-section-title {
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #212121;
+    line-height: 1.35;
+    margin: 0 0 14px 0;
+    letter-spacing: -0.2px;
+}
+
+.detalle-description-text {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333333;
+    font-weight: 400;
+    word-break: break-word;
+}
+
+.detalle-description-text p {
+    margin-bottom: 16px;
+}
+
+.detalle-description-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   7. TARJETA DE RECURSO Y ENLACE EXTERNO
+   Fondo: #F8F9FA, Borde: 1px solid #E0E0E0, Radio: 10px
+   ========================================================================== */
+.detalle-resource-card {
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 28px;
+    margin-bottom: 12px;
+}
+
+.resource-card-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.resource-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-color: #E3F2FD;
+    color: #1565C0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.resource-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.resource-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #757575;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.resource-url {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1565C0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Botón Visitar Proyecto */
+.btn-visitar-proyecto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #1565C0;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-visitar-proyecto:hover {
+    background-color: #0D47A1;
+    box-shadow: 0 2px 6px rgba(21, 101, 192, 0.25);
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+.btn-visitar-proyecto:active {
+    background-color: #002171;
+}
+
+/* ==========================================================================
+   8. ACCIONES AL PIE DE LA TARJETA (.detalle-card-footer)
+   ========================================================================== */
+.detalle-card-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin-top: 36px !important;
+    padding-top: 24px !important;
+    border-top: 1px solid #F0F0F0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Botón Cancelar / Volver (Outline Azul Secundario) */
+.btn-cancelar,
+.btn-outline-blue,
+#btnVolverPie {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important;
+    border: 1.5px solid #1565C0 !important;
+    color: #1565C0 !important;
+    padding: 10px 22px !important;
+    border-radius: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    height: auto !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Estado Hover: azul tenue claro, nunca rojo */
+.btn-cancelar:hover,
+.btn-outline-blue:hover,
+#btnVolverPie:hover {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    border-color: #0D47A1 !important;
+    color: #0D47A1 !important;
+    text-decoration: none !important;
+}
+
+.btn-cancelar:active,
+.btn-outline-blue:active,
+#btnVolverPie:active {
+    background-color: rgba(21, 101, 192, 0.15) !important;
+    border-color: #0D47A1 !important;
+    color: #0D47A1 !important;
+}
+
+/* Botón Editar Proyecto (Rojo Institucional Primario #D32F2F) */
+.btn-publicar-proyecto,
+.btn-primary-publish,
+#btnEditarPie {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: auto !important;
+    padding: 10px 24px !important;
+    background-color: #D32F2F !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.btn-publicar-proyecto:hover,
+.btn-primary-publish:hover,
+#btnEditarPie:hover {
+    background-color: #B71C1C !important;
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.25) !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.btn-publicar-proyecto:active,
+.btn-primary-publish:active,
+#btnEditarPie:active {
+    background-color: #8E0000 !important;
+}
+
+/* ==========================================================================
+   9. ESTADO: PROYECTO NO ENCONTRADO (.detalle-empty-card)
+   ========================================================================== */
+.detalle-empty-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 56px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.empty-icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #FFEBEE;
+    color: #D32F2F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.empty-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.empty-card-desc {
+    font-size: 14px;
+    color: #757575;
+    max-width: 460px;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+}
+
+/* ==========================================================================
+   10. ADAPTACIÓN RESPONSIVE (TABLET Y MÓVIL)
+   ========================================================================== */
+
+/* Tablet (≤900px / 768px) */
+@media (max-width: 900px) {
+    .content-area,
+    .detalle-proyecto-content-wrapper {
+        padding: 24px 20px !important;
+    }
+
+    .detalle-proyecto-card {
+        padding: 28px 24px !important;
+        border-radius: 14px !important;
+    }
+
+    .detalle-cover-wrapper {
+        max-height: 340px;
+        border-radius: 10px;
+        margin-bottom: 24px;
+    }
+
+    .detalle-proyecto-title {
+        font-size: 22px !important;
+    }
+
+    .detalle-resource-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 14px;
+    }
+
+    .resource-card-left {
+        width: 100%;
+    }
+
+    .btn-visitar-proyecto {
+        width: 100%;
+        justify-content: center;
+        height: 40px;
+    }
+}
+
+/* Mobile (≤600px / 390px) */
+@media (max-width: 600px) {
+    .content-area,
+    .detalle-proyecto-content-wrapper {
+        padding: 16px 12px !important;
+    }
+
+    .detalle-proyecto-card {
+        padding: 20px 16px !important;
+        border-radius: 12px !important;
+    }
+
+    .detalle-top-nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .detalle-nav-actions {
+        width: 100%;
+    }
+
+    .btn-editar-proyecto {
+        width: 100% !important;
+        height: 42px !important;
+    }
+
+    .detalle-cover-wrapper {
+        border-radius: 8px;
+        margin-bottom: 20px;
+        max-height: 220px;
+    }
+
+    .detalle-proyecto-title {
+        font-size: 20px !important;
+        line-height: 1.35 !important;
+    }
+
+    .detalle-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .meta-separator {
+        display: none;
+    }
+
+    .detalle-content-divider {
+        margin: 20px 0;
+    }
+
+    .detalle-section-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .detalle-description-text {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .detalle-card-footer {
+        flex-direction: column-reverse !important;
+        gap: 10px !important;
+        margin-top: 28px !important;
+        padding-top: 20px !important;
+    }
+
+    .btn-cancelar,
+    .btn-outline-blue,
+    .btn-publicar-proyecto,
+    .btn-primary-publish,
+    #btnVolverPie,
+    #btnEditarPie {
+        width: 100% !important;
+        height: 44px !important;
+        font-size: 14px !important;
+    }
+
+    .detalle-empty-card {
+        padding: 36px 18px;
+    }
+}

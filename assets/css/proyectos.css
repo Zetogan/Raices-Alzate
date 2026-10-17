@@ -1,0 +1,584 @@
+/**
+ * Raíces Alzate - Hoja de Estilos del Módulo de Proyectos
+ * Especificación Figma: 06 - Proyectos - Desktop (y adaptación Mobile)
+ * Paleta Oficial del Sistema:
+ *   - Primario Activo: #D32F2F (Rojo Alzate)
+ *   - Acentos y Acciones: #1565C0 (Azul Institucional)
+ *   - Textos Principales: #212121
+ *   - Textos Secundarios: #757575
+ *   - Superficies y Fondo: #FFFFFF (Tarjetas) | #F5F5F5 (Fondo General)
+ *   - Bordes y Separadores: #E0E0E0
+ *   - Portadas Neutras: #D9D9D9
+ * Escala de Espaciado: 8px, 16px, 24px, 32px
+ * Versión: 0.1.1
+ */
+
+/* ==========================================================================
+   1. AISLAMIENTO Y AJUSTES DE ESTRUCTURA GLOBAL
+   ========================================================================== */
+body.proyectos-page {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #212121;
+}
+
+/* Ocultar encabezado y pie de página del portal público en la vista de panel privado */
+body.proyectos-page .portal-header,
+body.proyectos-page .site-header,
+body.proyectos-page .main-navbar,
+body.proyectos-page .site-footer,
+body.proyectos-page .portal-footer,
+body.proyectos-page footer.footer {
+    display: none !important;
+}
+
+/* Estructura del Layout y Main Wrapper unificados */
+.layout-wrapper,
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: #F5F5F5;
+}
+
+.main-wrapper,
+.dashboard-main-area {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #F5F5F5;
+}
+
+/* Contenedor principal de contenido del módulo (.content-area): fluye naturalmente debajo de Topbar */
+.content-area,
+.proyectos-content-wrapper {
+    position: static !important;
+    padding: 32px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    flex: 1 0 auto !important;
+    background-color: #F5F5F5 !important;
+}
+
+/* ==========================================================================
+   2. ENCABEZADO DE SECCIÓN (.section-header)
+   Anulación estricta de header.css o cualquier regla invasiva sobre <header>
+   ========================================================================== */
+.section-header,
+.proyectos-header-block,
+header.section-header,
+header.proyectos-header-block {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    margin-top: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.proyectos-header-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.section-title,
+.proyectos-header-title {
+    margin: 0 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    display: block !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.01em !important;
+}
+
+.section-subtitle,
+.proyectos-header-subtitle {
+    margin: 0 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #757575 !important;
+    display: block !important;
+    line-height: 1.5 !important;
+}
+
+/* 2.1 Botón de acción: "+ Publicar proyecto" */
+.proyectos-header-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.btn-crear-proyecto {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 10px 20px !important;
+    background-color: #D32F2F !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
+}
+
+.btn-crear-proyecto:hover {
+    background-color: #B71C1C !important;
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.25) !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.btn-crear-proyecto:active {
+    background-color: #8E0000 !important;
+    transform: translateY(1px);
+}
+
+.btn-icon-plus {
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   3. TARJETA CONTENEDORA BLANCA (#FFFFFF, borde #E0E0E0, radio 16px, pad 32px)
+   ========================================================================== */
+.projects-card-container,
+.proyectos-card-container {
+    position: static !important;
+    margin-top: 0 !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #E0E0E0 !important;
+    border-radius: 16px !important;
+    padding: 32px !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* ==========================================================================
+   4. CUADRÍCULA DE PROYECTOS (GRID DE 3 COLUMNAS EN DESKTOP)
+   ========================================================================== */
+.proyectos-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 24px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* ==========================================================================
+   5. TARJETA DE PROYECTO INDIVIDUAL (INTERACTIVA Y ELEVADA EN HOVER)
+   ========================================================================== */
+.proyecto-card,
+.project-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #FFFFFF !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    position: relative !important;
+    cursor: pointer !important;
+    border: 1px solid #EAEAEA !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    overflow: hidden !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease !important;
+}
+
+/* Hover sobrio y limpio idéntico al estándar de Noticias: borde gris y sombra tenue SIN tonos azules */
+.proyecto-card:hover,
+.project-card:hover {
+    border-color: #BDBDBD !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    background-color: #FFFFFF !important;
+}
+
+.proyecto-card:focus-visible,
+.project-card:focus-visible {
+    outline: 2px solid #1565C0 !important;
+    outline-offset: 2px !important;
+}
+
+.proyecto-card *,
+.project-card * {
+    text-decoration: none !important;
+}
+
+/* 5.1 Portada rectangular proporción 16:9 y fondo gris neutro #D9D9D9 */
+.proyecto-cover-wrapper {
+    width: 100% !important;
+    height: 175px !important;
+    max-height: 175px !important;
+    background-color: #ECEFF1 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    margin-bottom: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 0 !important;
+}
+
+.proyecto-cover-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 8px !important;
+}
+
+.proyecto-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #F5F7FA 0%, #E4E7EB 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.proyecto-cover-placeholder svg {
+    opacity: 0.7;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.proyecto-card:hover .proyecto-cover-placeholder svg {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* 5.2 Contenido de información de la tarjeta */
+.proyecto-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/* Título en negrita (#212121, 16px) enlazado a Detalle */
+.proyecto-title,
+.project-title,
+.proyecto-card .proyecto-title,
+.project-card .project-title,
+.proyecto-card h2,
+.project-card h2 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #212121 !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.01em !important;
+    text-decoration: none !important;
+}
+
+.proyecto-title-link,
+.project-link,
+.proyecto-card a,
+.project-card a {
+    color: #212121 !important;
+    text-decoration: none !important;
+    display: inline-block;
+    transition: color 0.15s ease;
+}
+
+/* Asegurar que el título y los enlaces no cambien a azul ni se subrayen al pasar el mouse por la tarjeta */
+.proyecto-card:hover .proyecto-title,
+.proyecto-card:hover .proyecto-title-link,
+.proyecto-card:hover .project-title,
+.proyecto-card:hover .project-link,
+.proyecto-card:hover a:not(.btn-editar-card),
+.project-card:hover .project-title,
+.project-card:hover .project-link,
+.project-card:hover .proyecto-title,
+.project-card:hover .proyecto-title-link,
+.project-card:hover a:not(.btn-editar-card),
+.proyecto-card a:hover:not(.btn-editar-card),
+.project-card a:hover:not(.btn-editar-card),
+.proyecto-title-link:hover,
+.project-link:hover,
+.proyecto-title a:hover,
+.project-title a:hover,
+.stretched-link:hover,
+.stretched-link:focus,
+.stretched-link:active {
+    color: #212121 !important;
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+/* Enlace superpuesto para hacer toda la tarjeta cliqueable hacia Detalle */
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+}
+
+/* Descripción (#757575, 13px, sin desbordamiento de texto, con soporte estándar y fallback) */
+.proyecto-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #757575;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+    max-height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Fila inferior: Autor y botón de edición */
+.proyecto-footer-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: auto !important;
+    padding-top: 4px !important;
+    width: 100% !important;
+    gap: 10px !important;
+}
+
+/* Autor al pie: "Por [Nombre]" (#757575, 12px) */
+.proyecto-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #757575;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Botón Editar Proyecto en tarjetas propias (Outline Azul Secundario) */
+.btn-editar-card {
+    position: relative !important;
+    z-index: 2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 4px 10px !important;
+    border: 1.5px solid #1565C0 !important;
+    border-radius: 6px !important;
+    color: #1565C0 !important;
+    background-color: transparent !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Hover: azul tenue claro, sin tocar rojo */
+.btn-editar-card:hover {
+    background-color: rgba(21, 101, 192, 0.08) !important;
+    border-color: #0D47A1 !important;
+    color: #0D47A1 !important;
+    text-decoration: none !important;
+}
+
+.btn-editar-card:active {
+    background-color: rgba(21, 101, 192, 0.16) !important;
+    color: #002171 !important;
+}
+
+/* ==========================================================================
+   6. BOTÓN INFERIOR: "VER MÁS PROYECTOS" (OUTLINE AZUL #1565C0)
+   ========================================================================== */
+.proyectos-actions-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+    padding-top: 8px;
+    gap: 12px;
+}
+
+.btn-ver-mas-proyectos {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1565C0;
+    background-color: transparent;
+    border: 1.5px solid #1565C0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.btn-ver-mas-proyectos:hover:not(:disabled) {
+    background-color: rgba(21, 101, 192, 0.08);
+    color: #0D47A1;
+    border-color: #0D47A1;
+}
+
+.btn-ver-mas-proyectos:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
+}
+
+.btn-ver-mas-proyectos:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    border-color: #E0E0E0;
+    color: #757575;
+    background-color: #F5F5F5;
+}
+
+.proyectos-fin-mensaje {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #757575;
+    margin: 0;
+    text-align: center;
+}
+
+/* Indicador de carga sutil dentro del botón */
+.btn-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(21, 101, 192, 0.25);
+    border-top-color: #1565C0;
+    border-radius: 50%;
+    animation: btnSpin 0.7s linear infinite;
+    display: inline-block;
+}
+
+@keyframes btnSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   7. ADAPTACIONES RESPONSIVAS
+   - Desktop (>1024px): Grid de 3 columnas
+   - Tablet (<=1024px): Grid de 2 columnas
+   - Mobile (<=600px): Grid de 1 columna y botón a ancho completo
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .content-area,
+    .proyectos-content-wrapper {
+        padding: 24px 20px !important;
+    }
+
+    .projects-card-container,
+    .proyectos-card-container {
+        padding: 24px 20px !important;
+    }
+
+    .proyectos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-area,
+    .proyectos-content-wrapper {
+        padding: 16px 12px !important;
+    }
+
+    .section-header,
+    .proyectos-header-block {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .proyectos-header-actions {
+        width: 100% !important;
+    }
+
+    .btn-crear-proyecto {
+        width: 100% !important;
+        height: 44px !important;
+        justify-content: center !important;
+    }
+
+    .section-title,
+    .proyectos-header-title {
+        font-size: 20px !important;
+    }
+
+    .section-subtitle,
+    .proyectos-header-subtitle {
+        font-size: 13px !important;
+    }
+
+    .projects-card-container,
+    .proyectos-card-container {
+        padding: 20px 14px !important;
+        border-radius: 12px !important;
+    }
+
+    .proyectos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .btn-ver-mas-proyectos {
+        width: 100%;
+        padding: 12px 16px;
+    }
+}

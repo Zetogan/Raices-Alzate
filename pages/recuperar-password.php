@@ -1,22 +1,27 @@
 <?php
 /**
- * Vista: Pantalla de Recuperación de Contraseña
- * Especificación Figma: 02 - Recuperar contraseña (Desktop / Mobile)
- * Plataforma: Raíces Alzate - IE Gilberto Alzate Avendaño
- * Versión: 0.1.1
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Pantalla: Recuperación de Contraseña
+ * Versión: 0.2.1
  */
-
-if (!defined('APP_NAME')) {
-    exit('Acceso directo no permitido.');
-}
 
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start();
 }
 
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/csrf.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+$pageTitle = 'Recuperar contraseña | ' . APP_NAME;
+$currentPage = 'recuperar';
+
 $serverError = $_SESSION['auth_error'] ?? null;
 $serverNotice = $_SESSION['auth_notice'] ?? null;
 unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
+
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <main class="auth-page">
     <div class="auth-card">
@@ -30,6 +35,7 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
         <!-- 2. Bloque de Formulario -->
         <section class="auth-content">
             <form action="auth/recuperar-process.php" method="POST" class="auth-form" id="recuperarForm" novalidate>
+                <?php if (function_exists('csrfField')): echo csrfField(); endif; ?>
                 <!-- Alerta de feedback del servidor si existe -->
                 <div class="alert <?php echo $serverError ? 'alert-error' : ($serverNotice ? 'alert-success' : 'alert-error'); ?>" id="formFeedback" role="alert" aria-live="polite" style="<?php echo ($serverError || $serverNotice) ? 'display: flex;' : 'display: none;'; ?>">
                     <span class="alert-icon" id="formFeedbackIcon" aria-hidden="true">
@@ -69,7 +75,10 @@ unset($_SESSION['auth_error'], $_SESSION['auth_notice']);
 
         <!-- 3. Pie de Tarjeta (Navegación) -->
         <footer class="auth-footer">
-            <a href="login.php" class="auth-link-secondary auth-link-bold">Volver a iniciar sesión</a>
+            <a href="index.php?page=login" class="auth-link-secondary auth-link-bold">Volver a iniciar sesión</a>
         </footer>
     </div>
 </main>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+?>
