@@ -34,7 +34,7 @@ $user = !empty($_SESSION['user']) && is_array($_SESSION['user'])
     ? $_SESSION['user'] 
     : (!empty($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : []);
 
-$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Santiago Emitola');
+$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Usuario');
 $userRole = trim($user['rol'] ?? $user['role'] ?? $_SESSION['rol'] ?? 'Egresado');
 $userInitial = !empty($userName) 
     ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
@@ -47,17 +47,20 @@ $userInitial = !empty($userName)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageTitle ?? ('Egresados | ' . APP_NAME)); ?></title>
 
-    <!-- Favicon e Iconografía Institucional Oficial -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
+    <!-- Base URL para resolución de enlaces y assets -->
+    <base href="<?php echo BASE_URL; ?>/">
 
-    <!-- Tipografía Inter (Preconexión y Google Fonts) -->
+    <!-- Favicon e Iconografía Institucional Oficial -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/logo-alzate.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo-alzate.ico">
+
+    <!-- 1. Tipografía Inter local inmediata (@font-face de assets/fonts/) -->
+    <link rel="stylesheet" href="<?php echo egresadosAssetCssUrl('fonts.css'); ?>">
+
+    <!-- Fallback asíncrono no bloqueante de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Hojas de estilo modulares -->
-    <link rel="stylesheet" href="<?php echo egresadosAssetCssUrl('fonts.css'); ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="<?php echo egresadosAssetCssUrl('main.css'); ?>">
     <link rel="stylesheet" href="<?php echo egresadosAssetCssUrl('dashboard.css'); ?>">
     <link rel="stylesheet" href="<?php echo egresadosAssetCssUrl('egresados.css'); ?>">
@@ -97,7 +100,7 @@ $userInitial = !empty($userName)
                 <nav class="egresados-breadcrumb-nav" aria-label="Ruta de navegación">
                     <ol class="egresados-breadcrumb-list">
                         <li class="egresados-breadcrumb-item">
-                            <a href="dashboard.php" class="egresados-breadcrumb-link">Dashboard</a>
+                            <a href="index.php?page=dashboard" class="egresados-breadcrumb-link">Dashboard</a>
                         </li>
                         <li class="egresados-breadcrumb-item">
                             <span class="egresados-breadcrumb-sep" aria-hidden="true">/</span>
@@ -126,7 +129,7 @@ $userInitial = !empty($userName)
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
-                            <span><strong>+1,250</strong> Egresados</span>
+                            <span><strong><?= number_format($totalEgresados) ?></strong> Egresados</span>
                         </div>
 
                         <div class="hero-stat-badge hero-stat-badge-blue">
@@ -134,13 +137,16 @@ $userInitial = !empty($userName)
                                 <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                                 <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                             </svg>
-                            <span><strong>42</strong> Promociones</span>
+                            <span><strong><?= count($promocionesDisponibles) ?></strong> Promociones</span>
                         </div>
                     </div>
                 </header>
 
                 <!-- C. Barra de Búsqueda y Filtros en Tiempo Real -->
                 <section class="egresados-filter-card" aria-label="Búsqueda y filtros del directorio">
+                    <!-- Token CSRF para peticiones seguras de conexión -->
+                    <input type="hidden" id="csrfTokenEgresados" value="<?php echo htmlspecialchars(function_exists('getCsrfToken') ? getCsrfToken() : ($_SESSION['csrf_token'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>">
+
                     <div class="filter-controls-row">
                         <!-- Campo de búsqueda libre -->
                         <div class="filter-search-box">
@@ -159,17 +165,13 @@ $userInitial = !empty($userName)
                             >
                         </div>
 
-                        <!-- Filtro por Promoción -->
+                        <!-- Filtro por Promoción Dinámico -->
                         <div class="filter-select-wrap">
                             <select class="filter-select" id="selectPromocion" aria-label="Filtrar por año de promoción">
                                 <option value="">Todas las promociones</option>
-                                <option value="2024">Promoción 2024</option>
-                                <option value="2023">Promoción 2023</option>
-                                <option value="2022">Promoción 2022</option>
-                                <option value="2021">Promoción 2021</option>
-                                <option value="2020">Promoción 2020</option>
-                                <option value="2019">Promoción 2019</option>
-                                <option value="2018">Promoción 2018</option>
+                                <?php foreach ($promocionesDisponibles as $promoAnio): ?>
+                                    <option value="<?= htmlspecialchars((string)$promoAnio) ?>">Promoción <?= htmlspecialchars((string)$promoAnio) ?></option>
+                                <?php endforeach; ?>
                             </select>
                             <span class="filter-select-icon" aria-hidden="true">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -216,547 +218,137 @@ $userInitial = !empty($userName)
                     <!-- Resumen de resultados y chips activos -->
                     <div class="filter-summary-row">
                         <span class="results-counter-text">
-                            Mostrando <strong id="contadorResultados">8</strong> egresados encontrados
+                            Mostrando <strong id="contadorResultados"><?= $totalEgresados ?></strong> egresados encontrados
                         </span>
                         <div class="active-filter-chips" id="contenedorChipsFiltros"></div>
                     </div>
                 </section>
 
-                <!-- D. Pestañas de Vista Rápida -->
+                <!-- D. Pestañas de Vista Rápida Dinámicas -->
                 <nav class="egresados-tabs-container" aria-label="Filtrado rápido de egresados">
                     <button type="button" class="egresados-tab-btn active" data-category="todos">
                         Todos los egresados
-                        <span class="tab-badge" id="badgeTotalEgresados">8</span>
+                        <span class="tab-badge" id="badgeTotalEgresados"><?= $totalEgresados ?></span>
                     </button>
-                    <button type="button" class="egresados-tab-btn" data-category="2021">
-                        Mi promoción (2021)
-                        <span class="tab-badge">4</span>
+                    <button type="button" class="egresados-tab-btn" data-category="mi_promocion" data-promo="<?= htmlspecialchars($miPromocionYear, ENT_QUOTES, 'UTF-8') ?>">
+                        Mi promoción (<?= htmlspecialchars($miPromocionYear, ENT_QUOTES, 'UTF-8') ?>)
+                        <span class="tab-badge" id="badgeMiPromocion"><?= $totalMiPromocion ?></span>
                     </button>
                     <button type="button" class="egresados-tab-btn" data-category="destacados">
                         Destacados
-                        <span class="tab-badge">3</span>
+                        <span class="tab-badge" id="badgeDestacados"><?= $totalDestacados ?></span>
                     </button>
                     <button type="button" class="egresados-tab-btn" data-category="conectados">
                         Conectados
-                        <span class="tab-badge" id="badgeConectados">4</span>
+                        <span class="tab-badge" id="badgeConectados"><?= $totalConectados ?></span>
                     </button>
                 </nav>
 
-                <!-- E. Grid de Tarjetas de Egresados -->
-                <?php
-                $egresadosListado = [
-                    1 => ['id' => 1, 'conectado' => true],
-                    2 => ['id' => 2, 'conectado' => false],
-                    3 => ['id' => 3, 'conectado' => true],
-                    4 => ['id' => 4, 'conectado' => true],
-                    5 => ['id' => 5, 'conectado' => false],
-                    6 => ['id' => 6, 'conectado' => true],
-                    7 => ['id' => 7, 'conectado' => false],
-                ];
-                if (isset($egresados) && is_array($egresados)) {
-                    foreach ($egresados as $item) {
-                        if (isset($item['id'])) {
-                            $egresadosListado[$item['id']] = $item;
-                        }
-                    }
-                }
-                ?>
+                <!-- E. Grid de Tarjetas de Egresados (Datos Reales de Base de Datos MySQL) -->
                 <section class="egresados-cards-grid" id="egresadosCardsGrid" aria-label="Listado de egresados alzatistas">
-                    
-                    <!-- Tarjeta 1: Valentina Ríos Gómez -->
-                    <article class="egresado-card" 
-                        data-name="Valentina Ríos Gómez" 
-                        data-promo="2021" 
-                        data-enfasis="sistemas" 
-                        data-ciudad="medellin"
-                        data-cargo="Ingeniera de Software"
-                        data-empresa="Mercado Libre"
-                        data-destacado="true"
-                    >
-                        <div class="card-top-banner">
-                            <span class="card-promo-badge">Promoción 2021</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-blue" aria-hidden="true">V</div>
+                    <?php if (!empty($egresadosList)): ?>
+                        <?php foreach ($egresadosList as $item): ?>
+                            <article class="egresado-card" 
+                                data-id="<?= (int)$item['id'] ?>"
+                                data-name="<?= htmlspecialchars($item['nombre'], ENT_QUOTES, 'UTF-8') ?>" 
+                                data-promo="<?= htmlspecialchars($item['promocion'], ENT_QUOTES, 'UTF-8') ?>" 
+                                data-enfasis="<?= htmlspecialchars($item['enfasis'], ENT_QUOTES, 'UTF-8') ?>" 
+                                data-ciudad="<?= htmlspecialchars($item['ciudad_slug'], ENT_QUOTES, 'UTF-8') ?>"
+                                data-cargo="<?= htmlspecialchars($item['ocupacion'], ENT_QUOTES, 'UTF-8') ?>"
+                                data-empresa="<?= htmlspecialchars($item['empresa'], ENT_QUOTES, 'UTF-8') ?>"
+                                data-destacado="<?= $item['es_destacado'] ? 'true' : 'false' ?>"
+                                data-conectado="<?= ($item['conexion_estado'] === 'conectado') ? 'true' : 'false' ?>"
+                            >
+                                <div class="card-top-banner">
+                                    <span class="card-promo-badge">Promoción <?= htmlspecialchars($item['promocion'], ENT_QUOTES, 'UTF-8') ?></span>
+                                    <?php if ($item['es_destacado'] || $item['porcentaje'] > 0): ?>
+                                        <span class="card-destacado-pill" title="Completitud de perfil: <?= (int)$item['porcentaje'] ?>%">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                            </svg>
+                                            <?= (int)$item['porcentaje'] ?>%
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div class="card-avatar-wrap">
+                                    <?php if (!empty($item['foto_perfil']) && file_exists(__DIR__ . '/../' . ltrim($item['foto_perfil'], '/'))): ?>
+                                        <img src="<?= htmlspecialchars($item['foto_perfil'], ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($item['nombre'], ENT_QUOTES, 'UTF-8') ?>" class="egresado-avatar egresado-avatar-img">
+                                    <?php else: ?>
+                                        <div class="egresado-avatar <?= htmlspecialchars($item['avatar_color'], ENT_QUOTES, 'UTF-8') ?>" aria-hidden="true">
+                                            <?= htmlspecialchars($item['inicial'], ENT_QUOTES, 'UTF-8') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
 
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Valentina Ríos Gómez</h2>
-                            <p class="card-emphasis">Técnico en Sistemas e Informática</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Ingeniera de Software en Mercado Libre
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">PHP</span>
-                                <span class="card-skill-pill">React</span>
-                                <span class="card-skill-pill">MySQL</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[1]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
+                                <div class="card-body-content">
+                                    <h2 class="card-name"><?= htmlspecialchars($item['nombre'], ENT_QUOTES, 'UTF-8') ?></h2>
+                                    <p class="card-emphasis"><?= htmlspecialchars($item['carrera'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <p class="card-occupation">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                                        <?= htmlspecialchars($item['ocupacion_empresa'], ENT_QUOTES, 'UTF-8') ?>
+                                    </p>
+                                    <p class="card-location">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                        <?= htmlspecialchars($item['ubicacion'], ENT_QUOTES, 'UTF-8') ?>
+                                    </p>
+                                    <?php if (!empty($item['habilidades'])): ?>
+                                        <div class="card-skills-row">
+                                            <?php foreach (array_slice($item['habilidades'], 0, 3) as $habilidad): ?>
+                                                <span class="card-skill-pill"><?= htmlspecialchars($habilidad, ENT_QUOTES, 'UTF-8') ?></span>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
 
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
+                                <div class="egresado-card-actions">
+                                    <!-- Botón izquierdo: Ver perfil (Siempre en rojo corporativo) -->
+                                    <a href="index.php?page=detalle-egresado&id=<?= (int)$item['id'] ?>" class="btn-card-ver">
+                                        Ver perfil
+                                    </a>
 
-                    <!-- Tarjeta 2: Carlos Andrés Morales -->
-                    <article class="egresado-card" 
-                        data-name="Carlos Andrés Morales" 
-                        data-promo="2020" 
-                        data-enfasis="comercial" 
-                        data-ciudad="medellin"
-                        data-cargo="Coordinador Financiero"
-                        data-empresa="Bancolombia"
-                        data-destacado="false"
-                    >
-                        <div class="card-top-banner card-top-banner-blue">
-                            <span class="card-promo-badge card-promo-badge-blue">Promoción 2020</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-teal" aria-hidden="true">C</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Carlos Andrés Morales</h2>
-                            <p class="card-emphasis">Técnico en Gestión Comercial y Contable</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Coordinador Financiero en Bancolombia
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">Finanzas</span>
-                                <span class="card-skill-pill">Excel Avanzado</span>
-                                <span class="card-skill-pill">Liderazgo</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[2]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 3: Camila Zuluaga Henao -->
-                    <article class="egresado-card" 
-                        data-name="Camila Zuluaga Henao" 
-                        data-promo="2021" 
-                        data-enfasis="academico" 
-                        data-ciudad="medellin"
-                        data-cargo="Diseñadora UI/UX"
-                        data-empresa="Globant"
-                        data-destacado="true"
-                    >
-                        <div class="card-top-banner">
-                            <span class="card-promo-badge">Promoción 2021</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-amber" aria-hidden="true">C</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Camila Zuluaga Henao</h2>
-                            <p class="card-emphasis">Bachillerato Académico</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Diseñadora de Producto UI/UX en Globant
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">Figma</span>
-                                <span class="card-skill-pill">Design Systems</span>
-                                <span class="card-skill-pill">UX Research</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[3]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 4: Mateo Henao Castro -->
-                    <article class="egresado-card" 
-                        data-name="Mateo Henao Castro" 
-                        data-promo="2019" 
-                        data-enfasis="sistemas" 
-                        data-ciudad="medellin"
-                        data-cargo="Líder Técnico Cloud"
-                        data-empresa="Ruta N"
-                        data-destacado="true"
-                    >
-                        <div class="card-top-banner card-top-banner-blue">
-                            <span class="card-promo-badge card-promo-badge-blue">Promoción 2019</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar" aria-hidden="true">M</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Mateo Henao Castro</h2>
-                            <p class="card-emphasis">Técnico en Sistemas e Informática</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Líder Técnico Cloud en Ruta N
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">AWS</span>
-                                <span class="card-skill-pill">DevOps</span>
-                                <span class="card-skill-pill">Docker</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[4]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 5: Laura Restrepo Silva -->
-                    <article class="egresado-card" 
-                        data-name="Laura Restrepo Silva" 
-                        data-promo="2022" 
-                        data-enfasis="academico" 
-                        data-ciudad="medellin"
-                        data-cargo="Médica Interna"
-                        data-empresa="Hospital San Vicente"
-                        data-destacado="false"
-                    >
-                        <div class="card-top-banner">
-                            <span class="card-promo-badge">Promoción 2022</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-teal" aria-hidden="true">L</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Laura Restrepo Silva</h2>
-                            <p class="card-emphasis">Bachillerato Académico con Honores</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Médica Interna - Univ. de Antioquia
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">Investigación</span>
-                                <span class="card-skill-pill">Salud Pública</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[5]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 6: Alejandro Quintero -->
-                    <article class="egresado-card" 
-                        data-name="Alejandro Quintero" 
-                        data-promo="2021" 
-                        data-enfasis="comercial" 
-                        data-ciudad="bogota"
-                        data-cargo="Especialista en Marketing"
-                        data-empresa="Cementos Argos"
-                        data-destacado="false"
-                    >
-                        <div class="card-top-banner card-top-banner-blue">
-                            <span class="card-promo-badge card-promo-badge-blue">Promoción 2021</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-blue" aria-hidden="true">A</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Alejandro Quintero</h2>
-                            <p class="card-emphasis">Técnico en Gestión Comercial</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Especialista Marketing en Cementos Argos
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Bogotá, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">Marketing B2B</span>
-                                <span class="card-skill-pill">Ventas</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[6]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 7: Daniela Cardona Pineda -->
-                    <article class="egresado-card" 
-                        data-name="Daniela Cardona Pineda" 
-                        data-promo="2018" 
-                        data-enfasis="sistemas" 
-                        data-ciudad="medellin"
-                        data-cargo="Analista de Datos"
-                        data-empresa="Seguros SURA"
-                        data-destacado="false"
-                    >
-                        <div class="card-top-banner">
-                            <span class="card-promo-badge">Promoción 2018</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar egresado-avatar-amber" aria-hidden="true">D</div>
-
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Daniela Cardona Pineda</h2>
-                            <p class="card-emphasis">Técnico en Sistemas e Informática</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Analista de Datos en Seguros SURA
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">SQL</span>
-                                <span class="card-skill-pill">Power BI</span>
-                                <span class="card-skill-pill">Estadística</span>
-                            </div>
-                        </div>
-                        <?php $egresado = $egresadosListado[7]; ?>
-                        <div class="egresado-card-actions">
-                            <!-- Botón izquierdo: Ver perfil (Siempre en rojo) -->
-                            <a href="detalle-egresado.php?id=<?= $egresado['id'] ?>" class="btn-card-ver">
-                                Ver perfil
-                            </a>
-
-                            <!-- Botón derecho condicional según estado de conexión -->
-                            <?php if (!empty($egresado['conectado'])): ?>
-                                <!-- Si ya está conectado: Enviar mensaje hacia mensajes.php -->
-                                <a href="mensajes.php" class="btn-card-action btn-card-message" title="Enviar mensaje">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                    </svg>
-                                    <span>Enviar mensaje</span>
-                                </a>
-                            <?php else: ?>
-                                <!-- Si no está conectado: Botón Conectar -->
-                                <button type="button" class="btn-card-action btn-card-connect" onclick="conectarEgresado(this)">
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7.5" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                    <span>Conectar</span>
-                                </button>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-
-                    <!-- Tarjeta 8: Santiago Emitola (Tu perfil) -->
-                    <article class="egresado-card" 
-                        data-name="Santiago Emitola" 
-                        data-promo="2021" 
-                        data-enfasis="sistemas" 
-                        data-ciudad="medellin"
-                        data-cargo="Desarrollador Web"
-                        data-empresa="InnovaTech Medellín"
-                        data-destacado="true"
-                    >
-                        <div class="card-top-banner">
-                            <span class="card-promo-badge">Promoción 2021 (Tú)</span>
-                        </div>
-                        <div class="card-avatar-wrap">
-                            <div class="egresado-avatar" aria-hidden="true">S</div>
-                            <span class="card-badge-status" style="background-color: #E3F2FD; color: #1565C0; border-color: rgba(21, 101, 192, 0.25);">
-                                Tu perfil
-                            </span>
-                        </div>
-                        <div class="card-body-content">
-                            <h2 class="card-name">Santiago Emitola</h2>
-                            <p class="card-emphasis">Técnico en Sistemas y Gestión Comercial</p>
-                            <p class="card-occupation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                                Desarrollador Web en InnovaTech
-                            </p>
-                            <p class="card-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Medellín, Colombia
-                            </p>
-                            <div class="card-skills-row">
-                                <span class="card-skill-pill">PHP</span>
-                                <span class="card-skill-pill">JavaScript</span>
-                                <span class="card-skill-pill">HTML/CSS</span>
-                            </div>
-                        </div>
-                        <div class="egresado-card-actions">
-                            <a href="perfil.php" class="btn-card-ver btn-card-profile" style="flex: 1 1 100%;">Editar mi perfil</a>
-                        </div>
-                    </article>
-
+                                    <!-- Botón derecho condicional según estado de conexión -->
+                                    <?php if ($item['conexion_estado'] === 'propio'): ?>
+                                        <a href="index.php?page=perfil" class="btn-card-action btn-card-own" title="Ir a mi perfil">
+                                            <span>Mi perfil</span>
+                                        </a>
+                                    <?php elseif ($item['conexion_estado'] === 'conectado'): ?>
+                                        <a href="index.php?page=mensajes" class="btn-card-action btn-card-message" title="Enviar mensaje">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                            </svg>
+                                            <span>Enviar mensaje</span>
+                                        </a>
+                                    <?php elseif ($item['conexion_estado'] === 'solicitud_enviada'): ?>
+                                        <button type="button" class="btn-card-action btn-card-pending" disabled title="Solicitud pendiente de respuesta">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <polyline points="12 6 12 12 16 14"></polyline>
+                                            </svg>
+                                            <span>Solicitud enviada</span>
+                                        </button>
+                                    <?php elseif ($item['conexion_estado'] === 'solicitud_recibida'): ?>
+                                        <button type="button" class="btn-card-action btn-card-connect" data-id="<?= (int)$item['id'] ?>" onclick="conectarEgresado(this, <?= (int)$item['id'] ?>)" title="Aceptar solicitud de conexión">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                            <span>Aceptar soli</span>
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="button" class="btn-card-action btn-card-connect" data-id="<?= (int)$item['id'] ?>" onclick="conectarEgresado(this, <?= (int)$item['id'] ?>)" title="Conectar con egresado">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="8.5" cy="7.5" r="4"></circle>
+                                                <line x1="20" y1="8" x2="20" y2="14"></line>
+                                                <line x1="23" y1="11" x2="17" y2="11"></line>
+                                            </svg>
+                                            <span>Conectar</span>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </section>
 
                 <!-- F. Estado Vacío (Sin Resultados) -->
@@ -780,7 +372,7 @@ $userInitial = !empty($userName)
                 <!-- G. Paginación Accesible -->
                 <nav class="egresados-pagination-bar" aria-label="Páginas del directorio de egresados">
                     <span class="pagination-info-text">
-                        Mostrando <strong>1</strong> a <strong>8</strong> de <strong>1,250</strong> egresados registrados
+                        Mostrando <strong>1</strong> a <strong id="paginacionVisibles"><?= $totalEgresados ?></strong> de <strong id="paginacionTotal"><?= $totalEgresados ?></strong> egresados registrados
                     </span>
                     <div class="pagination-buttons-group">
                         <button type="button" class="btn-page-item" disabled aria-label="Página anterior">&laquo;</button>
@@ -798,14 +390,14 @@ $userInitial = !empty($userName)
     <!-- H. Navegación fluida a pantalla completa detalle-egresado.php (Modal retirado) -->
 
     <!-- I. Notificación Toast Flotante -->
-    <div class="egresado-toast" id="toastNotificacionEgresados" role="status" aria-live="polite">
+    <div class="egresado-toast" id="toastNotificacionEgresados" role="status" aria-live="polite" style="display: none;">
         <span class="egresado-toast-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
         </span>
-        <span id="toastMensajeEgresados">¡Solicitud de conexión enviada!</span>
+        <span id="toastMensajeEgresados"></span>
     </div>
 
     <!-- J. Lógica JavaScript Vanilla para el Directorio de Egresados -->

@@ -559,20 +559,19 @@ El formato de este documento está inspirado en las convenciones de **Keep a Cha
 
 > **Pendiente de verificación:** confirmar el código de respuesta y el comportamiento definitivo de la redirección entre ambas rutas.
 
-### 🧪 Entorno de pruebas de acceso y cierre de sesión
+### 🔒 Autenticación definitiva con Base de Datos Segura y Retiro de dev-login
+
+#### Eliminado
+
+* Eliminación definitiva de `dev-login.php` y de todo bypass de autenticación por motivos de seguridad.
+* Retiro de la ruta `'dev-login'` del enrutador central `index.php`.
 
 #### Agregado
 
-* Incorporación reportada de `dev-login.php` para crear una sesión simulada de desarrollo sin depender del inicio de sesión real contra MySQL.
-* Incorporación de `logout.php` para cerrar la sesión y limpiar los datos de autenticación correspondientes.
-* Preparación de un flujo de navegación que permite revisar el Dashboard durante el desarrollo visual.
-
-#### Cambiado
-
-* Ajustes temporales de las redirecciones desde las pantallas de autenticación para facilitar las pruebas de maquetación.
-* Mantenimiento de la comprobación de sesión en el acceso al Dashboard, según el informe de implementación.
-
-> **Importante:** `dev-login.php` pertenece al entorno de pruebas. Antes de publicar el proyecto, debe comprobarse que no quede accesible como mecanismo de autenticación en producción. También deben revisarse las redirecciones temporales y restaurarse el flujo definitivo de autenticación.
+* Autenticación 100% segura mediante PDO contra MySQL con hashes bcrypt (`password_verify`).
+* Protección contra Session Fixation mediante `session_regenerate_id(true)`.
+* Generación de cuenta administrativa inicial segura en `database/setup.php` y `database/schema.sql`.
+* Incorporación de `logout.php` con invalidación de cookies de sesión y destrucción total.
 
 ### 🧾 Actualización de la documentación
 

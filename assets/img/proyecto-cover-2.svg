@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="p2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D32F2F" />
+      <stop offset="100%" stop-color="#801313" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" fill="url(#p2Grad)" />
+  <circle cx="200" cy="110" r="70" fill="#FFFFFF" fill-opacity="0.08" />
+  <circle cx="200" cy="110" r="50" fill="#FFFFFF" fill-opacity="0.12" />
+  <g transform="translate(175, 75)" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 25 10 C 25 2, 45 2, 45 15 C 45 28, 25 35, 25 45" />
+    <path d="M 10 40 L 40 40 L 40 55 L 10 55 Z" fill="#FFFFFF" fill-opacity="0.25" />
+    <line x1="25" y1="20" x2="25.01" y2="20" stroke-width="3" />
+    <path d="M 15 25 L 35 25" />
+    <circle cx="25" cy="18" r="14" fill="#FFFFFF" fill-opacity="0.15" />
+  </g>
+  <text x="200" y="180" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">INNOVACIÓN &amp; EMPRENDIMIENTO</text>
+</svg>

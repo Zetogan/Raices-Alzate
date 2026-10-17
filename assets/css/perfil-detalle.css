@@ -429,15 +429,15 @@
   background-color: rgba(21, 101, 192, 0.15) !important;
 }
 
-/* Estado de Solicitud enviada tras clic */
+/* Estado de Solicitud enviada tras clic o precargada */
 .profile-header-actions .btn-action-main.solicitud-enviada,
 .profile-header-actions .btn-action-main:disabled,
 .profile-header-actions .btn-action-profile.solicitud-enviada,
 .profile-header-actions .btn-action-profile:disabled,
 .profile-hero-actions .btn-action-main:disabled {
-  background-color: #F5F5F5 !important;
-  border-color: #E0E0E0 !important;
-  color: #757575 !important;
+  background-color: #FFF8E1 !important;
+  border-color: #FFE082 !important;
+  color: #E65100 !important;
   cursor: default !important;
   transform: none !important;
   box-shadow: none !important;
@@ -445,7 +445,7 @@
 
 .profile-header-actions .btn-action-main:disabled svg,
 .profile-hero-actions .btn-action-main:disabled svg {
-  stroke: #757575 !important;
+  stroke: #E65100 !important;
 }
 
 /* Responsive Móvil (<= 768px): Botones apilados al 100% */

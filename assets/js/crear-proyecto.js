@@ -361,7 +361,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Si es válido, indicar estado de publicación
             if (btnSubmit) {
-                btnSubmit.disabled = true;
+                btnSubmit.style.pointerEvents = 'none';
+                btnSubmit.style.opacity = '0.85';
                 btnSubmit.textContent = 'Publicando proyecto...';
             }
         });

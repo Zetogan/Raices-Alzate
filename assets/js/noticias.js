@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const crearTarjetaEstatica = (item) => {
         const link = document.createElement('a');
         link.className = 'noticia-card news-card card-noticia';
-        link.href = `detalle-noticia.php?id=${item.id}`;
-        link.setAttribute('data-href', `detalle-noticia.php?id=${item.id}`);
+        link.href = `index.php?page=detalle-noticia&id=${item.id}`;
+        link.setAttribute('data-href', `index.php?page=detalle-noticia&id=${item.id}`);
         link.setAttribute('aria-label', `Ver detalle de ${item.titulo}`);
 
         link.innerHTML = `

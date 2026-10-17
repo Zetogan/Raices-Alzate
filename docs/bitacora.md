@@ -993,27 +993,19 @@ Se reportó la incorporación de un alias para la recuperación de contraseña.
 
 **Pendiente de verificación:** un informe describe el alias como una redirección 301 y otro como un controlador que renderiza la vista correspondiente. Se debe inspeccionar el archivo actual y comprobar el comportamiento HTTP real antes de documentar una de estas alternativas como definitiva.
 
-### 28.9. Acceso de prueba y navegación durante el desarrollo
+### 28.9. Retiro de acceso simulado y consolidación de base de datos segura
 
-**Archivo reportado:**
+**Acción de seguridad realizada:**
 
-* `dev-login.php`.
-
-**Actividades realizadas:**
-
-* Incorporación de una utilidad local para crear una sesión simulada durante las pruebas de interfaz.
-* Preparación de datos de prueba para facilitar la revisión del Dashboard sin depender temporalmente de una cuenta real.
-* Ajustes de rutas y navegación para el entorno local de XAMPP.
-* Revisión de rutas de recursos cuando el proyecto se ejecuta desde una subcarpeta.
-* Desactivación temporal de determinadas redirecciones de autenticación para facilitar la maquetación, según los informes recibidos.
+* Eliminación definitiva de `dev-login.php` y supresión de accesos simulados.
+* Retiro de la ruta `'dev-login'` del enrutador central `index.php`.
+* Autenticación 100% protegida contra MySQL mediante PDO, sentencias preparadas y `password_verify()`.
+* Generación de cuenta administrativa inicial segura con hash Bcrypt en `database/setup.php` y `database/schema.sql`.
+* Regeneración de identificadores de sesión (`session_regenerate_id(true)`) contra fijación de sesiones.
 
 **Resultado:**
 
-Se reportó un mecanismo de acceso de prueba para trabajar en el Dashboard sin una integración completa con MySQL.
-
-**Advertencia de seguridad:** `dev-login.php` debe permanecer limitado al entorno local de desarrollo, sin acceso público en producción. También deben restaurarse y comprobarse las redirecciones de autenticación antes de considerar terminados los flujos de acceso y registro.
-
-La protección de `dashboard.php` debe conservarse incluso durante las pruebas.
+Se eliminó cualquier vía de elusión de autenticación. Todo acceso al Dashboard y al panel administrativo requiere obligatoriamente una cuenta válida, aprobada y verificada en la base de datos.
 
 ### 28.10. Verificaciones técnicas reportadas
 

@@ -28,10 +28,10 @@ if (!defined('APP_NAME')) {
                 <h4 class="footer-title">Navegación</h4>
                 <ul class="footer-links footer-nav-list">
                     <li><a href="index.php" class="footer-link">Inicio</a></li>
-                    <li><a href="proyectos.php" class="footer-link">Proyectos</a></li>
-                    <li><a href="egresados.php" class="footer-link">Egresados</a></li>
-                    <li><a href="noticias.php" class="footer-link">Noticias</a></li>
-                    <li><a href="pqr.php" class="footer-link">PQRS y Soporte</a></li>
+                    <li><a href="index.php?page=proyectos" class="footer-link">Proyectos</a></li>
+                    <li><a href="index.php?page=egresados" class="footer-link">Egresados</a></li>
+                    <li><a href="index.php?page=noticias" class="footer-link">Noticias</a></li>
+                    <li><a href="index.php?page=pqr" class="footer-link">PQRS y Soporte</a></li>
                 </ul>
             </div>
 
@@ -40,7 +40,6 @@ if (!defined('APP_NAME')) {
                 <h4 class="footer-title">Institución</h4>
                 <ul class="footer-links footer-nav-list">
                     <li><span class="footer-text footer-desc">Institución Educativa Gilberto Alzate Avendaño</span></li>
-                    <li><a href="pqr.php" class="footer-link">Atención al ciudadano y PQRS</a></li>
                 </ul>
             </div>
         </div>

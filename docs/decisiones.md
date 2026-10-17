@@ -852,18 +852,19 @@ La revisión deberá abarcar los controladores, el Front Controller y las vistas
 
 **Fecha:** octubre de 2026
 
-**Estado:** Uso limitado a desarrollo; revisión antes de producción obligatoria
+**Estado:** Retirado definitivamente por seguridad; autenticación 100% mediante base de datos MySQL
 
 ### Decisión
 
-Se utiliza un mecanismo auxiliar de acceso simulado para facilitar la revisión del Dashboard sin depender de una autenticación real contra la base de datos.
+Se elimina de forma permanente el archivo `dev-login.php` y todo acceso simulado. Toda autenticación en la plataforma debe validarse directamente contra la base de datos MySQL mediante consultas preparadas PDO, tokens CSRF y funciones de hash seguras (`password_hash` y `password_verify`).
 
 ### Implementación registrada
 
-* Archivo auxiliar `dev-login.php`.
-* Creación de una sesión de prueba.
-* Redirección hacia el Dashboard.
-* Archivo `logout.php` para cerrar la sesión y limpiar los datos de autenticación correspondientes.
+* Eliminación completa de `dev-login.php` y de su ruta en el Front Controller.
+* Integración definitiva de `auth/login-process.php` con verificación de contraseñas hasheadas (`password_verify`).
+* Regeneración de ID de sesión (`session_regenerate_id(true)`) contra Session Fixation.
+* Inclusión de semilla administrativa segura en `database/setup.php` y `database/schema.sql`.
+* Control estricto de roles (`hasRole('administrador')`) en áreas protegidas.
 
 ### Justificación
 

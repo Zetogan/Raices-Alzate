@@ -460,6 +460,19 @@
     text-transform: uppercase;
 }
 
+img.egresado-avatar,
+.egresado-avatar-img {
+    width: 68px !important;
+    height: 68px !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+    border: 3px solid #FFFFFF !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
 .egresado-avatar-blue {
     background-color: var(--color-secondary, #1565C0);
 }
@@ -772,6 +785,51 @@
   stroke: #2E7D32 !important;
   width: 15px !important;
   height: 15px !important;
+}
+
+/* 2.4 Estado Solicitud Enviada (Pendiente) */
+.egresado-card .btn-card-pending,
+.btn-card-pending {
+  background-color: #FFF8E1 !important;
+  color: #E65100 !important;
+  border-color: #FFE082 !important;
+  cursor: default !important;
+  opacity: 0.95;
+}
+.egresado-card .btn-card-pending svg,
+.btn-card-pending svg {
+  stroke: #E65100 !important;
+}
+
+/* 2.5 Estado Perfil Propio */
+.egresado-card .btn-card-own,
+.btn-card-own {
+  background-color: #F5F5F5 !important;
+  color: #616161 !important;
+  border-color: #E0E0E0 !important;
+}
+.egresado-card .btn-card-own svg,
+.btn-card-own svg {
+  stroke: #616161 !important;
+}
+
+/* Pill de porcentaje / destacado */
+.card-destacado-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #E65100;
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  margin-left: auto;
+}
+.card-destacado-pill svg {
+  color: #FF9800;
+  fill: #FF9800;
 }
 
 /* ==========================================================================

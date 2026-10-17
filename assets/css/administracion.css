@@ -1271,4 +1271,113 @@
         bottom: 16px;
         max-width: none;
     }
+
+    .admin-tab-actions-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .admin-tab-buttons-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .admin-action-pill {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 10px 14px;
+    }
 }
+
+/* ==========================================================================
+   12. BARRA DE ACCIONES DE CREACIÓN (MODERACIÓN DE CONTENIDOS)
+   ========================================================================== */
+.admin-tab-actions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E0E0E0;
+    flex-wrap: wrap;
+}
+
+.admin-tab-title-wrap {
+    flex: 1 1 300px;
+}
+
+.admin-section-heading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 4px 0;
+}
+
+.admin-section-sub {
+    font-size: 0.85rem;
+    color: #757575;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.admin-tab-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-action-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.admin-action-pill.pill-blue {
+    background-color: #E3F2FD;
+    color: #1565C0;
+    border: 1px solid rgba(21, 101, 192, 0.25);
+}
+
+.admin-action-pill.pill-blue:hover {
+    background-color: #1565C0;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.3);
+}
+
+.admin-action-pill.pill-purple {
+    background-color: #EDE7F6;
+    color: #6A1B9A;
+    border: 1px solid rgba(106, 27, 154, 0.25);
+}
+
+.admin-action-pill.pill-purple:hover {
+    background-color: #6A1B9A;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(106, 27, 154, 0.3);
+}
+
+.admin-action-pill.pill-orange {
+    background-color: #FFF3E0;
+    color: #E65100;
+    border: 1px solid rgba(230, 81, 0, 0.25);
+}
+
+.admin-action-pill.pill-orange:hover {
+    background-color: #E65100;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(230, 81, 0, 0.3);
+}
+

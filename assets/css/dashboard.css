@@ -748,6 +748,42 @@ body.sidebar-drawer-active {
     display: block;
 }
 
+.activity-empty-state {
+    padding: 36px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.activity-empty-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #F5F5F5;
+    color: var(--color-text-muted, #9E9E9E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.activity-empty-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-main, #212121);
+    margin: 0 0 6px 0;
+}
+
+.activity-empty-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted, #757575);
+    margin: 0;
+    max-width: 320px;
+    line-height: 1.4;
+}
+
 /* 6.2 Acciones Rápidas */
 .quick-actions-section {
     margin-top: 28px;

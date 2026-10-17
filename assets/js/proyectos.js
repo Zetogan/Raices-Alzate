@@ -124,13 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const crearTarjetaEstatica = (item) => {
         const article = document.createElement('article');
         article.className = 'proyecto-card project-card';
-        article.setAttribute('data-href', `detalle-proyecto.php?id=${item.id}`);
+        article.setAttribute('data-href', `index.php?page=detalle-proyecto&id=${item.id}`);
         article.setAttribute('role', 'link');
         article.setAttribute('tabindex', '0');
         article.setAttribute('aria-label', `Ver detalle del proyecto ${item.titulo}`);
 
         const botonEditarHtml = item.esPropio ? `
-            <a href="editar-proyecto.php?id=${item.id}" class="btn-editar-card" title="Editar proyecto ${item.titulo}" onclick="event.stopPropagation();">
+            <a href="index.php?page=editar-proyecto&id=${item.id}" class="btn-editar-card" title="Editar proyecto ${item.titulo}" onclick="event.stopPropagation();">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -139,13 +139,16 @@ document.addEventListener('DOMContentLoaded', () => {
             </a>
         ` : '';
 
+        const covers = ['assets/img/proyecto-cover-1.svg', 'assets/img/proyecto-cover-2.svg', 'assets/img/proyecto-cover-3.svg'];
+        const coverSrc = covers[(item.id || 1) % covers.length];
+
         article.innerHTML = `
             <div class="proyecto-cover-wrapper">
-                <div class="proyecto-cover-placeholder"></div>
+                <img src="${coverSrc}" alt="${item.titulo}" class="proyecto-cover-img">
             </div>
             <div class="proyecto-info">
                 <h2 class="proyecto-title project-title">
-                    <a href="detalle-proyecto.php?id=${item.id}" class="proyecto-title-link project-link stretched-link">
+                    <a href="index.php?page=detalle-proyecto&id=${item.id}" class="proyecto-title-link project-link stretched-link">
                         ${item.titulo}
                     </a>
                 </h2>

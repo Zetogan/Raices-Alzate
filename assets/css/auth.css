@@ -436,6 +436,113 @@
 }
 
 /* ==========================================================================
+   9.1 ADICIONALES: CONTRASEÑA CON VISIBILIDAD & BADGES
+   ========================================================================== */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .form-input {
+    padding-right: 44px;
+}
+
+.btn-toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted, #757575);
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: color var(--transition-fast, 0.15s ease),
+                background-color var(--transition-fast, 0.15s ease);
+}
+
+.btn-toggle-password:hover {
+    color: var(--color-primary, #D32F2F);
+    background-color: var(--color-primary-light, #FFEBEE);
+}
+
+.btn-toggle-password:focus-visible {
+    outline: 2px solid var(--color-secondary, #1565C0);
+    outline-offset: 1px;
+}
+
+.auth-user-badge {
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.auth-user-badge svg {
+    color: var(--color-secondary, #1565C0);
+    flex-shrink: 0;
+}
+
+.auth-user-badge strong {
+    color: var(--color-text-main, #212121);
+    word-break: break-all;
+}
+
+/* Chip estilizado compacto de cuenta de usuario (Estilo Google / GitHub) */
+.auth-account-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 5px 14px 5px 8px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.auth-account-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--color-secondary-light, #E3F2FD);
+    color: var(--color-secondary, #1565C0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.auth-account-info {
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    font-size: 13px;
+    color: var(--color-text-secondary, #64748B);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auth-account-email {
+    font-weight: 600;
+    color: var(--color-text-main, #1E293B);
+}
+
+/* ==========================================================================
    10. RESPONSIVE DESIGN (MOBILE ADAPTATION)
    ========================================================================== */
 @media (max-width: 480px) {

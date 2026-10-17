@@ -165,9 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             oportunidadesAdicionales.forEach((item) => {
                 const card = document.createElement('a');
-                card.href = `detalle-oportunidad.php?id=${item.id}`;
+                card.href = `index.php?page=detalle-oportunidad&id=${item.id}`;
                 card.className = 'oportunidad-card';
-                card.setAttribute('data-href', `detalle-oportunidad.php?id=${item.id}`);
+                card.setAttribute('data-href', `index.php?page=detalle-oportunidad&id=${item.id}`);
                 card.setAttribute('aria-label', `Ver detalle de ${item.titulo}`);
 
                 card.innerHTML = `

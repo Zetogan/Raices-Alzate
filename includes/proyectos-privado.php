@@ -26,11 +26,12 @@ $user = !empty($_SESSION['user']) && is_array($_SESSION['user'])
     ? $_SESSION['user'] 
     : (!empty($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : []);
 
-$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Santiago');
+$userId = (int)($user['id'] ?? $_SESSION['user_id'] ?? $_SESSION['usuario_id'] ?? 0);
+$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Usuario');
 $userRole = trim($user['rol'] ?? $user['role'] ?? $_SESSION['rol'] ?? 'Egresado');
 $userInitial = !empty($userName) 
     ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
-    : 'S';
+    : 'U';
 
 // Hojas de estilo y scripts adicionales gestionados por los includes globales
 $extraCss = ['dashboard.css', 'proyectos.css'];
@@ -73,7 +74,7 @@ require_once __DIR__ . '/header.php';
                     <p class="section-subtitle proyectos-header-subtitle">Conoce y comparte proyectos realizados por la comunidad de egresados.</p>
                 </div>
                 <div class="proyectos-header-actions">
-                    <a href="crear-proyecto.php" class="btn-crear-proyecto" id="btnCrearProyecto" role="button">
+                    <a href="index.php?page=crear-proyecto" class="btn-crear-proyecto" id="btnCrearProyecto" role="button">
                         <svg class="btn-icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -87,65 +88,105 @@ require_once __DIR__ . '/header.php';
             <section class="projects-card-container proyectos-card-container" aria-label="Catálogo de proyectos de egresados">
                 
                 <?php
-                // Colección estática de proyectos comunitarios (CERO BASES DE DATOS / CERO SQL)
-                $proyectosCatalogo = [
-                    [
-                        'id'          => 1,
-                        'titulo'      => 'Sistema de gestión académica',
-                        'descripcion' => 'Plataforma para facilitar la gestión y organización académica.',
-                        'autor'       => 'Santiago Emitola',
-                        'es_propio'   => true
-                    ],
-                    [
-                        'id'          => 2,
-                        'titulo'      => 'Aplicación para emprendedores',
-                        'descripcion' => 'Herramienta digital para apoyar pequeños emprendimientos.',
-                        'autor'       => 'María López',
-                        'es_propio'   => false
-                    ],
-                    [
-                        'id'          => 3,
-                        'titulo'      => 'Portafolio de diseño',
-                        'descripcion' => 'Espacio para mostrar trabajos y proyectos de diseño gráfico.',
-                        'autor'       => 'Carlos Rodríguez',
-                        'es_propio'   => false
-                    ],
-                    [
-                        'id'          => 4,
-                        'titulo'      => 'Tienda virtual',
-                        'descripcion' => 'Proyecto enfocado en la creación de una tienda en línea.',
-                        'autor'       => 'Laura Martínez',
-                        'es_propio'   => false
-                    ],
-                    [
-                        'id'          => 5,
-                        'titulo'      => 'App de servicios',
-                        'descripcion' => 'Aplicación para conectar usuarios con servicios locales.',
-                        'autor'       => 'Andrés Gómez',
-                        'es_propio'   => false
-                    ],
-                    [
-                        'id'          => 6,
-                        'titulo'      => 'Proyecto comunitario',
-                        'descripcion' => 'Iniciativa para fortalecer la participación de la comunidad.',
-                        'autor'       => 'Valentina Torres',
-                        'es_propio'   => false
-                    ]
-                ];
+                require_once __DIR__ . '/../config/database.php';
+                $proyectosCatalogo = [];
+
+                if (!empty($pdo)) {
+                    try {
+                        $stmtProy = $pdo->prepare("
+                            SELECT p.id, p.titulo, p.descripcion, p.categoria, p.enlace, p.portada, p.autor_id, u.nombre_completo AS autor
+                            FROM proyectos p
+                            LEFT JOIN usuarios u ON u.id = p.autor_id
+                            WHERE p.estado IN ('publicado', 'aprobado') OR p.autor_id = :uid
+                            ORDER BY p.creado_en DESC
+                        ");
+                        $stmtProy->execute([':uid' => $userId]);
+                        $rows = $stmtProy->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($rows as $r) {
+                            $proyectosCatalogo[] = [
+                                'id'          => (int)$r['id'],
+                                'titulo'      => $r['titulo'],
+                                'descripcion' => $r['descripcion'],
+                                'portada'     => !empty($r['portada']) ? $r['portada'] : '',
+                                'autor'       => !empty($r['autor']) ? $r['autor'] : 'Egresado Alzatista',
+                                'es_propio'   => ((int)$r['autor_id'] === (int)$userId)
+                            ];
+                        }
+                    } catch (PDOException $e) {
+                        error_log('Error consultando catálogo de proyectos: ' . $e->getMessage());
+                    }
+                }
+
+                // Si no hay proyectos aún en la base de datos, mostrar catálogo de demostración
+                if (empty($proyectosCatalogo)) {
+                    $proyectosCatalogo = [
+                        [
+                            'id'          => 1,
+                            'titulo'      => 'Sistema de gestión académica',
+                            'descripcion' => 'Plataforma para facilitar la gestión y organización académica.',
+                            'autor'       => 'Santiago Emitola',
+                            'es_propio'   => true
+                        ],
+                        [
+                            'id'          => 2,
+                            'titulo'      => 'Aplicación para emprendedores',
+                            'descripcion' => 'Herramienta digital para apoyar pequeños emprendimientos.',
+                            'autor'       => 'María López',
+                            'es_propio'   => false
+                        ],
+                        [
+                            'id'          => 3,
+                            'titulo'      => 'Portafolio de diseño',
+                            'descripcion' => 'Espacio para mostrar trabajos y proyectos de diseño gráfico.',
+                            'autor'       => 'Carlos Rodríguez',
+                            'es_propio'   => false
+                        ],
+                        [
+                            'id'          => 4,
+                            'titulo'      => 'Tienda virtual',
+                            'descripcion' => 'Proyecto enfocado en la creación de una tienda en línea.',
+                            'autor'       => 'Laura Martínez',
+                            'es_propio'   => false
+                        ],
+                        [
+                            'id'          => 5,
+                            'titulo'      => 'App de servicios',
+                            'descripcion' => 'Aplicación para conectar usuarios con servicios locales.',
+                            'autor'       => 'Andrés Gómez',
+                            'es_propio'   => false
+                        ],
+                        [
+                            'id'          => 6,
+                            'titulo'      => 'Proyecto comunitario',
+                            'descripcion' => 'Iniciativa para fortalecer la participación de la comunidad.',
+                            'autor'       => 'Valentina Torres',
+                            'es_propio'   => false
+                        ]
+                    ];
+                }
                 ?>
 
-                <!-- Grid de proyectos: 3 columnas simétricas en Desktop, 6 tarjetas iniciales -->
+                <!-- Grid de proyectos: 3 columnas simétricas en Desktop -->
                 <div class="proyectos-grid" id="proyectosGrid">
                     
                     <?php foreach ($proyectosCatalogo as $item): ?>
                     <!-- Tarjeta interactiva con acceso a Detalle y botón Editar para proyectos propios -->
-                    <article class="proyecto-card project-card" data-href="detalle-proyecto.php?id=<?php echo (int)$item['id']; ?>" role="link" tabindex="0" aria-label="Ver detalle del proyecto <?php echo htmlspecialchars($item['titulo']); ?>">
+                    <article class="proyecto-card project-card" data-href="index.php?page=detalle-proyecto&id=<?php echo (int)$item['id']; ?>" role="link" tabindex="0" aria-label="Ver detalle del proyecto <?php echo htmlspecialchars($item['titulo']); ?>">
                         <div class="proyecto-cover-wrapper">
-                            <div class="proyecto-cover-placeholder"></div>
+                            <?php if (!empty($item['portada']) && file_exists(__DIR__ . '/../' . ltrim($item['portada'], '/'))): ?>
+                                <img src="<?php echo htmlspecialchars($item['portada']); ?>" alt="<?php echo htmlspecialchars($item['titulo']); ?>" class="proyecto-cover-img">
+                            <?php else: ?>
+                                <?php 
+                                    $defaultProyCovers = ['assets/img/proyecto-cover-1.svg', 'assets/img/proyecto-cover-2.svg', 'assets/img/proyecto-cover-3.svg'];
+                                    $coverIndex = ((int)($item['id'] ?? 1)) % count($defaultProyCovers);
+                                    $fallbackCover = $defaultProyCovers[$coverIndex];
+                                ?>
+                                <img src="<?php echo $fallbackCover; ?>" alt="<?php echo htmlspecialchars($item['titulo']); ?>" class="proyecto-cover-img">
+                            <?php endif; ?>
                         </div>
                         <div class="proyecto-info">
                             <h2 class="proyecto-title project-title">
-                                <a href="detalle-proyecto.php?id=<?php echo (int)$item['id']; ?>" class="proyecto-title-link project-link stretched-link">
+                                <a href="index.php?page=detalle-proyecto&id=<?php echo (int)$item['id']; ?>" class="proyecto-title-link project-link stretched-link">
                                     <?php echo htmlspecialchars($item['titulo']); ?>
                                 </a>
                             </h2>

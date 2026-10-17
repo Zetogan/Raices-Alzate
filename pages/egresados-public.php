@@ -37,8 +37,8 @@ if (!defined('APP_NAME')) {
 
                 <!-- 3. Grupo de botones de acción -->
                 <div class="egresados-actions portal-actions">
-                    <a href="login.php" class="btn btn-primary btn-egresados-primary btn-egresados-login" id="btnEgresadosLogin">Iniciar sesión</a>
-                    <a href="registro.php" class="btn btn-outline-secondary btn-egresados-secondary" id="btnEgresadosRegistro">Crear una cuenta</a>
+                    <a href="index.php?page=login" class="btn btn-primary btn-egresados-primary btn-egresados-login" id="btnEgresadosLogin">Iniciar sesión</a>
+                    <a href="index.php?page=registro" class="btn btn-outline-secondary btn-egresados-secondary" id="btnEgresadosRegistro">Crear una cuenta</a>
                 </div>
             </div>
         </div>

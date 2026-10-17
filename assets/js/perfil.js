@@ -39,11 +39,58 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = (event) => {
                 if (avatarPreviewCircle) {
                     avatarPreviewCircle.innerHTML = `<img src="${event.target.result}" alt="Foto de perfil seleccionada">`;
+                    actualizarCompletitudLive();
                 }
             };
             reader.readAsDataURL(file);
         });
     }
+
+    // =========================================================================
+    // 1.1 CÁLCULO DINÁMICO EN TIEMPO REAL DE COMPLETITUD (%)
+    // =========================================================================
+    const actualizarCompletitudLive = () => {
+        const labelPct = document.getElementById('labelPorcentajeCompletitud');
+        const barPct = document.getElementById('barPorcentajeCompletitud');
+        if (!labelPct || !barPct) return;
+
+        const val = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        };
+
+        const campos = [
+            val('inputNombre').length > 0,
+            val('inputEmailPrincipal').length > 0,
+            val('textareaBio').length > 0,
+            val('selectGenero').length > 0,
+            val('inputNacimiento').length > 0,
+            val('inputCiudad').length > 0,
+            val('inputDireccion').length > 0,
+            val('inputTelefono').length > 0,
+            val('inputEmailSecundario').length > 0,
+            val('inputTituloInstitucional').length > 0,
+            val('inputAnioGraduacion').length > 0,
+            val('inputProgramaSuperior').length > 0,
+            val('inputInstitucionSuperior').length > 0,
+            val('inputOcupacionRol').length > 0,
+            val('inputEmpresa').length > 0,
+            val('inputAreaEspecialidad').length > 0,
+            val('inputAniosExperiencia').length > 0,
+            skillsList.length > 0,
+            val('inputLinkedin').length > 0,
+            val('inputGithub').length > 0,
+            val('inputWeb').length > 0,
+            (document.querySelector('#avatarPreviewCircle img') !== null)
+        ];
+
+        const total = campos.length;
+        const llenos = campos.filter(Boolean).length;
+        const porcentaje = Math.round((llenos / total) * 100);
+
+        labelPct.textContent = porcentaje + '%';
+        barPct.style.width = porcentaje + '%';
+    };
 
     // =========================================================================
     // 2. GESTIÓN DINÁMICA DE HABILIDADES Y COMPETENCIAS (TAGS / BADGES)
@@ -52,15 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillsBadgesContainer = document.getElementById('skillsBadgesContainer');
     const inputHabilidadesHidden = document.getElementById('inputHabilidadesHidden');
 
-    // Lista inicial de competencias predefinidas o cargadas
-    let skillsList = [
-        'HTML5',
-        'CSS3',
-        'JavaScript',
-        'PHP',
-        'Git',
-        'Diseño UI/UX'
-    ];
+    // Lista inicial de competencias leídas desde el valor real del input oculto
+    let skillsList = [];
+    if (inputHabilidadesHidden && inputHabilidadesHidden.value.trim().length > 0) {
+        skillsList = inputHabilidadesHidden.value
+            .split(',')
+            .map(s => s.trim())
+            .filter(s => s.length > 0);
+    }
 
     /**
      * Sincroniza la lista de competencias con el campo oculto
@@ -105,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         syncSkillsHiddenInput();
+        actualizarCompletitudLive();
     };
 
     /**
@@ -170,45 +217,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 3. SIMULACIÓN DE GUARDADO CON FEEDBACK VISUAL
+    // 3. ENVÍO REAL DEL FORMULARIO CON FEEDBACK VISUAL
     // =========================================================================
     const formEditarPerfil = document.getElementById('formEditarPerfil');
 
     if (formEditarPerfil) {
-        formEditarPerfil.addEventListener('submit', (e) => {
-            e.preventDefault();
+        // Escucha en tiempo real para recalcular el porcentaje dinámicamente si el usuario borra o agrega datos
+        formEditarPerfil.addEventListener('input', actualizarCompletitudLive);
+        formEditarPerfil.addEventListener('change', actualizarCompletitudLive);
 
-            // Procesar cualquier texto pendiente en el input de habilidades
+        formEditarPerfil.addEventListener('submit', () => {
+            // Procesar cualquier texto pendiente en el input de habilidades antes de enviar
             if (inputSkills && inputSkills.value.trim().length > 0) {
                 addSkillsFromInput();
             }
 
             const btnSubmit = formEditarPerfil.querySelector('.btn-perfil-save');
             if (btnSubmit) {
-                const originalText = btnSubmit.innerHTML;
-                btnSubmit.disabled = true;
-                btnSubmit.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spinPerfil 0.8s linear infinite;">
-                        <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-                        <path d="M12 2a10 10 0 0 1 10 10"></path>
-                    </svg>
-                    Guardando cambios...
-                `;
-
-                // Inyectar animación de giro si no existe
-                if (!document.getElementById('perfilSpinAnimation')) {
-                    const style = document.createElement('style');
-                    style.id = 'perfilSpinAnimation';
-                    style.textContent = '@keyframes spinPerfil { 100% { transform: rotate(360deg); } }';
-                    document.head.appendChild(style);
-                }
-
-                // Simulación de red y redirección fluida a perfil.php con feedback de éxito
-                setTimeout(() => {
-                    window.location.href = 'perfil.php?guardado=1';
-                }, 450);
-            } else {
-                window.location.href = 'perfil.php?guardado=1';
+                btnSubmit.style.pointerEvents = 'none';
+                btnSubmit.style.opacity = '0.85';
+                btnSubmit.textContent = 'Guardando cambios...';
             }
         });
     }
@@ -262,8 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle-proyecto.php
-        const href = card.getAttribute('data-href') || 'detalle-proyecto.php';
+        // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle de proyecto
+        const href = card.getAttribute('data-href') || 'index.php?page=detalle-proyecto';
         if (href) {
             window.location.href = href;
         }
@@ -273,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             const activeCard = document.activeElement;
             if (activeCard && activeCard.classList.contains('profile-project-card')) {
-                const href = activeCard.getAttribute('data-href') || 'detalle-proyecto.php';
+                const href = activeCard.getAttribute('data-href') || 'index.php?page=detalle-proyecto';
                 window.location.href = href;
             }
         }

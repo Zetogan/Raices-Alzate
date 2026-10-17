@@ -1,7 +1,7 @@
 <?php
 /**
  * Layout: Encabezado HTML y carga de recursos globales
- * Incluye tipografía Inter, hojas de estilo modulares y componente de navegación
+ * Incluye tipografía Inter (local y fallback), hojas de estilo modulares y navegación
  */
 
 if (!defined('APP_NAME')) {
@@ -12,14 +12,30 @@ $pageTitle = $pageTitle ?? (APP_NAME . ' | IE Gilberto Alzate Avendaño');
 
 if (!function_exists('assetCssUrl')) {
     function assetCssUrl($filename) {
-        $fullPath = __DIR__ . '/../assets/css/' . $filename;
+        $clean = ltrim($filename, '/');
+        $fullPath = BASE_PATH . '/assets/css/' . basename($clean);
         $time = file_exists($fullPath) ? filemtime($fullPath) : time();
-        return 'assets/css/' . $filename . '?v=' . APP_VERSION . '&amp;t=' . $time;
+        return 'assets/css/' . basename($clean) . '?v=' . APP_VERSION . '&t=' . $time;
     }
 }
 
 // Detección de entorno privado del dashboard para evitar FOUC y saltos de layout
-$isDashboardView = !empty($seccion_activa) || (isset($currentPage) && in_array($currentPage, ['dashboard', 'perfil', 'editar-perfil']));
+$dashboardSections = [
+    'dashboard', 'perfil', 'editar-perfil', 'egresados', 'proyectos', 'noticias',
+    'oportunidades', 'mensajes', 'administracion', 'admin', 'pqr', 'pqrs',
+    'crear-proyecto', 'editar-proyecto', 'detalle-proyecto',
+    'crear-noticia', 'detalle-noticia',
+    'crear-oportunidad', 'detalle-oportunidad', 'detalle-egresado'
+];
+
+$isDashboardView = (!empty($seccion_activa) && in_array($seccion_activa, $dashboardSections)) 
+                || (isset($currentPage) && in_array($currentPage, $dashboardSections) && ($isPanel ?? false));
+
+// Ajuste explícito si la variable $isDashboardView ya fue declarada previamente
+if (isset($isDashboard) && is_bool($isDashboard)) {
+    $isDashboardView = $isDashboard;
+}
+
 $activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa) . '-page' : (!empty($currentPage) ? htmlspecialchars($currentPage) . '-page' : '');
 ?>
 <!DOCTYPE html>
@@ -29,9 +45,12 @@ $activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
     
+    <!-- Base URL para resolución unificada de recursos locales y navegación -->
+    <base href="<?php echo BASE_URL; ?>/">
+
     <!-- Favicon e Iconografía Institucional -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
+    <link rel="icon" type="image/x-icon" href="assets/icons/logo-alzate.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo-alzate.ico">
     
     <!-- Script Anti-FOUC para transiciones suaves si el sidebar está contraído -->
     <script>
@@ -42,13 +61,13 @@ $activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa
         } catch(e) {}
     </script>
 
-    <!-- Tipografía Inter: Preconexión Google Fonts (fallback y soporte de red) -->
+    <!-- 1. Configuración tipográfica modular local inmediata (@font-face de assets/fonts/) -->
+    <link rel="stylesheet" href="<?php echo assetCssUrl('fonts.css'); ?>">
+
+    <!-- Fallback asíncrono no bloqueante de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- 1. Configuración tipográfica modular (@font-face local) -->
-    <link rel="stylesheet" href="<?php echo assetCssUrl('fonts.css'); ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
     <!-- 2. Hoja de estilos principal (Tokens, Reset, Layout Base y Secciones) -->
     <link rel="stylesheet" href="<?php echo assetCssUrl('main.css'); ?>">
@@ -59,7 +78,7 @@ $activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa
     <link rel="stylesheet" href="<?php echo assetCssUrl('loader.css'); ?>">
 
     <!-- 4. Estilos específicos por pantalla / módulo -->
-    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password'])): ?>
+    <?php if (isset($currentPage) && in_array($currentPage, ['login', 'auth', 'registro', 'recuperar', 'recuperar-password', 'reset-password', 'cambiar-password', 'reset'])): ?>
     <link rel="stylesheet" href="<?php echo assetCssUrl('auth.css'); ?>">
     <?php endif; ?>
     <?php if (isset($currentPage) && in_array($currentPage, ['proyectos', 'portal', 'egresados', 'noticias']) && !$isDashboardView): ?>
@@ -75,7 +94,10 @@ $activeSectionClass = !empty($seccion_activa) ? htmlspecialchars($seccion_activa
     <!-- Componente de precarga global (Page Loader con Skeleton y Spinner) -->
     <?php include __DIR__ . '/loader.php'; ?>
 
-    <!-- Navbar / Header unificado del portal público (solo se muestra cuando NO es vista de dashboard) -->
-    <?php if (!$isDashboardView): ?>
+    <?php if ($isDashboardView): ?>
+        <!-- Telón de fondo para menú en dispositivos móviles en vistas privadas -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+    <?php else: ?>
+        <!-- Navbar / Header unificado del portal público -->
         <?php include __DIR__ . '/../components/header.php'; ?>
     <?php endif; ?>

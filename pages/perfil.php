@@ -2,80 +2,147 @@
 /**
  * Raíces Alzate - Plataforma de Egresados
  * Institución Educativa Gilberto Alzate Avendaño
- * Vista: Pantalla de Perfil del Egresado
- * Especificación Figma: 04 - Perfil - Desktop y adaptación Mobile
- * Versión: 0.1.1
+ * Pantalla: Perfil del Egresado (Panel Privado)
+ * Versión: 0.2.1
  */
 
-if (!defined('APP_NAME')) {
-    exit('Acceso directo no permitido.');
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
 }
 
-if (!function_exists('perfilAssetCssUrl')) {
-    function perfilAssetCssUrl($filename) {
-        $fullPath = __DIR__ . '/../assets/css/' . $filename;
-        $time = file_exists($fullPath) ? filemtime($fullPath) : time();
-        $version = defined('APP_VERSION') ? APP_VERSION : '0.1.5';
-        return 'assets/css/' . $filename . '?v=' . $version . '&amp;t=' . $time;
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/csrf.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/helpers.php';
+
+// 1. Verificación canónica de autenticación
+if (!isAuthenticated()) {
+    header('Location: ' . url('index.php?page=login'));
+    exit;
+}
+
+$currentUser = currentUser();
+$userId      = (int)($currentUser['id'] ?? 0);
+
+if ($userId <= 0 || empty($pdo)) {
+    header('Location: ' . url('index.php?page=login'));
+    exit;
+}
+
+// Procesamiento AJAX de visibilidad en el directorio
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggle_visibilidad') {
+    $nuevoValor = !empty($_POST['perfil_publico']) ? 1 : 0;
+    try {
+        $stmtToggle = $pdo->prepare("UPDATE perfiles_egresados SET perfil_publico = :pub, actualizado_en = NOW() WHERE usuario_id = :uid");
+        $stmtToggle->execute([':pub' => $nuevoValor, ':uid' => $userId]);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => true, 'perfil_publico' => $nuevoValor]);
+        exit;
+    } catch (PDOException $e) {
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        exit;
     }
 }
 
-// Extracción de datos del usuario autenticado
-$user = !empty($_SESSION['user']) && is_array($_SESSION['user']) 
-    ? $_SESSION['user'] 
-    : (!empty($_SESSION['usuario']) && is_array($_SESSION['usuario']) ? $_SESSION['usuario'] : []);
+$mensajeExito = $_SESSION['perfil_flash_success'] ?? (!empty($_GET['guardado']) ? '¡Tu perfil ha sido actualizado correctamente!' : null);
+unset($_SESSION['perfil_flash_success']);
 
-$userName = trim($user['nombre'] ?? $user['name'] ?? $_SESSION['nombre'] ?? 'Santiago Emitola');
-$userRole = trim($user['rol'] ?? $user['role'] ?? $_SESSION['rol'] ?? 'Egresado');
-$userEmail = trim($user['email'] ?? 'santiago@ejemplo.com');
+// 2. Consulta de información real del usuario autenticado
+try {
+    $stmtUser = $pdo->prepare("
+        SELECT u.id, u.nombre_completo, u.email, u.rol_id, r.nombre AS rol_nombre, u.creado_en
+        FROM usuarios u
+        JOIN roles r ON r.id = u.rol_id
+        WHERE u.id = :uid
+        LIMIT 1
+    ");
+    $stmtUser->execute([':uid' => $userId]);
+    $userData = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
-// Obtener inicial para el avatar de forma segura y compatible con UTF-8
-$userInitial = !empty($userName) 
-    ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
-    : 'U';
+    if (!$userData) {
+        header('Location: ' . url('index.php?page=login'));
+        exit;
+    }
 
-$topbarTitle = 'Mi perfil';
+    $userName    = trim($userData['nombre_completo'] ?? '');
+    $userEmail   = trim($userData['email'] ?? '');
+    $userRole    = trim($userData['rol_nombre'] ?? 'Egresado');
+    $userInitial = !empty($userName) 
+        ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
+        : 'U';
+
+    $stmtPerfil = $pdo->prepare("SELECT * FROM perfiles_egresados WHERE usuario_id = :uid LIMIT 1");
+    $stmtPerfil->execute([':uid' => $userId]);
+    $perfil = $stmtPerfil->fetch(PDO::FETCH_ASSOC) ?: [];
+
+    $skillsArray = [];
+    if (!empty($perfil['id'])) {
+        $stmtHab = $pdo->prepare("
+            SELECT h.nombre 
+            FROM habilidades h
+            JOIN perfil_habilidades ph ON ph.habilidad_id = h.id
+            WHERE ph.perfil_id = :pid
+            ORDER BY h.nombre ASC
+        ");
+        $stmtHab->execute([':pid' => $perfil['id']]);
+        $skillsArray = $stmtHab->fetchAll(PDO::FETCH_COLUMN) ?: [];
+    }
+
+    $stmtProyCount = $pdo->prepare("SELECT COUNT(*) FROM proyectos WHERE autor_id = :uid");
+    $stmtProyCount->execute([':uid' => $userId]);
+    $proyectosCount = (int)$stmtProyCount->fetchColumn();
+
+    $stmtUserProy = $pdo->prepare("
+        SELECT id, titulo, descripcion, categoria, estado, creado_en 
+        FROM proyectos 
+        WHERE autor_id = :uid 
+        ORDER BY creado_en DESC 
+        LIMIT 6
+    ");
+    $stmtUserProy->execute([':uid' => $userId]);
+    $userProyectos = $stmtUserProy->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+    try {
+        $stmtCon = $pdo->prepare("
+            SELECT COUNT(*) FROM conexiones 
+            WHERE (solicitante_id = :uid1 OR receptor_id = :uid2) 
+              AND estado = 'aceptada'
+        ");
+        $stmtCon->execute([':uid1' => $userId, ':uid2' => $userId]);
+        $egresadosConectadosCount = (int)$stmtCon->fetchColumn();
+    } catch (PDOException $e) {
+        $egresadosConectadosCount = 0;
+    }
+
+    $porcentajeCompletitud = calcularCompletitudPerfil($userData, $perfil, $skillsArray);
+    $userFoto = $perfil['foto_perfil'] ?? null;
+
+} catch (PDOException $e) {
+    error_log('Error cargando perfil: ' . $e->getMessage());
+    $userName                 = trim($currentUser['nombre'] ?? '');
+    $userEmail                = trim($currentUser['email'] ?? '');
+    $userRole                 = trim($currentUser['rol'] ?? 'Egresado');
+    $userInitial              = !empty($userName) ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') : 'U';
+    $perfil                   = [];
+    $skillsArray              = [];
+    $proyectosCount           = 0;
+    $userProyectos            = [];
+    $egresadosConectadosCount = 0;
+    $porcentajeCompletitud    = calcularCompletitudPerfil(['nombre_completo' => $userName, 'email' => $userEmail], []);
+    $userFoto                 = null;
+}
+
+$pageTitle      = 'Mi perfil | ' . APP_NAME;
+$topbarTitle    = 'Mi perfil';
+$currentPage    = 'perfil';
+$seccion_activa = 'perfil';
+$extraCss       = ['dashboard.css', 'perfil.css'];
+
+require_once __DIR__ . '/../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($pageTitle ?? ('Mi perfil | ' . APP_NAME)); ?></title>
-
-    <!-- Favicon e Iconografía Institucional Oficial -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/icons/logo%20sin%20fondo%20raices%20alzate.ico">
-
-    <!-- Tipografía Inter (Preconexión y Google Fonts) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Hojas de estilo modulares -->
-    <link rel="stylesheet" href="<?php echo perfilAssetCssUrl('fonts.css'); ?>">
-    <link rel="stylesheet" href="<?php echo perfilAssetCssUrl('main.css'); ?>">
-    <link rel="stylesheet" href="<?php echo perfilAssetCssUrl('dashboard.css'); ?>">
-    <link rel="stylesheet" href="<?php echo perfilAssetCssUrl('perfil.css'); ?>">
-    <link rel="stylesheet" href="<?php echo perfilAssetCssUrl('loader.css'); ?>">
-
-    <!-- Prevención de FOUC para sidebar colapsado según preferencia en localStorage -->
-    <script>
-        (function() {
-            try {
-                if (localStorage.getItem('sidebar_collapsed') === 'true' && window.innerWidth > 768) {
-                    document.documentElement.classList.add('sidebar-is-collapsed');
-                }
-            } catch (e) {}
-        })();
-    </script>
-</head>
-<body class="dashboard-body-page profile-body-page">
-    <!-- Componente de precarga global (Page Loader con Spinner y Logotipo) -->
-    <?php require_once __DIR__ . '/../includes/loader.php'; ?>
-
-    <!-- Telón de fondo para menú en dispositivos móviles -->
-    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
 
     <div class="dashboard-layout" id="dashboardLayout">
         <!-- 1. Barra Lateral de Navegación Privada (Sidebar con ítem Perfil activo) -->
@@ -93,7 +160,7 @@ $topbarTitle = 'Mi perfil';
                 <nav class="profile-breadcrumb-nav" aria-label="Ruta de navegación">
                     <ol class="profile-breadcrumb-list">
                         <li class="profile-breadcrumb-item">
-                            <a href="dashboard.php" class="profile-breadcrumb-link">Dashboard</a>
+                            <a href="index.php?page=dashboard" class="profile-breadcrumb-link">Dashboard</a>
                         </li>
                         <li class="profile-breadcrumb-item">
                             <span class="profile-breadcrumb-sep" aria-hidden="true">/</span>
@@ -101,6 +168,16 @@ $topbarTitle = 'Mi perfil';
                         </li>
                     </ol>
                 </nav>
+
+                <?php if (!empty($mensajeExito)): ?>
+                    <div class="alert alert-success profile-flash-alert" role="alert" style="background-color: #E8F5E9; border: 1.5px solid #81C784; color: #1B5E20; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-weight: 500; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span><?php echo htmlspecialchars($mensajeExito); ?></span>
+                    </div>
+                <?php endif; ?>
 
                 <!-- B. Tarjeta Hero del Perfil (Portada, Avatar, Identidad y Acciones) -->
                 <section class="profile-hero-card" id="profileHeroSection" aria-label="Cabecera del perfil">
@@ -122,15 +199,20 @@ $topbarTitle = 'Mi perfil';
                             <!-- Avatar con inicial grande y botón de cambio de foto -->
                             <div class="profile-avatar-container">
                                 <div class="profile-avatar-large" id="profileAvatarDisplay" aria-hidden="true">
-                                    <?php echo htmlspecialchars($userInitial); ?>
+                                    <?php if (!empty($perfil['foto_perfil']) && file_exists(__DIR__ . '/../' . $perfil['foto_perfil'])): ?>
+                                        <img src="<?php echo htmlspecialchars($perfil['foto_perfil']); ?>" alt="<?php echo htmlspecialchars($userName); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                                    <?php else: ?>
+                                        <?php echo htmlspecialchars($userInitial); ?>
+                                    <?php endif; ?>
                                 </div>
-                                <span class="profile-avatar-online-dot" title="Egresado activo en la plataforma" aria-label="Usuario activo"></span>
-                                <button type="button" class="profile-avatar-edit-btn" id="btnEditarAvatar" title="Actualizar foto de perfil" aria-label="Actualizar foto de perfil">
+                                <?php $esUsuarioActivo = !empty($usuario['activo']) && (int)$usuario['activo'] === 1; ?>
+                                <span class="profile-avatar-online-dot <?php echo $esUsuarioActivo ? '' : 'offline'; ?>" title="<?php echo $esUsuarioActivo ? 'Egresado en línea' : 'Cuenta inactiva'; ?>" aria-label="<?php echo $esUsuarioActivo ? 'Usuario en línea' : 'Usuario inactivo'; ?>"></span>
+                                <a href="index.php?page=editar-perfil" class="profile-avatar-edit-btn" id="btnEditarAvatar" title="Actualizar foto de perfil" aria-label="Actualizar foto de perfil" style="text-decoration: none;">
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                                         <circle cx="12" cy="13" r="4"></circle>
                                     </svg>
-                                </button>
+                                </a>
                             </div>
 
                             <!-- Textos de Identidad y Metadatos -->
@@ -138,17 +220,29 @@ $topbarTitle = 'Mi perfil';
                                 <h1 class="profile-user-name" id="profileDisplayName">
                                     <?php echo htmlspecialchars($userName); ?>
                                 </h1>
+                                <?php
+                                $headlineParts = [];
+                                if (!empty($perfil['titulo_institucional'])) {
+                                    $headlineParts[] = $perfil['titulo_institucional'];
+                                }
+                                if (!empty($perfil['anio_graduacion'])) {
+                                    $headlineParts[] = 'Promoción ' . $perfil['anio_graduacion'];
+                                }
+                                $headlineText = !empty($headlineParts) ? implode(' • ', $headlineParts) : ($userRole . ' Alzatista');
+                                ?>
                                 <p class="profile-headline" id="profileDisplayHeadline">
-                                    Bachiller Técnico en Sistemas y Gestión Comercial • Promoción 2021
+                                    <?php echo htmlspecialchars($headlineText); ?>
                                 </p>
                                 <div class="profile-meta-pills-row">
+                                    <?php if (!empty($perfil['ciudad'])): ?>
                                     <span class="profile-meta-pill">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                             <circle cx="12" cy="10" r="3"></circle>
                                         </svg>
-                                        <span id="profileDisplayCiudad">Medellín, Colombia</span>
+                                        <span id="profileDisplayCiudad"><?php echo htmlspecialchars($perfil['ciudad']); ?></span>
                                     </span>
+                                    <?php endif; ?>
                                     <span class="profile-meta-pill">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -156,20 +250,32 @@ $topbarTitle = 'Mi perfil';
                                         </svg>
                                         <span><?php echo htmlspecialchars($userRole); ?> Alzatista</span>
                                     </span>
+                                    <?php 
+                                    $trabajoPill = '';
+                                    if (!empty($perfil['ocupacion']) && !empty($perfil['empresa'])) {
+                                        $trabajoPill = $perfil['ocupacion'] . ' en ' . $perfil['empresa'];
+                                    } elseif (!empty($perfil['ocupacion'])) {
+                                        $trabajoPill = $perfil['ocupacion'];
+                                    } elseif (!empty($perfil['empresa'])) {
+                                        $trabajoPill = $perfil['empresa'];
+                                    }
+                                    ?>
+                                    <?php if (!empty($trabajoPill)): ?>
                                     <span class="profile-meta-pill">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                                             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                                         </svg>
-                                        <span id="profileDisplayEmpresa">InnovaTech Medellín</span>
+                                        <span id="profileDisplayEmpresa"><?php echo htmlspecialchars($trabajoPill); ?></span>
                                     </span>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Botones de Acción de Cabecera -->
                         <div class="profile-hero-actions">
-                            <a href="editar-perfil.php" class="btn-profile-primary" id="btnAbrirEditarPerfil" style="text-decoration: none;">
+                            <a href="index.php?page=editar-perfil" class="btn-profile-primary" id="btnAbrirEditarPerfil" style="text-decoration: none;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -200,7 +306,7 @@ $topbarTitle = 'Mi perfil';
                             </svg>
                         </div>
                         <div class="stat-info">
-                            <p class="stat-value">2</p>
+                            <p class="stat-value"><?php echo (int)($proyectosCount ?? 0); ?></p>
                             <p class="stat-label">Proyectos publicados</p>
                         </div>
                     </article>
@@ -214,7 +320,7 @@ $topbarTitle = 'Mi perfil';
                             </svg>
                         </div>
                         <div class="stat-info">
-                            <p class="stat-value">2021</p>
+                            <p class="stat-value"><?php echo !empty($perfil['anio_graduacion']) ? htmlspecialchars($perfil['anio_graduacion']) : '—'; ?></p>
                             <p class="stat-label">Promoción egresado</p>
                         </div>
                     </article>
@@ -229,9 +335,9 @@ $topbarTitle = 'Mi perfil';
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </div>
-                        <div class="stat-info">
-                            <p class="stat-value">34</p>
-                            <p class="stat-label">Egresados en tu red</p>
+                        <div class="stat-info" title="<?php echo !empty($egresadosConectadosCount) ? ($egresadosConectadosCount . ' egresados conectados') : 'Aún no tienes egresados conectados'; ?>">
+                            <p class="stat-value"><?php echo (int)($egresadosConectadosCount ?? 0); ?></p>
+                            <p class="stat-label">Egresados conectados contigo</p>
                         </div>
                     </article>
 
@@ -244,10 +350,10 @@ $topbarTitle = 'Mi perfil';
                             </svg>
                         </div>
                         <div class="stat-info">
-                            <p class="stat-value">95%</p>
+                            <p class="stat-value"><?php echo (int)($porcentajeCompletitud ?? 0); ?>%</p>
                             <p class="stat-label">Perfil completado</p>
                             <div class="stat-progress-bar">
-                                <div class="stat-progress-fill"></div>
+                                <div class="stat-progress-fill" style="width: <?php echo (int)($porcentajeCompletitud ?? 0); ?>%;"></div>
                             </div>
                         </div>
                     </article>
@@ -283,12 +389,30 @@ $topbarTitle = 'Mi perfil';
                                             </svg>
                                         </div>
                                         <div class="profile-info-content">
-                                            <span class="profile-info-label">Correo electrónico</span>
+                                            <span class="profile-info-label">Correo institucional</span>
                                             <a href="mailto:<?php echo htmlspecialchars($userEmail); ?>" class="profile-info-value profile-info-link" id="profileDisplayEmail">
                                                 <?php echo htmlspecialchars($userEmail); ?>
                                             </a>
                                         </div>
                                     </li>
+
+                                    <?php if (!empty($perfil['email_secundario'])): ?>
+                                    <!-- Correo Secundario -->
+                                    <li class="profile-info-item">
+                                        <div class="profile-info-icon" aria-hidden="true">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                <polyline points="22,6 12,13 2,6"></polyline>
+                                            </svg>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <span class="profile-info-label">Correo secundario</span>
+                                            <a href="mailto:<?php echo htmlspecialchars($perfil['email_secundario']); ?>" class="profile-info-value profile-info-link" id="profileDisplayEmailSecundario">
+                                                <?php echo htmlspecialchars($perfil['email_secundario']); ?>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <?php endif; ?>
 
                                     <!-- Teléfono -->
                                     <li class="profile-info-item">
@@ -299,25 +423,10 @@ $topbarTitle = 'Mi perfil';
                                         </div>
                                         <div class="profile-info-content">
                                             <span class="profile-info-label">Teléfono celular</span>
-                                            <span class="profile-info-value" id="profileDisplayTelefono">+57 (300) 123-4567</span>
+                                            <span class="profile-info-value" id="profileDisplayTelefono"><?php echo !empty($perfil['telefono']) ? htmlspecialchars($perfil['telefono']) : 'No especificado'; ?></span>
                                         </div>
                                     </li>
 
-                                    <!-- Documento -->
-                                    <li class="profile-info-item">
-                                        <div class="profile-info-icon" aria-hidden="true">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-                                                <line x1="7" y1="8" x2="17" y2="8"></line>
-                                                <line x1="7" y1="12" x2="13" y2="12"></line>
-                                                <line x1="7" y1="16" x2="10" y2="16"></line>
-                                            </svg>
-                                        </div>
-                                        <div class="profile-info-content">
-                                            <span class="profile-info-label">Documento de identidad</span>
-                                            <span class="profile-info-value">C.C. 1.036.***.***</span>
-                                        </div>
-                                    </li>
 
                                     <!-- Ubicación -->
                                     <li class="profile-info-item">
@@ -329,7 +438,7 @@ $topbarTitle = 'Mi perfil';
                                         </div>
                                         <div class="profile-info-content">
                                             <span class="profile-info-label">Ubicación y barrio</span>
-                                            <span class="profile-info-value" id="profileDisplayBarrio">Comuna 10 (La Candelaria), Medellín</span>
+                                            <span class="profile-info-value" id="profileDisplayBarrio"><?php echo !empty($perfil['direccion']) ? htmlspecialchars($perfil['direccion']) : (!empty($perfil['ciudad']) ? htmlspecialchars($perfil['ciudad']) : 'No especificada'); ?></span>
                                         </div>
                                     </li>
 
@@ -345,7 +454,12 @@ $topbarTitle = 'Mi perfil';
                                         </div>
                                         <div class="profile-info-content">
                                             <span class="profile-info-label">Fecha de vinculación</span>
-                                            <span class="profile-info-value">Marzo de 2024</span>
+                                            <?php
+                                            $tsReg = !empty($userData['creado_en']) ? strtotime($userData['creado_en']) : null;
+                                            $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                                            $fechaStr = $tsReg ? ($meses[(int)date('n', $tsReg) - 1] . ' de ' . date('Y', $tsReg)) : 'Reciente';
+                                            ?>
+                                            <span class="profile-info-value"><?php echo htmlspecialchars($fechaStr); ?></span>
                                         </div>
                                     </li>
                                 </ul>
@@ -367,16 +481,20 @@ $topbarTitle = 'Mi perfil';
                             </header>
                             <div class="profile-card-body">
                                 <ul class="profile-social-links-list">
+                                    <?php 
+                                    $hasSocial = false;
+                                    ?>
                                     <!-- LinkedIn -->
+                                    <?php if (!empty($perfil['linkedin'])): $hasSocial = true; ?>
                                     <li class="profile-social-link-item">
-                                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" id="linkLinkedin" title="Abrir perfil de LinkedIn">
+                                        <a href="<?php echo htmlspecialchars($perfil['linkedin']); ?>" target="_blank" rel="noopener noreferrer" id="linkLinkedin" title="Abrir perfil de LinkedIn">
                                             <div class="social-lead">
                                                 <span class="social-icon-box">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                                                         <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                                                     </svg>
                                                 </span>
-                                                <span id="profileDisplayLinkedin">linkedin.com/in/santiago-emitola</span>
+                                                <span id="profileDisplayLinkedin"><?php echo htmlspecialchars(preg_replace('#^https?://#', '', $perfil['linkedin'])); ?></span>
                                             </div>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -385,17 +503,19 @@ $topbarTitle = 'Mi perfil';
                                             </svg>
                                         </a>
                                     </li>
+                                    <?php endif; ?>
 
                                     <!-- GitHub -->
+                                    <?php if (!empty($perfil['github'])): $hasSocial = true; ?>
                                     <li class="profile-social-link-item">
-                                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" id="linkGithub" title="Abrir perfil de GitHub">
+                                        <a href="<?php echo htmlspecialchars($perfil['github']); ?>" target="_blank" rel="noopener noreferrer" id="linkGithub" title="Abrir perfil de GitHub">
                                             <div class="social-lead">
                                                 <span class="social-icon-box">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                                                         <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
                                                     </svg>
                                                 </span>
-                                                <span id="profileDisplayGithub">github.com/santiagoemitola</span>
+                                                <span id="profileDisplayGithub"><?php echo htmlspecialchars(preg_replace('#^https?://#', '', $perfil['github'])); ?></span>
                                             </div>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -404,10 +524,12 @@ $topbarTitle = 'Mi perfil';
                                             </svg>
                                         </a>
                                     </li>
+                                    <?php endif; ?>
 
                                     <!-- Portafolio / Web -->
+                                    <?php if (!empty($perfil['sitio_web'])): $hasSocial = true; ?>
                                     <li class="profile-social-link-item">
-                                        <a href="#" id="linkPortafolio" title="Abrir sitio web o portafolio">
+                                        <a href="<?php echo htmlspecialchars($perfil['sitio_web']); ?>" target="_blank" rel="noopener noreferrer" id="linkPortafolio" title="Abrir sitio web o portafolio">
                                             <div class="social-lead">
                                                 <span class="social-icon-box">
                                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -416,7 +538,7 @@ $topbarTitle = 'Mi perfil';
                                                         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                                                     </svg>
                                                 </span>
-                                                <span id="profileDisplayWeb">santiagoemitola.dev</span>
+                                                <span id="profileDisplayWeb"><?php echo htmlspecialchars(preg_replace('#^https?://#', '', $perfil['sitio_web'])); ?></span>
                                             </div>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -425,6 +547,29 @@ $topbarTitle = 'Mi perfil';
                                             </svg>
                                         </a>
                                     </li>
+                                    <?php endif; ?>
+
+                                    <!-- Red Adicional -->
+                                    <?php if (!empty($perfil['red_adicional'])): $hasSocial = true; ?>
+                                    <li class="profile-social-link-item">
+                                        <div class="social-lead" style="padding: 10px 0;">
+                                            <span class="social-icon-box">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                                </svg>
+                                            </span>
+                                            <span><?php echo htmlspecialchars($perfil['red_adicional']); ?></span>
+                                        </div>
+                                    </li>
+                                    <?php endif; ?>
+
+                                    <?php if (!$hasSocial): ?>
+                                    <li style="color: #757575; font-size: 0.875rem; font-style: italic; list-style: none; padding: 6px 0;">
+                                        No has añadido enlaces profesionales aún.
+                                    </li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </article>
@@ -449,7 +594,7 @@ $topbarTitle = 'Mi perfil';
                                         <p class="privacy-desc">Permite que otros egresados alzatistas puedan encontrarte y conectarse contigo.</p>
                                     </div>
                                     <label class="switch-toggle" for="toggleVisibilidad">
-                                        <input type="checkbox" id="toggleVisibilidad" checked aria-label="Alternar visibilidad del perfil en el directorio de egresados">
+                                        <input type="checkbox" id="toggleVisibilidad" <?php echo (!isset($perfil['perfil_publico']) || (int)$perfil['perfil_publico'] === 1) ? 'checked' : ''; ?> aria-label="Alternar visibilidad del perfil en el directorio de egresados">
                                         <span class="switch-slider"></span>
                                     </label>
                                 </div>
@@ -475,12 +620,15 @@ $topbarTitle = 'Mi perfil';
                                 </div>
                             </header>
                             <div class="profile-card-body">
-                                <p class="profile-bio-text" id="profileDisplayBio">
-                                    Egresado alzatista apasionado por el desarrollo web y las soluciones tecnológicas con impacto social. Enfocado en la arquitectura de aplicaciones modernas, escalables y accesibles. Miembro activo de la comunidad de egresados de la I.E. Gilberto Alzate Avendaño, promoviendo iniciativas de mentoría para bachilleres e impulsando el talento de las nuevas generaciones.
-                                </p>
-                                <blockquote class="profile-quote-highlight">
-                                    "Las raíces que forjamos en el Alzate son los cimientos con los que construimos el futuro de nuestra comunidad."
-                                </blockquote>
+                                <?php if (!empty($perfil['bio'])): ?>
+                                    <p class="profile-bio-text" id="profileDisplayBio">
+                                        <?php echo nl2br(htmlspecialchars($perfil['bio'])); ?>
+                                    </p>
+                                <?php else: ?>
+                                    <p class="profile-bio-text" id="profileDisplayBio" style="color: #757575; font-style: italic;">
+                                        Aún no has agregado una presentación personal. Haz clic en "Editar perfil" para compartir tu trayectoria con la comunidad.
+                                    </p>
+                                <?php endif; ?>
                             </div>
                         </article>
 
@@ -498,8 +646,10 @@ $topbarTitle = 'Mi perfil';
                                 </div>
                             </header>
                             <div class="profile-card-body">
+                                <?php if (!empty($perfil['titulo_institucional']) || !empty($perfil['programa_superior'])): ?>
                                 <div class="profile-timeline">
                                     
+                                    <?php if (!empty($perfil['titulo_institucional'])): ?>
                                     <!-- Elemento 1: I.E. Gilberto Alzate Avendaño -->
                                     <div class="timeline-item">
                                         <div class="timeline-bullet" aria-hidden="true">
@@ -509,36 +659,36 @@ $topbarTitle = 'Mi perfil';
                                             <h3 class="timeline-title">I.E. Gilberto Alzate Avendaño</h3>
                                             <span class="timeline-badge-tag">Secundaria & Media</span>
                                         </div>
-                                        <p class="timeline-subtitle" id="profileDisplayGrado">Bachiller Técnico en Sistemas y Gestión Comercial</p>
+                                        <p class="timeline-subtitle" id="profileDisplayGrado"><?php echo htmlspecialchars($perfil['titulo_institucional']); ?></p>
+                                        <?php if (!empty($perfil['anio_graduacion'])): ?>
                                         <span class="timeline-period">
                                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            2016 – 2021 • Graduado con mención de honor
+                                            Promoción <?php echo htmlspecialchars($perfil['anio_graduacion']); ?>
                                         </span>
-                                        <p class="timeline-desc">
-                                            Participación activa en el semillero institucional de innovación y personería estudiantil. Desarrollo del proyecto tecnológico de grado orientado al registro comunitario.
-                                        </p>
+                                        <?php endif; ?>
                                     </div>
+                                    <?php endif; ?>
 
-                                    <!-- Elemento 2: Formación Superior / SENA -->
+                                    <?php if (!empty($perfil['programa_superior'])): ?>
+                                    <!-- Elemento 2: Formación Superior -->
                                     <div class="timeline-item">
                                         <div class="timeline-bullet timeline-bullet-blue" aria-hidden="true">
                                             <div class="timeline-bullet-inner"></div>
                                         </div>
                                         <div class="timeline-header-row">
-                                            <h3 class="timeline-title">SENA - Centro de Tecnología de la Manufactura Avanzada</h3>
+                                            <h3 class="timeline-title"><?php echo htmlspecialchars($perfil['institucion_superior'] ?: 'Educación Superior'); ?></h3>
                                             <span class="timeline-badge-tag">Educación Superior</span>
                                         </div>
-                                        <p class="timeline-subtitle">Tecnología en Análisis y Desarrollo de Software (ADSO)</p>
-                                        <span class="timeline-period">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            2022 – 2024 • Titulado
-                                        </span>
-                                        <p class="timeline-desc">
-                                            Especialización en metodologías ágiles, bases de datos relacionales, programación web orientada a objetos y despliegue de soluciones en servidores seguros.
-                                        </p>
+                                        <p class="timeline-subtitle"><?php echo htmlspecialchars($perfil['programa_superior']); ?></p>
                                     </div>
+                                    <?php endif; ?>
 
                                 </div>
+                                <?php else: ?>
+                                <p style="color: #757575; font-style: italic; margin: 0; padding: 6px 0;">
+                                    No has registrado información académica aún.
+                                </p>
+                                <?php endif; ?>
                             </div>
                         </article>
 
@@ -556,47 +706,36 @@ $topbarTitle = 'Mi perfil';
                                 </div>
                             </header>
                             <div class="profile-card-body">
+                                <?php if (!empty($perfil['ocupacion']) || !empty($perfil['empresa'])): ?>
                                 <div class="profile-timeline">
-                                    
-                                    <!-- Empleo 1: Actual -->
                                     <div class="timeline-item">
                                         <div class="timeline-bullet" aria-hidden="true">
                                             <div class="timeline-bullet-inner"></div>
                                         </div>
                                         <div class="timeline-header-row">
-                                            <h3 class="timeline-title" id="profileDisplayCargo">Desarrollador Web Frontend & Backend</h3>
+                                            <h3 class="timeline-title" id="profileDisplayCargo"><?php echo htmlspecialchars($perfil['ocupacion'] ?: 'Ocupación profesional'); ?></h3>
                                             <span class="timeline-badge-tag" style="background-color: #E8F5E9; color: #2E7D32;">Actual</span>
                                         </div>
-                                        <p class="timeline-subtitle" id="profileDisplayEmpresaDetalle">InnovaTech Medellín S.A.S. • Jornada completa</p>
+                                        <?php if (!empty($perfil['empresa'])): ?>
+                                        <p class="timeline-subtitle" id="profileDisplayEmpresaDetalle"><?php echo htmlspecialchars($perfil['empresa']); ?></p>
+                                        <?php endif; ?>
+                                        <?php if (!empty($perfil['area_especialidad']) || !empty($perfil['anios_experiencia'])): ?>
                                         <span class="timeline-period">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            Junio 2023 – Presente (1 año y 5 meses) • Medellín
+                                            <?php 
+                                            $expItems = [];
+                                            if (!empty($perfil['area_especialidad'])) $expItems[] = $perfil['area_especialidad'];
+                                            if (!empty($perfil['anios_experiencia'])) $expItems[] = $perfil['anios_experiencia'] . ' años de experiencia';
+                                            echo htmlspecialchars(implode(' • ', $expItems));
+                                            ?>
                                         </span>
-                                        <p class="timeline-desc">
-                                            Desarrollo y mantenimiento de portales web interactivos, integración de APIs REST, optimización de velocidad de carga y aseguramiento de accesibilidad WCAG.
-                                        </p>
+                                        <?php endif; ?>
                                     </div>
-
-                                    <!-- Empleo 2: Anterior -->
-                                    <div class="timeline-item">
-                                        <div class="timeline-bullet timeline-bullet-blue" aria-hidden="true">
-                                            <div class="timeline-bullet-inner"></div>
-                                        </div>
-                                        <div class="timeline-header-row">
-                                            <h3 class="timeline-title">Auxiliar Técnico en Sistemas</h3>
-                                            <span class="timeline-badge-tag">Concluido</span>
-                                        </div>
-                                        <p class="timeline-subtitle">Red de Soluciones Digitales Antioquia • Medio tiempo</p>
-                                        <span class="timeline-period">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                            Enero 2022 – Mayo 2023 • Medellín
-                                        </span>
-                                        <p class="timeline-desc">
-                                            Soporte a infraestructura de redes, mantenimiento preventivo de equipos y asistencia técnica en el despliegue de plataformas institucionales.
-                                        </p>
-                                    </div>
-
                                 </div>
+                                <?php else: ?>
+                                <p style="color: #757575; font-style: italic; margin: 0; padding: 6px 0;">
+                                    No has registrado experiencia laboral o profesional aún.
+                                </p>
+                                <?php endif; ?>
                             </div>
                         </article>
 
@@ -614,16 +753,17 @@ $topbarTitle = 'Mi perfil';
                             </header>
                             <div class="profile-card-body">
                                 <div class="profile-skills-group">
-                                    <span class="skill-chip skill-chip-primary">Desarrollo Web (HTML5/CSS3)</span>
-                                    <span class="skill-chip skill-chip-primary">JavaScript Vanilla</span>
-                                    <span class="skill-chip skill-chip-primary">PHP 8.x & MySQL</span>
-                                    <span class="skill-chip skill-chip-blue">Arquitectura de Software</span>
-                                    <span class="skill-chip skill-chip-blue">Git & Control de Versiones</span>
-                                    <span class="skill-chip">Liderazgo Comunitario</span>
-                                    <span class="skill-chip">Trabajo en Equipo</span>
-                                    <span class="skill-chip">Gestión Comercial</span>
-                                    <span class="skill-chip">Resolución de Problemas</span>
-                                    <span class="skill-chip">Mentoría a Estudiantes</span>
+                                    <?php if (!empty($skillsArray)): ?>
+                                        <?php foreach ($skillsArray as $idx => $skill): ?>
+                                            <span class="skill-chip <?php echo $idx % 3 === 0 ? 'skill-chip-primary' : ($idx % 3 === 1 ? 'skill-chip-blue' : ''); ?>">
+                                                <?php echo htmlspecialchars($skill); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <p style="color: #757575; font-style: italic; margin: 0; padding: 6px 0;">
+                                            No has agregado habilidades aún. Puedes agregarlas editando tu perfil.
+                                        </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </article>
@@ -639,31 +779,31 @@ $topbarTitle = 'Mi perfil';
                                     </span>
                                     <h2 class="profile-card-title">Mis proyectos en Raíces Alzate</h2>
                                 </div>
-                                <a href="proyectos.php?view=panel" class="profile-card-action-btn" title="Ver catálogo completo de proyectos">
+                                <a href="index.php?page=proyectos&view=panel" class="profile-card-action-btn" title="Ver catálogo completo de proyectos">
                                     Ver todos &rarr;
                                 </a>
                             </header>
                             <div class="profile-card-body">
+                                <?php if (!empty($userProyectos)): ?>
                                 <div class="profile-projects-grid">
-                                    
-                                    <!-- Proyecto 1 -->
-                                    <div class="profile-project-card" data-href="detalle-proyecto.php" role="link" tabindex="0" aria-label="Ver detalle del proyecto Semillero de Robótica Alzatista">
+                                    <?php foreach ($userProyectos as $proy): ?>
+                                    <div class="profile-project-card" data-href="index.php?page=detalle-proyecto&id=<?php echo (int)$proy['id']; ?>" role="link" tabindex="0" aria-label="Ver detalle del proyecto <?php echo htmlspecialchars($proy['titulo']); ?>">
                                         <div class="project-card-content">
                                             <div class="project-card-header">
-                                                <span class="project-tag project-tag-tech">Tecnología</span>
+                                                <span class="project-tag project-tag-tech"><?php echo htmlspecialchars($proy['categoria'] ?? 'Proyecto'); ?></span>
                                             </div>
                                             <h3 class="project-card-title">
-                                                <a href="detalle-proyecto.php" class="project-title-link">Semillero de Robótica Alzatista</a>
+                                                <a href="index.php?page=detalle-proyecto&id=<?php echo (int)$proy['id']; ?>" class="project-title-link"><?php echo htmlspecialchars($proy['titulo']); ?></a>
                                             </h3>
                                             <p class="project-card-desc">
-                                                Iniciativa orientada a fomentar el pensamiento computacional y la robótica educativa en los grados 9°, 10° y 11°.
+                                                <?php echo htmlspecialchars($proy['descripcion'] ?? ''); ?>
                                             </p>
                                         </div>
                                         <div class="project-card-footer">
-                                            <a href="detalle-proyecto.php" class="project-card-link" onclick="event.stopPropagation();">
+                                            <a href="index.php?page=detalle-proyecto&id=<?php echo (int)$proy['id']; ?>" class="project-card-link" onclick="event.stopPropagation();">
                                                 Consultar proyecto &rarr;
                                             </a>
-                                            <a href="editar-proyecto.php" class="btn-editar-proyecto" title="Editar proyecto" onclick="event.stopPropagation();">
+                                            <a href="index.php?page=editar-proyecto&id=<?php echo (int)$proy['id']; ?>" class="btn-editar-proyecto" title="Editar proyecto" onclick="event.stopPropagation();">
                                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
                                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -672,38 +812,16 @@ $topbarTitle = 'Mi perfil';
                                             </a>
                                         </div>
                                     </div>
-
-                                    <!-- Proyecto 2 -->
-                                    <div class="profile-project-card" data-href="detalle-proyecto.php" role="link" tabindex="0" aria-label="Ver detalle del proyecto Red de Mentorías para Bachilleres">
-                                        <div class="project-card-content">
-                                            <div class="project-card-header">
-                                                <span class="project-tag project-tag-community">Comunidad</span>
-                                            </div>
-                                            <h3 class="project-card-title">
-                                                <a href="detalle-proyecto.php" class="project-title-link">Red de Mentorías para Bachilleres</a>
-                                            </h3>
-                                            <p class="project-card-desc">
-                                                Programa de acompañamiento vocacional liderado por egresados profesionales para orientar a próximos graduandos.
-                                            </p>
-                                        </div>
-                                        <div class="project-card-footer">
-                                            <a href="detalle-proyecto.php" class="project-card-link" onclick="event.stopPropagation();">
-                                                Consultar proyecto &rarr;
-                                            </a>
-                                            <a href="editar-proyecto.php" class="btn-editar-proyecto" title="Editar proyecto" onclick="event.stopPropagation();">
-                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 4px;">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                                </svg>
-                                                <span>Editar</span>
-                                            </a>
-                                        </div>
-                                    </div>
-
+                                    <?php endforeach; ?>
                                 </div>
+                                <?php else: ?>
+                                <div style="text-align: center; padding: 24px 16px; color: #757575;">
+                                    <p style="margin: 0 0 8px 0; font-size: 0.95rem;">Aún no has publicado proyectos en la plataforma.</p>
+                                </div>
+                                <?php endif; ?>
 
                                 <div class="profile-projects-footer">
-                                    <a href="crear-proyecto.php" class="btn-publicar-proyecto btn-outline-secondary" id="btnPublicarNuevoProyecto">
+                                    <a href="index.php?page=crear-proyecto" class="btn-publicar-proyecto btn-outline-secondary" id="btnPublicarNuevoProyecto">
                                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
                                             <line x1="12" y1="5" x2="12" y2="19"></line>
                                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -738,7 +856,8 @@ $topbarTitle = 'Mi perfil';
                 <button type="button" class="modal-tab-btn" data-tab="tab-enlaces">Redes y enlaces</button>
             </nav>
 
-            <form class="profile-modal-form" id="formEditarPerfil">
+            <form action="index.php?page=editar-perfil" method="POST" class="profile-modal-form" id="formEditarPerfil">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(getCsrfToken()); ?>">
                 <div class="profile-modal-body">
                     
                     <!-- Pestaña 1: Datos Personales -->
@@ -746,33 +865,33 @@ $topbarTitle = 'Mi perfil';
                         <div class="form-row-2">
                             <div class="form-group-field">
                                 <label for="inputNombre" class="form-field-label">Nombre completo *</label>
-                                <input type="text" id="inputNombre" class="form-field-input" value="<?php echo htmlspecialchars($userName); ?>" required>
+                                <input type="text" id="inputNombre" name="nombre" class="form-field-input" value="<?php echo htmlspecialchars($userName); ?>" required>
                             </div>
                             <div class="form-group-field">
                                 <label for="inputEmail" class="form-field-label">Correo electrónico *</label>
-                                <input type="email" id="inputEmail" class="form-field-input" value="<?php echo htmlspecialchars($userEmail); ?>" required>
+                                <input type="email" id="inputEmail" name="email" class="form-field-input" value="<?php echo htmlspecialchars($userEmail); ?>" readonly style="background-color: #F5F5F5; cursor: not-allowed;">
                             </div>
                         </div>
 
                         <div class="form-row-2">
                             <div class="form-group-field">
                                 <label for="inputTelefono" class="form-field-label">Teléfono celular</label>
-                                <input type="tel" id="inputTelefono" class="form-field-input" value="+57 (300) 123-4567">
+                                <input type="tel" id="inputTelefono" name="telefono" class="form-field-input" value="<?php echo htmlspecialchars($perfil['telefono'] ?? ''); ?>">
                             </div>
                             <div class="form-group-field">
                                 <label for="inputCiudad" class="form-field-label">Ciudad de residencia</label>
-                                <input type="text" id="inputCiudad" class="form-field-input" value="Medellín, Colombia">
+                                <input type="text" id="inputCiudad" name="ciudad" class="form-field-input" value="<?php echo htmlspecialchars($perfil['ciudad'] ?? ''); ?>">
                             </div>
                         </div>
 
                         <div class="form-group-field">
                             <label for="inputBarrio" class="form-field-label">Barrio o comuna</label>
-                            <input type="text" id="inputBarrio" class="form-field-input" value="Comuna 10 (La Candelaria)">
+                            <input type="text" id="inputBarrio" name="direccion" class="form-field-input" value="<?php echo htmlspecialchars($perfil['direccion'] ?? ''); ?>">
                         </div>
 
                         <div class="form-group-field">
                             <label for="inputBio" class="form-field-label">Biografía / Sobre mí</label>
-                            <textarea id="inputBio" class="form-field-textarea" rows="3">Egresado alzatista apasionado por el desarrollo web y las soluciones tecnológicas con impacto social. Enfocado en la arquitectura de aplicaciones modernas, escalables y accesibles. Miembro activo de la comunidad de egresados de la I.E. Gilberto Alzate Avendaño.</textarea>
+                            <textarea id="inputBio" name="bio" class="form-field-textarea" rows="3"><?php echo htmlspecialchars($perfil['bio'] ?? ''); ?></textarea>
                         </div>
                     </div>
 
@@ -781,22 +900,22 @@ $topbarTitle = 'Mi perfil';
                         <div class="form-row-2">
                             <div class="form-group-field">
                                 <label for="inputTitulo" class="form-field-label">Titulación o énfasis alzatista</label>
-                                <input type="text" id="inputTitulo" class="form-field-input" value="Bachiller Técnico en Sistemas y Gestión Comercial">
+                                <input type="text" id="inputTitulo" name="titulo_institucional" class="form-field-input" value="<?php echo htmlspecialchars($perfil['titulo_institucional'] ?? ''); ?>">
                             </div>
                             <div class="form-group-field">
                                 <label for="inputPromocion" class="form-field-label">Año de promoción</label>
-                                <input type="number" id="inputPromocion" class="form-field-input" value="2021" min="1970" max="2026">
+                                <input type="number" id="inputPromocion" name="anio_graduacion" class="form-field-input" value="<?php echo htmlspecialchars($perfil['anio_graduacion'] ?? ''); ?>" min="1950" max="2100">
                             </div>
                         </div>
 
                         <div class="form-row-2">
                             <div class="form-group-field">
                                 <label for="inputCargo" class="form-field-label">Cargo u ocupación actual</label>
-                                <input type="text" id="inputCargo" class="form-field-input" value="Desarrollador Web Frontend & Backend">
+                                <input type="text" id="inputCargo" name="ocupacion" class="form-field-input" value="<?php echo htmlspecialchars($perfil['ocupacion'] ?? ''); ?>">
                             </div>
                             <div class="form-group-field">
                                 <label for="inputEmpresa" class="form-field-label">Empresa u organización</label>
-                                <input type="text" id="inputEmpresa" class="form-field-input" value="InnovaTech Medellín S.A.S.">
+                                <input type="text" id="inputEmpresa" name="empresa" class="form-field-input" value="<?php echo htmlspecialchars($perfil['empresa'] ?? ''); ?>">
                             </div>
                         </div>
                     </div>
@@ -805,17 +924,17 @@ $topbarTitle = 'Mi perfil';
                     <div class="modal-tab-panel" id="tab-enlaces">
                         <div class="form-group-field">
                             <label for="inputLinkedin" class="form-field-label">Perfil de LinkedIn (URL)</label>
-                            <input type="text" id="inputLinkedin" class="form-field-input" value="linkedin.com/in/santiago-emitola">
+                            <input type="text" id="inputLinkedin" name="linkedin" class="form-field-input" value="<?php echo htmlspecialchars($perfil['linkedin'] ?? ''); ?>">
                         </div>
 
                         <div class="form-group-field">
                             <label for="inputGithub" class="form-field-label">Perfil de GitHub (URL)</label>
-                            <input type="text" id="inputGithub" class="form-field-input" value="github.com/santiagoemitola">
+                            <input type="text" id="inputGithub" name="github" class="form-field-input" value="<?php echo htmlspecialchars($perfil['github'] ?? ''); ?>">
                         </div>
 
                         <div class="form-group-field">
                             <label for="inputWeb" class="form-field-label">Sitio web personal o portafolio</label>
-                            <input type="text" id="inputWeb" class="form-field-input" value="santiagoemitola.dev">
+                            <input type="text" id="inputWeb" name="web" class="form-field-input" value="<?php echo htmlspecialchars($perfil['sitio_web'] ?? ''); ?>">
                         </div>
                     </div>
 
@@ -823,7 +942,7 @@ $topbarTitle = 'Mi perfil';
 
                 <footer class="profile-modal-footer">
                     <button type="button" class="btn btn-outline-secondary" id="btnCancelarModal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="btnGuardarCambios">Guardar cambios</button>
+                    <button type="submit" class="btn btn-primary btn-perfil-save" id="btnGuardarCambios">Guardar cambios</button>
                 </footer>
             </form>
 
@@ -941,6 +1060,23 @@ $topbarTitle = 'Mi perfil';
             if (btnCompartir) {
                 btnCompartir.addEventListener('click', async () => {
                     const url = window.location.href;
+                    const userNameEl = document.getElementById('profileDisplayName');
+                    const userName = userNameEl ? userNameEl.textContent.trim() : 'Egresado Alzatista';
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: `Perfil de ${userName} | Raíces Alzate`,
+                                text: `Conoce el perfil de ${userName} en la comunidad de egresados de la I.E. Gilberto Alzate Avendaño.`,
+                                url: url
+                            });
+                            return;
+                        } catch (err) {
+                            if (err.name === 'AbortError') return;
+                        }
+                    }
+
+                    // Fallback a portapapeles
                     if (navigator.clipboard && window.isSecureContext) {
                         try {
                             await navigator.clipboard.writeText(url);
@@ -948,26 +1084,47 @@ $topbarTitle = 'Mi perfil';
                             return;
                         } catch (err) {}
                     }
-                    mostrarToast('URL del perfil: ' + url);
+
+                    // Fallback para entornos sin API de portapapeles
+                    try {
+                        const tempInput = document.createElement('textarea');
+                        tempInput.value = url;
+                        tempInput.style.position = 'fixed';
+                        tempInput.style.opacity = '0';
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+                        mostrarToast('¡Enlace de perfil copiado al portapapeles!');
+                    } catch (err) {
+                        mostrarToast('URL del perfil: ' + url);
+                    }
                 });
             }
 
-            // --- 5. CAMBIAR FOTO DE PERFIL ---
-            const btnEditarAvatar = document.getElementById('btnEditarAvatar');
-            if (btnEditarAvatar) {
-                btnEditarAvatar.addEventListener('click', () => {
-                    mostrarToast('Función de actualización de fotografía lista para vinculación.');
-                });
-            }
+            // --- 5. CAMBIAR FOTO DE PERFIL: el enlace navega de forma nativa a editar-perfil.php ---
 
             // --- 6. SWITCH DE PRIVACIDAD EN EL DIRECTORIO ---
             const toggleVisibilidad = document.getElementById('toggleVisibilidad');
             if (toggleVisibilidad) {
-                toggleVisibilidad.addEventListener('change', (e) => {
+                toggleVisibilidad.addEventListener('change', async (e) => {
                     const activo = e.target.checked;
-                    mostrarToast(activo 
-                        ? 'Tu perfil ahora es visible en el directorio alzatista.' 
-                        : 'Tu perfil ahora está oculto en el directorio público.');
+                    try {
+                        const fd = new FormData();
+                        fd.append('action', 'toggle_visibilidad');
+                        fd.append('perfil_publico', activo ? '1' : '0');
+                        await fetch('perfil.php', {
+                            method: 'POST',
+                            body: fd
+                        });
+                        mostrarToast(activo 
+                            ? 'Tu perfil ahora es visible en el directorio alzatista.' 
+                            : 'Tu perfil ahora está oculto en el directorio de egresados.');
+                    } catch (err) {
+                        mostrarToast(activo 
+                            ? 'Tu perfil ahora es visible en el directorio alzatista.' 
+                            : 'Tu perfil ahora está oculto en el directorio de egresados.');
+                    }
                 });
             }
 
@@ -986,8 +1143,8 @@ $topbarTitle = 'Mi perfil';
                     return;
                 }
 
-                // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle-proyecto.php
-                const href = card.getAttribute('data-href') || 'detalle-proyecto.php';
+                // Navegación nativa ante cualquier clic sobre la tarjeta hacia detalle de proyecto
+                const href = card.getAttribute('data-href') || 'index.php?page=detalle-proyecto';
                 if (href) {
                     window.location.href = href;
                 }
@@ -998,7 +1155,7 @@ $topbarTitle = 'Mi perfil';
                 if (e.key === 'Enter') {
                     const activeCard = document.activeElement;
                     if (activeCard && activeCard.classList.contains('profile-project-card')) {
-                        const href = activeCard.getAttribute('data-href') || 'detalle-proyecto.php';
+                        const href = activeCard.getAttribute('data-href') || 'index.php?page=detalle-proyecto';
                         window.location.href = href;
                     }
                 }
@@ -1025,7 +1182,12 @@ $topbarTitle = 'Mi perfil';
                 document.body.style.overflow = '';
             };
 
-            if (btnAbrirModal) btnAbrirModal.addEventListener('click', abrirModal);
+            if (btnAbrirModal) {
+                btnAbrirModal.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    abrirModal();
+                });
+            }
             if (btnCerrarModal) btnCerrarModal.addEventListener('click', cerrarModal);
             if (btnCancelarModal) btnCancelarModal.addEventListener('click', cerrarModal);
 
@@ -1057,104 +1219,15 @@ $topbarTitle = 'Mi perfil';
                 });
             });
 
-            // Envío del formulario de edición y actualización visual en vivo
+            // Envío real del formulario de edición hacia el backend
             if (formEditar) {
-                formEditar.addEventListener('submit', (e) => {
-                    e.preventDefault();
-
-                    const nuevoNombre = document.getElementById('inputNombre')?.value.trim();
-                    const nuevoEmail = document.getElementById('inputEmail')?.value.trim();
-                    const nuevoTelefono = document.getElementById('inputTelefono')?.value.trim();
-                    const nuevaCiudad = document.getElementById('inputCiudad')?.value.trim();
-                    const nuevoBarrio = document.getElementById('inputBarrio')?.value.trim();
-                    const nuevaBio = document.getElementById('inputBio')?.value.trim();
-                    const nuevoTitulo = document.getElementById('inputTitulo')?.value.trim();
-                    const nuevaEmpresa = document.getElementById('inputEmpresa')?.value.trim();
-                    const nuevoCargo = document.getElementById('inputCargo')?.value.trim();
-                    const nuevoLinkedin = document.getElementById('inputLinkedin')?.value.trim();
-                    const nuevoGithub = document.getElementById('inputGithub')?.value.trim();
-                    const nuevoWeb = document.getElementById('inputWeb')?.value.trim();
-
-                    // Actualizar elementos visuales en pantalla
-                    if (nuevoNombre) {
-                        const nameEl = document.getElementById('profileDisplayName');
-                        if (nameEl) {
-                            nameEl.textContent = nuevoNombre;
-                        }
-                        const avatarEl = document.getElementById('profileAvatarDisplay');
-                        if (avatarEl) avatarEl.textContent = nuevoNombre.charAt(0).toUpperCase();
-
-                        // Actualizar topbar
-                        const topbarName = document.querySelector('.topbar-user-name');
-                        if (topbarName) topbarName.textContent = nuevoNombre;
-                        const topbarAvatar = document.querySelector('.topbar-user-avatar');
-                        if (topbarAvatar) topbarAvatar.textContent = nuevoNombre.charAt(0).toUpperCase();
+                formEditar.addEventListener('submit', () => {
+                    const btn = document.getElementById('btnGuardarCambios');
+                    if (btn) {
+                        btn.style.pointerEvents = 'none';
+                        btn.style.opacity = '0.85';
+                        btn.textContent = 'Actualizando...';
                     }
-
-                    if (nuevoEmail) {
-                        const emailEl = document.getElementById('profileDisplayEmail');
-                        if (emailEl) {
-                            emailEl.textContent = nuevoEmail;
-                            emailEl.href = 'mailto:' + nuevoEmail;
-                        }
-                    }
-
-                    if (nuevoTelefono) {
-                        const telEl = document.getElementById('profileDisplayTelefono');
-                        if (telEl) telEl.textContent = nuevoTelefono;
-                    }
-
-                    if (nuevaCiudad) {
-                        const ciudadEl = document.getElementById('profileDisplayCiudad');
-                        if (ciudadEl) ciudadEl.textContent = nuevaCiudad;
-                    }
-
-                    if (nuevoBarrio) {
-                        const barrioEl = document.getElementById('profileDisplayBarrio');
-                        if (barrioEl) barrioEl.textContent = nuevoBarrio + (nuevaCiudad ? ', ' + nuevaCiudad : '');
-                    }
-
-                    if (nuevaBio) {
-                        const bioEl = document.getElementById('profileDisplayBio');
-                        if (bioEl) bioEl.textContent = nuevaBio;
-                    }
-
-                    if (nuevoTitulo) {
-                        const headlineEl = document.getElementById('profileDisplayHeadline');
-                        if (headlineEl) headlineEl.textContent = nuevoTitulo + ' • Promoción 2021';
-                        const gradoEl = document.getElementById('profileDisplayGrado');
-                        if (gradoEl) gradoEl.textContent = nuevoTitulo;
-                    }
-
-                    if (nuevaEmpresa) {
-                        const empEl = document.getElementById('profileDisplayEmpresa');
-                        if (empEl) empEl.textContent = nuevaEmpresa;
-                        const empDetEl = document.getElementById('profileDisplayEmpresaDetalle');
-                        if (empDetEl) empDetEl.textContent = nuevaEmpresa + ' • Jornada completa';
-                    }
-
-                    if (nuevoCargo) {
-                        const cargoEl = document.getElementById('profileDisplayCargo');
-                        if (cargoEl) cargoEl.textContent = nuevoCargo;
-                    }
-
-                    if (nuevoLinkedin) {
-                        const linEl = document.getElementById('profileDisplayLinkedin');
-                        if (linEl) linEl.textContent = nuevoLinkedin;
-                    }
-
-                    if (nuevoGithub) {
-                        const gitEl = document.getElementById('profileDisplayGithub');
-                        if (gitEl) gitEl.textContent = nuevoGithub;
-                    }
-
-                    if (nuevoWeb) {
-                        const webEl = document.getElementById('profileDisplayWeb');
-                        if (webEl) webEl.textContent = nuevoWeb;
-                    }
-
-                    cerrarModal();
-                    mostrarToast('¡Perfil actualizado con éxito!');
                 });
             }
 
@@ -1169,7 +1242,6 @@ $topbarTitle = 'Mi perfil';
         });
     </script>
 
-    <!-- Script global del Page Loader (desvanecimiento y desmontaje) -->
-    <script src="assets/js/loader.js?v=<?php echo APP_VERSION; ?>"></script>
-</body>
-</html>
+<?php
+require_once __DIR__ . '/../includes/footer.php';
+?>

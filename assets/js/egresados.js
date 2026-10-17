@@ -134,12 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const cargo = card.getAttribute('data-cargo')?.toLowerCase() || '';
             const empresa = card.getAttribute('data-empresa')?.toLowerCase() || '';
             const destacado = card.getAttribute('data-destacado') === 'true';
-            const isConnected = card.querySelector('.btn-card-connect')?.classList.contains('connected') || !!card.querySelector('.btn-card-message');
+            const isConnected = card.getAttribute('data-conectado') === 'true' || card.querySelector('.btn-card-connect')?.classList.contains('connected') || !!card.querySelector('.btn-card-message');
 
             // 1. Filtro de Categoría rápida (Tabs)
             let matchCategory = true;
-            if (currentCategory === '2021') {
-                matchCategory = (promo === '2021');
+            if (currentCategory === 'mi_promocion') {
+                const activeTab = document.querySelector('.egresados-tab-btn[data-category="mi_promocion"]');
+                const targetPromo = activeTab ? activeTab.getAttribute('data-promo') : '';
+                matchCategory = (promo === targetPromo);
             } else if (currentCategory === 'destacados') {
                 matchCategory = destacado;
             } else if (currentCategory === 'conectados') {
@@ -252,47 +254,90 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // 5. FUNCIÓN Y MANEJADOR GLOBAL CONECTAR EGRESADO
+    // 5. FUNCIÓN Y MANEJADOR GLOBAL CONECTAR EGRESADO (CONECTADO A MYSQL)
     // =========================================================================
-    window.conectarEgresado = function (btn) {
-        if (!btn) return;
+    window.conectarEgresado = async function (btn, targetId) {
+        if (!btn || btn.disabled) return;
         const card = btn.closest('.egresado-card');
         const egresadoName = card?.getAttribute('data-name') || btn.getAttribute('data-name') || 'el egresado';
+        const id = targetId || btn.getAttribute('data-id') || card?.getAttribute('data-id');
+        const csrfToken = document.getElementById('csrfTokenEgresados')?.value || '';
 
-        if (btn.classList.contains('connected')) {
-            btn.classList.remove('connected');
-            btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="8.5" cy="7.5" r="4"></circle>
-                <line x1="20" y1="8" x2="20" y2="14"></line>
-                <line x1="23" y1="11" x2="17" y2="11"></line>
-            </svg>
-            <span>Conectar</span>`;
-            mostrarToast(`Has cancelado la conexión con ${egresadoName}.`);
-        } else {
-            btn.classList.add('connected');
-            btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span>Conectado</span>`;
-            mostrarToast(`¡Solicitud enviada a ${egresadoName}! Ya están en contacto.`);
+        if (!id) {
+            mostrarToast('ID de egresado no disponible.');
+            return;
         }
 
-        const badgeConectados = document.getElementById('badgeConectados');
-        if (badgeConectados) {
-            const totalConectados = document.querySelectorAll('.egresado-card .btn-card-message, .egresado-card .btn-card-connect.connected').length;
-            badgeConectados.textContent = totalConectados;
-        }
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span>Enviando...</span>`;
 
-        if (currentCategory === 'conectados') {
-            aplicarFiltros();
+        try {
+            const formData = new URLSearchParams();
+            formData.append('target_id', id);
+            formData.append('csrf_token', csrfToken);
+
+            const resp = await fetch('api/conectar-egresado.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: formData.toString()
+            });
+
+            const data = await resp.json();
+
+            if (!resp.ok || !data.success) {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+                mostrarToast(data.error || 'Error al conectar con el egresado.');
+                return;
+            }
+
+            if (data.estado === 'pendiente') {
+                btn.className = 'btn-card-action btn-card-pending';
+                btn.disabled = true;
+                btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Solicitud enviada</span>`;
+                mostrarToast(data.mensaje || `¡Solicitud de conexión enviada a ${egresadoName}!`);
+            } else if (data.estado === 'aceptada') {
+                btn.outerHTML = `<a href="index.php?page=mensajes" class="btn-card-action btn-card-message" title="Enviar mensaje">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Enviar mensaje</span>
+                </a>`;
+                if (card) {
+                    card.setAttribute('data-conectado', 'true');
+                }
+                mostrarToast(data.mensaje || `¡Ahora estás conectado con ${egresadoName}!`);
+            }
+
+            const badgeConectados = document.getElementById('badgeConectados');
+            if (badgeConectados) {
+                const totalConectados = document.querySelectorAll('.egresado-card[data-conectado="true"], .egresado-card .btn-card-message').length;
+                badgeConectados.textContent = totalConectados;
+            }
+
+            if (currentCategory === 'conectados') {
+                aplicarFiltros();
+            }
+
+        } catch (err) {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+            mostrarToast('Error de red al procesar la solicitud.');
         }
     };
 
     // Sincronización inicial del badge de conectados en la pestaña
     const badgeConectadosEl = document.getElementById('badgeConectados');
     if (badgeConectadosEl) {
-        const totalInitConectados = document.querySelectorAll('.egresado-card .btn-card-message, .egresado-card .btn-card-connect.connected').length;
+        const totalInitConectados = document.querySelectorAll('.egresado-card[data-conectado="true"], .egresado-card .btn-card-message').length;
         if (totalInitConectados > 0) {
             badgeConectadosEl.textContent = totalInitConectados;
         }

@@ -128,36 +128,32 @@ La estructura general del repositorio se organiza de la siguiente manera:
 
 ```text
 raices-alzate/
-├── .github/
-├── admin/
+├── .github/              # Configuración de GitHub Actions e incidencias
+├── api/                  # Endpoints REST/JSON (mensajes, conexiones, respuestas)
 ├── assets/
-│   ├── css/
-│   ├── js/
-│   ├── img/
-│   ├── icons/
-│   ├── fonts/
-│   └── videos/
-├── components/
-├── config/
-├── database/
-├── docs/
-│   ├── README.md
-│   ├── 01_Bitacora.md
-│   ├── 02_Planificacion.md
-│   ├── 03_Requisitos.md
-│   ├── 04_Arquitectura.md
-│   ├── 05_Manual_Tecnico.md
-│   └── 06_Manual_Usuario.md
-├── includes/
-├── pages/
-├── usuario/
-├── uploads/
-├── .gitignore
-├── README.md
-└── index.php
+│   ├── css/              # Estilos modulares y fonts.css
+│   ├── js/               # Lógica interactiva vanilla JS
+│   ├── img/              # Imágenes institucionales
+│   ├── icons/            # Favicones e iconografía
+│   ├── fonts/            # Tipografía local Inter (.woff, .woff2)
+│   └── videos/           # Recursos multimedia
+├── auth/                 # Controladores backend de autenticación
+├── components/           # Componentes visuales reutilizables (header, footer)
+├── config/               # Configuración global y singleton PDO
+│   ├── config.php        # Constantes, base URL dinámica y helpers de URLs
+│   └── database.php      # Conexión PDO con reintentos y singleton getDBConnection()
+├── database/             # Esquema SQL y scripts de migración
+│   ├── schema.sql        # Esquema DDL con 11 tablas, FK, índices y semillas
+│   └── setup.php         # Script instalador/migrador (CLI y navegador)
+├── docs/                 # Documentación técnica y bitácora del proyecto
+├── includes/             # Lógica modular, helpers comunes, auth, CSRF, layout
+├── pages/                # Vistas y controladores de todas las pantallas
+├── uploads/              # Almacenamiento dinámico de fotos y documentos
+├── README.md             # Documentación principal del repositorio
+└── index.php             # Enrutador principal / Front Controller único en raíz
 ```
 
-> Esta estructura es una referencia general. La ubicación definitiva de los archivos y la presencia de directorios adicionales deben coincidir con el estado real del repositorio.
+> **Estructura limpia:** En la raíz del proyecto residen únicamente `index.php` y `README.md`. Todas las vistas y controladores se gestionan de forma organizada dentro de `pages/` a través del Front Controller centralizado.
 
 ### Organización de estilos
 
@@ -449,9 +445,24 @@ cd Raices-Alzate
 
 ### 4. Configurar la base de datos
 
-La conexión entre PHP y MySQL se ha verificado inicialmente, pero la estructura definitiva de tablas y relaciones todavía debe consolidarse.
+El esquema relacional de la plataforma está completamente definido en [`database/schema.sql`](database/schema.sql) y cuenta con un script de instalación automatizado:
 
-Antes de utilizar las funcionalidades que dependan de datos persistentes, será necesario completar la configuración de la base de datos y verificar las tablas requeridas por cada módulo.
+1. **Instalación automática (Recomendada):**
+   * Desde la terminal / consola:
+     ```bash
+     php database/setup.php
+     ```
+   * O desde el navegador web accediendo a:
+     ```text
+     http://localhost/Raices-Alzate/database/setup.php
+     ```
+   El script creará la base de datos `raices_alzate` (si no existe), generará las 11 tablas con sus claves foráneas e índices, e insertará los registros semilla requeridos (`roles` y `habilidades`).
+
+2. **Instalación manual:**
+   * Importa directamente [`database/schema.sql`](database/schema.sql) en phpMyAdmin o MySQL Workbench.
+
+3. **Parámetros de conexión:**
+   * Los parámetros de conexión (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`) se configuran de manera centralizada en [`config/config.php`](config/config.php).
 
 ### 5. Consultar la documentación técnica
 

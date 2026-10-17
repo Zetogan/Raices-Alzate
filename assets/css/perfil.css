@@ -298,22 +298,36 @@
     height: 44px;
     padding: 0 18px;
     background-color: #FFFFFF;
-    color: var(--color-text-main, #212121);
+    color: #1565C0;
     font-size: 0.95rem;
     font-weight: 600;
     border-radius: 8px;
-    border: 1px solid var(--color-border, #E0E0E0);
+    border: 1.5px solid #1565C0;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     white-space: nowrap;
 }
 
+.btn-profile-secondary svg {
+    stroke: #1565C0;
+    transition: stroke 0.2s ease;
+}
+
 .btn-profile-secondary:hover {
-    background-color: var(--color-bg-light, #F5F5F5);
-    border-color: #BDBDBD;
-    color: var(--color-primary, #D32F2F);
+    background-color: rgba(21, 101, 192, 0.08);
+    border-color: #0D47A1;
+    color: #0D47A1;
     text-decoration: none;
+}
+
+.btn-profile-secondary:hover svg {
+    stroke: #0D47A1;
+}
+
+.btn-profile-secondary:focus-visible {
+    outline: 2px solid #1565C0;
+    outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -407,7 +421,7 @@
     height: 100%;
     background-color: var(--color-primary, #D32F2F);
     border-radius: 3px;
-    width: 95%;
+    transition: width 0.4s ease;
 }
 
 /* ==========================================================================
@@ -1698,4 +1712,56 @@
         width: 100%;
     }
 }
+
+/* ==========================================================================
+   ESTILOS DE NOTIFICACIÓN FLOTANTE (TOAST) Y CONTROL DE IMÁGENES DE PERFIL
+   ========================================================================== */
+.egresado-toast {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    background-color: #212121 !important;
+    color: #FFFFFF !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    display: none !important;
+    align-items: center !important;
+    gap: 10px !important;
+    z-index: 99999 !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.egresado-toast.show {
+    display: flex !important;
+    opacity: 1 !important;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.egresado-toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4CAF50;
+    flex-shrink: 0;
+}
+
+.profile-avatar-large {
+    overflow: hidden !important;
+}
+
+.profile-avatar-large img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
 

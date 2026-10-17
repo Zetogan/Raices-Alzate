@@ -130,39 +130,84 @@
 })();
 
 /**
- * Gestión interactiva del botón "Conectar" en Detalle de Egresado
- * Deshabilita el botón, actualiza el estado a solicitud enviada, muestra icono de verificación y activa el toast
+ * Gestión interactiva del botón "Conectar" en Detalle de Egresado (Conectado a MySQL)
+ * Envía la solicitud real a la base de datos vía api/conectar-egresado.php
  */
-window.conectarConEgresado = function (btn) {
+window.conectarConEgresado = async function (btn, targetId) {
     if (!btn || btn.disabled) return;
 
-    btn.disabled = true;
-    btn.classList.add('solicitud-enviada');
-
+    const id = targetId || btn.getAttribute('data-id');
+    const csrfToken = document.getElementById('csrfTokenEgresados')?.value || '';
+    const originalHtml = btn.innerHTML;
     const textSpan = btn.querySelector('.btn-text');
-    if (textSpan) {
-        textSpan.textContent = 'Solicitud enviada';
-    } else {
-        btn.textContent = 'Solicitud enviada';
-    }
 
-    const svg = btn.querySelector('svg');
-    if (svg) {
-        svg.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
-        svg.setAttribute('stroke-width', '2.5');
-    }
+    btn.disabled = true;
+    if (textSpan) textSpan.textContent = 'Enviando...';
 
-    // Feedback visual mediante Toast Flotante
+    // Toast helper
     const toast = document.getElementById('toastNotificacionEgresados');
     const toastMsg = document.getElementById('toastMensajeEgresados');
-    if (toast && toastMsg) {
-        const nombreEl = document.querySelector('.profile-user-name');
-        const nombre = nombreEl ? nombreEl.textContent.trim() : 'el egresado';
-        toastMsg.textContent = `¡Solicitud enviada a ${nombre}! Ya están en contacto.`;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3500);
+    const mostrarToastLocal = (msg) => {
+        if (toast && toastMsg) {
+            toastMsg.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
+        }
+    };
+
+    if (!id) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        mostrarToastLocal('ID de egresado no disponible.');
+        return;
+    }
+
+    try {
+        const formData = new URLSearchParams();
+        formData.append('target_id', id);
+        formData.append('csrf_token', csrfToken);
+
+        const resp = await fetch('api/conectar-egresado.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: formData.toString()
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok || !data.success) {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+            mostrarToastLocal(data.error || 'Error al conectar.');
+            return;
+        }
+
+        if (data.estado === 'pendiente') {
+            btn.className = 'btn btn-action-main btn-conectar btn-card-pending';
+            btn.disabled = true;
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="btn-text">Solicitud enviada</span>`;
+            mostrarToastLocal(data.mensaje || '¡Solicitud de conexión enviada!');
+        } else if (data.estado === 'aceptada') {
+            btn.outerHTML = `<a href="index.php?page=mensajes" class="btn btn-primary btn-action-main" id="btnEnviarMensaje">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="btn-text">Enviar mensaje</span>
+            </a>`;
+            mostrarToastLocal(data.mensaje || '¡Conexión establecida!');
+        }
+
+    } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        mostrarToastLocal('Error de conexión al procesar la solicitud.');
     }
 };
 
