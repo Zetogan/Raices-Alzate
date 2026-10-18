@@ -12,11 +12,11 @@
 | ------------------------------- | ---------------------------------------------- |
 | Proyecto                        | Raíces Alzate                                  |
 | Institución                     | Institución Educativa Gilberto Alzate Avendaño |
-| Versión documental              | `v0.1.1`                                       |
+| Versión documental              | `v0.2.1`                                       |
 | Estado                          | 🟡 En desarrollo                               |
-| Fase actual                     | Fase 4 — Implementación                        |
+| Fase actual                     | Fase 4 — Implementación e integración funcional|
 | Inicio del proyecto             | 2025                                           |
-| Última actualización            | 13 de octubre de 2026                          |
+| Última actualización            | 17 de octubre de 2026                          |
 | Responsable de la documentación | Santiago Emitola                               |
 
 ---
@@ -155,19 +155,16 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-* 🟢 Interfaz inicial de recuperación implementada.
-* 🟢 Validación del correo en el cliente reportada.
-* 🟢 Procesamiento inicial de recuperación reportado.
-* 🟢 Generación de un token aleatorio mediante `random_bytes(32)` reportada.
-* 🟢 Incorporación de una respuesta genérica para reducir la enumeración de cuentas reportada.
-* 🟡 Almacenamiento seguro de los tokens por verificar.
-* 🟡 Expiración y validación integral de los tokens pendientes de comprobar.
-* 🟡 Flujo completo para establecer una nueva contraseña por verificar.
-* 🟡 Invalidación de los tokens después de su uso pendiente de verificar.
-* 🟡 Envío de correos mediante SMTP pendiente de configuración y pruebas.
-* 🟡 Pruebas integrales de recuperación pendientes.
-
-> La generación de un token no demuestra por sí sola que el flujo de recuperación esté completo. Se deberá comprobar su almacenamiento, vigencia, validación, uso único y relación con el cambio de contraseña. Mientras no exista un servicio de correo configurado y probado, no se deberá afirmar que las instrucciones de recuperación se envían efectivamente al usuario.
+* 🟢 Interfaz de solicitud y restablecimiento (`pages/reset-password.php`) alineadas con Figma.
+* 🟢 Validación de formato de correo y longitud de contraseña (mínimo 8 caracteres) en frontend.
+* 🟢 Generación de tokens criptográficos pseudoaleatorios con `random_bytes(32)`.
+* 🟢 Almacenamiento seguro del hash SHA-256 en las columnas `reset_token` y `reset_expira` con caducidad estricta a 60 minutos.
+* 🟢 Integración de PHPMailer y SMTP autenticado (`config/mail.php`, `includes/mailer.php`, `includes/PHPMailer/`).
+* 🟢 Plantilla HTML responsiva con logotipo institucional embebido mediante CID Inline (`logo-raices-alzate.png`).
+* 🟢 Alternador interactivo para visualizar u ocultar la clave (ícono de ojo).
+* 🟢 Hashing seguro de la nueva contraseña con `password_hash(PASSWORD_DEFAULT)`.
+* 🟢 Invalidación inmediata del token tras su uso para evitar ataques de repetición.
+* 🟡 Pruebas con servidor SMTP en entorno de producción por verificar.
 
 ---
 
@@ -188,7 +185,10 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-🟡 Se han reportado avances de estructura visual en el dashboard y en apartados relacionados con el perfil. La implementación funcional integral de consulta, edición y persistencia de los datos del perfil permanece pendiente de verificación.
+* 🟢 Interfaz de perfil (`pages/perfil.php`) con métricas, banner institucional y estética Figma.
+* 🟢 Formulario modular de edición (`pages/editar-perfil.php` / `assets/css/perfil-form.css`) con 4 bloques temáticos.
+* 🟢 Tablas relacionales correspondientes formalizadas en `database/schema.sql` (`usuarios`, `perfiles`, `educacion`, `experiencia`, `habilidades`, `perfil_habilidades`).
+* 🟡 Persistencia dinámica completa mediante consultas PDO en fase de pruebas integrales.
 
 ---
 
@@ -208,7 +208,13 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional e integración con la base de datos.
+* 🟢 Directorio interactivo de egresados implementado (`pages/egresados.php`, `includes/egresados-privado.php`).
+* 🟢 Filtros en tiempo real por promoción, área y estado de conexión en JavaScript (`assets/js/egresados.js`).
+* 🟢 Vista de detalle de egresado (`pages/detalle-egresado.php`) simétrica a perfil.
+* 🟢 Botones condicionales («Conectar» interactivo vs. «Enviar mensaje» hacia chat privado).
+* 🟢 Notificación toast flotante `#egresadoToast` para confirmación de acciones en vivo.
+* 🟢 Endpoints API JSON para solicitudes (`api/conectar-egresado.php`, `api/responder-solicitud.php`).
+* 🟡 Pruebas integrales de persistencia en tabla `conexiones` en curso.
 
 ---
 
@@ -230,7 +236,13 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional integral.
+* 🟢 Catálogo de proyectos implementado (`pages/proyectos.php`) con cuadrícula simétrica de 3 columnas en escritorio.
+* 🟢 Portadas en relación 16:9 y autoría institucional normalizada.
+* 🟢 Vista de detalle de proyecto (`pages/detalle-proyecto.php`).
+* 🟢 Interfaces de creación y edición (`pages/crear-proyecto.php`, `pages/editar-proyecto.php`).
+* 🟢 Paginación incremental asíncrona mediante AJAX / Fetch (`assets/js/proyectos.js`).
+* 🟢 Estructura DDL en `database/schema.sql` (tabla `proyectos`).
+* 🟡 Pruebas integrales de persistencia con PDO en curso.
 
 ---
 
@@ -251,11 +263,15 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional integral.
+* 🟢 Vista de noticias institucionales implementada (`pages/noticias.php`).
+* 🟢 Selector interactivo de categorías temáticas y filtrado en cliente (`assets/js/noticias.js`).
+* 🟢 Vista de detalle de noticia (`pages/detalle-noticia.php`) y creación (`pages/crear-noticia.php`).
+* 🟢 Tabla `noticias` formalizada en `database/schema.sql`.
+* 🟡 Pruebas de persistencia con base de datos en curso.
 
 ---
 
-## 3.9. RF-09 — Panel administrativo
+## 3.9. RF-09 — Panel administrativo y moderación
 
 La plataforma deberá:
 
@@ -273,7 +289,50 @@ La plataforma deberá:
 
 ### Estado de implementación
 
-⏳ Pendiente de implementación funcional integral.
+* 🟢 Pantalla oficial de administración implementada (`pages/administracion.php` / `admin.php`).
+* 🟢 Tarjetas de métricas KPI interactivas (Registros pendientes, contenidos en revisión, PQRS por resolver, egresados verificados).
+* 🟢 Pestañas de moderación: Aprobación de Registros, Moderación de Contenidos y Resolución de PQRS.
+* 🟢 Modales interactivos (`modalRegistro`, `modalContenido`, `modalPQRS`) y toast `#adminToast`.
+* 🟢 Estilos completos conforme al diseño de Figma (`assets/css/administracion.css`).
+* 🟡 Verificación integral de permisos y persistencia administrativa en base de datos.
+
+---
+
+## 3.10. RF-10 — Red de contactos y mensajería privada
+
+La plataforma deberá:
+
+* RF-10.01: Permitir el envío de solicitudes de conexión institucional entre egresados.
+* RF-10.02: Gestionar estados de vinculación (pendiente, aceptada, rechazada).
+* RF-10.03: Habilitar un canal de chat privado entre usuarios conectados.
+* RF-10.04: Almacenar el historial de conversaciones y mensajes con marca temporal.
+* RF-10.05: Ofrecer endpoints API para sincronización asíncrona de mensajes.
+
+### Estado de implementación
+
+* 🟢 Interfaz de mensajería implementada (`pages/mensajes.php` / `assets/css/mensajes.css` / `assets/js/mensajes.js`).
+* 🟢 Endpoints API JSON implementados (`api/conectar-egresado.php`, `api/responder-solicitud.php`, `api/enviar-mensaje.php`, `api/obtener-mensajes.php`).
+* 🟢 Tablas relacionales `conexiones` y `mensajes` formalizadas en `database/schema.sql`.
+* 🟡 Pruebas integrales de flujo en tiempo real y sanitización XSS en curso.
+
+---
+
+## 3.11. RF-11 — Módulo de PQRS y soporte ciudadano
+
+La plataforma deberá:
+
+* RF-11.01: Disponer de un formulario para registrar Peticiones, Quejas, Reclamos, Sugerencias y reportes de errores.
+* RF-11.02: Permitir la adjunción opcional de capturas de pantalla o evidencias.
+* RF-11.03: Generar número de radicado para seguimiento de la solicitud.
+* RF-11.04: Permitir al administrador gestionar y responder solicitudes institucionales.
+
+### Estado de implementación
+
+* 🟢 Formulario de PQRS implementado (`pages/pqr.php` / `assets/css/pqr.css` / `assets/js/pqr.js`).
+* 🟢 Dropzone interactivo para arrastrar y soltar capturas de pantalla.
+* 🟢 Corrección de visibilidad del ícono SVG en el sidebar en blanco puro (`#FFFFFF`).
+* 🟢 Pestaña de resolución de PQRS integrada en el panel administrativo (`pages/administracion.php`).
+* 🟡 Integración con almacenamiento persistente de radicados en fase de pruebas.
 
 ---
 
@@ -751,30 +810,21 @@ Las tecnologías anteriores corresponden al alcance tecnológico definido para e
 
 # 12. Estado actual del proyecto
 
-Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
+Raíces Alzate se encuentra en la **Fase 4 — Implementación e integración funcional**, alcanzando la versión **v0.2.1** al 17 de octubre de 2026.
 
-El proyecto comenzó en 2025. La fase de diseño UI/UX finalizó a finales de septiembre de 2026, y la implementación comenzó en octubre del mismo año.
+El proyecto comenzó en 2025. La fase de diseño UI/UX finalizó a finales de septiembre de 2026 (con 34 pantallas en Figma), y la implementación técnica ha alcanzado los siguientes hitos consolidados:
 
-Los avances reportados incluyen:
+* Estructura completa de frontend para Inicio, Dashboard, Egresados, Perfil, Proyectos, Noticias, PQRS, Administración y Mensajería.
+* Navegación compartida estandarizada: cabecera pública, sidebar colapsable en escritorio (240px/76px), drawer en móviles y topbar autenticado.
+* Sistema de autenticación con hashing seguro de contraseñas mediante `password_hash(PASSWORD_DEFAULT)`.
+* Flujo integral de recuperación y restablecimiento de contraseña (`pages/reset-password.php`) con generación de tokens criptográficos SHA-256 temporales (60 min) y revocación inmediata de un solo uso.
+* Integración de PHPMailer transaccional con configuración SMTP institucional (`config/mail.php`, `includes/mailer.php`) y plantilla HTML responsiva con logotipo embebido CID Inline.
+* Arquitectura de base de datos relacional formalizada en `database/schema.sql` (11 tablas con claves foráneas, restricciones e índices).
+* Instalador y aprovisionamiento automatizado `database/setup.php` compatible con ejecución CLI y web.
+* Endpoints API JSON en `api/` para interacciones asíncronas de red y chat privado.
+* Centralización modular de todas las vistas bajo `pages/`.
 
-* Estructura inicial del frontend.
-* Interfaz Inicio.
-* Encabezado y pie de página compartidos.
-* Navegación responsive y menú móvil.
-* Incorporación del isotipo y favicon.
-* Organización modular de los estilos CSS.
-* Interfaces iniciales de inicio de sesión, registro y recuperación de contraseña.
-* Validaciones y estados visuales de formularios reportados.
-* Avances en la estructura visual del dashboard y sus elementos compartidos.
-* Conectividad entre PHP y MySQL verificada previamente.
-
-Los módulos de autenticación, registro y recuperación requieren validación integral. En particular, debe verificarse el flujo completo de recuperación de contraseña, incluido el almacenamiento y la expiración de tokens, la validación de su uso y el envío de correos cuando se configure SMTP.
-
-También se deberá comprobar que las sesiones, las rutas privadas y los permisos funcionen correctamente. Las herramientas utilizadas para simular accesos durante el desarrollo deberán permanecer restringidas al entorno de pruebas.
-
-La estructura definitiva de tablas y relaciones de la base de datos todavía debe definirse, implementarse e integrarse con los módulos correspondientes.
-
-El desarrollo continuará con la validación de los módulos iniciales, la implementación progresiva de las interfaces restantes y la integración del frontend, el backend y la base de datos.
+Las siguientes actividades se concentran en la validación funcional integral de la persistencia de datos en cada módulo, pruebas con servidores SMTP en entornos reales y auditoría de accesibilidad y diseño responsive de cara a la Fase 5 (Pruebas).
 
 ---
 
@@ -788,6 +838,7 @@ El desarrollo continuará con la validación de los módulos iniciales, la imple
 | v0.1.1  | 08/10/2026 | Actualización de los avances iniciales de Inicio, estructura CSS, componentes compartidos, navegación responsive e integración con MySQL reportada.                                                                                    |
 | v0.1.1  | 09/10/2026 | Actualización de los requisitos y del estado de los módulos de inicio de sesión, registro y recuperación de contraseña.                                                                                                                |
 | v0.1.1  | 13/10/2026 | Actualización del estado de implementación, avances reportados en componentes compartidos y dashboard, criterios de validación, requisitos de seguridad y distinción entre funcionalidades implementadas y pendientes de verificación. |
+| v0.2.1  | 17/10/2026 | Actualización a versión v0.2.1; consolidación de requisitos de recuperación segura de contraseña con PHPMailer y tokens SHA-256, módulos de proyectos, noticias, egresados, perfil, PQRS, administración, mensajería y persistencia relacional en 11 tablas con setup.php. |
 
 ---
 
@@ -796,11 +847,11 @@ El desarrollo continuará con la validación de los módulos iniciales, la imple
 | Campo                           | Información             |
 | ------------------------------- | ----------------------- |
 | Documento                       | `docs/03_Requisitos.md` |
-| Versión documental              | `v0.1.1`                |
+| Versión documental              | `v0.2.1`                |
 | Estado                          | 🟡 En desarrollo        |
-| Fase actual                     | Fase 4 — Implementación |
+| Fase actual                     | Fase 4 — Implementación e integración funcional |
 | Inicio del proyecto             | 2025                    |
-| Última actualización            | 13 de octubre de 2026   |
+| Última actualización            | 17 de octubre de 2026   |
 | Responsable de la documentación | Santiago Emitola        |
 
 ---

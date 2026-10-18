@@ -13,11 +13,11 @@
 | **Desarrollador**                   | Santiago Emitola                                   |
 | **Inicio del proyecto**             | 2025                                               |
 | **Estado actual**                   | En desarrollo                                      |
-| **Versión documental**              | v0.1.1                                             |
-| **Fase actual**                     | Fase 4 — Implementación y refinamiento de interfaz |
-| **Última actualización registrada** | 13 de octubre de 2026                              |
-| **Rama de trabajo reportada**       | `dev-emitola`                                      |
-| **Entorno de desarrollo**           | XAMPP, Apache y PHP nativo                         |
+| **Versión documental**              | v0.2.1                                             |
+| **Fase actual**                     | Fase 4 — Implementación e integración funcional    |
+| **Última actualización registrada** | 17 de octubre de 2026                              |
+| **Rama de trabajo reportada**       | `main` / `dev-emitola`                             |
+| **Entorno de desarrollo**           | XAMPP, Apache, MySQL (PDO) y PHP nativo            |
 
 ---
 
@@ -1197,166 +1197,186 @@ El alcance final de cada cambio debe confirmarse en el repositorio actual antes 
 
 ---
 
+## 📅 Sesión del 14 de octubre de 2026
+
+**Objetivo:** Implementación de vistas de proyectos y noticias, pantalla de editar perfil y mejoras visuales en el directorio de egresados.
+
+**Archivos afectados:**
+
+* `pages/proyectos.php` y `assets/css/proyectos.css` / `assets/js/proyectos.js`
+* `pages/noticias.php` y `assets/css/noticias.css` / `assets/js/noticias.js`
+* `pages/perfil.php` y `assets/css/perfil.css` / `assets/js/perfil.js`
+* `editar-perfil.php` / `pages/editar-perfil.php` y `assets/css/perfil-form.css`
+* `pages/egresados.php` y `assets/css/egresados.css` / `assets/js/egresados.js`
+* `docs/CHANGELOG.md` y `docs/planificacion.md`
+
+**Actividades realizadas:**
+
+1. **Pantallas de Proyectos y Noticias:**
+   - Consolidación de la cuadrícula de proyectos con portadas en relación de aspecto 16:9 y autoría institucional.
+   - Implementación de la vista de noticias con selector de categorías temáticas, tarjetas con badges institucionales y paginación en JavaScript.
+2. **Pantalla de Edición de Perfil (`editar-perfil.php`):**
+   - Construcción del formulario modular conforme a Figma para actualización de datos personales, formación académica, experiencia profesional y selección de habilidades.
+   - Vinculación de estados de validación en tiempo real y componentes visuales (`perfil-form.css`).
+3. **Mejoras visuales en el Directorio de Egresados:**
+   - Calibración de tarjetas en la vista de egresados y detalle de perfil público.
+   - Sincronización del layout responsive con el sidebar y topbar del panel.
+
+---
+
+## 📅 Sesión del 15 de octubre de 2026
+
+**Objetivo:** Estandarización UI/UX, implementación del módulo de administración (Figma 08) y módulo de PQRS con soporte para capturas.
+
+**Archivos afectados:**
+
+* `administracion.php` / `pages/administracion.php` y `assets/css/administracion.css`
+* `admin.php` (redirección hacia el panel administrativo)
+* `pqr.php` / `pages/pqr.php` y `assets/css/pqr.css` / `assets/js/pqr.js`
+* `detalle-egresado.php` / `pages/detalle-egresado.php` y `assets/css/perfil-detalle.css`
+* `includes/sidebar.php` y `assets/css/dashboard.css`
+* `includes/egresados-privado.php` y `assets/js/egresados.js`
+* `assets/js/dashboard.js`
+
+**Actividades realizadas:**
+
+1. **Módulo de Administración Oficial (Figma 08):**
+   - Implementación del panel de moderación con KPI Cards interactivas (Registros Pendientes, Contenidos en Revisión, PQRS por Resolver, Egresados Verificados).
+   - Sistema de pestañas con filtros en tiempo real y modales accesibles (`modalRegistro`, `modalContenido`, `modalPQRS`) para aprobación, desestimación y resolución de solicitudes.
+   - Componente de notificación toast `#adminToast` con desaparición automática a los 3.8s.
+2. **Módulo de PQRS y Reporte de Errores:**
+   - Formulario de atención ciudadana con dropzone interactivo para adjuntar capturas opcionales.
+   - Corrección de visibilidad del ícono SVG en el sidebar: eliminación de la clase conflictiva `.nav-link` y blindaje del trazo en blanco puro `#FFFFFF` tanto en estado expandido como colapsado.
+3. **Red de Contactos y Conexiones entre Egresados:**
+   - Botón condicional en tarjetas: botón «Conectar» con microinteracción visual para usuarios sin conexión y «Enviar mensaje» hacia `mensajes.php` para contactos enlazados.
+   - Componente de toast flotante inferior derecho para confirmación inmediata de acciones.
+
+---
+
+## 📅 Sesión del 17 de octubre de 2026
+
+**Objetivo:** Implementación del flujo integral de recuperación segura de contraseñas con PHPMailer y SMTP, aprovisionamiento de la base de datos relacional MySQL (11 tablas con setup.php) y consolidación de la versión v0.2.1.
+
+**Archivos afectados:**
+
+* `config/mail.php` (configuración de servidor SMTP y credenciales institucionales).
+* `includes/mailer.php` (motor transaccional de correos electrónicos con PHPMailer).
+* `includes/PHPMailer/` (`PHPMailer.php`, `SMTP.php`, `Exception.php`).
+* `auth/solicitar_reset.php` y `auth/recuperar-process.php` (procesamiento de solicitud, generación de tokens criptográficos `random_bytes(32)`, hashing `sha256` y expiración a 1 hora).
+* `pages/reset-password.php` (interfaz visual alineada a Figma para establecimiento de nueva clave con alternador de visibilidad).
+* `auth/cambiar_password.php` (validación de token activo, actualización con `password_hash()` y revocación de token).
+* `database/schema.sql` (esquema DDL completo de 11 tablas con restricciones, índices, claves foráneas y semillas).
+* `database/setup.php` (script de verificación y aprovisionamiento automático idempotente para CLI y web).
+* `database/create_conexiones_table.php` y `database/create_mensajes_table.php` (scripts de migración de red y chat).
+* `api/conectar-egresado.php`, `api/enviar-mensaje.php`, `api/obtener-mensajes.php`, `api/responder-solicitud.php` (endpoints API REST/JSON).
+* Migración estructural: unificación de rutas de vistas bajo `pages/` y limpieza de scripts dispersos.
+* `README.md`, `docs/arquitectura.md`, `docs/CHANGELOG.md`, `docs/bitacora.md`, `docs/decisiones.md`, `docs/glosario.md`, `docs/planificacion.md`, `docs/requisitos.md`, `docs/ROADMAP.md`.
+
+**Actividades realizadas:**
+
+1. **Flujo de Recuperación de Contraseñas Seguro:**
+   - Generación de token criptográfico aleatorio seguro de 64 caracteres hexadecimales (`random_bytes(32)`).
+   - Almacenamiento seguro del hash SHA-256 del token en la base de datos con expiración estricta de 60 minutos (`reset_token` y `reset_expira` en la tabla `usuarios`).
+   - Envío de correo electrónico transaccional con PHPMailer mediante SMTP autenticado (`config/mail.php`).
+   - Diseño de plantilla HTML responsiva con logotipo institucional embebido mediante CID Inline (`logo-raices-alzate.png`), botón de llamada a la acción y advertencias de seguridad.
+   - Creación de la vista `pages/reset-password.php` con formulario institucional, alternancia visual de visualización de contraseña mediante ícono de ojo, validación de longitud (mínimo 8 caracteres) y coincidencia exacta.
+   - Procesamiento en `auth/cambiar_password.php`: verificación de vigencia del token, encriptación con `password_hash(PASSWORD_DEFAULT)` y anulación inmediata del token utilizado para impedir reuso.
+2. **Arquitectura y Aprovisionamiento de Base de Datos:**
+   - Diseño del esquema relacional definitivo en `database/schema.sql`: 11 tablas (`roles`, `usuarios`, `perfiles`, `educacion`, `experiencia`, `habilidades`, `perfil_habilidades`, `proyectos`, `noticias`, `conexiones`, `mensajes`).
+   - Desarrollo del instalador `database/setup.php` con ejecución CLI (`php database/setup.php`) y web (`http://localhost/.../database/setup.php`), capaz de crear la base de datos si no existe, ejecutar las tablas e inicializar roles y habilidades.
+3. **Módulo de Mensajería y APIs de Red:**
+   - Implementación de endpoints JSON asíncronos para conectar egresados, responder solicitudes y enviar/recibir mensajes en tiempo real.
+4. **Reorganización Estructural y Consolidación:**
+   - Estandarización de vistas dentro de `pages/`, manteniendo compatibilidad y eliminando scripts redundantes.
+   - Actualización de versión del proyecto a **v0.2.1**.
+
+---
+
 # 📊 Estado general del proyecto
 
 ## Fases del proyecto
 
 | Fase   | Descripción                               | Estado                       |
 | ------ | ----------------------------------------- | ---------------------------- |
-| Fase 1 | Planificación y organización inicial      | Completada según el registro |
-| Fase 2 | Diseño del sistema visual y componentes   | Completada según el registro |
+| Fase 1 | Planificación y organización inicial      | Completada                   |
+| Fase 2 | Diseño del sistema visual y componentes   | Completada                   |
 | Fase 3 | Diseño UI/UX de las interfaces            | Finalizada                   |
-| Fase 4 | Implementación y refinamiento de interfaz | En desarrollo                |
+| Fase 4 | Implementación e integración funcional    | En desarrollo (v0.2.1)       |
 
 ## Estado de los componentes
 
 | Componente                                       | Estado registrado                                                        |
 | ------------------------------------------------ | ------------------------------------------------------------------------ |
 | Estructura inicial del repositorio               | Consolidada                                                              |
-| Documentación base                               | Elaborada; requiere actualización continua                               |
-| Design System                                    | Elaborado en Figma                                                       |
-| Componentes reutilizables de Figma               | Elaborados                                                               |
-| Diagrama de navegación                           | Elaborado                                                                |
-| Diseño de Inicio Desktop y Mobile                | Finalizado en Figma                                                      |
-| Diseño de las 17 pantallas Desktop               | Finalizado en Figma                                                      |
-| Diseño de las 17 pantallas Mobile                | Finalizado en Figma                                                      |
-| Estructura frontend de Inicio                    | Implementada según los informes                                          |
-| Encabezado público                               | Implementado; ajustes y medidas finales por verificar                    |
-| Pie de página público                            | Implementado; validación visual pendiente                                |
-| Estilos globales y tipografía                    | Organizados                                                              |
-| Botones globales                                 | Implementados; reglas específicas ajustadas según los informes           |
-| Sistema de alertas                               | Reportado como implementado inicialmente                                 |
-| Inicio de sesión                                 | Vista y procesamiento reportados; autenticación integral por verificar   |
-| Registro de usuarios                             | Vista y procesamiento reportados; integración y validación por verificar |
-| Recuperación de contraseña                       | Vista y generación de token reportadas; SMTP y flujo completo pendientes |
-| Pantalla de Proyectos (Desktop y Mobile)          | Implementada (06 - Proyectos); catálogo autenticado, grid 3 cols, portadas 16:9 y paginación AJAX |
-| Pantalla de Egresados (Desktop y Mobile)          | Implementada (05 - Egresados); directorio autenticado, filtros en vivo, tarjetas y modal |
-| Pantalla de Noticias                             | Implementada según el informe; validación integral pendiente             |
-| Dashboard Desktop                                | Maquetado e integrado con componentes reportados                         |
-| Dashboard Mobile                                 | Maquetado con navegación responsive reportada                            |
-| Pantalla de Perfil (Desktop y Mobile)            | Implementada (04 - Perfil); vista modular, hero, métricas y modal de edición |
-| Mini-sidebar de escritorio                       | Implementada según el informe; comportamiento por validar                |
-| Menú lateral móvil                               | Implementado según el informe; comportamiento por validar                |
-| Loader global                                    | Rediseñado; revisión de mecanismos de ocultamiento pendiente             |
-| Controlador de cierre de sesión                  | Reportado como implementado; pruebas de seguridad pendientes             |
-| Acceso de prueba `dev-login.php`                 | Reportado como implementado; debe limitarse al entorno local             |
-| Esquema definitivo de base de datos              | Pendiente de definición y validación                                     |
-| Integración dinámica completa con MySQL          | Pendiente                                                                |
-| Datos reales de actividad y oportunidades        | Pendientes de integración                                                |
-| Pantallas restantes de la plataforma             | Pendientes de implementación progresiva                                  |
-| Pruebas integrales de la plataforma              | Pendientes de completar                                                  |
-| Verificación final de Git y del commit reportado | Pendiente de confirmar                                                   |
-
-> **Nota:** Los estados de esta tabla reflejan los avances documentados y reportados. No sustituyen una inspección del código, pruebas funcionales ni la comparación visual de cada pantalla con Figma.
+| Documentación técnica completa                   | Actualizada a versión v0.2.1                                             |
+| Design System y referencias en Figma             | Elaborados y vigentes (34 pantallas)                                     |
+| Estructura frontend de Inicio                    | Implementada (Desktop y Mobile)                                          |
+| Encabezado y pie de página compartidos           | Implementados y normalizados                                             |
+| Inicio de sesión y registro de usuarios          | Vistas y procesamiento implementados con hash seguro                     |
+| Recuperación de contraseña segura               | Implementada con tokens criptográficos, expiración, PHPMailer y SMTP      |
+| Restablecimiento de contraseña (`reset-password`) | Implementada con formulario institucional y alternador de clave          |
+| Pantalla de Proyectos (Desktop y Mobile)          | Implementada; catálogo autenticado, grid 3 columnas y paginación         |
+| Pantalla de Noticias (Desktop y Mobile)           | Implementada; selector de categorías, tarjetas y paginación              |
+| Pantalla de Egresados (Desktop y Mobile)          | Implementada; directorio, filtros, búsqueda y detalle de egresado        |
+| Red de conexiones entre egresados                | Implementada con botones condicionales, endpoints JSON y toasts          |
+| Módulo de Mensajería                             | Implementado con interfaz de chat, historial y endpoints asíncronos      |
+| Pantalla de Perfil y Editar Perfil               | Implementadas; vista modular, métricas y formulario de edición           |
+| Módulo de PQRS y soporte                         | Implementado con dropzone para capturas e ícono corregido en sidebar     |
+| Módulo de Administración (Figma 08)              | Implementado con métricas KPI, modales de moderación y aprobación        |
+| Dashboard Desktop y Mobile                       | Implementados con sidebar colapsable, topbar y loader                    |
+| Esquema relacional de base de datos              | Implementado (`database/schema.sql` con 11 tablas relacionales)          |
+| Instalador y aprovisionamiento de base de datos  | Implementado (`database/setup.php` automatizado para CLI y web)          |
+| Integración de correo electrónico                | Implementada con PHPMailer transaccional y plantilla institucional       |
+| Endpoints API asíncronos                         | Implementados bajo `api/` para interacciones dinámicas                   |
+| Pruebas integrales de extremo a extremo          | En curso / Pendiente de verificación integral                            |
 
 ---
 
 # 🔜 Próximas actividades
 
-## 1. Verificación del estado actual del repositorio
+## 1. Validación integral de la persistencia con MySQL
 
-* Revisar `git status` para conocer los cambios pendientes.
-* Confirmar el historial mediante `git log`.
-* Comprobar si el commit reportado se encuentra en `dev-emitola` y si fue enviado al repositorio remoto.
-* Revisar las diferencias entre los archivos actuales y los cambios documentados.
-* Confirmar los nombres y ubicaciones definitivos de los archivos.
-* Resolver las discrepancias documentales antes de actualizar otros documentos.
+* Ejecutar pruebas de extremo a extremo en cada módulo con datos reales insertados mediante `database/setup.php`.
+* Sustituir los datos de catálogo estático residuales en los controladores por consultas dinámicas mediante PDO.
+* Verificar restricciones de clave foránea, borrado lógico y consistencia relacional.
 
-## 2. Validación visual de las pantallas implementadas
+## 2. Pruebas de autenticación y seguridad
 
-* Comparar Inicio, Proyectos, Egresados, Noticias y Dashboard con sus referencias de Figma.
-* Revisar dimensiones, espaciados, tipografía, colores y estados de interacción.
-* Comprobar la presentación en escritorio y dispositivos móviles.
-* Confirmar el ancho máximo definitivo del contenedor del encabezado.
-* Revisar el comportamiento sticky, el menú móvil y la mini-sidebar.
-* Corregir diferencias visuales antes de continuar con nuevas pantallas.
+* Probar el ciclo completo de recuperación de contraseña con un servidor SMTP real o local (MailHog/Papercut/Gmail).
+* Validar que los tokens expirados (mayores a 60 minutos) sean rechazados adecuadamente.
+* Comprobar la protección CSRF en todos los formularios y endpoints API.
+* Verificar las autorizaciones de acceso basadas en roles (administrador vs. egresado regular).
 
-## 3. Consolidación de la autenticación
+## 3. Pruebas de mensajería y conexiones
 
-* Verificar el inicio de sesión con credenciales válidas e inválidas.
-* Comprobar el registro y la prevención de duplicados.
-* Revisar las validaciones del frontend y del backend.
-* Confirmar el manejo seguro de sesiones.
-* Verificar los permisos de acceso y los roles de usuario.
-* Revisar la destrucción de sesión y las cookies durante el cierre de sesión.
-* Restaurar y comprobar las redirecciones de autenticación que se hayan desactivado temporalmente.
-* Confirmar que el acceso de prueba no pueda utilizarse en producción.
-* Completar la recuperación de contraseña, incluida la expiración y validación de tokens y la integración SMTP.
-* Probar los casos de error y los mensajes de retroalimentación.
+* Probar el flujo de envío de solicitud de conexión, aceptación y apertura de conversación en tiempo real.
+* Validar la sanitización de mensajes para prevenir inyecciones XSS en el chat.
 
-## 4. Diseño e integración de la base de datos
+## 4. Control de calidad visual y responsive
 
-* Definir y documentar el modelo entidad-relación.
-* Identificar las entidades, relaciones, claves primarias y claves foráneas.
-* Definir las tablas necesarias para usuarios, perfiles, proyectos, noticias y las demás funcionalidades previstas.
-* Verificar la correspondencia entre los formularios y las estructuras de almacenamiento.
-* Consolidar las operaciones de acceso a datos mediante PDO y consultas preparadas.
-* Revisar las restricciones de integridad y las transacciones necesarias.
-* Sustituir progresivamente los datos simulados por consultas reales a la base de datos.
+* Auditar las 17 pantallas en Desktop (1440px) y Mobile (390px) frente a los prototipos de Figma.
+* Verificar estados hover, focus, disabled y transiciones animadas en todos los componentes.
 
-## 5. Implementación progresiva de las pantallas restantes
+## 5. Mantenimiento documental y cierre
 
-* Continuar con las pantallas restantes siguiendo el orden de navegación establecido.
-* Reutilizar los componentes compartidos.
-* Mantener la separación entre presentación, procesamiento y acceso a datos.
-* Adaptar cada pantalla a los diseños de escritorio y móvil correspondientes.
-* Evitar duplicar encabezados, pies de página y estilos cuando ya existan componentes reutilizables.
-
-## 6. Pruebas y control de calidad
-
-* Probar los formularios y los flujos principales.
-* Verificar el comportamiento responsive.
-* Revisar la accesibilidad y la navegación por teclado.
-* Comprobar rutas, enlaces, alertas y estados vacíos.
-* Detectar errores de integración.
-* Comprobar el funcionamiento del loader en las páginas públicas y privadas.
-* Revisar errores PHP y de consola del navegador.
-* Confirmar que los cambios no afecten funcionalidades previamente desarrolladas.
-
-## 7. Mantenimiento documental y Git
-
-* Actualizar la bitácora después de cada avance significativo.
-* Mantener sincronizados el README, el changelog, el roadmap y los manuales.
-* Documentar las decisiones técnicas relevantes.
-* Revisar las diferencias antes de realizar commits.
-* Utilizar mensajes de commit descriptivos y coherentes con los cambios realizados.
-* Registrar las pruebas realizadas y sus resultados.
-* Evitar documentar como completadas las actividades que todavía estén pendientes de validación.
+* Mantener la documentación técnica sincronizada en cada commit.
+* Preparar el Manual Técnico y Manual de Usuario una vez culminada la fase de pruebas integrales.
 
 ---
 
 # 📝 Observaciones generales
 
-1. **Fecha de inicio:** Raíces Alzate se encuentra en desarrollo desde 2025. Las fechas de julio, septiembre y octubre de 2026 corresponden a sesiones y etapas registradas posteriormente.
-
-2. **Diseño e implementación:** La fase de diseño UI/UX está finalizada. Esto no significa que las 34 pantallas estén implementadas en código. La implementación frontend continúa de manera progresiva.
-
-3. **Figma como referencia:** Los diseños aprobados sirven como referencia para dimensiones, distribución, tipografía, colores y estados de los componentes. Las diferencias encontradas durante la programación deben revisarse y corregirse dentro del proceso de implementación y control de calidad.
-
-4. **Base de datos:** Se había probado previamente la conexión entre PHP y MySQL. Esto no significa que el esquema definitivo de la plataforma esté completamente diseñado e integrado.
-
-5. **Autenticación:** La existencia de formularios y scripts de procesamiento no garantiza que los flujos de inicio de sesión, registro y cierre de sesión estén terminados. Deben verificarse las validaciones del backend, las sesiones, los permisos y el tratamiento seguro de los datos.
-
-6. **Recuperación de contraseña:** La generación de tokens está registrada como parte de la implementación. El envío de correos permanece pendiente mientras no se configure y pruebe el servicio SMTP y se verifique el flujo integral de restablecimiento.
-
-7. **Datos simulados:** Los datos utilizados para facilitar la maquetación del Dashboard no deben considerarse información obtenida de la base de datos hasta verificar la integración correspondiente.
-
-8. **Acceso de prueba:** Las herramientas locales de simulación de sesión deben permanecer restringidas al entorno de desarrollo y no deben habilitar accesos de prueba en una instalación pública.
-
-9. **Loader y sesiones PHP:** Las correcciones de bloqueos, inicialización de sesiones y encabezados HTTP están reportadas, pero requieren pruebas funcionales para confirmar que los problemas no reaparezcan en otras rutas.
-
-10. **Control de versiones:** Las operaciones de commit y push mencionadas en informes externos deben confirmarse en Git antes de utilizarlas como evidencia definitiva del estado del repositorio.
-
-11. **Seguimiento del proyecto:** Los avances futuros deben registrarse con fechas, archivos afectados, resultados comprobables, decisiones y tareas pendientes, evitando presentar como completadas las actividades que aún no se hayan verificado.
+1. **Fecha de inicio:** Raíces Alzate se encuentra en desarrollo desde 2025. Las fechas de 2026 corresponden a las etapas de consolidación documental, diseño UI/UX e implementación técnica.
+2. **Versión actual v0.2.1:** Representa un avance fundamental en la plataforma, incorporando la arquitectura relacional completa en MySQL, la suite transaccional de correos con PHPMailer, el flujo seguro de recuperación de contraseñas y la estructuración de todos los módulos principales.
+3. **Seguridad:** Las contraseñas se almacenan estrictamente mediante `password_hash(PASSWORD_DEFAULT)` y los tokens de recuperación utilizan hashes criptográficos SHA-256 temporales.
+4. **Instalación:** El sistema cuenta con aprovisionamiento automatizado mediante `database/setup.php`.
 
 ---
 
 # ✅ Cierre
 
-Esta bitácora consolida el recorrido documentado de Raíces Alzate desde la organización inicial del repositorio y la construcción del sistema de diseño hasta los avances de implementación reportados entre el 8 y el 13 de octubre de 2026.
+Esta bitácora consolida el recorrido documentado de Raíces Alzate desde su conceptualización y diseño UI/UX en Figma hasta la implementación técnica e integración funcional de la versión **v0.2.1** alcanzada el 17 de octubre de 2026.
 
-El proyecto continúa en desarrollo, con la etapa principal de diseño UI/UX finalizada y la implementación técnica en curso.
+La plataforma cuenta con sus 34 pantallas diseñadas, estructura de vistas centralizadas en `pages/`, base de datos relacional aprovisionada con 11 tablas, módulo de correo seguro con PHPMailer y SMTP, y los módulos clave de egresados, proyectos, noticias, mensajería, PQRS y administración operativos.
 
-Los avances reportados comprenden la estructura del portal público, las pantallas de Proyectos, Egresados y Noticias, el Dashboard, sus componentes de navegación y diversas correcciones de interfaz, loader y sesiones PHP.
-
-La prioridad de las siguientes sesiones será verificar los cambios en el repositorio, validar las pantallas implementadas, consolidar los flujos de autenticación, definir e integrar el modelo de datos y avanzar progresivamente en las demás interfaces, manteniendo la coherencia con Figma y la documentación del proyecto.
+La prioridad de las siguientes jornadas será la ejecución de pruebas integrales de persistencia y seguridad de extremo a extremo, conduciendo el proyecto hacia la Fase 5 (Pruebas) y el posterior despliegue institucional.

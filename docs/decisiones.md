@@ -14,10 +14,10 @@
 | Institución          | Institución Educativa Gilberto Alzate Avendaño |
 | Desarrollador        | Santiago Emitola                               |
 | Fecha de inicio      | 2025                                           |
-| Versión documental   | v0.1.1                                         |
+| Versión documental   | v0.2.1                                         |
 | Estado               | 🟡 En desarrollo                               |
-| Fase actual          | Fase 4 — Implementación                        |
-| Última actualización | 13 de octubre de 2026                          |
+| Fase actual          | Fase 4 — Implementación e integración funcional|
+| Última actualización | 17 de octubre de 2026                          |
 
 ---
 
@@ -978,34 +978,123 @@ Los avances se documentarán distinguiendo entre cambios implementados, pruebas 
 
 ---
 
+---
+
+## DEC-033 | Integración modular de PHPMailer y SMTP para correos transaccionales
+
+**Fecha:** 17 de octubre de 2026
+
+**Estado:** Vigente
+
+### Decisión
+
+Se incorpora la biblioteca PHPMailer de forma nativa en `includes/PHPMailer/` (sin requerir gestor de dependencias externo como Composer) y se centraliza la configuración del servicio SMTP en `config/mail.php` y su motor en `includes/mailer.php`.
+
+### Justificación
+
+* La función `mail()` estándar de PHP suele carecer de soporte de autenticación SMTP robusto, cifrado TLS/SSL y mecanismos contra clasificación de spam.
+* PHPMailer permite enviar correos en formato HTML responsivo con imágenes y logotipos embebidos mediante CID Inline (`logo-raices-alzate.png`).
+* Garantiza compatibilidad universal en entornos XAMPP y servidores de producción sin requerir instalaciones pesadas de Composer.
+* Centraliza las credenciales institucionales, puerto, encriptación y modo de depuración en un único archivo de configuración.
+
+---
+
+## DEC-034 | Seguridad criptográfica en recuperación de contraseña
+
+**Fecha:** 17 de octubre de 2026
+
+**Estado:** Vigente
+
+### Decisión
+
+El flujo de restablecimiento de contraseña utiliza tokens criptográficos generados mediante `bin2hex(random_bytes(32))`, almacenando exclusivamente su valor hasheado con `sha256` en la base de datos junto a una expiración fija de 60 minutos (`reset_token` y `reset_expira` en la tabla `usuarios`), y revocación inmediata tras su utilización exitosa.
+
+### Justificación
+
+* Impide ataques de adivinanza o fuerza bruta gracias a una entropía criptográfica de 256 bits (64 caracteres hexadecimales).
+* Evita que un compromiso de la base de datos exponga los enlaces activos de restablecimiento, ya que solo se almacena el hash del token.
+* Limita la ventana de ataque a 1 hora.
+* El token queda anulado inmediatamente tras el primer cambio exitoso de clave, impidiendo la repetición de solicitudes.
+
+---
+
+## DEC-035 | Esquema relacional estructurado y aprovisionamiento automatizado
+
+**Fecha:** 17 de octubre de 2026
+
+**Estado:** Vigente
+
+### Decisión
+
+Se define el modelo relacional definitivo de la plataforma en `database/schema.sql` (11 tablas con claves foráneas, restricciones de borrado, índices y semillas) y se implementa el script de aprovisionamiento automatizado e idempotente `database/setup.php` ejecutable vía CLI y navegador web.
+
+### Justificación
+
+* Garantiza integridad referencial y consistencia de los datos entre usuarios, perfiles, educación, experiencia laboral, habilidades, proyectos, noticias, conexiones y mensajes.
+* Permite a cualquier miembro del equipo desplegar la base de datos completa con un solo comando (`php database/setup.php`) o visitando la URL en XAMPP.
+* Inicializa automáticamente los roles de usuario y el catálogo maestro de habilidades.
+* Previene desalineaciones entre la capa de acceso a datos PDO y la estructura física de la base de datos.
+
+---
+
+## DEC-036 | Estandarización de endpoints API asíncronos bajo `api/`
+
+**Fecha:** 17 de octubre de 2026
+
+**Estado:** Vigente
+
+### Decisión
+
+Las interacciones asíncronas en tiempo real (envío de solicitudes de conexión, respuesta a solicitudes, envío y consulta de mensajes de chat) se desarrollan como endpoints especializados dentro de `api/`, consumibles vía `fetch()` en JavaScript con respuesta estándar en formato JSON (`Content-Type: application/json`).
+
+### Justificación
+
+* Desacopla la lógica de renderizado HTML de las operaciones de mensajería y red de egresados.
+* Facilita la actualización en tiempo real del chat y las tarjetas de conexión sin requerir recargas completas del navegador.
+* Centraliza la validación de sesión obligatoria, verificación CSRF y sanitización de datos antes de persistir en MySQL.
+
+---
+
+## DEC-037 | Reorganización y centralización de vistas en `pages/`
+
+**Fecha:** 17 de octubre de 2026
+
+**Estado:** Vigente
+
+### Decisión
+
+Todas las vistas y pantallas de la aplicación se centralizan dentro de la carpeta `pages/` (`pages/reset-password.php`, `pages/administracion.php`, `pages/proyectos.php`, etc.), depurando scripts redundantes o dispersos en la raíz del proyecto.
+
+### Justificación
+
+* Mantiene una estructura de directorios limpia y predecible.
+* Facilita el enrutamiento mediante el Front Controller (`index.php`) o controladores especializados.
+* Protege la privacidad de archivos auxiliares y evita duplicidades en el mantenimiento de estilos y scripts.
+
+---
+
 # Estado general de las decisiones
 
-Las decisiones registradas establecen las principales bases metodológicas, visuales y técnicas de Raíces Alzate.
+Las decisiones registradas establecen las principales bases metodológicas, visuales, de persistencia y técnicas de Raíces Alzate.
 
-Durante las etapas anteriores se consolidaron la documentación, el Design System, los componentes reutilizables, la estructura de navegación y las referencias visuales en Figma.
+Durante las etapas anteriores se consolidaron la documentación, el Design System, los componentes reutilizables, la estructura de navegación y las 34 pantallas de referencia en Figma.
 
-La **Fase 3 — Diseño UI/UX** finalizó a finales de septiembre de 2026. Se completaron 17 pantallas Desktop y 17 adaptaciones Mobile. Estos diseños sirven como referencia para la implementación.
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación e integración funcional**, alcanzando la versión **v0.2.1** en octubre de 2026.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**, iniciada formalmente en octubre de 2026.
-
-Durante esta etapa se han reportado avances en las páginas públicas, el Dashboard, los componentes compartidos, los estilos modulares, la navegación responsive, los formularios de autenticación y los mecanismos auxiliares de prueba.
-
-Sin embargo, la implementación continúa en desarrollo. La autenticación integral, la definición definitiva de la base de datos, la recuperación completa de contraseñas y la validación de seguridad todavía requieren trabajo y comprobaciones.
+Durante esta etapa se han consolidado:
+* El esquema relacional completo de MySQL con 11 tablas e instalador automatizado (`setup.php`).
+* El flujo seguro de recuperación y cambio de contraseña con PHPMailer, SMTP y tokens criptográficos SHA-256 de un solo uso.
+* La suite de vistas centralizadas en `pages/` y módulos de administración, egresados, proyectos, noticias, perfil, PQRS y mensajería en tiempo real.
+* Endpoints API JSON para interactividad asíncrona.
 
 ## Próximas áreas de trabajo
 
-* Validación visual de las interfaces frente a Figma.
-* Implementación de las pantallas restantes.
-* Consolidación de los componentes reutilizables.
-* Definición y validación del modelo entidad-relación (MER) y del esquema definitivo de la base de datos.
-* Integración del frontend con el backend y MySQL.
-* Verificación de autenticación, sesiones y roles.
-* Finalización del flujo de recuperación de contraseña.
-* Configuración y comprobación del servicio de correo mediante SMTP.
-* Revisión del cargador global y su comportamiento.
-* Retiro de los mecanismos exclusivos de desarrollo antes de publicar.
-* Pruebas funcionales, de seguridad, accesibilidad y diseño responsive.
-* Actualización continua de la documentación.
-* Confirmación de commits, ramas e integraciones en Git y GitHub.
+* Validación integral de las operaciones de persistencia mediante PDO en cada módulo.
+* Pruebas de envío y recepción de correos en entornos SMTP locales y de producción.
+* Comprobación exhaustiva de las autorizaciones por rol (Administrador vs. Egresado regular).
+* Pruebas de compatibilidad y accesibilidad en las 34 pantallas (Desktop 1440px y Mobile 390px).
+* Sustitución progresiva de datos estáticos residuales por consultas dinámicas a la base de datos.
+* Preparación de los manuales Técnico y de Usuario previo a la fase de despliegue.
+* Confirmación continua de commits e integraciones en Git y GitHub.
 
 Las decisiones podrán modificarse o ampliarse conforme avance el proyecto. Los cambios relevantes deberán quedar registrados para conservar el historial y la justificación de las decisiones técnicas.

@@ -13,11 +13,11 @@
 | Proyecto                     | Raíces Alzate                                  |
 | Institución                  | Institución Educativa Gilberto Alzate Avendaño |
 | Fecha de inicio              | 2025                                           |
-| Versión documental           | v0.1.1                                         |
+| Versión documental           | v0.2.1                                         |
 | Estado                       | 🟡 En desarrollo                               |
-| Fase actual                  | Fase 4 — Implementación                        |
+| Fase actual                  | Fase 4 — Implementación e integración funcional|
 | Responsable de documentación | Santiago Emitola                               |
-| Última actualización         | 13/10/2026                                     |
+| Última actualización         | 17/10/2026                                     |
 
 ---
 
@@ -160,6 +160,10 @@ Este glosario se actualizará progresivamente conforme evolucionen las funcional
 | Persistencia de interfaz        | Conservación de una preferencia visual entre visitas o recargas, como el estado expandido o contraído de una barra lateral.                                                              | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
 | Anti-FOUC                       | Técnica destinada a reducir la aparición momentánea de contenido sin estilos (*Flash of Unstyled Content*) durante la carga de una página.                                               | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
 | Ámbito de un selector CSS       | Conjunto de elementos HTML a los que afecta una regla CSS. Restringir correctamente los selectores ayuda a evitar que un estilo altere componentes no relacionados.                      | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| API Endpoint (JSON)             | Punto de acceso en el servidor que recibe solicitudes asíncronas y devuelve información estructurada en JSON para actualización dinámica del DOM sin recargar la página.                 | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Dropzone                        | Componente visual interactivo de un formulario diseñado para cargar archivos arrastrándolos y soltándolos o mediante explorador manual.                                                   | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Toast                           | Notificación emergente flotante y temporal que ofrece retroalimentación visual al usuario tras ejecutar una acción sin bloquear la interfaz.                                              | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Modal interactivo               | Ventana emergente superpuesta que focaliza la atención del usuario en una acción específica (aprobación, moderación, detalles) manteniendo accesibilidad por teclado y botón de cierre.  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
 
 ---
 
@@ -187,9 +191,13 @@ Este glosario se actualizará progresivamente conforme evolucionen las funcional
 | Autorización                     | Proceso mediante el cual el sistema determina qué acciones y recursos puede utilizar un usuario. Es diferente de comprobar su identidad.                                                                                           | [`03_Requisitos.md`](./03_Requisitos.md)         |
 | `headers_sent()`                 | Función de PHP que permite comprobar si ya se han enviado encabezados o parte de la respuesta al cliente. Puede ayudar a diagnosticar problemas, pero no sustituye una correcta inicialización de la sesión antes de generar HTML. | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
 | Acceso simulado                  | Mecanismo temporal que permite probar una interfaz utilizando una sesión de prueba sin completar el proceso de autenticación real. Debe limitarse al entorno de desarrollo.                                                        | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
-| Cierre de sesión (*Logout*)      | Proceso mediante el cual se finaliza la sesión de un usuario y se eliminan o invalidan los datos de sesión correspondientes.                                                                                                       | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
 | Cookie de sesión                 | Dato almacenado en el navegador que puede utilizarse para identificar la sesión mantenida por el servidor. Su configuración debe seguir prácticas de seguridad apropiadas.                                                         | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
 | Token de recuperación            | Valor temporal que permite verificar una solicitud de restablecimiento de contraseña. Debe almacenarse y validarse de forma segura, contar con expiración y ser de un solo uso.                                                    | [`decisiones.md`](./decisiones.md)               |
+| PHPMailer                        | Biblioteca orientada a objetos para PHP que facilita el despacho seguro y estructurado de correos electrónicos mediante SMTP autenticado con soporte TLS/SSL y contenido HTML responsivo.                                         | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| Hash SHA-256                     | Función criptográfica hash unidireccional de 256 bits utilizada para almacenar huellas seguras de tokens de restablecimiento en la base de datos sin exponer el valor en texto plano.                                            | [`decisiones.md`](./decisiones.md)               |
+| Token criptográfico              | Cadena pseudoaleatoria de alta entropía generada con `random_bytes()` para autorizar de manera exclusiva y temporal una acción crítica en el sistema.                                                                              | [`decisiones.md`](./decisiones.md)               |
+| Restablecimiento de contraseña   | Acción de definir una nueva credencial de acceso tras validar la vigencia de un token de recuperación no revocado.                                                                                                                  | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
+| CSRF Token                       | Token de sincronización aleatorio vinculado a la sesión del usuario para impedir que peticiones no autorizadas sean transmitidas por sitios web de terceros.                                                                      | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
 
 ---
 
@@ -245,8 +253,10 @@ Este glosario se actualizará progresivamente conforme evolucionen las funcional
 | Integridad referencial         | Conjunto de reglas que mantiene la coherencia de las relaciones entre registros vinculados mediante claves.                                                   | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
 | Conexión a la base de datos    | Comunicación establecida entre la aplicación y el sistema gestor de bases de datos para ejecutar operaciones autorizadas.                                     | [`04_Arquitectura.md`](./04_Arquitectura.md)     |
 | Transacción                    | Conjunto de operaciones que se ejecutan como una unidad lógica y que, según las propiedades de la base de datos, pueden confirmarse o revertirse en conjunto. | [`05_Manual_Tecnico.md`](./05_Manual_Tecnico.md) |
+| Script de instalación (`setup.php`) | Archivo PHP ejecutable vía CLI o navegador que aprovisiona de forma automatizada e idempotente la base de datos, ejecuta el esquema DDL y siembra los datos iniciales. | [`04_Arquitectura.md`](./04_Arquitectura.md) |
+| Semilla de datos (*Seed*)      | Conjunto de registros iniciales predefinidos que se insertan en la base de datos para habilitar su operatividad inmediata (roles, permisos, catálogo de habilidades). | [`04_Arquitectura.md`](./04_Arquitectura.md) |
 
-> **Nota:** la estructura definitiva de las tablas, sus relaciones y restricciones debe documentarse de acuerdo con el esquema aprobado e implementado para las funcionalidades del proyecto. La conexión técnica con MySQL no implica que todo el modelo de datos esté terminado ni que todas las operaciones de la aplicación estén integradas.
+> **Nota:** La versión `v0.2.1` cuenta con el esquema relacional formalizado en `database/schema.sql` (11 tablas con claves foráneas, restricciones de borrado e índices) y el script de aprovisionamiento `database/setup.php`. La integración de cada módulo continúa verificándose mediante pruebas de persistencia real.
 
 ---
 
@@ -309,3 +319,4 @@ Este glosario se actualizará progresivamente conforme evolucionen las funcional
 | v0.1.1  | 08/10/2026 | Incorporación de conceptos relacionados con la implementación frontend, la arquitectura CSS modular, los componentes PHP reutilizables, el Front Controller y la navegación responsive.                                                                                                                                                             | Santiago Emitola |
 | v0.1.1  | 09/10/2026 | Consolidación de definiciones y referencias; incorporación de términos relacionados con autenticación, seguridad, validación de formularios, bases de datos, control de versiones e implementación. Se precisan las funcionalidades que requieren verificación adicional.                                                                           | Santiago Emitola |
 | v0.1.1  | 13/10/2026 | Actualización del glosario para incorporar conceptos de navegación del Dashboard, sidebar, topbar, loader, persistencia de interfaz, manejo de sesiones y pruebas. Se aclara que los avances reportados requieren validación funcional integral y que la base de datos y los flujos de autenticación no deben considerarse finalizados sin pruebas. | Santiago Emitola |
+| v0.2.1  | 17/10/2026 | Actualización a versión v0.2.1; incorporación de términos de PHPMailer, SMTP, tokens criptográficos SHA-256, restablecimiento de clave, instalador setup.php, semillas DDL, endpoints JSON asíncronos, dropzone y componentes toast.                                                                                                                | Santiago Emitola |

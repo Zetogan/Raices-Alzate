@@ -14,7 +14,7 @@ La plataforma también permitirá compartir proyectos desarrollados por egresado
 
 El proyecto se encuentra en desarrollo desde 2025. Su construcción se organiza por fases, desde la planificación y documentación inicial hasta el diseño UI/UX, la implementación, las pruebas y el despliegue.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**. La fase de diseño UI/UX está finalizada y sus diseños constituyen la referencia visual para el desarrollo de las interfaces.
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación e integración funcional**, alcanzando la versión **v0.2.1** con fecha de actualización del **17 de octubre de 2026**. La fase de diseño UI/UX está finalizada y sus 34 pantallas diseñadas en Figma constituyen la referencia visual para el desarrollo de las interfaces.
 
 ---
 
@@ -89,6 +89,8 @@ Estas características representan el alcance funcional previsto. Su disponibili
 | PHP                      | Lógica del servidor y procesamiento de solicitudes. |
 | MySQL                    | Almacenamiento y gestión de datos.                  |
 | PDO                      | Acceso a la base de datos desde PHP.                |
+| PHPMailer / SMTP         | Envío transaccional seguro de correos electrónicos. |
+| REST / JSON APIs         | Comunicación asíncrona entre cliente y servidor.    |
 | Git                      | Control de versiones.                               |
 | GitHub                   | Alojamiento y gestión del repositorio.              |
 | Figma                    | Diseño UI/UX, prototipos y Design System.           |
@@ -210,54 +212,42 @@ El diseño en Figma constituye la referencia visual para la implementación fron
 
 ### 7.2. Implementación frontend
 
-La implementación frontend comenzó en octubre de 2026. Los primeros trabajos se centraron en la página de Inicio y en la estructura compartida de la aplicación.
+La implementación frontend avanzó de manera sustancial desde el inicio de la Fase 4 en octubre de 2026, cubriendo las interfaces públicas, autenticadas y administrativas:
 
-Posteriormente, se avanzó en las interfaces de autenticación, registro y recuperación de contraseña, así como en elementos de navegación y en la estructura inicial del Dashboard.
-
-Entre los avances reportados se encuentran:
-
-* Implementación inicial de la página de Inicio.
-* Creación e integración de componentes compartidos para el encabezado y el pie de página.
-* Organización modular de los estilos CSS.
-* Incorporación de la navegación responsive y del menú móvil.
-* Adaptación inicial de Inicio para dispositivos móviles.
-* Desarrollo inicial de las interfaces de inicio de sesión, registro y recuperación de contraseña.
-* Ajustes en la navegación y en las rutas de acceso a las vistas.
-* Desarrollo inicial de la estructura visual del Dashboard.
-* Organización de la barra lateral y de la barra superior del panel.
-* Incorporación de estados visuales para campos, formularios y mensajes de retroalimentación.
-* Trabajo inicial en elementos de carga y retroalimentación de la interfaz.
-* Ajustes relacionados con el funcionamiento de las sesiones y el acceso a las vistas durante las pruebas.
-
-Estos avances no significan que todas las interfaces estén finalizadas ni que los flujos estén listos para producción. Es necesario completar la revisión visual, la adaptación responsive, la integración funcional y las pruebas correspondientes.
+* **Página de Inicio:** Estructura modular, navegación pública estandarizada, adaptación móvil fluida e identidad visual consolidada.
+* **Autenticación completa:** Pantallas de inicio de sesión, registro institucional, solicitud de recuperación y restablecimiento de contraseña (`pages/reset-password.php`) con alternador de visibilidad de clave e integración de alertas accesibles.
+* **Dashboard y Navegación:** Barra lateral colapsable (mini-sidebar en escritorio, drawer en móviles), barra superior (`topbar`), persistencia de estado en LocalStorage y loader global.
+* **Directorio de Egresados y Detalle:** Tarjetas interactivas con botones condicionales («Conectar» con microinteracción visual vs. «Enviar mensaje» hacia chat), filtros en tiempo real, pestaña de conectados y notificación toast flotante `#egresadoToast`.
+* **Módulo de Perfil y Edición (`pages/editar-perfil.php`):** Vista de perfil simétrica, banner con dot pattern, tarjeta de métricas y formulario modular para actualización de datos personales, trayectoria académica, laboral y habilidades.
+* **Catálogo y Detalle de Proyectos:** Cuadrícula simétrica de 3 columnas en escritorio, contenedor de portadas 16:9, autoría institucional y paginación incremental asíncrona.
+* **Módulo de Noticias:** Selector de categorías temáticas, tarjetas con badges y sistema de paginación.
+* **Módulo de PQRS y Soporte:** Formulario institucional con dropzone interactivo para capturas de pantalla opcionales e ícono blindado en blanco puro en el sidebar.
+* **Módulo de Administración (Figma 08):** Panel con KPI Cards en tiempo real, navegación por pestañas de moderación y modales interactivos para aprobación de egresados, moderación de contenidos y resolución de incidencias.
 
 ### 7.3. Backend
 
-Se han iniciado tareas de procesamiento de formularios y autenticación mediante PHP.
+El backend se encuentra estructurado en PHP nativo con arquitectura modular y separación de responsabilidades:
 
-También se han reportado ajustes en el manejo de sesiones, la navegación entre vistas y el acceso al Dashboard durante el desarrollo.
-
-La implementación del backend deberá continuar con la consolidación de la autenticación, los permisos, los perfiles, los egresados, los proyectos, las noticias y las funcionalidades administrativas.
-
-Los mecanismos auxiliares de acceso utilizados para probar las interfaces deben permanecer restringidos al entorno de desarrollo y no deben habilitarse como mecanismos de acceso en producción.
+* **Gestión de Autenticación y Sesiones:** Inicio y cierre de sesión seguro, control de accesos privados y hashing de contraseñas mediante `password_hash(PASSWORD_DEFAULT)`.
+* **Recuperación Segura de Contraseñas:** Tokens pseudoaleatorios criptográficos generados mediante `bin2hex(random_bytes(32))`, almacenamiento seguro de su hash SHA-256 en la base de datos con expiración a 60 minutos, validación de un solo uso e invalidación inmediata tras el cambio exitoso de clave.
+* **Motor Transaccional de Correo Electrónico:** Integración modular de **PHPMailer** sin dependencias externas (`includes/PHPMailer/`), centralización de parámetros SMTP en `config/mail.php`, y plantilla HTML institucional con logotipo embebido mediante CID Inline (`includes/mailer.php`).
+* **Endpoints API Asíncronos (`api/`):** Arquitectura de servicios JSON (`api/conectar-egresado.php`, `api/responder-solicitud.php`, `api/enviar-mensaje.php`, `api/obtener-mensajes.php`) con sesión obligatoria y mitigación CSRF.
+* **Centralización de Vistas:** Organización y unificación de controladores y vistas bajo el directorio `pages/`.
 
 ### 7.4. Base de datos
 
-La conexión entre PHP y MySQL se ha reportado como verificada en el entorno de desarrollo.
+La persistencia de datos se encuentra formalizada en MySQL / MariaDB mediante PDO:
 
-Sin embargo, la estructura definitiva de la base de datos, sus relaciones y la integración completa de las operaciones de cada módulo deben documentarse y validarse durante la implementación.
-
-La verificación de conectividad no implica que todas las tablas, relaciones y operaciones CRUD estén terminadas.
-
-La siguiente etapa de trabajo deberá definir el modelo de datos, establecer las relaciones entre entidades y conectar progresivamente los módulos de la aplicación con las operaciones correspondientes de la base de datos.
+* **Esquema Relacional Integral (`database/schema.sql`):** Definición formal de 11 tablas del sistema (`roles`, `usuarios`, `perfiles`, `educacion`, `experiencia`, `habilidades`, `perfil_habilidades`, `proyectos`, `noticias`, `conexiones`, `mensajes`).
+* **Integridad Referencial:** Claves foráneas con reglas de integridad, índices sobre columnas de búsqueda frecuente y restricciones de unicidad.
+* **Instalador y Aprovisionamiento Automatizado (`database/setup.php`):** Script autoejecutable para CLI y navegador web que crea la base de datos con codificación `utf8mb4_unicode_ci`, ejecuta el esquema de tablas e inicializa los roles institucionales y el catálogo de habilidades base.
+* **Capa de Conexión PDO:** Instanciación centralizada en `config/database.php` con manejo controlado de excepciones sin exponer credenciales.
 
 ### 7.5. Integración y pruebas
 
-Se han reportado comprobaciones iniciales de sintaxis PHP y respuestas HTTP de algunas rutas durante el desarrollo.
-
-Estas comprobaciones constituyen verificaciones preliminares, pero no sustituyen las pruebas funcionales, de integración, de seguridad, de accesibilidad y de comportamiento responsive.
-
-La validación integral deberá comprobar que los formularios, las sesiones, los permisos, las consultas a la base de datos y las interfaces funcionen de manera coherente.
+* Se han realizado pruebas sintácticas (`php -l`), validaciones de endpoints JSON asíncronos y verificación de consultas preparadas mediante PDO.
+* El aprovisionamiento de la base de datos ha sido comprobado exitosamente mediante `setup.php`.
+* La siguiente etapa contempla pruebas integrales de persistencia de extremo a extremo, pruebas de despacho SMTP y validación de seguridad de roles.
 
 ---
 
@@ -863,7 +853,7 @@ Su acompañamiento fortalece la construcción de una plataforma que busca manten
 
 ### Conectando generaciones, fortaleciendo el futuro.
 
-**Versión documental:** `v0.1.1`
+**Versión documental:** `v0.2.1`
 
 Desarrollado con ❤️ por el equipo de Raíces Alzate.
 

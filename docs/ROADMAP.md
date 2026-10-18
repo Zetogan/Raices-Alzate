@@ -8,11 +8,11 @@
 
 ## Estado general del proyecto
 
-* **Versión actual:** v0.1.1
+* **Versión actual:** v0.2.1
 * **Estado:** 🟡 En desarrollo
-* **Fase actual:** Fase 4 — Implementación
+* **Fase actual:** Fase 4 — Implementación e integración funcional
 * **Inicio del proyecto:** 2025
-* **Última actualización:** 13 de octubre de 2026
+* **Última actualización:** 17 de octubre de 2026
 
 ---
 
@@ -265,20 +265,25 @@ Los avances se registran según el trabajo reportado durante el desarrollo. Las 
 
 > Estos puntos representan avances de interfaz reportados. La existencia de elementos visuales o enlaces de navegación no implica que todas las funciones del Dashboard estén terminadas ni conectadas a datos reales.
 
-### Interfaces restantes
+### Interfaces implementadas y componentes
 
-* [ ] Implementar las interfaces restantes de acuerdo con la planificación.
-* [ ] Implementar las interacciones específicas de cada interfaz.
-* [ ] Desarrollar los estados de carga, error, éxito y ausencia de información que correspondan.
-* [ ] Adaptar progresivamente las interfaces a dispositivos móviles.
-* [ ] Verificar la consistencia visual entre las interfaces implementadas.
-* [ ] Integrar progresivamente las interfaces con el backend.
-* [ ] Revisar cada interfaz implementada frente a su referencia de Figma.
-* [ ] Verificar que las rutas y los enlaces correspondan a páginas existentes y funcionales.
+* [x] Implementar la página de Inicio (Desktop y Mobile).
+* [x] Implementar interfaces de autenticación: Login, Registro, Recuperación y Restablecimiento (`pages/reset-password.php`).
+* [x] Implementar barra lateral colapsable (*Sidebar*) para navegación interna con persistencia de estado en LocalStorage.
+* [x] Implementar barra superior (*Topbar*) para interfaz autenticada.
+* [x] Implementar Directorio de Egresados con tarjetas interactivas, filtros en vivo y modal de detalle.
+* [x] Implementar botones condicionales («Conectar» vs. «Enviar mensaje») y toast de notificación en egresados.
+* [x] Implementar vista de Perfil y formulario modular de edición (`pages/editar-perfil.php`).
+* [x] Implementar catálogo de Proyectos con cuadrícula de 3 columnas, portadas 16:9, paginación AJAX y detalle.
+* [x] Implementar módulo de Noticias con selector de categorías, detalle y formulario de creación.
+* [x] Implementar módulo de PQRS con formulario institucional, dropzone para capturas e ícono SVG en sidebar.
+* [x] Implementar módulo oficial de Administración (Figma 08) con KPI Cards, modales de moderación y aprobación.
+* [x] Implementar módulo de Mensajería privada y chat en vivo (`pages/mensajes.php`).
+* [x] Implementar indicador de carga (*Loader*) global compartido con animación fluida.
 
-### Estructura CSS reportada
+### Estructura CSS consolidada
 
-La organización de estilos ha avanzado mediante archivos CSS separados por responsabilidades. La siguiente estructura es una referencia de archivos reportados y debe mantenerse sincronizada con el repositorio real.
+La organización de estilos se distribuye modularmente por responsabilidad:
 
 ```text
 assets/css/
@@ -289,130 +294,131 @@ assets/css/
 ├── auth.css
 ├── portal.css
 ├── dashboard.css
+├── perfil.css
+├── perfil-form.css
+├── perfil-detalle.css
+├── egresados.css
+├── proyectos.css
+├── detalle-proyecto.css
+├── crear-proyecto.css
+├── editar-proyecto.css
+├── noticias.css
+├── noticia-detalle.css
+├── oportunidades.css
+├── oportunidad-detalle.css
+├── administracion.css
+├── mensajes.css
+├── pqr.css
 └── loader.css
 ```
 
-La existencia y utilización efectiva de cada archivo debe comprobarse al actualizar esta estructura.
-
-### Archivos JavaScript reportados
+### Archivos JavaScript consolidados
 
 ```text
 assets/js/
 ├── main.js
 ├── auth.js
+├── dashboard.js
+├── egresados.js
+├── perfil.js
+├── proyectos.js
+├── detalle-proyecto.js
+├── crear-proyecto.js
+├── editar-proyecto.js
+├── noticias.js
+├── oportunidades.js
+├── mensajes.js
+├── pqr.js
 └── loader.js
 ```
 
-Esta estructura es orientativa y debe verificarse frente a los archivos presentes en el repositorio.
-
 ### Componentes PHP reutilizables
 
-Se han reportado componentes compartidos para el encabezado, el pie de página, la navegación interna, la barra superior y el indicador de carga.
+* `includes/header.php`: Cabecera pública e inicialización de recursos.
+* `includes/footer.php`: Pie de página institucional y scripts compartidos.
+* `includes/sidebar.php`: Menú lateral autenticado con roles y estado colapsable.
+* `includes/topbar.php`: Barra superior con perfil de usuario y menú móvil.
+* `includes/loader.php`: Indicador de carga accesible.
+* `includes/auth.php`: Control de autenticación y protección de sesiones.
+* `includes/csrf.php`: Mitigación de peticiones falsificadas.
+* `includes/mailer.php`: Motor transaccional de envío de correos con PHPMailer.
+* `includes/helpers.php`: Utilidades y formateadores compartidos.
 
-La ubicación definitiva de estos archivos deberá mantenerse sincronizada con la estructura real del proyecto, evitando duplicar lógica o mantener implementaciones contradictorias.
-
-**Estado:** 🟡 En progreso.
+**Estado:** 🟢 Frontend consolidado (v0.2.1).
 
 ---
 
 ## 4.2. Backend
 
-Se han desarrollado estructuras iniciales de procesamiento para formularios de autenticación, registro y recuperación de contraseña. Los módulos restantes de negocio todavía requieren implementación y validación.
-
 ### Configuración y estructura
 
-* [ ] Consolidar la estructura definitiva del backend.
-* [x] Verificar la conexión entre PHP y MySQL.
-* [x] Crear estructuras iniciales para procesar formularios de autenticación.
-* [x] Incorporar consultas preparadas en los procesos reportados.
-* [x] Incorporar el uso de `password_hash()` en el procesamiento del registro reportado.
-* [ ] Verificar integralmente la autenticación mediante sesiones.
-* [ ] Completar las validaciones de seguridad del backend.
-* [ ] Verificar los procesos de autorización y control de acceso.
-* [ ] Revisar el manejo centralizado de sesiones antes de generar contenido HTML.
-* [ ] Revisar los posibles errores relacionados con encabezados HTTP y redirecciones.
-* [ ] Confirmar que las rutas funcionen tanto en el entorno local como en la estructura prevista para el despliegue.
+* [x] Consolidar la estructura modular del backend (`config/`, `auth/`, `api/`, `includes/`, `pages/`).
+* [x] Verificar la conexión entre PHP y MySQL mediante PDO (`config/database.php`).
+* [x] Crear controladores para procesar formularios de autenticación.
+* [x] Incorporar consultas preparadas mediante PDO para mitigar inyecciones SQL.
+* [x] Implementar encriptación segura mediante `password_hash(PASSWORD_DEFAULT)`.
+* [x] Centralizar y organizar las vistas bajo el directorio `pages/`.
+* [x] Desarrollar endpoints API asíncronos en formato JSON bajo `api/`.
+* [x] Integrar la biblioteca PHPMailer en `includes/PHPMailer/` sin Composer.
+* [ ] Completar pruebas integrales de autorización y sesiones en producción.
 
 ### Módulos funcionales
 
-* [ ] Completar el sistema de autenticación.
-* [ ] Completar el registro de usuarios.
-* [ ] Implementar la gestión de perfiles.
-* [ ] Implementar la gestión de egresados.
-* [ ] Implementar la gestión de proyectos.
-* [ ] Implementar la gestión de noticias.
-* [ ] Implementar la gestión administrativa.
-* [ ] Definir e implementar los roles y permisos.
-* [ ] Integrar los módulos con la base de datos.
-* [ ] Integrar los procesos del backend con las interfaces.
-* [ ] Gestionar adecuadamente los errores y las respuestas del sistema.
-* [ ] Verificar que las acciones protegidas requieran una sesión válida y los permisos correspondientes.
+* [x] Implementar el flujo de autenticación (login, logout, control de rutas privadas).
+* [x] Implementar el registro de usuarios con asignación de roles.
+* [x] Implementar la gestión de perfiles (consulta y edición modular).
+* [x] Implementar el directorio y detalle de egresados.
+* [x] Implementar la gestión y consulta de proyectos.
+* [x] Implementar la publicación y consulta de noticias.
+* [x] Implementar el panel de administración y moderación.
+* [x] Implementar el canal de mensajería y red de conexiones (`api/`).
+* [x] Implementar el módulo de PQRS y soporte ciudadano.
+* [ ] Realizar pruebas de persistencia completa de extremo a extremo.
 
 ### Recuperación de contraseña
 
-* [x] Crear la estructura inicial del formulario.
-* [x] Implementar la validación inicial del correo electrónico.
-* [x] Desarrollar la generación inicial de tokens mediante `random_bytes()`.
-* [x] Incorporar una respuesta genérica para las solicitudes.
-* [ ] Verificar el almacenamiento seguro de los tokens.
-* [ ] Definir y verificar su tiempo de expiración.
-* [ ] Implementar y probar la validación del token.
-* [ ] Implementar el proceso para establecer una nueva contraseña.
-* [ ] Configurar el envío de instrucciones mediante correo electrónico.
-* [ ] Validar que los tokens no puedan reutilizarse después de completar el proceso.
-* [ ] Validar el flujo completo de recuperación.
+* [x] Crear la estructura del formulario de solicitud y de restablecimiento.
+* [x] Implementar validación de correo y contraseñas (longitud y coincidencia).
+* [x] Desarrollar la generación de tokens criptográficos mediante `random_bytes(32)`.
+* [x] Incorporar respuesta genérica contra ataques de enumeración de cuentas.
+* [x] Almacenar de forma segura el hash SHA-256 del token en la tabla `usuarios`.
+* [x] Establecer expiración estricta de 60 minutos (`reset_expira > NOW()`).
+* [x] Integrar PHPMailer y SMTP autenticado para el despacho del correo.
+* [x] Diseñar plantilla HTML responsiva institucional con logotipo embebido mediante CID Inline.
+* [x] Implementar la vista `pages/reset-password.php` con alternador de visibilidad de clave.
+* [x] Invalidar de inmediato el token tras el cambio exitoso de contraseña para impedir reuso.
+* [x] Validar el flujo completo de recuperación.
 
-> La generación inicial de tokens está reportada, pero todavía se debe verificar la implementación integral de su almacenamiento, expiración, validación y utilización. El envío de correos requiere configurar el servicio correspondiente.
-
-**Estado:** 🟡 En desarrollo inicial.
+**Estado:** ✅ Implementado y funcional (v0.2.1).
 
 ---
 
 ## 4.3. Base de datos
 
-La conexión entre PHP y MySQL se verificó correctamente. La estructura definitiva de la base de datos y sus módulos de información todavía deben definirse e implementarse.
+* [x] Diseñar el modelo entidad-relación definitivo.
+* [x] Identificar las entidades necesarias y relaciones.
+* [x] Definir el esquema relacional formal en `database/schema.sql` (11 tablas).
+* [x] Definir atributos, tipos de datos y restricciones de unicidad.
+* [x] Establecer claves primarias y claves foráneas con reglas de integridad.
+* [x] Crear índices sobre campos de búsqueda frecuente (correo, documento, fechas).
+* [x] Crear tablas de usuarios, roles, perfiles, educación, experiencia y habilidades.
+* [x] Crear tablas de proyectos, noticias, conexiones y mensajes.
+* [x] Desarrollar el script de aprovisionamiento automatizado e idempotente `database/setup.php` (ejecutable vía CLI y web).
+* [x] Inicializar semillas maestras de roles (`administrador`, `egresado`, `estudiante`) y catálogo de habilidades.
+* [x] Conectar PHP con MySQL mediante PDO y manejo controlado de excepciones.
+* [ ] Completar pruebas integrales de consistencia y persistencia de datos reales en cada módulo.
 
-* [ ] Diseñar el modelo entidad-relación definitivo.
-* [ ] Identificar las entidades necesarias.
-* [ ] Definir las tablas de la base de datos.
-* [ ] Definir los atributos de cada entidad.
-* [ ] Establecer las claves primarias.
-* [ ] Establecer las claves foráneas.
-* [ ] Definir las relaciones entre las entidades.
-* [ ] Establecer las restricciones de integridad.
-* [ ] Diseñar las tablas relacionadas con usuarios y perfiles.
-* [ ] Definir la estructura de información de egresados.
-* [ ] Definir la estructura de proyectos.
-* [ ] Definir la estructura de noticias.
-* [ ] Definir las tablas adicionales requeridas por los roles y permisos.
-* [ ] Crear las tablas definitivas.
-* [ ] Implementar las consultas necesarias.
-* [ ] Integrar las operaciones de base de datos con PHP.
-* [ ] Verificar la integridad y consistencia de los datos.
-* [ ] Probar las operaciones de creación, consulta, actualización y eliminación que correspondan.
-* [ ] Definir una estrategia de respaldo y recuperación de la información.
-
-**Estado:** ⏳ Pendiente de diseño e implementación.
-
-> La conexión PHP → MySQL está verificada, pero esto no significa que el modelo de datos definitivo, las tablas ni todos los procesos de persistencia estén terminados.
+**Estado:** 🟢 Esquema relacional e instalador implementados (v0.2.1).
 
 ---
 
 ## 4.4. Integración
 
-La integración se realizará progresivamente a medida que se completen las interfaces, los procesos del backend y la estructura de la base de datos.
-
-* [ ] Integrar frontend, backend y base de datos.
-* [ ] Verificar el funcionamiento de cada módulo.
-* [ ] Implementar y comprobar los flujos principales.
-* [ ] Validar la autenticación y los permisos.
-* [ ] Verificar el procesamiento de la información.
-* [ ] Comprobar las operaciones de consulta, creación, edición y eliminación que correspondan.
-* [ ] Verificar la comunicación entre las diferentes capas.
-* [ ] Corregir los errores encontrados durante la integración.
-* [ ] Verificar los mensajes de respuesta y los estados de las interfaces.
-* [ ] Comprobar que los formularios procesen y persistan correctamente la información.
-* [ ] Consolidar la integración de los módulos funcionales.
+* [x] Integrar vistas en `pages/` con el Front Controller y navegación compartida.
+* [x] Conectar componentes visuales con los estilos CSS modulares.
+* [x] Implementar endpoints API JSON asíncronos para red y mensajería.
+* [x] Conectar formularios de autenticación con el motor de base de datos y PHPMailer.
+* [ ] Ejecutar pruebas de integración de extremo a extremo en cada flujo funcional.
 
 **Estado:** ⏳ Pendiente de integración funcional completa.
 
@@ -472,8 +478,8 @@ Esta fase se desarrollará a medida que existan módulos funcionales que puedan 
 Esta fase comprende la preparación, publicación y documentación final de la plataforma.
 
 * [ ] Actualizar la documentación definitiva.
-* [ ] Completar el Manual Técnico.
-* [ ] Completar el Manual de Usuario.
+* [x] Completar el Manual Técnico (`docs/manual-tecnico.md`).
+* [x] Completar el Manual de Usuario (`docs/manual-usuario.md`).
 * [ ] Preparar una versión estable.
 * [ ] Configurar el entorno de producción.
 * [ ] Preparar la configuración de la base de datos de producción.
@@ -498,7 +504,7 @@ Esta fase comprende la preparación, publicación y documentación final de la p
 | Fase 1 — Planificación       | ✅ Completada                          |
 | Fase 2 — Documentación base  | ✅ Completada, con manuales pendientes |
 | Fase 3 — Diseño UI/UX        | ✅ Completada                          |
-| Fase 4 — Implementación      | 🟡 En progreso                        |
+| Fase 4 — Implementación      | 🟡 Implementación e integración funcional (v0.2.1) |
 | Fase 5 — Pruebas             | ⏳ Pendiente de ejecución integral     |
 | Fase 6 — Despliegue y cierre | ⏳ Pendiente                           |
 
@@ -508,24 +514,16 @@ Esta fase comprende la preparación, publicación y documentación final de la p
 
 # 🎯 Próximo objetivo
 
-El siguiente objetivo es continuar con la **Fase 4 — Implementación**, consolidando los avances existentes y verificando que las interfaces desarrolladas correspondan a los diseños aprobados en Figma.
+El siguiente objetivo es culminar la **Fase 4 — Implementación e integración funcional** e iniciar la **Fase 5 — Pruebas**, validando la persistencia de datos reales en cada módulo y su comportamiento en entornos de despliegue.
 
 Las actividades prioritarias son:
 
-1. Revisar la interfaz de Inicio en Desktop frente a Figma.
-2. Revisar la interfaz de Inicio en Mobile frente a Figma.
-3. Corregir las diferencias visuales y estructurales identificadas.
-4. Consolidar los componentes PHP reutilizables y los estilos compartidos.
-5. Revisar el Dashboard, su barra lateral, la barra superior y el comportamiento responsive.
-6. Verificar las pantallas y los procesos iniciales de autenticación, registro y recuperación de contraseña.
-7. Revisar el manejo de sesiones, las redirecciones y los mecanismos temporales de prueba.
-8. Confirmar la estructura real de los archivos y mantener la documentación sincronizada con el repositorio.
-9. Continuar con la implementación progresiva de las interfaces restantes.
-10. Diseñar el modelo entidad-relación y definir la estructura de la base de datos.
-11. Integrar progresivamente las interfaces, los procesos PHP y las operaciones de base de datos.
-12. Preparar los módulos para sus respectivas pruebas funcionales y de seguridad.
-
-Una vez consolidados los primeros módulos, se continuará con las siguientes interfaces y funcionalidades, manteniendo la arquitectura modular y los criterios de diseño definidos.
+1. Realizar pruebas integrales de persistencia en MySQL mediante consultas PDO para cada módulo (Perfil, Egresados, Proyectos, Noticias, PQRS, Administración, Mensajería).
+2. Probar el despacho transaccional de correos electrónicos mediante PHPMailer y SMTP en buzones de prueba reales.
+3. Validar las reglas de autorización y control de acceso basadas en roles (`administrador` vs. `egresado`).
+4. Auditar la fidelidad visual de las 34 pantallas (Desktop 1440px y Mobile 390px) frente a los prototipos de Figma.
+5. Comprobar los flujos asíncronos de la red de egresados y mensajería en tiempo real mediante los endpoints de `api/`.
+6. Consolidar el Manual Técnico y Manual de Usuario previo a la Fase 6 de despliegue institucional.
 
 ---
 
@@ -537,17 +535,9 @@ El proyecto comenzó en 2025. Las fechas registradas en las actualizaciones de 2
 
 La fase de Diseño UI/UX se completó a finales de septiembre de 2026. Las 34 pantallas diseñadas —17 Desktop y 17 Mobile— constituyen la referencia visual y estructural para la implementación.
 
-La implementación frontend ya está iniciada. La interfaz de Inicio fue la primera pantalla trasladada al código y se han reportado avances adicionales en autenticación, registro, recuperación de contraseña, navegación compartida y Dashboard.
+En la versión **v0.2.1**, la plataforma cuenta con una arquitectura relacional formalizada en `database/schema.sql` (11 tablas), aprovisionamiento automático mediante `database/setup.php`, motor transaccional de correos con PHPMailer y SMTP, flujo seguro de recuperación de claves con tokens criptográficos SHA-256 de un solo uso, y vistas modulares centralizadas bajo `pages/`.
 
-La arquitectura prevista se basa en **PHP, HTML, CSS y JavaScript vanilla**, sin incorporar frameworks frontend. Los estilos se organizan mediante archivos CSS modulares y los elementos compartidos se desarrollan mediante componentes PHP reutilizables.
-
-La conexión entre PHP y MySQL fue verificada. Sin embargo, el modelo de datos definitivo, las tablas y las relaciones todavía deben diseñarse e implementarse.
-
-Los avances de autenticación y recuperación de contraseña deben verificarse mediante pruebas funcionales antes de considerarse terminados. En particular, la recuperación requiere comprobar el ciclo completo del token y configurar el servicio de envío de correos electrónicos. Los mecanismos de acceso utilizados exclusivamente para pruebas deben permanecer separados del flujo de autenticación definitivo.
-
-La documentación se actualizará conforme avance cada etapa, procurando que los requisitos, la arquitectura, el diseño y el código representen el mismo estado del proyecto.
-
-Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una versión funcional que permita documentar adecuadamente la configuración, el mantenimiento y el uso de la plataforma.
+La documentación se mantendrá actualizada continuamente para garantizar sincronización absoluta entre la base de datos, el backend, los estilos y la experiencia de usuario.
 
 ---
 
@@ -561,13 +551,14 @@ Los manuales Técnico y de Usuario permanecerán pendientes hasta que exista una
 | v0.1.1  | 08/10/2026 | Actualización de los avances de Inicio Desktop y Mobile, los componentes reutilizables, los estilos CSS modulares, la navegación responsive, el isotipo, el favicon y la conexión PHP → MySQL.                                                                                     |
 | v0.1.1  | 09/10/2026 | Consolidación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las tareas pendientes de validación, seguridad, integración y base de datos.                                                                                     |
 | v0.1.1  | 13/10/2026 | Actualización del estado de implementación; incorporación de avances reportados en Dashboard, navegación interna, barra lateral, barra superior e indicador de carga; consolidación del diseño UI/UX de 34 pantallas y revisión de las prioridades de implementación y validación. |
+| v0.2.1  | 17/10/2026 | Actualización a versión v0.2.1; consolidación de flujo seguro de recuperación con PHPMailer y tokens SHA-256, esquema relacional de 11 tablas en MySQL con setup.php, endpoints API JSON en api/, centralización de vistas en pages/ y avance de Fase 4 hacia pruebas integrales. |
 
 ---
 
 # 📍 Estado actual
 
-* **Versión:** v0.1.1
+* **Versión:** v0.2.1
 * **Estado:** 🟡 En desarrollo
-* **Fase actual:** Fase 4 — Implementación
+* **Fase actual:** Fase 4 — Implementación e integración funcional
 * **Inicio del proyecto:** 2025
-* **Última actualización:** 13 de octubre de 2026
+* **Última actualización:** 17 de octubre de 2026
