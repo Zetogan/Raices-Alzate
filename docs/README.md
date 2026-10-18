@@ -12,10 +12,10 @@
 | Institución            | Institución Educativa Gilberto Alzate Avendaño                                                 |
 | Tipo de proyecto       | Plataforma digital para la gestión, seguimiento y fortalecimiento de la comunidad de egresados |
 | Inicio del proyecto    | 2025                                                                                           |
-| Versión actual         | v0.1.1                                                                                         |
+| Versión actual         | v0.2.1                                                                                         |
 | Estado                 | 🟡 En desarrollo                                                                               |
-| Fase actual            | Fase 4 — Implementación                                                                        |
-| Última actualización   | 13 de octubre de 2026                                                                          |
+| Fase actual            | Fase 4 — Implementación e integración funcional                                                |
+| Última actualización   | 17 de octubre de 2026                                                                          |
 | Responsable documental | Santiago Emitola                                                                               |
 
 ---
@@ -26,15 +26,9 @@ Este directorio contiene la documentación del proyecto **Raíces Alzate**, en l
 
 Su objetivo es mantener organizada la información del proyecto, facilitar la comprensión de su estructura y proporcionar una referencia para las distintas etapas de implementación, integración, pruebas y mantenimiento.
 
-Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación**.
+Actualmente, el proyecto se encuentra en la **Fase 4 — Implementación e integración funcional**, alcanzando la versión **v0.2.1** al 17 de octubre de 2026.
 
-Las etapas de planificación y diseño UI/UX están consolidadas. La fase de diseño se cerró a finales de septiembre de 2026, con un total de 34 pantallas diseñadas en Figma: 17 interfaces Desktop y 17 adaptaciones Mobile.
-
-La implementación ya cuenta con una estructura inicial de frontend, la interfaz de Inicio y avances reportados en autenticación, registro, recuperación de contraseña, navegación interna y Dashboard.
-
-La conexión entre PHP y MySQL también fue verificada. Sin embargo, todavía deben completarse las funcionalidades del sistema, definirse la estructura definitiva de la base de datos y verificarse integralmente los flujos desarrollados.
-
-La documentación se actualizará progresivamente para mantenerla alineada con el estado real del repositorio.
+Las etapas de planificación y diseño UI/UX están consolidadas (34 pantallas diseñadas en Figma). La implementación técnica dispone de la arquitectura relacional formalizada en MySQL (`database/schema.sql` con 11 tablas) y su aprovisionador `database/setup.php`, el flujo seguro de recuperación de contraseñas con PHPMailer, SMTP y tokens criptográficos SHA-256 temporales, vistas centralizadas bajo `pages/` (egresados, proyectos, noticias, perfil, PQRS, administración, mensajería) y endpoints API asíncronos en `api/`.
 
 > La existencia de un diseño, una estructura de código o un procesamiento inicial no implica que una funcionalidad esté terminada. Los módulos deben validarse mediante las pruebas correspondientes antes de considerarse completos.
 
@@ -48,19 +42,18 @@ La documentación se organiza en archivos ubicados dentro de `docs/` y documento
 raices-alzate/
 │
 ├── README.md
-├── CHANGELOG.md
-├── ROADMAP.md
-├── decisiones.md
-├── glosario.md
-│
 └── docs/
     ├── README.md
-    ├── 01_Bitacora.md
-    ├── 02_Planificacion.md
-    ├── 03_Requisitos.md
-    ├── 04_Arquitectura.md
-    ├── 05_Manual_Tecnico.md
-    └── 06_Manual_Usuario.md
+    ├── bitacora.md
+    ├── planificacion.md
+    ├── requisitos.md
+    ├── arquitectura.md
+    ├── manual-tecnico.md
+    ├── manual-usuario.md
+    ├── CHANGELOG.md
+    ├── ROADMAP.md
+    ├── decisiones.md
+    └── glosario.md
 ```
 
 > Esta estructura representa la organización documental prevista. La ubicación y el nombre exactos de cada archivo deben mantenerse sincronizados con los existentes en el repositorio.
@@ -158,49 +151,50 @@ Incluye:
 
 ---
 
-## ⚙️ [`05_Manual_Tecnico.md`](05_Manual_Tecnico.md)
+## ⚙️ [`manual-tecnico.md`](manual-tecnico.md)
 
 **Guía técnica destinada a desarrolladores y responsables del mantenimiento.**
 
-Incluirá progresivamente:
+Incluye:
 
-* Requisitos del entorno.
-* Instalación y configuración del proyecto.
-* Estructura del código.
-* Configuración de PHP.
-* Conexión con MySQL.
-* Estructura de la base de datos.
-* Procesos internos.
-* Autenticación y autorización.
-* Configuración de servicios externos.
-* Mantenimiento.
-* Solución de problemas.
+* Requisitos del entorno (Hardware, Software, extensiones PHP).
+* Arquitectura en capas y patrones de diseño (Front Controller, Singleton PDO).
+* Estructura completa de archivos y responsabilidades.
+* Modelo de datos relacional y catálogo de las 11 tablas con DDL e índices.
+* Instalación y migración automatizada con `database/setup.php`.
+* Servicio de correo electrónico con PHPMailer y SMTP autenticado.
+* Mecanismos de seguridad (BCRYPT, tokens criptográficos uniuso, CSRF, Prepared Statements, XSS).
+* Especificación completa de los endpoints REST/JSON (`api/`).
+* Frontend, estilos modulares y componentes interactivos JavaScript.
+* Guía de mantenimiento y solución de problemas comunes.
 
-**Estado:** ⏳ Pendiente de completar.
-
-> Se ampliará conforme se consoliden la arquitectura, los módulos funcionales y la configuración definitiva del sistema.
+**Estado:** 🟢 Elaborado y disponible (`v0.2.1`). Documentación técnica oficial del sistema.
 
 ---
 
-## 👤 [`06_Manual_Usuario.md`](06_Manual_Usuario.md)
+## 👤 [`manual-usuario.md`](manual-usuario.md)
 
-**Guía destinada a los usuarios finales de la plataforma.**
+**Guía destinada a los usuarios finales de la plataforma (egresados, docentes, directivos y administradores).**
 
-Incluirá:
+Incluye:
 
-* Acceso al sistema.
-* Registro.
-* Inicio y cierre de sesión.
-* Recuperación de contraseña.
-* Navegación.
-* Gestión del perfil.
-* Uso de las funcionalidades.
-* Funciones disponibles según el tipo de usuario.
-* Preguntas frecuentes.
+* Bienvenida y propósito institucional.
+* Requisitos de acceso y compatibilidad multidispositivo.
+* Navegación por el portal público y menús responsive.
+* Registro de nuevos egresados paso a paso.
+* Inicio y cierre de sesión seguro.
+* Flujo guiado de recuperación de contraseña por correo electrónico institucional.
+* Estructura y widgets del Dashboard personal.
+* Gestión y edición integral del perfil (académico, laboral y habilidades).
+* Directorio de egresados, búsqueda, filtros y solicitudes de conexión.
+* Sistema de mensajería privada y chat entre contactos.
+* Catálogo y publicación de proyectos comunitarios.
+* Consulta de noticias y eventos institucionales.
+* Módulo de PQRS con adjuntos interactivos (dropzone).
+* Panel de administración institucional (gestión de usuarios, moderación y PQRS).
+* Preguntas frecuentes (FAQ) y resolución de dudas comunes.
 
-**Estado:** ⏳ Pendiente de completar.
-
-> Se elaborará cuando exista una versión funcional que permita documentar los procedimientos reales de uso.
+**Estado:** 🟢 Elaborado y disponible (`v0.2.1`). Guía oficial de navegación y uso de la plataforma.
 
 ---
 
@@ -208,7 +202,7 @@ Incluirá:
 
 Los siguientes archivos complementan la documentación de `docs/` y se encuentran previstos en la raíz del repositorio.
 
-## 🗺️ [`../ROADMAP.md`](../ROADMAP.md)
+## 🗺️ [`ROADMAP.md`](ROADMAP.md)
 
 **Plan de evolución y seguimiento de las fases del proyecto.**
 
@@ -221,53 +215,48 @@ Incluye:
 * Próximos objetivos.
 * Estado general del proyecto.
 
-**Estado:** 🟡 Actualizado al 13 de octubre de 2026.
+**Estado:** 🟡 Actualizado al 17 de octubre de 2026 (v0.2.1).
 
 ---
 
-## ⚖️ [`../decisiones.md`](../decisiones.md)
+## ⚖️ [`decisiones.md`](decisiones.md)
 
 **Registro de decisiones importantes tomadas durante el desarrollo.**
 
 Incluye:
 
-* Decisiones técnicas.
-* Decisiones de diseño.
+* Decisiones técnicas y de arquitectura (ADR DEC-001 a DEC-037).
+* Decisiones de diseño y usabilidad.
 * Motivos y justificaciones.
 * Alternativas consideradas.
 * Criterios adoptados.
 * Evolución de las decisiones del proyecto.
 
-**Estado:** 📌 Documento de referencia para las decisiones registradas; debe actualizarse cuando se adopten nuevas decisiones relevantes.
+**Estado:** 📌 Documento de referencia con 37 decisiones registradas.
 
 ---
 
-## 📖 [`../glosario.md`](../glosario.md)
+## 📖 [`glosario.md`](glosario.md)
 
 **Definición de los términos utilizados durante el desarrollo.**
 
 Incluye conceptos relacionados con:
 
-* Proyecto.
-* Desarrollo web.
-* Diseño UI/UX.
-* Figma.
-* Design System.
-* Components & Responsive.
-* Componentes reutilizables.
-* Estados de interacción.
-* Diseño responsive.
-* Tecnologías.
-* Bases de datos.
-* Usuarios y roles.
+* Proyecto e identidad institucional.
+* Desarrollo web y arquitectura modular.
+* Diseño UI/UX y Design System.
+* Componentes reutilizables y estados de interacción.
+* Criterios responsive.
+* Tecnologías (PHP, PDO, PHPMailer, MySQL).
+* Criptografía y seguridad (Tokens SHA-256, BCRYPT, CSRF).
+* Bases de datos relacionales y semillas (`setup.php`).
 * Git y GitHub.
-* Implementación.
 
-**Estado:** 📌 Documento de referencia terminológica.
+**Estado:** 📌 Documento de referencia terminológica consolidado.
 
 ---
 
-## 📝 [`../CHANGELOG.md`](../CHANGELOG.md)
+## 📝 [`CHANGELOG.md`](CHANGELOG.md)
 
 **Registro de cambios y evolución de las versiones del proyecto.**
 
@@ -279,10 +268,9 @@ Permite consultar:
 * Mejoras.
 * Evolución del diseño.
 * Actualizaciones importantes.
-* Cambios entre versiones.
-* Avances de implementación.
+* Cambios entre versiones (v0.1.0 hasta v0.2.1).
 
-**Estado:** 📌 Debe mantenerse actualizado con los cambios relevantes del proyecto y las versiones registradas.
+**Estado:** 📌 Mantenido al día con la versión v0.2.1.
 
 ---
 
@@ -340,23 +328,23 @@ Presenta las fases, las actividades pendientes y los objetivos futuros.
 
 ### 9. Manual Técnico
 
-📄 [`05_Manual_Tecnico.md`](05_Manual_Tecnico.md)
+📄 [`manual-tecnico.md`](manual-tecnico.md)
 
-Documento destinado a la instalación, configuración, comprensión técnica y mantenimiento de la plataforma.
+Documento destinado a la instalación, configuración, arquitectura técnica, endpoints REST, seguridad y mantenimiento de la plataforma.
 
-**Estado:** ⏳ Pendiente de completar.
+**Estado:** 🟢 Elaborado y disponible (`v0.2.1`).
 
 ### 10. Manual de Usuario
 
-📄 [`06_Manual_Usuario.md`](06_Manual_Usuario.md)
+📄 [`manual-usuario.md`](manual-usuario.md)
 
-Documento destinado a explicar el uso de la plataforma a los usuarios finales.
+Documento destinado a explicar el uso integral de la plataforma a egresados y administradores.
 
-**Estado:** ⏳ Pendiente de completar.
+**Estado:** 🟢 Elaborado y disponible (`v0.2.1`).
 
 ### 11. Glosario
 
-📄 [`glosario.md`](../glosario.md)
+📄 [`glosario.md`](glosario.md)
 
 Permite consultar los términos técnicos y conceptuales utilizados en el proyecto.
 
@@ -515,6 +503,7 @@ El mensaje es un ejemplo de referencia; debe ajustarse a los archivos incluidos 
 | v0.1.1  | 08/10/2026 | Actualización del índice según los avances iniciales del frontend, los estilos CSS modulares, los componentes PHP reutilizables y la navegación responsive.                                                             | Santiago Emitola |
 | v0.1.1  | 09/10/2026 | Incorporación de los avances reportados en autenticación, registro y recuperación de contraseña; actualización de las referencias al estado actual del proyecto y sus actividades pendientes.                           | Santiago Emitola |
 | v0.1.1  | 13/10/2026 | Actualización del estado general, consolidación de la referencia a las 34 pantallas diseñadas y registro de los avances reportados en Dashboard, navegación interna y tareas pendientes de implementación y validación. | Santiago Emitola |
+| v0.2.1  | 17/10/2026 | Actualización a versión v0.2.1; formalización del esquema relacional en MySQL (11 tablas con setup.php), PHPMailer transaccional, flujo seguro de restablecimiento con tokens SHA-256 y unificación en pages/.          | Santiago Emitola |
 
 > El proyecto comenzó en 2025. Las fechas de esta tabla corresponden a registros de creación y actualización documental, no a la fecha de inicio del proyecto.
 
@@ -522,66 +511,51 @@ El mensaje es un ejemplo de referencia; debe ajustarse a los archivos incluidos 
 
 # 🚀 Estado actual del proyecto
 
-Raíces Alzate se encuentra en la **Fase 4 — Implementación**.
+Raíces Alzate se encuentra en la **Fase 4 — Implementación e integración funcional** (v0.2.1).
 
 ## Avances registrados
 
 * [x] Planificación del proyecto.
 * [x] Definición de requisitos funcionales y no funcionales.
-* [x] Documentación de la arquitectura inicial.
-* [x] Consolidación de la documentación base.
-* [x] Definición de la identidad visual.
-* [x] Definición de la paleta de colores.
-* [x] Definición de la tipografía.
-* [x] Definición del sistema de espaciado.
-* [x] Elaboración del Design System.
-* [x] Diseño de componentes reutilizables.
-* [x] Definición de estados de interacción.
-* [x] Consolidación de la página Components & Responsive.
-* [x] Definición de la estructura de navegación.
-* [x] Diseño de las 17 interfaces Desktop.
-* [x] Diseño de las 17 adaptaciones Mobile.
-* [x] Finalización de la fase de diseño UI/UX.
-* [x] Preparación de la estructura base del frontend.
-* [x] Desarrollo inicial de componentes PHP reutilizables para Header y Footer.
-* [x] Organización inicial de los estilos CSS.
-* [x] Implementación inicial de la interfaz de Inicio Desktop.
-* [x] Implementación inicial de la interfaz de Inicio Mobile.
-* [x] Implementación de la navegación responsive.
-* [x] Integración del isotipo y el favicon.
-* [x] Verificación reportada de la conexión entre PHP y MySQL.
-* [x] Desarrollo inicial de las pantallas y procesos de autenticación, registro y recuperación de contraseña.
-* [x] Avances reportados en la estructura del Dashboard y la navegación interna.
-
-> Estos elementos representan avances documentados. La marca de verificación no sustituye las pruebas funcionales necesarias para confirmar que cada módulo está completamente operativo.
+* [x] Documentación de la arquitectura inicial y técnica.
+* [x] Consolidación de la documentación base (Bitácora, Planificación, Requisitos, Arquitectura, Decisiones, Glosario, Roadmap).
+* [x] Definición de la identidad visual y paleta institucional (#D32F2F, #1565C0, #212121).
+* [x] Tipografía Inter y sistema de espaciado.
+* [x] Elaboración del Design System completo en Figma.
+* [x] Diseño y refinamiento de 34 pantallas (17 Desktop y 17 Mobile).
+* [x] Finalización formal de la Fase 3 — Diseño UI/UX.
+* [x] Implementación frontend de Inicio (Desktop y Mobile).
+* [x] Componentes PHP reutilizables (Header, Footer, Sidebar, Topbar, Loader, Mailer, Helpers, CSRF).
+* [x] Arquitectura de estilos CSS modulares y responsivos.
+* [x] Interfaces de autenticación: Login, Registro, Solicitud y Restablecimiento (`pages/reset-password.php`).
+* [x] Hashing seguro de contraseñas mediante `password_hash(PASSWORD_DEFAULT)`.
+* [x] Flujo de recuperación seguro con tokens criptográficos SHA-256 temporales (60 min) de un solo uso.
+* [x] Integración de PHPMailer nativo con SMTP autenticado y plantilla HTML responsiva con logotipo embebido.
+* [x] Directorio y detalle de egresados con filtros en tiempo real, botones condicionales y toast.
+* [x] Módulo de Perfil y formulario modular de edición (`pages/editar-perfil.php`).
+* [x] Catálogo y detalle de proyectos con cuadrícula 16:9 y paginación incremental asíncrona.
+* [x] Módulo de noticias institucionales con selector de categorías temáticas.
+* [x] Formulario de PQRS y soporte con dropzone para capturas e ícono SVG blindado en sidebar.
+* [x] Módulo oficial de Administración (Figma 08) con KPI Cards y modales de moderación interactivos.
+* [x] Módulo de mensajería y red de conexiones con endpoints API JSON (`api/`).
+* [x] Esquema relacional estructurado en MySQL (`database/schema.sql` con 11 tablas).
+* [x] Instalador y verificador automatizado `database/setup.php` (CLI y navegador).
+* [x] Centralización de rutas y controladores bajo el directorio `pages/`.
+* [x] Elaboración y publicación formal del Manual Técnico (`docs/manual-tecnico.md`) v0.2.1.
+* [x] Elaboración y publicación formal del Manual de Usuario (`docs/manual-usuario.md`) v0.2.1.
 
 ## Etapa actual
 
-* 🟡 Consolidación e implementación del frontend.
-* 🟡 Desarrollo inicial de los procesos de autenticación y formularios.
-* 🟡 Desarrollo de la interfaz y navegación interna del Dashboard.
-* ⏳ Verificación funcional de los flujos de registro e inicio de sesión.
-* ⏳ Finalización y validación del proceso de recuperación de contraseña.
-* ⏳ Diseño e implementación del modelo definitivo de la base de datos.
-* ⏳ Desarrollo de los módulos funcionales del backend.
-* ⏳ Integración completa entre frontend, backend y base de datos.
+* 🟡 Consolidación de la persistencia de datos mediante PDO en todos los módulos.
+* 🟡 Pruebas de integración de extremo a extremo (Autenticación, Recuperación, Mensajería, PQRS, Administración).
+* 🟡 Pruebas de compatibilidad responsive en las 34 pantallas de Figma.
 
 ## Próximos pasos
 
-* Revisar Inicio Desktop frente a Figma.
-* Revisar Inicio Mobile frente a Figma.
-* Corregir las diferencias visuales y estructurales identificadas.
-* Consolidar los componentes y estilos reutilizables.
-* Revisar el Dashboard y su comportamiento responsive.
-* Verificar los formularios y procesos iniciales de autenticación.
-* Revisar el manejo de sesiones y los mecanismos temporales de prueba.
-* Continuar con la implementación de las interfaces restantes.
-* Definir el modelo entidad-relación y la estructura definitiva de la base de datos.
-* Implementar las funcionalidades del backend.
-* Completar la autenticación y el control de permisos.
-* Integrar los módulos con la base de datos.
-* Realizar pruebas funcionales, de integración, responsive y de seguridad.
-* Completar los manuales Técnico y de Usuario cuando exista una versión funcional que permita documentarlos adecuadamente.
+* Ejecutar pruebas integrales con bases de datos pobladas mediante `database/setup.php`.
+* Validar el ciclo de envío de correos en entornos SMTP reales.
+* Auditar la seguridad de roles y permisos en rutas administrativas.
+* Preparar el proyecto para la Fase 5 (Pruebas sistemáticas) y Fase 6 (Despliegue y Cierre).
 
 ---
 

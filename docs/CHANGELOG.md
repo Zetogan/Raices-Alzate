@@ -14,7 +14,84 @@ El formato de este documento está inspirado en las convenciones de **Keep a Cha
 
 ---
 
-# [v0.1.1] — En desarrollo
+# [v0.2.1] — 17 de octubre de 2026
+
+### 🔐 Flujo de Recuperación y Restablecimiento Seguro de Contraseñas
+
+#### Implementado y Añadido
+
+* **Generación de Tokens Criptográficos y Validación Temporal (`auth/solicitar_reset.php` / `auth/recuperar-process.php`):**
+  - Generación de tokens criptográficamente seguros mediante `bin2hex(random_bytes(32))` (cadena pseudoaleatoria de 64 caracteres).
+  - Almacenamiento seguro del hash `hash('sha256', $token)` en las columnas `reset_token` y `reset_expira` de la tabla `usuarios`.
+  - Expiración estricta establecida a 1 hora (`DATE_ADD(NOW(), INTERVAL 1 HOUR)`).
+* **Integración Transaccional de PHPMailer y SMTP Institucional (`includes/PHPMailer/` / `config/mail.php` / `includes/mailer.php`):**
+  - Inclusión modular de las clases de PHPMailer (`PHPMailer.php`, `SMTP.php`, `Exception.php`) en `includes/PHPMailer/` sin requerir Composer.
+  - Centralización de credenciales y configuración SMTP en `config/mail.php` con soporte para encriptación TLS/SSL y depuración configurable.
+  - Plantilla HTML responsiva para correos con cabecera roja institucional (`#D32F2F`), tarjeta blanca flotante, logotipo embebido mediante CID Inline (`logo-raices-alzate.png`), botón de llamada a la acción y advertencias de seguridad.
+* **Interfaz de Restablecimiento de Contraseña (`pages/reset-password.php` / `assets/css/auth.css` / `assets/js/auth.js`):**
+  - Pantalla adaptada al diseño de Figma con tarjeta institucional centrada.
+  - Alternador interactivo para visualizar u ocultar la contraseña (ícono de ojo).
+  - Validación dinámica en el frontend: longitud mínima de 8 caracteres y confirmación de coincidencia de claves.
+* **Procesamiento de Cambio Seguro de Contraseña (`auth/cambiar_password.php`):**
+  - Validación de vigencia del token contra `reset_expira > NOW()`.
+  - Hashing seguro de la nueva clave mediante `password_hash($nueva_password, PASSWORD_DEFAULT)`.
+  - Inmediata invalidación del token (`reset_token = NULL`, `reset_expira = NULL`) para prevenir ataques de repetición.
+
+### 🗄️ Esquema Relacional de Base de Datos y Aprovisionamiento Idempotente
+
+#### Implementado y Añadido
+
+* **Esquema Relacional Integral (`database/schema.sql`):**
+  - Definición DDL de 11 tablas del sistema: `roles`, `usuarios`, `perfiles`, `educacion`, `experiencia`, `habilidades`, `perfil_habilidades`, `proyectos`, `noticias`, `conexiones`, `mensajes`.
+  - Declaración de claves foráneas con reglas de integridad referencial (`ON DELETE CASCADE` y `ON DELETE RESTRICT`).
+  - Creación de índices optimizados para búsquedas por correo, documento, autor y destinatario.
+  - Inserción de semillas predeterminadas para los roles institucionales (`administrador`, `egresado`, `estudiante`) y catálogo de habilidades.
+* **Instalador y Verificador Automatizado (`database/setup.php`):**
+  - Script autoejecutable compatible con CLI (`php database/setup.php`) y entorno web (`http://localhost/Raices-Alzate/database/setup.php`).
+  - Creación condicional de la base de datos `raices_alzate` si no existe con codificación `utf8mb4_unicode_ci`.
+  - Ejecución por bloques y verificación de existencia de tablas con reporte detallado.
+* **Scripts de Migración de Conexiones y Mensajería (`database/create_conexiones_table.php` / `database/create_mensajes_table.php`):**
+  - Generación de tablas dedicadas para la red social interna y chat entre egresados.
+
+### 💬 Endpoints Asíncronos de Mensajería y Red de Egresados (`api/`)
+
+#### Implementado y Añadido
+
+* **Arquitectura de APIs JSON para interacción dinámica:**
+  - `api/conectar-egresado.php`: Envío de solicitudes de conexión institucional entre perfiles.
+  - `api/responder-solicitud.php`: Aceptación o rechazo de solicitudes de vinculación.
+  - `api/enviar-mensaje.php`: Registro y despacho asíncrono de mensajes en conversaciones privadas.
+  - `api/obtener-mensajes.php`: Consulta y sincronización del historial de chat entre usuarios conectados.
+  - Blindaje con control de sesión obligatoria y validación estricta de parámetros de entrada.
+
+### 📂 Centralización y Reorganización Estructural de Vistas
+
+#### Modificado y Optimizado
+
+* **Estandarización de Vistas en `pages/`:**
+  - Reubicación y centralización de vistas bajo el directorio `pages/` (`pages/reset-password.php`, `pages/administracion.php`, `pages/proyectos.php`, etc.).
+  - Limpieza de scripts de prueba obsoletos en la raíz del proyecto.
+  - Sincronización de rutas y actualización del número de versión a **v0.2.1**.
+
+### 📖 Documentación Oficial Completa: Manual Técnico y Manual de Usuario
+
+#### Implementado y Añadido
+
+* **Manual Técnico para Desarrolladores y Administradores (`docs/manual-tecnico.md`):**
+  - Guía técnica integral que detalla los requisitos de hardware y software, extensiones PHP indispensables y arquitectura en capas con Front Controller.
+  - Documentación exhaustiva del modelo de datos de 11 tablas con DDL, claves foráneas, índices y script de aprovisionamiento automatizado `setup.php`.
+  - Configuración y operación del servicio SMTP transaccional con PHPMailer y plantillas de correo responsivas con logotipo embebido (CID).
+  - Especificación formal de protocolos de seguridad (BCRYPT, tokens SHA-256 temporales de un solo uso, CSRF y Prepared Statements con PDO) y contratos de la API REST (`api/`).
+  - Guía de mantenimiento, diagnóstico y resolución de problemas técnicos frecuentes.
+* **Manual de Usuario Oficial para la Comunidad (`docs/manual-usuario.md`):**
+  - Manual de uso paso a paso para egresados, docentes, directivos y administradores.
+  - Instrucciones detalladas para navegación en portal público, registro, inicio de sesión seguro y flujo de recuperación de contraseña por correo electrónico institucional.
+  - Guías ilustradas para gestión de perfil, directorio de egresados, red de contactos, chat privado, proyectos comunitarios, noticias y radicación de PQRS con zona interactiva (*Dropzone*).
+  - Guía de operación del módulo de administración institucional y sección de preguntas frecuentes (FAQ).
+
+---
+
+# [v0.1.1] — 15 de octubre de 2026
 
 ## 📅 15 de octubre de 2026
 
