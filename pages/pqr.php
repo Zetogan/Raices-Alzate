@@ -19,7 +19,7 @@ $pqrSuccess = $_SESSION['pqr_success'] ?? null;
 $pqrError = $_SESSION['pqr_error'] ?? null;
 unset($_SESSION['pqr_success'], $_SESSION['pqr_error']);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
               || (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
 
@@ -158,13 +158,7 @@ $extraJs = ['assets/js/dashboard.js'];
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<link rel="stylesheet" href="assets/css/dashboard.css">
-<link rel="stylesheet" href="assets/css/pqr.css">
-
 <?php if ($estaAutenticado): ?>
-    <!-- Telón de fondo para menú en dispositivos móviles -->
-    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
-
     <div class="layout-wrapper dashboard-layout" id="dashboardLayout">
         <?php require_once __DIR__ . '/../includes/sidebar.php'; ?>
 
@@ -178,112 +172,177 @@ require_once __DIR__ . '/../includes/header.php';
             <main class="content-area pqr-content-area" id="mainContent">
 <?php endif; ?>
             
-            <!-- Contenedor centrado exclusivo del formulario -->
+            <!-- Contenedor centrado exclusivo del formulario PQRS -->
             <div class="pqr-form-wrapper">
                 
                 <header class="pqr-header text-center">
-                    <span class="pqr-badge-pill">Atención al usuario</span>
+                    <span class="pqr-badge-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Atención Institucional
+                    </span>
                     <h1 class="pqr-title">PQRS y Reporte de Errores</h1>
-                    <p class="pqr-subtitle">¿Tienes alguna duda, petición, reclamo o encontraste un error en la plataforma? Déjanos tu mensaje y te responderemos a tu correo electrónico.</p>
+                    <p class="pqr-subtitle">Canal oficial para radicar peticiones, quejas, reclamos, sugerencias o reportar incidencias técnicas en la plataforma Raíces Alzate.</p>
                 </header>
 
                 <?php if ($pqrSuccess): ?>
                 <!-- Notificación de Radicado Exitoso -->
-                <div class="pqr-success-card" id="pqrSuccessCard" style="background: #E8F5E9; border: 1px solid #A5D6A7; border-left: 5px solid #2E7D32; border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; color: #1B5E20; display: flex; align-items: flex-start; gap: 16px;">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    <div>
-                        <strong style="font-size: 1.1rem; display: block; margin-bottom: 6px; color: #1B5E20;">¡Solicitud radicada con éxito!</strong>
-                        <p style="margin: 0 0 8px; font-size: 0.95rem; line-height: 1.5;">
-                            Tu número de radicado oficial es: <strong style="font-family: monospace; font-size: 1.05rem; background: #C8E6C9; padding: 2px 8px; border-radius: 4px;"><?= htmlspecialchars($pqrSuccess) ?></strong>
+                <div class="pqr-alert-card pqr-success-card" id="pqrSuccessCard">
+                    <div class="pqr-alert-icon-box">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div class="pqr-alert-body">
+                        <strong class="pqr-alert-headline">¡Solicitud radicada con éxito!</strong>
+                        <p class="pqr-alert-meta">
+                            Número de radicado oficial: <strong class="pqr-radicado-badge"><?= htmlspecialchars($pqrSuccess) ?></strong>
                         </p>
-                        <span style="font-size: 0.85rem; color: #388E3C;">Nuestro equipo institucional revisará tu solicitud y te enviará respuesta al correo registrado.</span>
+                        <span class="pqr-alert-subtext">Nuestro equipo institucional revisará tu solicitud y te enviará respuesta formal al correo registrado.</span>
                     </div>
                 </div>
                 <?php endif; ?>
 
                 <?php if ($pqrError): ?>
-                <div class="pqr-error-card" style="background: #FFEBEE; border: 1px solid #FFCDD2; border-left: 5px solid #D32F2F; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; color: #B71C1C;">
-                    <strong>Error:</strong> <?= htmlspecialchars($pqrError) ?>
+                <div class="pqr-alert-card pqr-error-card" id="pqrErrorCard">
+                    <div class="pqr-alert-icon-box pqr-icon-error">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D32F2F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="pqr-alert-body">
+                        <strong class="pqr-alert-headline">No fue posible radicar tu solicitud</strong>
+                        <span class="pqr-alert-subtext"><?= htmlspecialchars($pqrError) ?></span>
+                    </div>
                 </div>
                 <?php endif; ?>
 
                 <!-- Aviso institucional oficial -->
-                <div class="pqr-status-notice" style="background: #F8F9FA; border: 1px solid #E0E0E0; border-left: 4px solid #1565C0; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; color: #212121; display: flex; align-items: center; gap: 12px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                    </svg>
-                    <div style="font-size: 0.9rem; line-height: 1.4;">
-                        Canal digital oficial de la <strong>I.E. Gilberto Alzate Avendaño</strong>. Toda solicitud genera un código de radicado único para seguimiento administrativo.
+                <div class="pqr-status-notice">
+                    <div class="pqr-notice-icon-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <div class="pqr-notice-body">
+                        <span class="pqr-notice-kicker">Trámite Oficial Transparente</span>
+                        <p class="pqr-notice-text">
+                            Canal digital de la <strong>I.E. Gilberto Alzate Avendaño</strong>. Cada solicitud genera un número de radicado único para trazabilidad y respuesta administrativa.
+                        </p>
                     </div>
                 </div>
 
                 <div class="pqr-card">
+                    <div class="pqr-card-header">
+                        <h2 class="pqr-card-title">Formulario de Radicación</h2>
+                        <span class="pqr-card-legend">Los campos señalados con (<span class="req">*</span>) son obligatorios.</span>
+                    </div>
+
                     <form id="formPQR" action="index.php?page=pqr" method="POST" enctype="multipart/form-data" onsubmit="enviarSolicitudPQR(event);">
                         
                         <!-- Fila 1: Nombre y Correo -->
                         <div class="form-grid-2">
                             <div class="form-group">
-                                <label for="nombre">Nombre completo <span class="req">*</span></label>
-                                <input type="text" name="nombre" id="nombre" class="form-input" placeholder="Tu nombre y apellido" value="<?= htmlspecialchars($nombreUsuario) ?>" required>
+                                <label for="nombre" class="form-label">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <span>Nombre completo</span>
+                                    <span class="req" title="Campo obligatorio">*</span>
+                                </label>
+                                <input type="text" name="nombre" id="nombre" class="form-input" placeholder="Tu nombre y apellido" value="<?= htmlspecialchars($nombreUsuario) ?>" required autocomplete="name">
                             </div>
 
                             <div class="form-group">
-                                <label for="correo">Correo electrónico <span class="req">*</span></label>
-                                <input type="email" name="correo" id="correo" class="form-input" placeholder="ejemplo@correo.com" value="<?= htmlspecialchars($correoUsuario) ?>" required>
+                                <label for="correo" class="form-label">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    <span>Correo electrónico</span>
+                                    <span class="req" title="Campo obligatorio">*</span>
+                                </label>
+                                <input type="email" name="correo" id="correo" class="form-input" placeholder="ejemplo@correo.com" value="<?= htmlspecialchars($correoUsuario) ?>" required autocomplete="email">
                             </div>
                         </div>
 
                         <!-- Fila 2: Tipo de Solicitud -->
                         <div class="form-group">
-                            <label for="tipo">Tipo de solicitud <span class="req">*</span></label>
-                            <select name="tipo" id="tipo" class="form-select" required>
-                                <option value="" disabled selected>Selecciona el tipo de mensaje</option>
-                                <option value="Reporte de error técnico">🐞 Reportar un error técnico en la plataforma</option>
-                                <option value="Petición">📄 Petición (Consulta o solicitud institucional)</option>
-                                <option value="Queja">⚠️ Queja (Inconformidad con la atención)</option>
-                                <option value="Reclamo">⛔ Reclamo (Exigencia sobre un servicio)</option>
-                                <option value="Sugerencia">💡 Sugerencia de mejora</option>
-                            </select>
+                            <label for="tipo" class="form-label">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                <span>Tipo de solicitud</span>
+                                <span class="req" title="Campo obligatorio">*</span>
+                            </label>
+                            <div class="form-select-wrap">
+                                <select name="tipo" id="tipo" class="form-select" required onchange="actualizarPlaceholderAsunto(this.value)">
+                                    <option value="" disabled selected>Selecciona la categoría de tu solicitud</option>
+                                    <option value="Reporte de error técnico">🐞 Reportar un error técnico en la plataforma</option>
+                                    <option value="Petición">📄 Petición (Consulta o solicitud de información institucional)</option>
+                                    <option value="Queja">⚠️ Queja (Inconformidad con la atención recibida)</option>
+                                    <option value="Reclamo">⛔ Reclamo (Exigencia por un servicio prestado)</option>
+                                    <option value="Sugerencia">💡 Sugerencia de mejora para la comunidad</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- Fila 3: Asunto -->
-                        <div class="form-group">
-                            <label for="asunto">Asunto <span class="req">*</span></label>
-                            <input type="text" name="asunto" id="asunto" class="form-input" placeholder="Ej: Consulta sobre certificado / Error en carga de imagen" required>
+                        <!-- Fila 3: Asunto Organizado con Contador y Ayuda Dinámica -->
+                        <div class="form-group form-group-asunto">
+                            <div class="form-label-row">
+                                <label for="asunto" class="form-label">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    <span>Asunto de la solicitud</span>
+                                    <span class="req" title="Campo obligatorio">*</span>
+                                </label>
+                                <span class="char-counter" id="asuntoCharCounter">0 / 120</span>
+                            </div>
+                            <input type="text" name="asunto" id="asunto" class="form-input form-input-asunto" placeholder="Ej: Consulta sobre certificado / Error en carga de imagen" maxlength="120" required autocomplete="off" oninput="contarCaracteresAsunto(this)">
+                            <div class="form-field-helper">
+                                <span id="asuntoDynamicHint">Escribe un título breve y específico. Encabezará tu radicado ante el equipo institucional.</span>
+                            </div>
                         </div>
 
                         <!-- Fila 4: Descripción detallada -->
                         <div class="form-group">
-                            <label for="mensaje">Descripción o detalle <span class="req">*</span></label>
-                            <textarea name="mensaje" id="mensaje" rows="5" class="form-textarea" placeholder="Escribe aquí tu mensaje o describe los pasos de lo sucedido..." required></textarea>
+                            <label for="mensaje" class="form-label">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+                                <span>Descripción o detalle <span class="req">*</span></span>
+                            </label>
+                            <textarea name="mensaje" id="mensaje" rows="5" class="form-textarea" placeholder="Escribe aquí tu mensaje, explicando claramente los antecedentes, fechas o pasos sucedidos..." required></textarea>
+                            <span class="form-field-helper">Proporciona detalles específicos para agilizar el análisis y resolución de tu caso.</span>
                         </div>
 
                         <!-- Fila 5: Adjuntar imagen (Opcional) -->
                         <div class="form-group">
-                            <label>Adjuntar imagen o captura de pantalla <span class="opcional">(Opcional)</span></label>
-                            <div class="dropzone-box" id="dropzoneBox" onclick="document.getElementById('inputImg').click();">
+                            <label class="form-label">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span>Adjuntar imagen o captura de pantalla</span>
+                                <span class="opcional">(Opcional)</span>
+                            </label>
+                            <div class="dropzone-box" id="dropzoneBox" onclick="document.getElementById('inputImg').click();" role="button" tabindex="0" aria-label="Adjuntar archivo de imagen">
                                 <input type="file" name="imagen" id="inputImg" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="cargarPreview(this)">
                                 
                                 <div class="dropzone-empty" id="dropzoneEmpty">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                        <polyline points="21 15 16 10 5 21"></polyline>
-                                    </svg>
-                                    <span class="dropzone-text">Haz clic o arrastra una imagen aquí</span>
-                                    <span class="dropzone-sub">PNG, JPG o WEBP (Máx. 5MB)</span>
+                                    <div class="dropzone-icon-circle">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </div>
+                                    <span class="dropzone-text">Haz clic o arrastra una captura de pantalla aquí</span>
+                                    <span class="dropzone-sub">Formatos admitidos: PNG, JPG o WEBP (Máx. 5MB)</span>
                                 </div>
 
                                 <div class="dropzone-has-file" id="dropzoneHasFile" style="display: none;">
-                                    <img id="previewImg" src="" alt="Vista previa">
+                                    <img id="previewImg" src="" alt="Vista previa de evidencia">
                                     <div class="file-details">
                                         <span id="fileName" class="file-name">captura.png</span>
-                                        <button type="button" class="btn-remove-img" onclick="event.stopPropagation(); borrarImagen();">Quitar imagen</button>
+                                        <span class="file-status-tag">Imagen adjuntada</span>
+                                        <button type="button" class="btn-remove-img" onclick="event.stopPropagation(); borrarImagen();">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                            <span>Quitar imagen</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -291,8 +350,12 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <!-- Botonera: Limpiar / Enviar -->
                         <div class="pqr-actions">
-                            <button type="button" class="btn btn-outline-secondary btn-pqr-cancel" onclick="limpiarFormulario()">Limpiar</button>
-                            <button type="submit" class="btn btn-primary btn-pqr-submit" id="btnSubmitPQR">
+                            <button type="button" class="btn-pqr-cancel" onclick="limpiarFormulario()">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                <span>Limpiar formulario</span>
+                            </button>
+                            <button type="submit" class="btn-pqr-submit" id="btnSubmitPQR">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                 <span>Radicar solicitud</span>
                             </button>
                         </div>
@@ -307,13 +370,60 @@ require_once __DIR__ . '/../includes/header.php';
 
 <!-- Toast flotante inferior derecho -->
 <div class="toast-bottom-right" id="toastPQR" role="status" aria-live="polite">
-    <div class="toast-box" style="background:#1B5E20; border-color:#2E7D32; max-width: 420px;">
-        <span class="toast-badge-check" style="background: rgba(255,255,255,0.2);">✓</span>
+    <div class="toast-box">
+        <span class="toast-badge-check">✓</span>
         <span class="toast-msg" id="toastPQRMsg">Solicitud radicada con éxito.</span>
     </div>
 </div>
 
 <script>
+function contarCaracteresAsunto(input) {
+    const counter = document.getElementById('asuntoCharCounter');
+    if (counter) {
+        const len = input.value.length;
+        counter.textContent = len + ' / 120';
+        if (len >= 110) {
+            counter.classList.add('near-limit');
+        } else {
+            counter.classList.remove('near-limit');
+        }
+    }
+}
+
+function actualizarPlaceholderAsunto(tipo) {
+    const asuntoInput = document.getElementById('asunto');
+    const hintEl = document.getElementById('asuntoDynamicHint');
+    if (!asuntoInput) return;
+
+    const guias = {
+        'Reporte de error técnico': {
+            placeholder: 'Ej: Error al subir certificado en mi perfil de egresado',
+            hint: 'Describe brevemente la falla o pantalla donde ocurre el inconveniente técnico.'
+        },
+        'Petición': {
+            placeholder: 'Ej: Solicitud de copia de acta de grado promoción 2020',
+            hint: 'Indica el trámite académico o documento que deseas solicitar al colegio.'
+        },
+        'Queja': {
+            placeholder: 'Ej: Demora en los tiempos de respuesta de mi trámite',
+            hint: 'Describe con claridad y respeto el motivo de tu inconformidad institucional.'
+        },
+        'Reclamo': {
+            placeholder: 'Ej: Inconsistencia en la fecha de graduación registrada',
+            hint: 'Detalla el servicio o información específica sobre la cual presentas tu reclamo.'
+        },
+        'Sugerencia': {
+            placeholder: 'Ej: Propuesta para habilitar foro de mentorías entre egresados',
+            hint: 'Comparte tu propuesta constructiva para mejorar la plataforma o los procesos.'
+        }
+    };
+
+    if (guias[tipo]) {
+        asuntoInput.placeholder = guias[tipo].placeholder;
+        if (hintEl) hintEl.textContent = guias[tipo].hint;
+    }
+}
+
 function cargarPreview(input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
@@ -338,6 +448,12 @@ function borrarImagen() {
 function limpiarFormulario() {
     document.getElementById('formPQR').reset();
     borrarImagen();
+    const counter = document.getElementById('asuntoCharCounter');
+    if (counter) counter.textContent = '0 / 120';
+    const hintEl = document.getElementById('asuntoDynamicHint');
+    if (hintEl) hintEl.textContent = 'Escribe un título breve y específico. Encabezará tu radicado ante el equipo institucional.';
+    const asuntoInput = document.getElementById('asunto');
+    if (asuntoInput) asuntoInput.placeholder = 'Ej: Consulta sobre certificado / Error en carga de imagen';
 }
 
 function enviarSolicitudPQR(e) {
@@ -347,11 +463,11 @@ function enviarSolicitudPQR(e) {
     const originalText = submitBtn.innerHTML;
 
     submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Radicando...';
+    submitBtn.innerHTML = '<span>Radicando solicitud...</span>';
 
     const formData = new FormData(form);
 
-    fetch('pqr.php', {
+    fetch('index.php?page=pqr', {
         method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -365,7 +481,7 @@ function enviarSolicitudPQR(e) {
         submitBtn.innerHTML = originalText;
 
         if (data.success) {
-            // Mostrar notificación exitosa
+            // Mostrar notificación toast
             const toast = document.getElementById('toastPQR');
             const toastMsg = document.getElementById('toastPQRMsg');
             if (toast && toastMsg) {
@@ -380,22 +496,24 @@ function enviarSolicitudPQR(e) {
             if (!successCard) {
                 successCard = document.createElement('div');
                 successCard.id = 'pqrSuccessCard';
-                successCard.style.cssText = 'background: #E8F5E9; border: 1px solid #A5D6A7; border-left: 5px solid #2E7D32; border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; color: #1B5E20; display: flex; align-items: flex-start; gap: 16px;';
+                successCard.className = 'pqr-alert-card pqr-success-card';
                 const formCard = document.querySelector('.pqr-card');
                 wrapper.insertBefore(successCard, formCard);
             }
 
             successCard.innerHTML = `
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <div>
-                    <strong style="font-size: 1.1rem; display: block; margin-bottom: 6px; color: #1B5E20;">¡Solicitud radicada con éxito!</strong>
-                    <p style="margin: 0 0 8px; font-size: 0.95rem; line-height: 1.5;">
-                        Tu número de radicado oficial es: <strong style="font-family: monospace; font-size: 1.05rem; background: #C8E6C9; padding: 2px 8px; border-radius: 4px;">${data.radicado}</strong>
+                <div class="pqr-alert-icon-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="pqr-alert-body">
+                    <strong class="pqr-alert-headline">¡Solicitud radicada con éxito!</strong>
+                    <p class="pqr-alert-meta">
+                        Número de radicado oficial: <strong class="pqr-radicado-badge">${data.radicado}</strong>
                     </p>
-                    <span style="font-size: 0.85rem; color: #388E3C;">Nuestro equipo institucional revisará tu solicitud y te enviará respuesta al correo registrado.</span>
+                    <span class="pqr-alert-subtext">Nuestro equipo institucional revisará tu solicitud y te enviará respuesta formal al correo registrado.</span>
                 </div>
             `;
 
@@ -445,9 +563,5 @@ function enviarSolicitudPQR(e) {
     }, false);
 })();
 </script>
-
-<?php if ($estaAutenticado): ?>
-<script src="assets/js/dashboard.js"></script>
-<?php endif; ?>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

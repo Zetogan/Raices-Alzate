@@ -57,13 +57,10 @@ if ($headerUid > 0) {
                     <a href="index.php" class="nav-link <?php echo ($currentPage === 'inicio') ? 'active' : ''; ?>">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php?page=proyectos" class="nav-link <?php echo ($currentPage === 'proyectos') ? 'active' : ''; ?>">Proyectos</a>
+                    <a href="index.php?page=blog" class="nav-link <?php echo in_array($currentPage, ['blog', 'proyectos', 'noticias', 'oportunidades'], true) ? 'active' : ''; ?>">Blog & Novedades</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php?page=egresados" class="nav-link <?php echo ($currentPage === 'egresados') ? 'active' : ''; ?>">Egresados</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.php?page=noticias" class="nav-link <?php echo ($currentPage === 'noticias') ? 'active' : ''; ?>">Noticias</a>
                 </li>
             </ul>
 

@@ -39,6 +39,7 @@ $userRole = trim($user['rol'] ?? $user['role'] ?? $_SESSION['rol'] ?? 'Egresado'
 $userInitial = !empty($userName) 
     ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') 
     : 'U';
+$isAdmin = ((int)($user['rol_id'] ?? 0) === 1 || strtolower($userRole) === 'administrador');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -312,8 +313,15 @@ $userInitial = !empty($userName)
                                         <a href="index.php?page=perfil" class="btn-card-action btn-card-own" title="Ir a mi perfil">
                                             <span>Mi perfil</span>
                                         </a>
+                                    <?php elseif ($isAdmin): ?>
+                                        <a href="index.php?page=mensajes&contacto=<?= (int)$item['id'] ?>" class="btn-card-action btn-card-message" title="Enviar mensaje directo">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                            </svg>
+                                            <span>Enviar mensaje</span>
+                                        </a>
                                     <?php elseif ($item['conexion_estado'] === 'conectado'): ?>
-                                        <a href="index.php?page=mensajes" class="btn-card-action btn-card-message" title="Enviar mensaje">
+                                        <a href="index.php?page=mensajes&contacto=<?= (int)$item['id'] ?>" class="btn-card-action btn-card-message" title="Enviar mensaje">
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                             </svg>

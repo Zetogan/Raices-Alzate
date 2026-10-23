@@ -25,7 +25,8 @@ $dashboardSections = [
     'oportunidades', 'mensajes', 'administracion', 'admin', 'pqr', 'pqrs',
     'crear-proyecto', 'editar-proyecto', 'detalle-proyecto',
     'crear-noticia', 'detalle-noticia',
-    'crear-oportunidad', 'detalle-oportunidad', 'detalle-egresado'
+    'crear-oportunidad', 'detalle-oportunidad', 'detalle-egresado',
+    'blog', 'novedades'
 ];
 
 $isDashboardView = (!empty($seccion_activa) && in_array($seccion_activa, $dashboardSections)) 

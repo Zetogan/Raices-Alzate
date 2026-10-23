@@ -61,6 +61,16 @@ if (!verifyCsrfToken($csrfToken)) {
     exit;
 }
 
+$isCurrentAdmin = ((int)($currentUser['rol_id'] ?? 0) === 1 || strtolower(trim($currentUser['rol_nombre'] ?? $currentUser['rol'] ?? '')) === 'administrador');
+if ($isCurrentAdmin) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'error'   => 'Los administradores no pueden enviar solicitudes de conexión. Pueden comunicarse directamente por mensaje.'
+    ]);
+    exit;
+}
+
 // 4. Obtención y validación de destinatario
 $targetId = (int)($_POST['target_id'] ?? $_POST['egresado_id'] ?? 0);
 if ($targetId <= 0 || $targetId === $currentUserId) {
@@ -74,7 +84,7 @@ if ($targetId <= 0 || $targetId === $currentUserId) {
 
 try {
     // Verificar que el usuario destino exista y esté activo
-    $stmtUser = $pdo->prepare("SELECT id, nombre_completo FROM usuarios WHERE id = :id AND activo = 1 LIMIT 1");
+    $stmtUser = $pdo->prepare("SELECT id, nombre_completo, rol_id FROM usuarios WHERE id = :id AND activo = 1 LIMIT 1");
     $stmtUser->execute([':id' => $targetId]);
     $targetUser = $stmtUser->fetch(PDO::FETCH_ASSOC);
 
@@ -83,6 +93,15 @@ try {
         echo json_encode([
             'success' => false,
             'error'   => 'El perfil del egresado no fue encontrado o está inactivo.'
+        ]);
+        exit;
+    }
+
+    if ((int)($targetUser['rol_id'] ?? 0) === 1) {
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'error'   => 'Los administradores institucionales no reciben solicitudes de conexión. Puedes escribirles directamente por mensaje.'
         ]);
         exit;
     }

@@ -27,6 +27,7 @@ $currentUserId = (int)($currentUser['id'] ?? 0);
 $userName    = trim($currentUser['nombre_completo'] ?? $currentUser['nombre'] ?? 'Usuario Alzatista');
 $userRole    = trim($currentUser['rol_nombre'] ?? $currentUser['rol'] ?? 'Egresado');
 $userInitial = !empty($userName) ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') : 'U';
+$isAdmin     = ((int)($currentUser['rol_id'] ?? 0) === 1 || strtolower($userRole) === 'administrador');
 
 // 2. ID del egresado a consultar
 $egresadoId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -76,7 +77,7 @@ if (!empty($pdo)) {
             FROM usuarios u
             JOIN roles r ON r.id = u.rol_id
             LEFT JOIN perfiles_egresados pe ON pe.usuario_id = u.id
-            WHERE u.id = :id AND u.activo = 1
+            WHERE u.id = :id AND u.activo = 1 AND u.rol_id != 1 AND r.nombre != 'administrador'
             LIMIT 1
         ");
         $stmtTarget->execute([':id' => $egresadoId]);
@@ -87,7 +88,7 @@ if (!empty($pdo)) {
             $stmtFallback = $pdo->query("
                 SELECT u.id FROM usuarios u 
                 JOIN roles r ON r.id = u.rol_id 
-                WHERE (r.nombre = 'egresado' OR r.nombre = 'estudiante') AND u.activo = 1 
+                WHERE (r.nombre = 'egresado' OR r.nombre = 'estudiante') AND u.rol_id != 1 AND r.nombre != 'administrador' AND u.activo = 1 
                 ORDER BY u.id ASC LIMIT 1
             ");
             $fallbackId = $stmtFallback->fetchColumn();
@@ -394,6 +395,14 @@ require_once __DIR__ . '/../includes/header.php';
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                 </svg>
                                 Editar mi perfil
+                            </a>
+                        <?php elseif ($isAdmin): ?>
+                            <!-- Los administradores institucionales se comunican exclusivamente por mensaje directo -->
+                            <a href="index.php?page=mensajes&contacto=<?= (int)$egresadoId ?>" class="btn-profile-primary" id="btnEnviarMensaje" style="text-decoration: none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Enviar mensaje
                             </a>
                         <?php elseif ($conexionEstado === 'conectado'): ?>
                             <a href="index.php?page=mensajes&contacto=<?= (int)$egresadoId ?>" class="btn-profile-primary" id="btnEnviarMensaje" style="text-decoration: none;">

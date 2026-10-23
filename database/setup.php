@@ -110,13 +110,6 @@ try {
         ]);
         $newAdminId = (int)$pdo->lastInsertId();
 
-        // Perfil base para el administrador
-        $stmtInsPerfil = $pdo->prepare("
-            INSERT IGNORE INTO perfiles_egresados (usuario_id, bio, ocupacion, perfil_publico, creado_en)
-            VALUES (:uid, 'Administración y Coordinación de la Comunidad de Egresados', 'Administrador Institucional', 0, NOW())
-        ");
-        $stmtInsPerfil->execute([':uid' => $newAdminId]);
-
         printMsg("¡Cuenta administrativa creada de forma segura!", 'success');
         printMsg("  * Correo: {$adminEmail}", 'info');
         printMsg("  * Contraseña inicial segura: {$adminPass}", 'warn');

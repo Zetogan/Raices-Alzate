@@ -22,6 +22,12 @@ if (!isAuthenticated()) {
     exit;
 }
 
+// Los administradores gestionan la plataforma desde el panel de administración
+if (function_exists('hasRole') && hasRole('administrador')) {
+    header('Location: index.php?page=administracion');
+    exit;
+}
+
 // 2. Extracción de datos del usuario autenticado
 $currentUser = currentUser();
 $userId      = (int)($currentUser['id'] ?? 0);

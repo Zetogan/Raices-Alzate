@@ -22,8 +22,8 @@ if (!function_exists('getDBConnection')) {
         }
 
         $portsToTry = [
-            defined('DB_PORT') ? (int)DB_PORT : 3310,
-            3306
+            defined('DB_PORT') ? (int)DB_PORT : 3306,
+            3310
         ];
         $portsToTry = array_values(array_unique($portsToTry));
 

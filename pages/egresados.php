@@ -128,7 +128,9 @@ if (!empty($pdo)) {
             FROM usuarios u
             JOIN roles r ON r.id = u.rol_id
             LEFT JOIN perfiles_egresados pe ON pe.usuario_id = u.id
-            WHERE (r.nombre = 'egresado' OR pe.id IS NOT NULL)
+            WHERE r.nombre = 'egresado'
+              AND u.rol_id != 1
+              AND r.nombre != 'administrador'
               AND u.activo = 1
               AND (pe.perfil_publico = 1 OR pe.perfil_publico IS NULL)
             ORDER BY 
