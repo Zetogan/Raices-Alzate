@@ -585,3 +585,104 @@ function generarHtmlCorreo(string $nombre, bool $isAprobado): string {
         'color_acento'  => $isAprobado ? '#1565C0' : '#D32F2F'
     ]);
 }
+
+/**
+ * Envía una notificación oficial por correo electrónico al ciudadano sobre la respuesta
+ * a su solicitud PQRS o reporte técnico, con la presentación institucional de Raíces Alzate.
+ *
+ * @param string $email Correo electrónico del solicitante
+ * @param string $nombre Nombre del solicitante
+ * @param string $radicado Código de radicado (e.g., RA-2026-7545)
+ * @param string $asunto Asunto original de la PQRS
+ * @param string $respuesta Texto de la respuesta oficial emitida por el administrador
+ * @param string $tipo Tipo de caso (Petición, Queja, Reclamo, Sugerencia, Reporte de error técnico)
+ * @param string $atendidoPor Nombre del administrador o dependencia que emite la respuesta
+ * @return bool True si el correo se despachó con éxito, false en caso contrario
+ */
+function enviarNotificacionRespuestaPQRS(
+    string $email,
+    string $nombre,
+    string $radicado,
+    string $asunto,
+    string $respuesta,
+    string $tipo = 'PQRS',
+    string $atendidoPor = 'Administración Institucional'
+): bool {
+    $emailDestino = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
+    if (!filter_var($emailDestino, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    $nombreLimpio = trim($nombre) ?: 'Ciudadano(a)';
+    $radicadoLimpio = trim($radicado);
+    $asuntoLimpio = htmlspecialchars(trim($asunto), ENT_QUOTES, 'UTF-8');
+    $tipoLimpio = htmlspecialchars(trim($tipo), ENT_QUOTES, 'UTF-8');
+    $respuestaLimpia = nl2br(htmlspecialchars(trim($respuesta), ENT_QUOTES, 'UTF-8'));
+    $atendidoPorLimpio = htmlspecialchars(trim($atendidoPor), ENT_QUOTES, 'UTF-8');
+
+    $asuntoEmail = "Respuesta a tu solicitud PQRS [{$radicadoLimpio}] — Raíces Alzate";
+
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $basePath = defined('BASE_URL') ? BASE_URL : '/Raices-Alzate';
+    $portalUrl = (strpos($basePath, 'http') === 0 ? $basePath : $scheme . '://' . $host . rtrim($basePath, '/')) . '/index.php?page=pqr';
+
+    try {
+        $mail = getMailerInstance(false);
+        $mail->addAddress($emailDestino, $nombreLimpio);
+        $mail->Subject = $asuntoEmail;
+
+        $logoHtml = adjuntarLogoInstitucional($mail);
+
+        $contenidoHtml = '
+            <p style="margin: 0 0 16px;">
+                Te informamos que tu solicitud clasificada como <strong>' . $tipoLimpio . '</strong> con número de radicado institucional <strong style="font-family: monospace; background: #E2E8F0; padding: 2px 6px; border-radius: 4px;">' . htmlspecialchars($radicadoLimpio, ENT_QUOTES, 'UTF-8') . '</strong> y asunto <em>"' . $asuntoLimpio . '"</em> ha sido atendida y resuelta por la administración de la <strong>Institución Educativa Gilberto Alzate Avendaño</strong>.
+            </p>
+            <div style="background-color: #F8FAFC; border-left: 4px solid #1565C0; border-radius: 6px; padding: 18px 20px; margin: 20px 0;">
+                <span style="display: block; font-size: 12px; font-weight: 700; color: #1565C0; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                    Respuesta Oficial Institucional:
+                </span>
+                <div style="font-size: 15px; color: #1E293B; line-height: 1.65;">
+                    ' . $respuestaLimpia . '
+                </div>
+                <div style="margin-top: 12px; font-size: 12px; color: #64748B; border-top: 1px dashed #CBD5E1; padding-top: 8px;">
+                    Atendido por: <strong>' . $atendidoPorLimpio . '</strong> • ' . date('d/m/Y H:i') . '
+                </div>
+            </div>
+            <p style="margin: 0 0 16px; font-size: 14px; color: #475569;">
+                Agradecemos tu comunicación. Tu participación es fundamental para el mejoramiento continuo de los servicios de nuestra institución educativa y la plataforma comunitaria Raíces Alzate.
+            </p>
+        ';
+
+        $cuerpoHtml = renderPlantillaInstitucional([
+            'logo_html'     => $logoHtml,
+            'preheader'     => 'Respuesta oficial a tu solicitud con radicado ' . $radicadoLimpio,
+            'badge_texto'   => '📋 Atención al Ciudadano • ' . $radicadoLimpio,
+            'titulo_cuerpo' => 'Respuesta a tu Solicitud Institucional',
+            'nombre'        => $nombreLimpio,
+            'contenido_html'=> $contenidoHtml,
+            'boton_texto'   => 'Ver Portal de Atención y PQRS',
+            'boton_url'     => $portalUrl,
+            'color_acento'  => '#1565C0'
+        ]);
+
+        $altBody = "Hola, {$nombreLimpio}:\n\n"
+                 . "Te informamos que tu solicitud con radicado institucional {$radicadoLimpio} ({$tipoLimpio}) ha sido atendida.\n\n"
+                 . "Asunto: " . trim($asunto) . "\n\n"
+                 . "Respuesta Oficial:\n"
+                 . trim($respuesta) . "\n\n"
+                 . "Atendido por: {$atendidoPor} (" . date('d/m/Y H:i') . ")\n\n"
+                 . "IE Gilberto Alzate Avendaño • Plataforma Raíces Alzate";
+
+        $mail->isHTML(true);
+        $mail->Body    = $cuerpoHtml;
+        $mail->AltBody = $altBody;
+
+        return $mail->send();
+
+    } catch (\Throwable $e) {
+        error_log('Error enviando notificación PQRS vía PHPMailer: ' . $e->getMessage());
+        return false;
+    }
+}
+

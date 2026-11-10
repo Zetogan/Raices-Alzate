@@ -370,7 +370,6 @@ INSERT IGNORE INTO `habilidades` (`nombre`) VALUES
 INSERT IGNORE INTO `usuarios` (`id`, `rol_id`, `nombre_completo`, `email`, `password_hash`, `estado_verificacion`, `activo`, `creado_en`) VALUES
     (1, 1, 'Administrador General', 'admin@alzate.edu.co', '$2y$10$YAOhz37LpaOUqrEhcBODJujoHKkNMqRCQ3/4.hvdxVEdvAOBsQXOO', 'aprobado', 1, NOW());
 
-INSERT IGNORE INTO `perfiles_egresados` (`usuario_id`, `bio`, `ocupacion`, `perfil_publico`, `creado_en`) VALUES
-    (1, 'Administración y Coordinación de la Comunidad de Egresados', 'Administrador Institucional', 0, NOW());
+
 
 

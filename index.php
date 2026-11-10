@@ -50,11 +50,18 @@ $routes = [
     'crear-oportunidad'    => 'crear-oportunidad.php',
     'detalle-oportunidad'  => 'detalle-oportunidad.php',
     'mensajes'             => 'mensajes.php',
+    'blog'                 => 'blog.php',
+    'novedades'            => 'blog.php',
     'pqr'                  => 'pqr.php',
     'pqrs'                 => 'pqr.php',
     'soporte'              => 'pqr.php',
     'administracion'       => 'administracion.php',
     'admin'                => 'administracion.php',
+    'admin-dashboard'      => 'administracion.php',
+    'admin-usuarios'       => 'administracion.php',
+    'admin-registros'      => 'administracion.php',
+    'admin-contenidos'     => 'administracion.php',
+    'admin-pqrs'           => 'administracion.php',
     'logout'               => 'logout.php',
 ];
 

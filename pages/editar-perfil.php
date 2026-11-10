@@ -23,6 +23,11 @@ if (!isAuthenticated()) {
     exit;
 }
 
+if (function_exists('hasRole') && hasRole('administrador')) {
+    header('Location: index.php?page=administracion');
+    exit;
+}
+
 $currentUser = currentUser();
 $userId      = (int)($currentUser['id'] ?? 0);
 

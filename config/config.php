@@ -8,8 +8,8 @@
 date_default_timezone_set('America/Bogota');
 
 // Parámetros de conexión a base de datos MySQL / MariaDB
-if (!defined('DB_HOST')) define('DB_HOST', '127.0.0.1');
-if (!defined('DB_PORT')) define('DB_PORT', 3310);
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_PORT')) define('DB_PORT', 3306);
 if (!defined('DB_NAME')) define('DB_NAME', 'raices_alzate');
 if (!defined('DB_USER')) define('DB_USER', 'root');
 if (!defined('DB_PASS')) define('DB_PASS', '');

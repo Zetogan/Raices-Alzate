@@ -22,6 +22,11 @@ if (!isAuthenticated()) {
     exit;
 }
 
+if (function_exists('hasRole') && hasRole('administrador')) {
+    header('Location: index.php?page=administracion');
+    exit;
+}
+
 $currentUser = currentUser();
 $userId      = (int)($currentUser['id'] ?? 0);
 
@@ -1113,7 +1118,7 @@ require_once __DIR__ . '/../includes/header.php';
                         const fd = new FormData();
                         fd.append('action', 'toggle_visibilidad');
                         fd.append('perfil_publico', activo ? '1' : '0');
-                        await fetch('perfil.php', {
+                        await fetch('index.php?page=perfil', {
                             method: 'POST',
                             body: fd
                         });

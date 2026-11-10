@@ -1,0 +1,608 @@
+/**
+ * Raíces Alzate - Plataforma de Egresados
+ * Institución Educativa Gilberto Alzate Avendaño
+ * Hoja de Estilos: Blog y Novedades (Diseño Minimalista Institucional)
+ * Paleta Oficial: #D32F2F (Rojo Alzate), #1565C0 (Azul Alzate), #212121, #757575, #E0E0E0, #F5F5F5, #FFFFFF
+ */
+
+/* ==========================================================================
+   1. ESTRUCTURA Y ENTORNO MINIMALISTA
+   ========================================================================== */
+.blog-content-wrapper {
+    position: static !important;
+    padding: 24px 32px 48px 32px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex: 1 0 auto;
+}
+
+.blog-public-container {
+    max-width: 1280px;
+    margin: 32px auto 60px auto;
+    padding: 0 24px;
+}
+
+/* ==========================================================================
+   2. ENCABEZADO DE SECCIÓN (MINIMALISTA)
+   ========================================================================== */
+.blog-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-header-titles {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.blog-main-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #212121;
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.blog-main-subtitle {
+    font-size: 15px;
+    color: #757575;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 800px;
+}
+
+/* ==========================================================================
+   3. BOTÓN DE PUBLICAR Y MENÚ DESPLEGABLE
+   ========================================================================== */
+.blog-create-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-blog-action-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #D32F2F;
+    color: #FFFFFF;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-blog-action-primary:hover {
+    background-color: #B71C1C;
+    color: #FFFFFF;
+}
+
+.chevron-icon {
+    transition: transform 0.2s ease;
+}
+
+.blog-create-wrapper.is-open .chevron-icon {
+    transform: rotate(180deg);
+}
+
+.blog-create-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 290px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 8px;
+    z-index: 1050;
+    display: none;
+}
+
+.blog-create-dropdown.is-active {
+    display: block;
+}
+
+.blog-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    color: #212121;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.blog-dropdown-item:hover {
+    background-color: #F5F5F5;
+}
+
+.dropdown-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.dropdown-item-text strong {
+    display: block;
+    font-size: 0.88rem;
+    color: #212121;
+    font-weight: 600;
+}
+
+.dropdown-item-text small {
+    display: block;
+    font-size: 0.76rem;
+    color: #757575;
+}
+
+/* ==========================================================================
+   4. TARJETA CONTENEDORA PRINCIPAL (MINIMALISTA BLANCA)
+   ========================================================================== */
+.blog-card-container {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   5. FILTROS Y PESTAÑAS (TABS)
+   ========================================================================== */
+.blog-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.blog-tabs-list {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.blog-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    color: #757575;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.blog-tab-btn:hover {
+    background: #F5F5F5;
+    color: #212121;
+}
+
+.blog-tab-btn.is-active {
+    background: #D32F2F;
+    color: #FFFFFF;
+}
+
+.blog-tab-badge {
+    background: rgba(0, 0, 0, 0.08);
+    color: inherit;
+    font-size: 0.75rem;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.blog-tab-btn.is-active .blog-tab-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+}
+
+.blog-filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.blog-search-wrap {
+    position: relative;
+    width: 240px;
+}
+
+.blog-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    pointer-events: none;
+}
+
+.blog-search-field {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #212121;
+    background: #FAFAFA;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.blog-search-field:focus {
+    border-color: #1565C0;
+    background: #FFFFFF;
+}
+
+.blog-search-clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #757575;
+    cursor: pointer;
+    padding: 2px;
+    display: none;
+    font-size: 14px;
+}
+
+.blog-select-simple {
+    padding: 8px 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #424242;
+    background: #FAFAFA;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.blog-select-simple:focus {
+    border-color: #1565C0;
+    background: #FFFFFF;
+}
+
+/* ==========================================================================
+   6. GRILLA DE PUBLICACIONES DEL BLOG (MINIMALISTA)
+   ========================================================================== */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 1100px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.blog-card {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-2px);
+    border-color: #BDBDBD;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #F5F5F5;
+    overflow: hidden;
+}
+
+.blog-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.blog-card:hover .blog-card-media img {
+    transform: none;
+}
+
+.blog-badge-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.badge-noticia {
+    background: #E3F2FD;
+    color: #1565C0;
+    border: 1px solid #BBDEFB;
+}
+
+.badge-proyecto {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
+}
+
+.badge-oportunidad {
+    background: #FFF3E0;
+    color: #E65100;
+    border: 1px solid #FFE0B2;
+}
+
+.blog-card-content {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #757575;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.blog-card-meta .category-text {
+    color: #1565C0;
+    font-weight: 600;
+}
+
+.blog-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 8px 0;
+    line-height: 1.35;
+}
+
+.blog-card:hover .blog-card-title {
+    color: #212121;
+    text-decoration: none;
+}
+
+.blog-card-excerpt {
+    font-size: 0.85rem;
+    color: #616161;
+    line-height: 1.5;
+    margin: 0 0 14px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+}
+
+.blog-card-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.blog-chip {
+    font-size: 0.72rem;
+    background: #F5F5F5;
+    color: #616161;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.blog-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #EEEEEE;
+    font-size: 0.8rem;
+    margin-top: auto;
+}
+
+.blog-author-label {
+    color: #757575;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+.blog-link-label {
+    color: #1565C0;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.blog-card:hover .blog-link-label {
+    color: #1565C0;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   7. ESTADO VACÍO (SIN COINCIDENCIAS)
+   ========================================================================== */
+.blog-empty-state {
+    grid-column: 1 / -1;
+    padding: 60px 20px;
+    text-align: center;
+    background: #FAFAFA;
+    border-radius: 12px;
+    border: 1px dashed #E0E0E0;
+}
+
+.blog-empty-icon {
+    color: #9E9E9E;
+    margin-bottom: 12px;
+}
+
+.blog-empty-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #212121;
+    margin: 0 0 6px 0;
+}
+
+.blog-empty-text {
+    font-size: 0.9rem;
+    color: #757575;
+    margin: 0 0 16px 0;
+}
+
+.btn-blog-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #212121;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn-blog-reset:hover {
+    background: #EEEEEE;
+}
+
+/* ==========================================================================
+   8. ADAPTACIONES RESPONSIVAS (MÓVILES Y PANTALLAS PEQUEÑAS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .blog-content-wrapper {
+        padding: 20px 16px;
+    }
+
+    .blog-card-container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .blog-section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .blog-create-wrapper {
+        width: 100%;
+    }
+
+    .btn-blog-action-primary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .blog-create-dropdown {
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .blog-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .blog-tabs-list {
+        width: 100%;
+        padding-bottom: 8px;
+    }
+
+    .blog-filter-controls {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .blog-search-wrap {
+        width: 100%;
+    }
+
+    .blog-select-simple {
+        width: 100%;
+    }
+}

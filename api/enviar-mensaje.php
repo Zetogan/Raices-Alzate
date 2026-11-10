@@ -92,29 +92,45 @@ if (mb_strlen($mensajeTexto, 'UTF-8') > 3000) {
 }
 
 try {
-    // 5. Validar que exista conexión MUTUA ACEPTADA entre ambos usuarios
-    $stmtCon = $pdo->prepare("
-        SELECT id FROM conexiones 
-        WHERE ((solicitante_id = :u1 AND receptor_id = :d1) 
-            OR (solicitante_id = :d2 AND receptor_id = :u2))
-          AND estado = 'aceptada'
-        LIMIT 1
-    ");
-    $stmtCon->execute([
-        ':u1' => $currentUserId,
-        ':d1' => $destinatarioId,
-        ':d2' => $destinatarioId,
-        ':u2' => $currentUserId
-    ]);
-    $conexionAceptada = $stmtCon->fetch(PDO::FETCH_ASSOC);
+    // 5. Validar conexión mutua aceptada o canal directo administrativo
+    $stmtDestRol = $pdo->prepare("SELECT rol_id FROM usuarios WHERE id = ? LIMIT 1");
+    $stmtDestRol->execute([$destinatarioId]);
+    $destRolId = (int)$stmtDestRol->fetchColumn();
 
-    if (!$conexionAceptada) {
-        http_response_code(403);
-        echo json_encode([
-            'success' => false,
-            'error'   => 'Solo puedes enviar mensajes a egresados con los que tengas una conexión mutua aceptada.'
+    $isAdminInvolved = ((int)($currentUser['rol_id'] ?? 0) === 1 || $destRolId === 1);
+
+    if ($isAdminInvolved) {
+        // Los administradores institucionales no usan solicitudes de conexión; operan con mensaje directo
+        $stmtAutoConn = $pdo->prepare("
+            INSERT INTO conexiones (solicitante_id, receptor_id, estado, creado_en, actualizado_en)
+            VALUES (:u1, :u2, 'aceptada', NOW(), NOW())
+            ON DUPLICATE KEY UPDATE estado = 'aceptada', actualizado_en = NOW()
+        ");
+        $stmtAutoConn->execute([':u1' => $currentUserId, ':u2' => $destinatarioId]);
+    } else {
+        $stmtCon = $pdo->prepare("
+            SELECT id FROM conexiones 
+            WHERE ((solicitante_id = :u1 AND receptor_id = :d1) 
+                OR (solicitante_id = :d2 AND receptor_id = :u2))
+              AND estado = 'aceptada'
+            LIMIT 1
+        ");
+        $stmtCon->execute([
+            ':u1' => $currentUserId,
+            ':d1' => $destinatarioId,
+            ':d2' => $destinatarioId,
+            ':u2' => $currentUserId
         ]);
-        exit;
+        $conexionAceptada = $stmtCon->fetch(PDO::FETCH_ASSOC);
+
+        if (!$conexionAceptada) {
+            http_response_code(403);
+            echo json_encode([
+                'success' => false,
+                'error'   => 'Solo puedes enviar mensajes a egresados con los que tengas una conexión mutua aceptada.'
+            ]);
+            exit;
+        }
     }
 
     // 6. Insertar mensaje en la base de datos

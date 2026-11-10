@@ -49,6 +49,7 @@ $topbarTitle = $titulo_seccion;
 $userName    = trim($currentUser['nombre_completo'] ?? $currentUser['nombre'] ?? 'Usuario Alzatista');
 $userRole    = trim($currentUser['rol_nombre'] ?? $currentUser['rol'] ?? 'Egresado');
 $userInitial = !empty($userName) ? mb_strtoupper(mb_substr($userName, 0, 1, 'UTF-8'), 'UTF-8') : 'U';
+$isAdmin     = ((int)($currentUser['rol_id'] ?? 0) === 1 || strtolower($userRole) === 'administrador');
 
 // Hojas de estilo y scripts modulares para includes globales
 $extraCss = ['dashboard.css', 'mensajes.css'];
@@ -72,130 +73,153 @@ if (!empty($pdo) && $currentUserId > 0) {
 }
 
 if (!empty($pdo)) {
-    // 3.1. Cargar Solicitudes de Conexión Entrantes (Receptor = Usuario en sesión)
-    try {
-        $stmtSol = $pdo->prepare("
-            SELECT 
-                c.id AS conexion_id,
-                c.solicitante_id,
-                c.creado_en AS fecha_solicitud,
-                u.id AS usuario_id,
-                u.nombre_completo,
-                pe.anio_graduacion,
-                pe.titulo_institucional,
-                pe.area_especialidad,
-                pe.ocupacion,
-                pe.empresa,
-                pe.ciudad,
-                pe.foto_perfil
-            FROM conexiones c
-            JOIN usuarios u ON u.id = c.solicitante_id
-            LEFT JOIN perfiles_egresados pe ON pe.usuario_id = u.id
-            WHERE c.receptor_id = :cur AND c.estado = 'pendiente' AND u.activo = 1
-            ORDER BY c.creado_en DESC
-        ");
-        $stmtSol->execute([':cur' => $currentUserId]);
-        $solRows = $stmtSol->fetchAll(PDO::FETCH_ASSOC);
-
-        $coloresAvatar = ['avatar-teal', 'avatar-purple', 'avatar-blue', 'avatar-amber', 'avatar-green', 'avatar-red'];
-
-        foreach ($solRows as $s) {
-            $solNombre = trim($s['nombre_completo'] ?? 'Egresado Alzatista');
-            $solInicial = !empty($solNombre) ? mb_strtoupper(mb_substr($solNombre, 0, 1, 'UTF-8'), 'UTF-8') : 'E';
-            $solPromo = !empty($s['anio_graduacion']) ? (string)$s['anio_graduacion'] : 'Alzatista';
-            $solEnfasis = !empty($s['area_especialidad']) ? $s['area_especialidad'] : (!empty($s['titulo_institucional']) ? $s['titulo_institucional'] : 'Bachillerato Académico');
-            $cargoParts = array_filter([$s['ocupacion'] ?? '', !empty($s['empresa']) ? 'en ' . $s['empresa'] : '']);
-            $solCargo = !empty($cargoParts) ? implode(' ', $cargoParts) : 'Egresado Alzatista';
-            $solUbicacion = !empty($s['ciudad']) ? $s['ciudad'] . ', Colombia' : 'Medellín, Colombia';
-            $solColor = $coloresAvatar[$s['solicitante_id'] % count($coloresAvatar)];
-
-            $solFotoUrl = '';
-            if (!empty($s['foto_perfil'])) {
-                $cleanPath = ltrim($s['foto_perfil'], '/');
-                if (file_exists(__DIR__ . '/' . $cleanPath)) {
-                    $solFotoUrl = $cleanPath;
-                }
-            }
-
-            // Formatear tiempo relativo
-            $segundos = time() - strtotime($s['fecha_solicitud']);
-            if ($segundos < 3600) {
-                $solFecha = 'Hace ' . max(1, (int)($segundos / 60)) . ' min';
-            } elseif ($segundos < 86400) {
-                $solFecha = 'Hace ' . (int)($segundos / 3600) . ' horas';
-            } elseif ($segundos < 172800) {
-                $solFecha = 'Ayer';
-            } else {
-                $solFecha = 'Hace ' . (int)($segundos / 86400) . ' días';
-            }
-
-            // Conexiones en común (conteo real de conexiones aceptadas que comparten)
-            $stmtMutual = $pdo->prepare("
-                SELECT COUNT(*) FROM (
-                    SELECT CASE WHEN solicitante_id = :u1 THEN receptor_id ELSE solicitante_id END AS u_comun
-                    FROM conexiones WHERE (solicitante_id = :u2 OR receptor_id = :u3) AND estado = 'aceptada'
-                ) AS a
-                JOIN (
-                    SELECT CASE WHEN solicitante_id = :s1 THEN receptor_id ELSE solicitante_id END AS u_comun
-                    FROM conexiones WHERE (solicitante_id = :s2 OR receptor_id = :s3) AND estado = 'aceptada'
-                ) AS b ON a.u_comun = b.u_comun
+    // 3.1. Cargar Solicitudes de Conexión Entrantes (Solo para egresados, los administradores no reciben solicitudes de amistad)
+    if (!$isAdmin) {
+        try {
+            $stmtSol = $pdo->prepare("
+                SELECT 
+                    c.id AS conexion_id,
+                    c.solicitante_id,
+                    c.creado_en AS fecha_solicitud,
+                    u.id AS usuario_id,
+                    u.nombre_completo,
+                    pe.anio_graduacion,
+                    pe.titulo_institucional,
+                    pe.area_especialidad,
+                    pe.ocupacion,
+                    pe.empresa,
+                    pe.ciudad,
+                    pe.foto_perfil
+                FROM conexiones c
+                JOIN usuarios u ON u.id = c.solicitante_id
+                LEFT JOIN perfiles_egresados pe ON pe.usuario_id = u.id
+                WHERE c.receptor_id = :cur AND c.estado = 'pendiente' AND u.activo = 1
+                ORDER BY c.creado_en DESC
             ");
-            $stmtMutual->execute([
-                ':u1' => $currentUserId,
-                ':u2' => $currentUserId,
-                ':u3' => $currentUserId,
-                ':s1' => (int)$s['solicitante_id'],
-                ':s2' => (int)$s['solicitante_id'],
-                ':s3' => (int)$s['solicitante_id']
-            ]);
-            $conexionesComun = (int)$stmtMutual->fetchColumn();
+            $stmtSol->execute([':cur' => $currentUserId]);
+            $solRows = $stmtSol->fetchAll(PDO::FETCH_ASSOC);
 
-            $solicitudesConexion[] = [
-                'id'          => (int)$s['solicitante_id'],
-                'nombre'      => $solNombre,
-                'promocion'   => $solPromo,
-                'enfasis'     => $solEnfasis,
-                'cargo'       => $solCargo,
-                'ubicacion'   => $solUbicacion,
-                'conexiones'  => $conexionesComun,
-                'fecha'       => $solFecha,
-                'color'       => $solColor,
-                'inicial'     => $solInicial,
-                'foto_url'    => $solFotoUrl
-            ];
+            $coloresAvatar = ['avatar-teal', 'avatar-purple', 'avatar-blue', 'avatar-amber', 'avatar-green', 'avatar-red'];
+
+            foreach ($solRows as $s) {
+                $solNombre = trim($s['nombre_completo'] ?? 'Egresado Alzatista');
+                $solInicial = !empty($solNombre) ? mb_strtoupper(mb_substr($solNombre, 0, 1, 'UTF-8'), 'UTF-8') : 'E';
+                $solPromo = !empty($s['anio_graduacion']) ? (string)$s['anio_graduacion'] : 'Alzatista';
+                $solEnfasis = !empty($s['area_especialidad']) ? $s['area_especialidad'] : (!empty($s['titulo_institucional']) ? $s['titulo_institucional'] : 'Bachillerato Académico');
+                $cargoParts = array_filter([$s['ocupacion'] ?? '', !empty($s['empresa']) ? 'en ' . $s['empresa'] : '']);
+                $solCargo = !empty($cargoParts) ? implode(' ', $cargoParts) : 'Egresado Alzatista';
+                $solUbicacion = !empty($s['ciudad']) ? $s['ciudad'] . ', Colombia' : 'Medellín, Colombia';
+                $solColor = $coloresAvatar[$s['solicitante_id'] % count($coloresAvatar)];
+
+                $solFotoUrl = '';
+                if (!empty($s['foto_perfil'])) {
+                    $cleanPath = ltrim($s['foto_perfil'], '/');
+                    if (file_exists(__DIR__ . '/' . $cleanPath)) {
+                        $solFotoUrl = $cleanPath;
+                    }
+                }
+
+                // Formatear tiempo relativo
+                $segundos = time() - strtotime($s['fecha_solicitud']);
+                if ($segundos < 3600) {
+                    $solFecha = 'Hace ' . max(1, (int)($segundos / 60)) . ' min';
+                } elseif ($segundos < 86400) {
+                    $solFecha = 'Hace ' . (int)($segundos / 3600) . ' horas';
+                } elseif ($segundos < 172800) {
+                    $solFecha = 'Ayer';
+                } else {
+                    $solFecha = 'Hace ' . (int)($segundos / 86400) . ' días';
+                }
+
+                // Conexiones en común (conteo real de conexiones aceptadas que comparten)
+                $stmtMutual = $pdo->prepare("
+                    SELECT COUNT(*) FROM (
+                        SELECT CASE WHEN solicitante_id = :u1 THEN receptor_id ELSE solicitante_id END AS u_comun
+                        FROM conexiones WHERE (solicitante_id = :u2 OR receptor_id = :u3) AND estado = 'aceptada'
+                    ) AS a
+                    JOIN (
+                        SELECT CASE WHEN solicitante_id = :s1 THEN receptor_id ELSE solicitante_id END AS u_comun
+                        FROM conexiones WHERE (solicitante_id = :s2 OR receptor_id = :s3) AND estado = 'aceptada'
+                    ) AS b ON a.u_comun = b.u_comun
+                ");
+                $stmtMutual->execute([
+                    ':u1' => $currentUserId,
+                    ':u2' => $currentUserId,
+                    ':u3' => $currentUserId,
+                    ':s1' => (int)$s['solicitante_id'],
+                    ':s2' => (int)$s['solicitante_id'],
+                    ':s3' => (int)$s['solicitante_id']
+                ]);
+                $conexionesComun = (int)$stmtMutual->fetchColumn();
+
+                $solicitudesConexion[] = [
+                    'id'          => (int)$s['solicitante_id'],
+                    'nombre'      => $solNombre,
+                    'promocion'   => $solPromo,
+                    'enfasis'     => $solEnfasis,
+                    'cargo'       => $solCargo,
+                    'ubicacion'   => $solUbicacion,
+                    'conexiones'  => $conexionesComun,
+                    'fecha'       => $solFecha,
+                    'color'       => $solColor,
+                    'inicial'     => $solInicial,
+                    'foto_url'    => $solFotoUrl
+                ];
+            }
+        } catch (PDOException $e) {
+            error_log('Error cargando solicitudes en mensajes.php: ' . $e->getMessage());
+            $solicitudesConexion = [];
         }
-    } catch (PDOException $e) {
-        error_log('Error cargando solicitudes en mensajes.php: ' . $e->getMessage());
-        $solicitudesConexion = [];
     }
 
     // 3.2. Cargar Contactos Conectados Mutuamente y sus Mensajes Reales
+    $paramContactoId = isset($_GET['contacto']) ? (int)$_GET['contacto'] : (isset($_GET['id']) ? (int)$_GET['id'] : 0);
+    if ($paramContactoId > 0 && $paramContactoId !== $currentUserId) {
+        try {
+            $stmtCheckTarget = $pdo->prepare("SELECT id FROM usuarios WHERE id = :target_id AND activo = 1 LIMIT 1");
+            $stmtCheckTarget->execute([':target_id' => $paramContactoId]);
+            if ($stmtCheckTarget->fetch()) {
+                $stmtEnsure = $pdo->prepare("
+                    INSERT INTO conexiones (solicitante_id, receptor_id, estado, creado_en, actualizado_en)
+                    VALUES (:u1, :u2, 'aceptada', NOW(), NOW())
+                    ON DUPLICATE KEY UPDATE estado = 'aceptada', actualizado_en = NOW()
+                ");
+                $stmtEnsure->execute([':u1' => $currentUserId, ':u2' => $paramContactoId]);
+            }
+        } catch (Throwable $eConn) {
+            // Silencioso
+        }
+    }
+
     try {
         $stmtConectados = $pdo->prepare("
-            SELECT 
-                CASE WHEN c.solicitante_id = :u1 THEN c.receptor_id ELSE c.solicitante_id END AS contacto_id,
-                c.actualizado_en AS fecha_conexion,
-                u.id,
-                u.nombre_completo,
-                u.email,
-                u.ultimo_acceso,
+            SELECT DISTINCT
+                target_u.id AS contacto_id,
+                MAX(COALESCE(m.creado_en, c.actualizado_en, target_u.creado_en)) AS fecha_conexion,
+                target_u.id,
+                target_u.nombre_completo,
+                target_u.email,
+                target_u.ultimo_acceso,
                 pe.anio_graduacion,
                 pe.ocupacion,
                 pe.empresa,
                 pe.foto_perfil
-            FROM conexiones c
-            JOIN usuarios u ON u.id = (CASE WHEN c.solicitante_id = :u2 THEN c.receptor_id ELSE c.solicitante_id END)
-            LEFT JOIN perfiles_egresados pe ON pe.usuario_id = u.id
-            WHERE (c.solicitante_id = :u3 OR c.receptor_id = :u4)
-              AND c.estado = 'aceptada'
-              AND u.activo = 1
-            ORDER BY c.actualizado_en DESC
+            FROM usuarios target_u
+            LEFT JOIN conexiones c ON ((c.solicitante_id = :u1 AND c.receptor_id = target_u.id) OR (c.receptor_id = :u2 AND c.solicitante_id = target_u.id)) AND c.estado = 'aceptada'
+            LEFT JOIN mensajes m ON ((m.remitente_id = :u3 AND m.destinatario_id = target_u.id) OR (m.destinatario_id = :u4 AND m.remitente_id = target_u.id))
+            LEFT JOIN perfiles_egresados pe ON pe.usuario_id = target_u.id
+            WHERE target_u.id != :u5
+              AND target_u.activo = 1
+              AND (c.id IS NOT NULL OR m.id IS NOT NULL)
+            GROUP BY target_u.id, target_u.nombre_completo, target_u.email, target_u.ultimo_acceso, pe.anio_graduacion, pe.ocupacion, pe.empresa, pe.foto_perfil
+            ORDER BY fecha_conexion DESC
         ");
         $stmtConectados->execute([
             ':u1' => $currentUserId,
             ':u2' => $currentUserId,
             ':u3' => $currentUserId,
-            ':u4' => $currentUserId
+            ':u4' => $currentUserId,
+            ':u5' => $currentUserId
         ]);
         $contactosRows = $stmtConectados->fetchAll(PDO::FETCH_ASSOC);
 
@@ -352,10 +376,10 @@ require_once __DIR__ . '/../includes/header.php';
             <!-- Encabezado de la pantalla -->
             <header class="section-header mensajes-header-block">
                 <h1 class="section-title mensajes-header-title">
-                    Mensajes y Conexiones
+                    <?= $isAdmin ? 'Centro de Mensajes' : 'Mensajes y Conexiones' ?>
                 </h1>
                 <p class="section-subtitle mensajes-header-subtitle">
-                    Gestiona tus solicitudes de contacto y conversa en tiempo real con los egresados con los que ya has conectado.
+                    <?= $isAdmin ? 'Canal institucional de mensajería directa con la comunidad de egresados alzatistas.' : 'Gestiona tus solicitudes de contacto y conversa en tiempo real con los egresados con los que ya has conectado.' ?>
                 </p>
             </header>
 
@@ -365,12 +389,13 @@ require_once __DIR__ . '/../includes/header.php';
                     <svg class="mensajes-tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    <span>Conectados</span>
+                    <span><?= $isAdmin ? 'Mensajes' : 'Conectados' ?></span>
                     <?php if ($totalNoLeidos > 0): ?>
                     <span class="mensajes-tab-badge" id="badgeTotalUnread"><?= $totalNoLeidos ?></span>
                     <?php endif; ?>
                 </button>
 
+                <?php if (!$isAdmin): ?>
                 <button type="button" class="mensajes-tab-btn" id="tabSolicitudes" data-tab="solicitudes" aria-selected="false" role="tab">
                     <svg class="mensajes-tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -383,6 +408,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <span class="mensajes-tab-badge mensajes-badge-alert" id="badgePendingRequests"><?= $totalSolicitudes ?></span>
                     <?php endif; ?>
                 </button>
+                <?php endif; ?>
             </nav>
 
             <!-- ============================================================= -->
@@ -394,7 +420,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <aside class="mensajes-contacts-pane chat-sidebar-list" id="panelConectados" aria-label="Lista de conversaciones con egresados">
                     <div class="contacts-header">
                         <div class="contacts-title-row">
-                            <h2 class="contacts-title">Contactos conectados</h2>
+                            <h2 class="contacts-title"><?= $isAdmin ? 'Conversaciones' : 'Contactos conectados' ?></h2>
                             <span class="contacts-count-tag" id="contactsCountTag"><?= count($conversaciones) ?> activos</span>
                         </div>
                         <div class="contacts-search-box">
@@ -608,14 +634,19 @@ require_once __DIR__ . '/../includes/header.php';
                             </svg>
                         </div>
                         <h3 style="margin: 0 0 10px 0; font-size: 1.25rem; font-weight: 700; color: #212121;">No hay conversaciones activas</h3>
-                        <p style="margin: 0 0 24px 0; max-width: 440px; font-size: 0.95rem; line-height: 1.5; color: #616161;">Conecta con otros egresados alzatistas para iniciar una conversación directa o revisa las solicitudes pendientes en la pestaña superior.</p>
-                        <a href="index.php?page=egresados&view=panel" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; background: #1565C0; color: #ffffff;">
-                            Explorar Directorio de Egresados &rarr;
+                        <p style="margin: 0 0 24px 0; max-width: 440px; font-size: 0.95rem; line-height: 1.5; color: #616161;">
+                            <?= $isAdmin 
+                                ? 'Selecciona una conversación del listado lateral o inicia una conversación directa con cualquier usuario desde el Panel de Administración o el Directorio.' 
+                                : 'Conecta con otros egresados alzatistas para iniciar una conversación directa o revisa las solicitudes pendientes en la pestaña superior.' ?>
+                        </p>
+                        <a href="<?= $isAdmin ? 'index.php?page=administracion&tab=usuarios' : 'index.php?page=egresados&view=panel' ?>" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; background: #1565C0; color: #ffffff;">
+                            <?= $isAdmin ? 'Ver Control de Usuarios &rarr;' : 'Explorar Directorio de Egresados &rarr;' ?>
                         </a>
                     </div>
 
                 </section>
 
+                <?php if (!$isAdmin): ?>
                 <!-- COLUMNA DERECHA 2: Vista Expandida de Solicitudes (#requestsMainView) -->
                 <section class="mensajes-requests-pane requests-main-view d-none" id="requestsMainView" aria-label="Panel principal de solicitudes de conexión">
                     
@@ -706,6 +737,7 @@ require_once __DIR__ . '/../includes/header.php';
                         </div>
                     </div>
                 </section>
+                <?php endif; ?>
 
             </section>
 
